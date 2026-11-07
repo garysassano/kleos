@@ -1,0 +1,6 @@
+packages:
+  - "."
+
+minimumReleaseAge: 4320
+
+pmOnFail: ignore

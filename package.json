@@ -1,0 +1,32 @@
+{
+  "name": "tributary",
+  "version": "0.0.0",
+  "private": true,
+  "description": "SVG cards for a GitHub profile README that show where your open-source contributions go: PRs, issues and discussions by repository, owner and family.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "check": "pnpm lint && pnpm typecheck && pnpm check:md && pnpm test",
+    "check:md": "prettier --check \"**/*.md\"",
+    "fetch": "node src/cli/fetch.ts",
+    "format": "biome format --write . && prettier --write \"**/*.md\"",
+    "gallery": "node src/cli/gallery.ts",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "build": "tsdown"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.6.4",
+    "@types/node": "26.6.6",
+    "prettier": "3.9.10",
+    "tsdown": "0.23.5",
+    "typescript": "7.0.2",
+    "vitest": "5.1.0"
+  },
+  "packageManager": "pnpm@12.17.0",
+  "engines": {
+    "node": ">=26"
+  }
+}
