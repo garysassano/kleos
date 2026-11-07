@@ -1,6 +1,6 @@
 /**
- * Shared helpers for building GitHub-safe SVG cards. New designs should use these; the first
- * 30 designs were ported byte-for-byte from prototypes and keep some local helpers of their own.
+ * Shared helpers for building GitHub-safe SVG cards. New designs should use these; some older
+ * categories keep local helpers of their own, so changing those doesn't shift other cards.
  *
  * Rules every card follows (see docs/decisions/0005-svg-rules-for-github-readmes.md):
  * no scripts, no foreignObject, no external URLs, images only as data: URIs, system fonts only.

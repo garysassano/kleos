@@ -4,6 +4,7 @@
  * small layout utilities.
  */
 
+import { fmt, plural, r1 } from "../../kit/format.ts";
 import {
   PALETTES,
   type Palette,
@@ -16,6 +17,8 @@ import {
 } from "../../kit/svg.ts";
 import type { RepoStats, Stats } from "../../stats/types.ts";
 import type { ThemeName } from "../types.ts";
+
+export { fmt, plural, r1 };
 
 /** Eight categorical hues in fixed order, stepped per theme (validated for adjacent-pair CVD separation). */
 export const SERIES: Record<ThemeName, readonly string[]> = {
@@ -94,14 +97,6 @@ export function groups(stats: Stats): Group[] {
   return [...byKey.values()].sort((a, b) => b.total - a.total || a.name.localeCompare(b.name));
 }
 
-/** 12345 → "12,345". */
-export const fmt = (n: number): string => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
-export const plural = (n: number, one: string, many = `${one}s`): string =>
-  `${fmt(n)} ${n === 1 ? one : many}`;
-
-export const r1 = (n: number): number => Math.round(n * 10) / 10;
-
 /** Short repository name without the owner. */
 export const repoName = (repo: string): string => repo.slice(repo.indexOf("/") + 1);
 
@@ -177,27 +172,6 @@ export function card(opts: {
 }
 
 export const PAL = (theme: ThemeName): Palette => PALETTES[theme];
-
-/** Legend swatch + label; returns the markup and the x after it. */
-export function legendItem(
-  x: number,
-  y: number,
-  color: string,
-  label: string,
-  shape: "square" | "line" | "dot" = "square",
-): { svg: string; next: number } {
-  const mark =
-    shape === "line"
-      ? `<rect x="${x}" y="${y - 5}" width="14" height="4" rx="2" fill="${color}"/>`
-      : shape === "dot"
-        ? `<circle cx="${x + 5}" cy="${y - 3}" r="4.5" fill="${color}"/>`
-        : `<rect x="${x}" y="${y - 8}" width="10" height="10" rx="2" fill="${color}"/>`;
-  const tx = x + (shape === "line" ? 20 : 15);
-  return {
-    svg: `${mark}<text x="${tx}" y="${y}" font-size="11" class="mu">${esc(label)}</text>`,
-    next: tx + label.length * 11 * 0.58 + 16,
-  };
-}
 
 /** Dark or white text, whichever reads better on a hue. */
 export function ink(hex: string): string {

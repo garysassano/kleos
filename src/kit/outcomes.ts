@@ -72,10 +72,6 @@ export function prLegend(outcomes: Level): { key: PrPartKey; label: string }[] {
   }
 }
 
-/** "278 merged", or "" when the level hides merges. */
-export const mergedNote = (c: PrCounts, outcomes: Level): string =>
-  outcomes === "none" ? "" : `${c.prsMerged} merged`;
-
 /** Merge rate in percent, only where the level allows it ("full"); null otherwise. */
 export const mergeRate = (c: PrCounts, outcomes: Level): number | null =>
   outcomes === "full" && c.prs > 0 ? Math.round((100 * c.prsMerged) / c.prs) : null;

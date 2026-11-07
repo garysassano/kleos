@@ -4,7 +4,7 @@ Date: 2026-11-07
 
 ## Context
 
-Cards like github-readme-stats are usually served live: the README embeds `https://some-host/api?username=…` and a server renders the SVG on every request. Hosting one is a hassle. Cloudflare Pages, Workers or Durable Objects would be cheap, but they still have to be run and secured.
+Profile stats cards are usually served live: the README embeds `https://some-host/api?username=…` and a server renders the SVG on every request. Hosting one is a hassle. Cloudflare Pages, Workers or Durable Objects would be cheap, but they still have to be run and secured.
 
 The owner also asked whether visitors could filter the card, for example by org or year.
 
@@ -25,7 +25,7 @@ Filters are config, chosen by the README's owner: designs, ecosystems, row limit
 
 - **Interaction is impossible inside a README.** GitHub serves every image through its camo proxy inside an `<img>` tag. Scripts don't run, there's no hover, and links inside the SVG don't work. A visitor can't filter an image, whoever renders it.
 - **A live server adds little freshness.** Camo caches images, so a "dynamic" card is often hours old anyway. A daily job is as fresh in practice.
-- **No hosting, no shared rate limit.** The public github-readme-stats instance is known for hitting GitHub's rate limit because everyone shares one token. The action uses the repository's own token.
+- **No hosting, no shared rate limit.** Public instances of hosted stats cards are known for hitting GitHub's rate limit because everyone shares one token. The action uses the repository's own token.
 - **Better data.** The workflow can use a token that sees what the owner wants included.
 - **Reproducible.** The SVGs are in git, so a change in the numbers or the design shows up as a diff.
 
@@ -37,3 +37,7 @@ If visitors should be able to explore the data, make the card a link to an inter
 
 - **A Cloudflare Worker that renders on request** as the primary path. It needs a token stored on the server and caching, and it gains nothing visitors can see.
 - **Durable Objects or KV.** There is no shared mutable state to keep.
+
+## Update, 2026-11-07
+
+The filters that exist are the Action's inputs in [0011](0011-action-inputs.md): designs with their settings, PR outcomes and ecosystems. Row limits and excluded repos were not built; designs pick their own row counts.

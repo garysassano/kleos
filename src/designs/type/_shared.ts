@@ -1,12 +1,14 @@
 /**
- * Helpers for the typographic category. Ported byte-for-byte from the prototype, so this keeps
- * its own palette (GitHub's merged/open/diff colours) and document wrapper instead of src/kit.
+ * Helpers for the typographic category: its own palette for text and diff colors, and its own
+ * document wrapper. Contribution-type colors come from src/kit.
  */
+
+import { MONTHS_LONG as MONTHS, fmt, plural } from "../../kit/format.ts";
 import { MONO, PALETTES, SANS, esc } from "../../kit/svg.ts";
 import type { Stats } from "../../stats/types.ts";
 import type { ThemeName } from "../types.ts";
 
-export { esc };
+export { esc, fmt, plural };
 
 export interface Theme {
   bg: string;
@@ -87,26 +89,10 @@ export const text = (x: number, y: number, s: string, cls: string, extra = ""): 
   `<text x="${x}" y="${y}" class="${cls}"${extra ? ` ${extra}` : ""}>${esc(s)}</text>`;
 
 export const trunc = (s: string, n: number): string => (s.length > n ? `${s.slice(0, n - 1)}…` : s);
-export const fmt = (n: number): string => n.toLocaleString("en-US");
 /** 1234 → "1.2k", 123456 → "123k". */
 export const kfmt = (n: number): string =>
   n >= 1000 ? `${(n / 1000).toFixed(n >= 100000 ? 0 : 1).replace(/\.0$/, "")}k` : String(n);
-export const plural = (n: number, word: string): string => `${n} ${word}${n === 1 ? "" : "s"}`;
 
-export const MONTHS = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
 const month = (d: string): string => MONTHS[Number(d.slice(5, 7)) - 1] ?? "";
 export const monthYear = (d: string): string => `${month(d)} ${d.slice(0, 4)}`;
 export const longDate = (d: string): string =>

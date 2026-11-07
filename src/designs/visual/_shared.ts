@@ -1,10 +1,14 @@
 /**
- * Helpers shared by the visual (D) designs. Ported byte-for-byte from the prototype, so they keep
- * their own palette, rounding and avatar drawing instead of the kit's.
+ * Helpers shared by the visual (D) designs: their own palette, rounding and avatar drawing.
+ * Contribution-type colors come from src/kit.
  */
+
+import { MONTHS, fmt, plural, r1 } from "../../kit/format.ts";
 import { MONO, PALETTES, SANS, esc } from "../../kit/svg.ts";
 import type { Stats } from "../../stats/types.ts";
 import type { ThemeName } from "../types.ts";
+
+export { MONTHS, fmt, plural, r1 };
 
 export interface Theme {
   bg: string;
@@ -66,8 +70,6 @@ export const THEMES: Record<ThemeName, Theme> = {
   },
 };
 
-export const fmt = (n: number): string => n.toLocaleString("en-US");
-export const r1 = (n: number): number => Math.round(n * 10) / 10;
 /** Estimated text width (0.58em sans, 0.6em mono per UTF-16 unit). */
 export const tw = (s: string | number, size: number, mono = false): number =>
   String(s).length * size * (mono ? 0.6 : 0.58);
@@ -77,23 +79,7 @@ export const trunc = (s: string | number, maxW: number, size: number): string =>
   const n = Math.max(1, Math.floor(maxW / (size * 0.58)) - 1);
   return `${str.slice(0, n)}…`;
 };
-export const plural = (n: number, one: string, many = `${one}s`): string =>
-  `${fmt(n)} ${n === 1 ? one : many}`;
 
-export const MONTHS = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
 /** "2025-03" → "Mar 2025". */
 export const monLabel = (ym: string): string => `${MONTHS[+ym.slice(5, 7) - 1]} ${ym.slice(0, 4)}`;
 /** "2025-03-07" → "Mar 7". */

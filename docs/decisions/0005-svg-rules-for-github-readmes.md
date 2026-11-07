@@ -19,3 +19,7 @@ Every card follows these rules. `test/designs.test.ts` checks the mechanical one
 - **Under 400 KB** per file. The camo limit is higher, but large SVGs slow the profile page.
 - **Deterministic.** The same `Stats` always produces the same bytes. "As of" dates come from `stats.generatedAt`, never the clock. This keeps commits in the profile repository meaningful.
 - **Honest numbers.** Every figure comes from `Stats` and is labelled with what it counts. A bar that's cut short says so where the reader is looking, not only in a footnote.
+
+## Update, 2026-11-07
+
+Every animated card honours `prefers-reduced-motion`: the registry adds one rule that finishes every animation at once, and because each animation holds its last frame the card appears complete. A test checks every animated render.

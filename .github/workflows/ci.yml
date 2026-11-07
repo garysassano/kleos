@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   checks:
-    name: Biome, tsc, Prettier, Vitest
+    name: Checks
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
@@ -48,7 +48,7 @@ jobs:
           }
 
   action:
-    name: Action renders (no commit)
+    name: Action
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
@@ -70,7 +70,7 @@ jobs:
           test "$(find ci-cards -name '*.svg' | wc -l)" -eq 4
 
   package:
-    name: npm package builds and runs
+    name: npm package
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
@@ -105,7 +105,7 @@ jobs:
           test "$(find cards -name '*.svg' | wc -l)" -eq 4
 
   workflows:
-    name: Workflow lint and lockfile
+    name: Workflows
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:

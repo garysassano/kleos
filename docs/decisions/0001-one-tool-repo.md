@@ -26,3 +26,7 @@ The design catalog stays inside `kleos` and does not get its own repository.
 
 - **Everything in the profile repository.** It works for one person, but nobody else can reuse it, and the README repository fills up with source code.
 - **A separate designs repository.** It makes cross-repository changes for every data field, and it has no users of its own.
+
+## Update, 2026-11-07
+
+The profile repository has no separate config file: the workflow's `with:` inputs carry the settings ([0011](0011-action-inputs.md)).

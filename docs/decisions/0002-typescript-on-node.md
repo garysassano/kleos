@@ -32,3 +32,7 @@ TypeScript, run on **Node 26 (the current LTS)**. The toolchain follows the owne
 - **Rust.** It's the right tool for heavy work, but this isn't heavy work, and quick visual iteration matters more.
 - **Lua, Python, shell.** There is no rendering advantage, the owner uses none of them day to day, and they can't run on Workers.
 - **Node 24.** It was considered because it matches GitHub Actions' `node24` runtime for JavaScript actions. It was rejected because the action can be a composite action that installs Node 26 itself, and the owner standardizes on the current LTS.
+
+## Update, 2026-11-07
+
+The Action runs the sources directly and needs no bundle. tsdown bundles the npm CLI instead, because Node won't strip types from files inside `node_modules` ([0013](0013-npm-cli.md)).

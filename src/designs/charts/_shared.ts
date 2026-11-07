@@ -1,15 +1,15 @@
 /**
- * Helpers for the charts category. Ported byte-for-byte from the prototype, so this keeps its
- * own categorical palette (validated on both page backgrounds) and document wrapper instead of
- * src/kit.
+ * Helpers for the charts category. It keeps its own categorical palette (validated on both page
+ * backgrounds) and document wrapper; contribution-type colors come from src/kit.
  */
 
+import { MONTHS, fmt, plural } from "../../kit/format.ts";
 import type { PrPartKey } from "../../kit/outcomes.ts";
 import { MONO, PALETTES, SANS, esc } from "../../kit/svg.ts";
 import type { EcosystemStats, RepoStats, Stats } from "../../stats/types.ts";
 import type { Level, ThemeName } from "../types.ts";
 
-export { esc };
+export { esc, fmt, plural };
 
 export const W = 840;
 
@@ -82,7 +82,7 @@ export const THEMES: Record<ThemeName, Theme> = {
 /** Categorical slot `i`; the palette has eight, so this never comes back undefined. */
 export const cat = (t: Theme, i: number): string => t.cat[i % t.cat.length] ?? t.other;
 
-/** Estimated width (code units, as the prototype counted). */
+/** Estimated width in code units. */
 export const tw = (s: string | number, size: number, mono = false): number =>
   String(s).length * size * (mono ? 0.6 : 0.58);
 
@@ -94,13 +94,10 @@ export const trunc = (s0: string | number, size: number, max: number): string =>
 };
 
 export const f1 = (n: number): number => Math.round(n * 10) / 10;
-export const fmt = (n: number): string => n.toLocaleString("en-US");
 export const fmtK = (n: number): string =>
   n >= 1000 ? `${n >= 10000 ? Math.round(n / 1000) : f1(n / 1000)}k` : String(n);
 export const pct = (n: number, d: number): string => `${(d === 0 ? 0 : (100 * n) / d).toFixed(1)}%`;
 export const sum = (a: readonly number[]): number => a.reduce((s, x) => s + x, 0);
-export const plural = (n: number, one: string, many = `${one}s`): string =>
-  `${n} ${n === 1 ? one : many}`;
 
 export function svgDoc(t: Theme, h: number, body: string, extraStyle = ""): string {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${h}" viewBox="0 0 ${W} ${h}" role="img">
@@ -260,8 +257,6 @@ export function derive(stats: Stats) {
 
 export const colorOf = (t: Theme, g: { rank: number }): string =>
   g.rank < NCOL ? cat(t, g.rank) : t.other;
-
-const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 export function monthName(m: string): string {
   const [y, mo] = m.split("-").map(Number);

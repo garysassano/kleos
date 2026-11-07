@@ -23,8 +23,8 @@ Date: 2026-11-07
 | `token`              | GraphQL token. The workflow's own `GITHUB_TOKEN` is enough, because every counted contribution is in a public repo.                         |
 
 - **Node 26 runs the TypeScript sources directly** from the checked-out action ([0002](0002-typescript-on-node.md)). kleos has no runtime dependencies, so there is no install or build step.
-- **Every input is checked before anything is fetched.** An unknown design id, an unsupported `outcomes` level for a listed design, or an invalid regular expression fails the run with an error naming the input.
-- **Cards of designs removed from `designs` are deleted** from `out`. Other files there are left alone.
+- **Every input is checked before anything is fetched.** An unknown design id, a `pr-outcomes` level a listed design can't render, or an invalid regular expression fails the run with an error naming the input.
+- **Cards of designs removed from `designs` are deleted** from `out-dir`. Other files there are left alone.
 - **Excluding repos or owners** isn't an input yet. It can be added when someone needs it without breaking existing workflows.
 
 ## Why

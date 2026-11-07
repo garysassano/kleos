@@ -1,13 +1,15 @@
 /**
- * Helpers shared by the ranked-list designs (A01–A06). Ported byte-for-byte from the prototype,
- * so the text-width estimate, `truncate` and the avatar markup differ slightly from `src/kit/svg.ts`.
+ * Helpers shared by the ranked-list designs (A01–A06). Their text-width estimate, `truncate` and
+ * avatar markup differ slightly from `src/kit/svg.ts`; changing them would shift these cards' layout.
  */
+
+import { plural } from "../../kit/format.ts";
 import { type PrCounts, type PrPartKey, prLegend, prParts } from "../../kit/outcomes.ts";
 import { MONO, PALETTES, SANS, compact, esc, percent } from "../../kit/svg.ts";
 import type { OwnerStats, RepoStats, Stats } from "../../stats/types.ts";
 import type { Level, ThemeName } from "../types.ts";
 
-export { compact, esc, percent };
+export { compact, esc, percent, plural };
 
 export interface Theme {
   card: string;
@@ -109,9 +111,6 @@ export function truncate(s: string, maxPx: number, size: number, mono = false): 
   const n = Math.max(1, Math.floor(maxPx / (size * (mono ? W_MONO : W_SANS))) - 1);
   return `${s.slice(0, n)}…`;
 }
-
-export const plural = (n: number, one: string, many = `${one}s`): string =>
-  `${n} ${n === 1 ? one : many}`;
 
 const yr = (iso: string): string => iso.slice(0, 4);
 /** Active years of a repo, such as "2023–25"; an en dash when it has no dated activity. */
@@ -274,10 +273,6 @@ export const STD_LEGEND = (T: Theme, level: Level): LegendItem[] => [
   { c: T.iss, label: "Issues" },
   { c: T.disc, label: "Discussions" },
 ];
-
-/** Width `legend` gives `items`, without the trailing gap. */
-export const legendW = (items: LegendItem[], size = 11.5, gapX = 18): number =>
-  items.reduce((w, it) => w + (it.c ? 14 : 0) + it.label.length * size * 0.53 + gapX, 0) - gapX;
 
 /** "owner/name" with the owner muted, truncated to `maxPx`. */
 export function repoLabel(

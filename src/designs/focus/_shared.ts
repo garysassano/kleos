@@ -1,8 +1,12 @@
 /** Helpers shared by the "Focus and stories" designs (H). */
+
+import { MONTHS, fmt as num, plural } from "../../kit/format.ts";
 import { type PrCounts, type PrPartKey, prLegend, prParts } from "../../kit/outcomes.ts";
 import { type Palette, SANS, esc } from "../../kit/svg.ts";
 import type { EcosystemStats, RepoStats, Stats } from "../../stats/types.ts";
 import type { Level } from "../types.ts";
+
+export { MONTHS, num, plural };
 
 /** An ecosystem or a stand-in for one: a single independent owner treated as its own group. */
 export interface Group {
@@ -85,20 +89,6 @@ export const allEcosystems = (stats: Stats): Group[] =>
 export const frame = (w: number, h: number, p: Palette): string =>
   `<rect x="0.5" y="0.5" width="${w - 1}" height="${h - 1}" rx="6" fill="${p.bg}" stroke="${p.border}"/>`;
 
-export const MONTHS = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
 const LONG_MONTHS = [
   "January",
   "February",
@@ -124,12 +114,6 @@ export const longMonth = (ym: string): string => LONG_MONTHS[Number(ym.slice(5, 
 /** ISO timestamp → "7 November 2026". */
 export const dayLabel = (iso: string): string =>
   `${Number(iso.slice(8, 10))} ${longMonth(iso.slice(0, 7))} ${iso.slice(0, 4)}`;
-
-/** Count with a singular or plural noun: plural(1, "repo") → "1 repo". */
-export const plural = (n: number, one: string, many = `${one}s`): string =>
-  `${n.toLocaleString("en-US")} ${n === 1 ? one : many}`;
-
-export const num = (n: number): string => n.toLocaleString("en-US");
 
 type KindCounts = { prs: number; prsMerged: number; issues: number; discussions: number };
 type OutcomeCounts = KindCounts & { prsOpen?: number };
@@ -263,14 +247,6 @@ export const t = (
   attrs = "",
 ): string =>
   `<text x="${x}" y="${y}" font-family="${SANS}" font-size="${size}" fill="${fill}"${attrs ? ` ${attrs}` : ""}>${esc(s)}</text>`;
-
-/** Earliest "YYYY-MM" key of a repo's monthly counts, falling back to its first date. */
-export function firstMonth(r: RepoStats): string | null {
-  const keys = Object.keys(r.monthly)
-    .filter((k) => (r.monthly[k] ?? 0) > 0)
-    .sort();
-  return keys[0] ?? r.first?.slice(0, 7) ?? null;
-}
 
 /** Contributions per "YYYY-MM" across every upstream repo. */
 export function monthlyTotals(stats: Stats): Map<string, number> {

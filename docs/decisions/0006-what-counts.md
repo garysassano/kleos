@@ -6,7 +6,7 @@ Date: 2026-11-07
 
 The point of the cards is to show where the user's open-source work goes: "100 for aws/aws-cdk", or how much went to AWS as a whole across aws, aws-cloudformation, aws-samples and its other organizations.
 
-The previous card (github-contribution-card) showed commit contributions only. Its S+/A/B letters were the repository's star tier, not the user's share of the work, which readers easily misread.
+The card the owner used before showed commit contributions only. Its S+/A/B letters were the repository's star tier, not the user's share of the work, which readers easily misread.
 
 ## Decision
 

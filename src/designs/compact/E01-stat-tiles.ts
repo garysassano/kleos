@@ -76,7 +76,7 @@ function render(stats: Stats, theme: ThemeName, options: RenderOptions = DEFAULT
       const bw = 13;
       const bg = 5;
       const base = 74;
-      // 4px shorter than the prototype so the longer label clears the tile heading.
+      // 4px shorter so the longer label clears the tile heading.
       const hmax = 28;
       const x0 = x + TW - 16 - (yrs.length * bw + (yrs.length - 1) * bg);
       return `${yrs

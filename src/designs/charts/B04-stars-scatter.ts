@@ -1,3 +1,4 @@
+import { hash } from "../../kit/format.ts";
 import { DEFAULT_OPTIONS, type Design, type Level, type RenderOptions } from "../types.ts";
 import {
   type Repo,
@@ -14,15 +15,8 @@ import {
   tw,
 } from "./_shared.ts";
 
-/** FNV-1a of the repo name in [0, 1]: a stable jitter, not randomness. */
-function hash(str: string): number {
-  let h = 2166136261;
-  for (const ch of str) {
-    h ^= ch.charCodeAt(0);
-    h = Math.imul(h, 16777619);
-  }
-  return (h >>> 0) / 4294967295;
-}
+/** Deterministic 0–1 value per string, for stable jitter. */
+const unitHash = (str: string): number => hash(str) / 4294967295;
 
 /** Smallest value of the 1, 3, 10, 30, … sequence that is at least `v`. */
 function niceCeil(v: number): number {
@@ -160,7 +154,7 @@ export const design: Design = {
     // dots (draw rarest last so colour minorities stay on top)
     const pts = plotted.map((r) => {
       const ci = classOf(r);
-      const j = (hash(r.repo) - 0.5) * 0.09; // tiny vertical jitter to separate ties
+      const j = (unitHash(r.repo) - 0.5) * 0.09; // tiny vertical jitter to separate ties
       return { r, ci, x: sx(r.stars), y: sy(r.total, r.total <= 3 ? j : 0) };
     });
     for (const ci of cats.map((_, i) => i).reverse())

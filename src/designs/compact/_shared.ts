@@ -1,12 +1,15 @@
 /**
- * Helpers shared by the compact designs (E01–E06). Ported byte-for-byte from the prototype
- * generator, so these keep their own palette and text metrics instead of src/kit.
+ * Helpers shared by the compact designs (E01–E06). They keep their own text metrics and
+ * GitHub-style chrome instead of src/kit, so changes here don't shift other categories.
  */
 
+import { MONTHS as MON, fmt, plural, r1 } from "../../kit/format.ts";
 import { type PrCounts, prLegend, prParts } from "../../kit/outcomes.ts";
-import { PALETTES } from "../../kit/svg.ts";
+import { MONO, PALETTES, SANS, esc } from "../../kit/svg.ts";
 import type { OwnerStats, RepoStats, Stats } from "../../stats/types.ts";
 import type { Level, ThemeName } from "../types.ts";
+
+export { MON, esc, fmt, plural, r1 };
 
 export interface Theme {
   name: ThemeName;
@@ -85,16 +88,6 @@ export const THEMES: Record<ThemeName, Theme> = {
   },
 };
 
-const SANS = "-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans',Helvetica,Arial,sans-serif";
-const MONO = "ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace";
-
-export const esc = (s: string | number): string =>
-  String(s)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-export const fmt = (n: number): string => n.toLocaleString("en-US");
 export const kfmt = (n: number): string =>
   n >= 1e6
     ? `${(Math.floor(n / 1e5) / 10).toFixed(1).replace(/\.0$/, "")}M`
@@ -118,27 +111,10 @@ export function trunc(str: string, maxPx: number, size: number, opts?: TextOpts)
   while (s.length > 1 && tw(`${s}…`, size, opts) > maxPx) s = s.slice(0, -1);
   return `${s}…`;
 }
-export const plural = (n: number, one: string, many = `${one}s`): string =>
-  `${fmt(n)} ${n === 1 ? one : many}`;
-export const MON = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
 export const monthLabel = (iso: string): string =>
   `${MON[+iso.slice(5, 7) - 1]} ${iso.slice(0, 4)}`;
 export const dayLabel = (iso: string): string =>
   `${MON[+iso.slice(5, 7) - 1]} ${+iso.slice(8, 10)}, ${iso.slice(0, 4)}`;
-export const r1 = (n: number): number => Math.round(n * 10) / 10;
 
 /** Per-render state: theme, avatars and a counter for unique clip-path ids. */
 export interface Ctx {

@@ -1,8 +1,10 @@
 /** Helpers shared by the G (badges and collectibles) designs. */
+
+import { MONTHS, hash, plural } from "../../kit/format.ts";
 import type { OwnerStats, RepoStats, Stats } from "../../stats/types.ts";
 import type { ThemeName } from "../types.ts";
 
-const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+export { hash, plural };
 
 /** "2023-02-23T05:07:15Z" → "Feb 2023". */
 export const monthYear = (iso: string): string =>
@@ -11,19 +13,6 @@ export const monthYear = (iso: string): string =>
 /** "2023-02-23T05:07:15Z" → "23 FEB 2023". */
 export const stampDate = (iso: string): string =>
   `${iso.slice(8, 10)} ${(MONTHS[Number(iso.slice(5, 7)) - 1] ?? "?").toUpperCase()} ${iso.slice(0, 4)}`;
-
-export const plural = (n: number, one: string, many = `${one}s`): string =>
-  `${n} ${n === 1 ? one : many}`;
-
-/** Small deterministic string hash, used for stable jitter (rotation, shape choice). */
-export function hash(s: string): number {
-  let h = 2166136261;
-  for (const ch of s) {
-    h ^= ch.codePointAt(0) ?? 0;
-    h = Math.imul(h, 16777619);
-  }
-  return h >>> 0;
-}
 
 export const reposOf = (stats: Stats, owner: string): RepoStats[] =>
   stats.repos.filter((r) => r.owner === owner);
