@@ -208,9 +208,9 @@ export const design: Design = {
     }
     const zero = plotted.filter((r) => r.stars < 1).length;
     const zeroNote = zero
-      ? ` ${zero} repo${zero === 1 ? "" : "s"} with 0 stars ${zero === 1 ? "is" : "are"} plotted at ≤1.`
+      ? `${zero} repo${zero === 1 ? "" : "s"} with 0 stars ${zero === 1 ? "is" : "are"} plotted at ≤1`
       : "";
-    s += `<text x="24" y="${PY1 + 34}" font-size="11" class="m">Labels show repo name and my total there.${zeroNote}</text>`;
+    if (zeroNote) s += `<text x="24" y="${PY1 + 34}" font-size="11" class="m">${zeroNote}</text>`;
     return svgDoc(t, h, s);
   },
 };

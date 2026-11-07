@@ -103,7 +103,7 @@ export const design: Design = {
     b += rule(T, W, fy);
     if (level === "full") {
       b += legend(T, 24, fy + 28, prLegendItems(T, level));
-      b += t(T, W - 24, fy + 28, "Bar = PRs opened. Total = PRs + issues + discussions.", {
+      b += t(T, W - 24, fy + 28, "Bar = PRs opened", {
         size: 11.5,
         fill: "muted",
         anchor: "end",

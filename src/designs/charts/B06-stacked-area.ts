@@ -50,9 +50,6 @@ export const design: Design = {
     for (let m = START; m <= last; m = nextMonth(m)) months.push(m);
     const earlier = allMonths.filter((m) => m < START);
     const before = sum(earlier.map((m) => perMonth.get(m) ?? 0));
-    const y0 = earlier[0]?.slice(0, 4) ?? "";
-    const y1 = earlier[earlier.length - 1]?.slice(0, 4) ?? "";
-    const earlierYears = y0 === y1 ? y0 : `${y0}–${y1}`;
     const series = [
       ...topGroups.map((g) => ({
         name: g.name,
@@ -173,8 +170,10 @@ export const design: Design = {
     s += `<g>${areas}${lines}</g>${labels}`;
     const partial =
       last === stats.generatedAt.slice(0, 7) ? ` · ${monthName(last)} is partial` : "";
-    const range = START === last ? monthName(START) : `${monthName(START)} – ${monthName(last)}`;
-    s += `<text x="24" y="${h - 16}" font-size="11" class="m">${range}${before ? ` · ${before} earlier contributions (${earlierYears}) not shown` : ""}${partial}</text>`;
+    const foot = `${before ? ` · ${before} earlier contributions not shown` : ""}${partial}`.slice(
+      3,
+    );
+    if (foot) s += `<text x="24" y="${h - 16}" font-size="11" class="m">${foot}</text>`;
     return svgDoc(t, h, s);
   },
 };

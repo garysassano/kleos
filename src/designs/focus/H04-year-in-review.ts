@@ -219,13 +219,7 @@ export const design: Design = {
 
     const fy = Math.max(base + 16, ny + (shown.length ? 24 : 0)) + 34;
     body += `<line x1="${PAD}" y1="${fy - 20.5}" x2="${W - PAD}" y2="${fy - 20.5}" stroke="${p.hair}"/>`;
-    body += t(
-      PAD,
-      fy,
-      `PRs, issues and discussions opened in upstream repos in ${year} · new = first contribution ever to that owner or repo`,
-      11,
-      p.faint,
-    );
+    body += t(PAD, fy, "New = first contribution to that owner or repo", 11, p.faint);
     const h = fy + 18;
     return svgDocument({
       width: W,

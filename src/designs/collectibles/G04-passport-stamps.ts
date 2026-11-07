@@ -95,7 +95,7 @@ ${t(-19, truncate(name, 120, 11.5, true), 11.5)}${t(-2, "VISA · ARRIVAL", 7, 70
     const empty = visas.length
       ? ""
       : `<text x="${W / 2}" y="${HEAD + 22 + CELL_H / 2}" text-anchor="middle" font-size="13" fill="${p.muted}">No stamps yet</text>`;
-    const foot = `<text x="24" y="${height - 14}" font-size="10.5" fill="${p.faint}">Top ${visas.length} owners by contributions (PRs + issues + discussions), stamped in order of my first one there.</text>`;
+    const foot = `<text x="24" y="${height - 14}" font-size="10.5" fill="${p.faint}">Top ${visas.length} owners, stamped in order of my first contribution</text>`;
 
     const grain = theme === "dark" ? "0 0 0 -2.4 2.25" : "0 0 0 -2.2 2.2";
     const defs = `<defs><filter id="g04ink" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 ${grain}" result="m"/><feComposite in="SourceGraphic" in2="m" operator="in"/></filter></defs>`;

@@ -127,13 +127,6 @@ export const design: Design = {
     const own = level === "full";
     const ly = own ? fy + 46 : fy + 26;
     b += legend(T, own ? 24 : rx0 - 150, ly, STD_LEGEND(T, level));
-    b += t(
-      T,
-      24,
-      ly + 20,
-      "Stars measure the repo, not me; the bar on the right is my own contributions there.",
-      { size: 11.5, fill: "muted" },
-    );
-    return frame(T, W, ly + 38, b, title);
+    return frame(T, W, ly + 18, b, title);
   },
 };

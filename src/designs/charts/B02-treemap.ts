@@ -96,9 +96,6 @@ const inset = <T>(r: Rect<T>, g: number): Rect<T> => ({
   h: Math.max(0, r.h - g),
 });
 
-const list = (xs: string[]): string =>
-  xs.length <= 1 ? (xs[0] ?? "") : `${xs.slice(0, -1).join(", ")} and ${xs[xs.length - 1]}`;
-
 export const design: Design = {
   id: "B02",
   slug: "treemap",
@@ -106,7 +103,7 @@ export const design: Design = {
   idea: "Every upstream repo as a tile sized by contributions, nested ecosystem → owner → repo, so the shape of the whole footprint (a few dominant blocks, a wide ecosystem spread, a long tail) is visible at a glance. The seven largest groups get colors.",
   render(stats, theme) {
     const t = THEMES[theme];
-    const { T, total: TOTAL, groups, restGroups, rest, bigEcosystem } = derive(stats);
+    const { T, total: TOTAL, groups, restGroups, rest } = derive(stats);
     const X = 24;
     const Y = 74;
     const WW = W - 48;
@@ -194,27 +191,10 @@ export const design: Design = {
     }
     s += labels;
     const fy = Y + HH + 22;
-    // Spell out the largest multi-owner ecosystem among the coloured groups, naming up to three of its owners by contributions.
-    let fam = "";
-    if (bigEcosystem?.ecosystem) {
-      const owners = bigEcosystem.ecosystem.owners;
-      const kind = owners.every((o) => stats.owners.find((x) => x.owner === o)?.type !== "User")
-        ? "orgs"
-        : "owners";
-      const ranked = [...bigEcosystem.owners].sort(
-        (a, b) =>
-          sum(bigEcosystem.repos.filter((r) => r.owner === b).map((r) => r.total)) -
-          sum(bigEcosystem.repos.filter((r) => r.owner === a).map((r) => r.total)),
-      );
-      fam =
-        owners.length > 3
-          ? ` (${bigEcosystem.name} spans ${owners.length} ${kind}, e.g. ${ranked.slice(0, 3).join(", ")})`
-          : ` (${bigEcosystem.name} = ${list(owners)})`;
-    }
     const foot = restGroups.length
-      ? `Colored: the ${NCOL} largest groups${fam}. Gray: everyone else, ${rest.owners} owners and ${rest.total} contributions.`
-      : `One color per group, ${groups.length} in all${fam}.`;
-    s += `<text x="24" y="${fy}" font-size="11" class="m">${esc(foot)}</text>`;
+      ? `Gray: ${rest.owners} other owners, ${rest.total} contributions`
+      : "";
+    if (foot) s += `<text x="24" y="${fy}" font-size="11" class="m">${esc(foot)}</text>`;
     return svgDoc(t, h, s);
   },
 };

@@ -167,17 +167,7 @@ export const design: Design = {
       num(T, C.issues, by, ext.issues, { size: sz, weight: 600 }) +
       num(T, C.disc, by, ext.disc, { size: sz, weight: 600 }) +
       num(T, C.total, by, ext.total, { size: sz, weight: 700 });
-    b += t(
-      T,
-      24,
-      by + 26,
-      level === "none"
-        ? "Total = PRs + issues + discussions. Active = years with at least one PR, issue or discussion."
-        : level === "full"
-          ? "Total = PRs + issues + discussions. Open = still open; closed = closed without merging. Active = years with a PR, issue or discussion."
-          : `Total = PRs + issues + discussions. Merged = PRs merged upstream. Active = years with at least one PR, issue or discussion.`,
-      { size: 11, fill: "muted" },
-    );
+    b += t(T, 24, by + 26, "Active = years with a contribution", { size: 11, fill: "muted" });
     return frame(T, W, by + 44, b, title);
   },
 };

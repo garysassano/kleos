@@ -62,7 +62,7 @@ export const design: Design = {
   render(stats, theme, options: RenderOptions = DEFAULT_OPTIONS) {
     const lvl = options.outcomes;
     const t = THEMES[theme];
-    const { T, total: TOTAL, topGroups, restGroups, rest, bigEcosystem } = derive(stats);
+    const { T, total: TOTAL, topGroups, restGroups, rest } = derive(stats);
     const items: Item[] = topGroups.map((g) => ({
       ...g,
       c: colorOf(t, g),
@@ -157,9 +157,6 @@ export const design: Design = {
       s += `<text x="${RX}" y="${my + 5}" font-size="13" text-anchor="end" class="b mono">${it.total}</text>`;
     });
     s += `<line x1="${LX}" y1="${top + items.length * rowH}" x2="${RX}" y2="${top + items.length * rowH}" stroke="${t.grid}"/>`;
-    // Spell out the largest multi-owner ecosystem among the ranked groups.
-    if (bigEcosystem?.ecosystem)
-      s += `<text x="24" y="${h - 14}" font-size="11" class="m">${esc(`${bigEcosystem.name} ecosystem = ${bigEcosystem.ecosystem.owners.join(", ")}`)}</text>`;
     return svgDoc(t, h, s);
   },
 };

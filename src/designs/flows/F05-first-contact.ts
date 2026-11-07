@@ -116,7 +116,7 @@ function render(stats: Stats, theme: ThemeName): string {
 
   const footY = listTop + rows * ROW + 16;
   const foot = `<text x="${PAD}" y="${footY}" font-size="11" class="mu">${esc(
-    `By year of your first PR, issue or discussion with each owner; biggest first, by contributions to date. Years under ${Math.round(SHARE * 100)}% of owners fold into the first column.`,
+    "Owners by the year of my first contribution to them",
   )}</text>`;
 
   return card({

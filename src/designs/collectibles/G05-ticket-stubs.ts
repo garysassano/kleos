@@ -110,7 +110,7 @@ ${fieldSvg}
     const empty = repos.length
       ? ""
       : `<text x="${W / 2}" y="${HEAD + TH / 2}" text-anchor="middle" font-size="13" fill="${p.muted}">No upstream contributions yet</text>`;
-    const foot = `<text x="${x0 + 2}" y="${height - 12}" font-size="10.5" fill="${p.faint}">TOTAL = PRs + issues + discussions I opened in the repo. Dates run from my first to my latest one.${lv === "full" ? " CLOSED = closed without merging." : ""}</text>`;
+    const foot = `<text x="${x0 + 2}" y="${height - 12}" font-size="10.5" fill="${p.faint}">Dates: my first to my latest contribution</text>`;
     return document({
       width: W,
       height,

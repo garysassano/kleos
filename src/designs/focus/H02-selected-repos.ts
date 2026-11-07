@@ -153,19 +153,7 @@ export const design: Design = {
     });
 
     const fy = top + th + 26;
-    body += t(
-      PAD,
-      fy,
-      fitText(
-        outcomes === "full"
-          ? `Items opened by @${stats.user} · PRs closed: without merging · strip: contributions per month, own scale per tile`
-          : `Items opened by @${stats.user} · strip: contributions per month since the first, each tile to its own scale`,
-        W - 2 * PAD,
-        11,
-      ),
-      11,
-      p.faint,
-    );
+    body += t(PAD, fy, fitText("Strip: contributions per month", W - 2 * PAD, 11), 11, p.faint);
     const h = fy + 16;
     return svgDocument({
       width: W,

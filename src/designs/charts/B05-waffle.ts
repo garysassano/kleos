@@ -147,8 +147,8 @@ export const design: Design = {
     const h = LY + Math.ceil(items.length / 4) * 22 + 14;
     const key =
       lvl === "full"
-        ? `Columns of ${ROWS}, top to bottom. Solid = merged PR, outline = open PR, gray = PR closed unmerged, faded = issue or discussion.`
-        : `Columns fill top to bottom, ${plural(ROWS, "square")} each. Faded = ${lvl === "none" ? "issue or discussion" : "everything else"}.`;
+        ? "Solid = merged PR · outline = open PR · gray = closed unmerged · faded = issue or discussion"
+        : `Faded = ${lvl === "none" ? "issue or discussion" : "everything else"}`;
     s += `<text x="24" y="${h - 14}" font-size="11" class="m">${key}</text>`;
     return svgDoc(t, h, s);
   },

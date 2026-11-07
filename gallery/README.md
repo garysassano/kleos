@@ -74,7 +74,7 @@ Groups related GitHub owners into ecosystems (AWS: aws, aws-samples, …) with t
 
 Star-tier letters (S+ to C) that say what they mean: the left side is the repo’s popularity (stars, log scale, tier letter), the right side is what I contributed there. Big repos with small bars and small repos with big bars become obvious. When the top repo has more than twice the runner-up's total, its bar is shortened and marked “not to scale”.
 
-`designs: A06` · 840 × 646 · outcomes: all levels
+`designs: A06` · 840 × 626 · outcomes: all levels
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="lists/A06-tier-vs-share-dark.svg"><img alt="Star tier vs my share" src="lists/A06-tier-vs-share-light.svg" width="840"></picture>
 
@@ -310,7 +310,7 @@ An alluvial from the ecosystems and owners you opened PRs with to how they ended
 
 A subway map where each line is one of the 6 ecosystems or owners with the most repos (ties by contributions), and its stations are up to 8 of its biggest repos in order of first contribution, sized by PRs + issues + discussions. Shows breadth: where you branched out, not just where you contributed most.
 
-`designs: F03` · 840 × 672 · outcomes: all levels
+`designs: F03` · 840 × 656 · outcomes: all levels
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="flows/F03-metro-dark.svg"><img alt="Metro map" src="flows/F03-metro-light.svg" width="840"></picture>
 
@@ -346,7 +346,7 @@ Playful formats such as trading cards, stamps and medals, with every number stil
 
 The top three owners as collectible cards: avatar art, a stat block of PRs merged, PRs, issues and discussions, and a rarity tier from the total stars on the repos contributed to (thresholds printed in the legend). With outcomes none the merged row goes; full adds the merge rate and the open and closed-unmerged PRs beside the counts.
 
-`designs: G01` · 840 × 438 · outcomes: all levels
+`designs: G01` · 840 × 422 · outcomes: all levels
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="collectibles/G01-trading-cards-dark.svg"><img alt="Trading cards" src="collectibles/G01-trading-cards-light.svg" width="840"></picture>
 

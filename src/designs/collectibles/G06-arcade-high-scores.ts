@@ -202,7 +202,7 @@ export const design: Design = {
     const rowsH = Math.max(board.length, 1) * 28;
     const screenH = hy + 38 + rowsH + 8;
     const height = screenH + 36;
-    const note = `Score = PRs + issues + discussions I opened in that owner's repos.${lv === "full" ? " Closed = closed without merging." : ""} Top ${board.length} of ${stats.owners.length} owners · as of ${stats.generatedAt.slice(0, 10)}`;
+    const note = `Top ${board.length} of ${stats.owners.length} owners · as of ${stats.generatedAt.slice(0, 10)}`;
 
     const glyphs = [...used]
       .sort()

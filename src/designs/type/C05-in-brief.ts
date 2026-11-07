@@ -162,13 +162,7 @@ export const design: Design = {
         .join("");
       b += `<text x="${x}" y="${top + 6 + LH * i}" class="s" font-size="${FS}" xml:space="preserve">${body}</text>`;
     });
-    b += text(
-      x,
-      H - 20,
-      `Public repos owned by someone else · PRs, issues and discussions · as of ${longDate(asOf)}`,
-      "s f",
-      'font-size="11.5"',
-    );
+    b += text(x, H - 20, `As of ${longDate(asOf)}`, "s f", 'font-size="11.5"');
     return svg(W, H, t, `.tx{fill:${t.muted}}`, b, runs.map((r) => r[0]).join(""));
   },
 };

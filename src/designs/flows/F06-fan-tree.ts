@@ -121,7 +121,7 @@ function render(stats: Stats, theme: ThemeName): string {
     `<text x="${CX}" y="${CY + 42}" text-anchor="middle" font-size="12" class="b">${esc(fitText(stats.user, 300, 12))}</text>`;
 
   const footY = CY + 72;
-  const foot = `<text x="20" y="${footY}" font-size="11" class="mu">${esc(`Stroke width ∝ PRs + issues + discussions. Leaves: up to ${LEAVES} biggest repos of each.${prefixes.length ? ` … stands for ${[...new Set(prefixes)].join(", ")}` : ""}`)}</text>`;
+  const foot = `<text x="20" y="${footY}" font-size="11" class="mu">${esc(prefixes.length ? `… = shared prefix (${[...new Set(prefixes)].join(", ")})` : "")}</text>`;
 
   return card({
     theme,

@@ -94,4 +94,4 @@
 <line x1="324" x2="388" y1="66" y2="66" stroke="#e6eaef"/>
 <text x="356" y="82" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace" font-size="8" font-weight="600" letter-spacing="1.6" fill="#818b98">TOTAL</text>
 <text x="356" y="100" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace" font-size="16" font-weight="700" fill="#0969da">16</text>
-</g><text x="14" y="424" font-size="10.5" fill="#818b98">TOTAL = PRs + issues + discussions I opened in the repo. Dates run from my first to my latest one. CLOSED = closed without merging.</text></g></svg>
+</g><text x="14" y="424" font-size="10.5" fill="#818b98">Dates: my first to my latest contribution</text></g></svg>

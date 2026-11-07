@@ -255,8 +255,7 @@ export function derive(stats: Stats) {
   const T = stats.totals;
   const SUB = `${fmt(total)} contributions to upstream repos · ${T.externalRepos} repos · ${T.externalOwners} owners · ${T.externalMerged} PRs merged`;
   /** The largest colored ecosystem that spans more than one owner, used to spell out an ecosystem in footnotes. */
-  const bigEcosystem = topGroups.find((g) => g.ecosystem && g.owners.size > 1);
-  return { T, repos, total, groups, topGroups, restGroups, rest, SUB, bigEcosystem };
+  return { T, repos, total, groups, topGroups, restGroups, rest, SUB };
 }
 
 export const colorOf = (t: Theme, g: { rank: number }): string =>

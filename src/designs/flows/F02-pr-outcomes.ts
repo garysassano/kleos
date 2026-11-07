@@ -154,7 +154,7 @@ function render(stats: Stats, theme: ThemeName): string {
     .map((o) => o.name.toLowerCase());
   const footY = TOP + PLOT + 30;
   const foot = `<text x="20" y="${footY}" font-size="11" class="mu">${esc(
-    `Band height ∝ PRs. Ecosystems group related owners; the biggest ${Math.min(keep, sources.length)} by PRs opened are named.${missing.length ? ` None ${missing.join(" or ")}.` : ""}`,
+    missing.length ? `None ${missing.join(" or ")}` : "",
   )}</text>`;
 
   return card({

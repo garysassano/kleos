@@ -129,8 +129,7 @@ ${statRows}
       legend += `<circle cx="${lx + 4}" cy="${y - 3.5}" r="3.5" fill="${t.color}"/><text x="${lx + 12}" y="${y}" font-size="10.5" fill="${p.muted}">${esc(label)}</text>`;
       lx += est(label) + 26;
     }
-    const legend2 = `<text x="${PAD + 2}" y="${ly + (row + 1) * 16}" font-size="10.5" fill="${p.faint}">TOTAL = PRs + issues + discussions opened in the owner's repos</text>`;
-    const h = height + (row + 1) * 16 - 6;
+    const h = height + row * 16 - 6;
 
     const style = `.shine{animation:g01s 1.6s ease-in-out 1 both}@keyframes g01s{from{transform:skewX(-20deg) translateX(0)}to{transform:skewX(-20deg) translateX(420px)}}`;
     const defs = `<defs><pattern id="g01stripes" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><rect width="4" height="10" fill="${p.text}" fill-opacity="0.04"/></pattern><linearGradient id="g01shine" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="0.5" stop-color="#fff" stop-opacity="${theme === "dark" ? 0.18 : 0.5}"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>`;
@@ -139,7 +138,7 @@ ${statRows}
       height: h,
       title: `Top ${top.length} owners as trading cards`,
       style,
-      body: `${defs}<g font-family="${SANS}">${cards.join("")}${empty}${legend}${legend2}</g>`,
+      body: `${defs}<g font-family="${SANS}">${cards.join("")}${empty}${legend}</g>`,
     });
   },
 };

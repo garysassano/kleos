@@ -225,7 +225,7 @@ function render(stats: Stats, theme: ThemeName): string {
     head(W - 20, "total", "end");
 
   const footY = TOP + PLOT + 30;
-  const foot = `<text x="20" y="${footY}" font-size="11" class="mu">Band height ∝ PRs + issues + discussions. Ecosystems group related owners; the top ${right.length - (otherNode ? 1 : 0)} repos are named${otherNode ? `, the other ${fmt(others.length)} share one node` : ""}.</text>`;
+  const foot = `<text x="20" y="${footY}" font-size="11" class="mu">${otherNode ? `The other ${fmt(others.length)} repos share one node` : ""}</text>`;
 
   return card({
     theme,

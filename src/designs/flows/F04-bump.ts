@@ -135,7 +135,7 @@ function render(stats: Stats, theme: ThemeName): string {
 
   const footY = yOf(rows - 1) + R + 34;
   const foot = `<text x="20" y="${footY}" font-size="11" class="mu">${esc(
-    `Top ${RANKS} per year by PRs + issues + discussions opened that year (the number in each dot). Lines break outside the top ${RANKS}.`,
+    `Top ${RANKS} per year · dot = that year's contributions`,
   )}</text>`;
 
   return card({

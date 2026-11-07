@@ -116,19 +116,10 @@ export const design: Design = {
         `<text x="${r1(tx)}" y="${r1(ty)}" font-size="11">${esc(name)}<tspan dx="5" class="mono mu" font-size="11">${cnt}</tspan></text></g>`;
     }
 
-    const ecosystems = stats.ecosystems.map((f) => f.name).filter((n) => linked.has(n));
-    const legend = [
-      "Rings: contributions per owner",
-      "avatar size ∝ √total",
-      ...(ecosystems.length
-        ? [`dotted lines join orgs of one ecosystem (${ecosystems.join(", ")})`]
-        : []),
-    ].join(" · ");
-    b += `<text x="20" y="${H - 16}" font-size="11" class="mu">${esc(legend)}</text>`;
-    if (hidden.length) {
-      const hiddenTotal = hidden.reduce((a, o) => a + o.total, 0);
-      b += `<text x="${W - 20}" y="${H - 16}" text-anchor="end" font-size="11" class="mu">+${hidden.length} owners with ≤ ${MIN_SHOWN - 1} each (${hiddenTotal} contributions)</text>`;
-    }
+    if (linked.size)
+      b += `<text x="20" y="${H - 16}" font-size="11" class="mu">Dotted lines join an ecosystem's orgs</text>`;
+    if (hidden.length)
+      b += `<text x="${W - 20}" y="${H - 16}" text-anchor="end" font-size="11" class="mu">+${hidden.length} owners with ≤ ${MIN_SHOWN - 1} each</text>`;
     return doc(
       W,
       H,

@@ -517,12 +517,13 @@ export function ecosystemRollup(
     let g = "";
     if (i) g += rule(T, W, y, "hair");
     g += avatar(T, d.avatars, lead?.owner ?? f.name, lead?.type ?? "Organization", 24, cy - 12, 24);
-    g += t(T, 58, cy + 5, esc(f.name), { size: 14, weight: 600 });
+
     const sub =
       mem.length > 1 || !lead
         ? `${mem.length} owners · ${plural(f.repos, "repo")}`
         : `${lead.owner} · ${plural(f.repos, "repo")}`;
-    g += t(T, 58 + textW(f.name, 14) + 12, cy + 4.5, esc(sub), { size: 11.5, fill: "muted" });
+    // One <text> with a <tspan>: the browser measures the name, so the gap before the counts is always 10px.
+    g += `<text x="58" y="${cy + 5}" font-size="14" font-weight="600" fill="${T.text}">${esc(f.name)}<tspan dx="10" font-size="11.5" font-weight="400" fill="${T.muted}">${esc(sub)}</tspan></text>`;
     g += `<g class="grow"${delay(i)}>${stack(T, bx, cy - 5, 10, segsOf(T, f, level), max, bw)}</g>`;
     g += prCell(f, cPR, cy + 4.5, 12.5, false);
     g +=
@@ -555,20 +556,11 @@ export function ecosystemRollup(
   b += rule(T, W, y);
   const famTotal = fams.reduce((s, f) => s + f.total, 0);
   const solo = d.owners.filter((o) => !famOwners.has(o.owner));
-  const top3 = solo
-    .slice(0, 3)
-    .map((o) => `${o.owner} ${o.total}`)
-    .join(", ");
-  const rest = solo.length
-    ? `The other ${solo.length} owners are independent; biggest: ${top3}.`
-    : "Every owner belongs to an ecosystem.";
+  const rest = solo.length ? ` · ${plural(solo.length, "owner")} outside them` : "";
   b += legend(T, 24, y + 26, STD_LEGEND(T, level));
-  b += t(
-    T,
-    24,
-    y + 48,
-    esc(`Ecosystems hold ${famTotal} of ${d.ext.total} upstream contributions. ${rest}`),
-    { size: 11.5, fill: "muted" },
-  );
+  b += t(T, 24, y + 48, esc(`Ecosystems hold ${famTotal} of ${d.ext.total} contributions${rest}`), {
+    size: 11.5,
+    fill: "muted",
+  });
   return frame(T, W, y + 66, b, title);
 }

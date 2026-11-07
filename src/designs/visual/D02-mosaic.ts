@@ -90,7 +90,6 @@ export const design: Design = {
     const T = ctx.T;
     const line = extLine(stats);
     const top = stats.owners.filter((o) => o.total >= MIN_TILE);
-    const N = top.length;
     const rest = stats.owners.filter((o) => o.total < MIN_TILE);
     const restTotal = rest.reduce((a, o) => a + o.total, 0);
     // Owners with zero contributions (commits only) have no area, so the pooled tile appears only when it has some.
@@ -203,7 +202,7 @@ export const design: Design = {
       }
       b += "</g>";
     });
-    b += `<text x="20" y="${H - 13}" font-size="11" class="mu">Tile area ∝ PRs + issues + discussions per org or person · ${N} with ${MIN_TILE} or more get their own tile</text>`;
+    b += `<text x="20" y="${H - 13}" font-size="11" class="mu">Owners with fewer than ${MIN_TILE} contributions share one tile</text>`;
     return doc(
       W,
       H,

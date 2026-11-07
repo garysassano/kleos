@@ -78,7 +78,7 @@ export const design: Design = {
         `<text x="${W - 16}" y="${y + 4}" text-anchor="end" font-size="11" class="mu">${spanMo(r)} mo</text>`;
     });
     const ly = H - 16;
-    b += `<text x="20" y="${ly}" font-size="11" class="mu">Line: first → last contribution · largest dot = ${maxC} in one month</text>`;
+    b += `<text x="20" y="${ly}" font-size="11" class="mu">Largest dot = ${maxC} in one month</text>`;
     b += `<circle cx="${W - 196}" cy="${ly - 4}" r="2.5" fill="${T.active}"/><text x="${W - 188}" y="${ly}" font-size="11" class="mu">active in the last ${ACTIVE_DAYS} days</text>`;
     return doc(
       W,

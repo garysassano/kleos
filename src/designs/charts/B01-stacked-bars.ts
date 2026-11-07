@@ -153,10 +153,9 @@ export const design: Design = {
     const shown = sum(rows.map((r) => r.total));
     const scope =
       n < repos.length
-        ? `Top ${n} of ${T.externalRepos} repos, ranked by total (bold) · these ${n} hold ${shown} of ${fmt(TOTAL)} contributions`
-        : `All ${n} repos, ranked by total (bold)`;
-    const note = lvl === "full" ? ' · "Closed" = closed without merging' : "";
-    s += `<text x="${lx}" y="${fy + 6}" font-size="11" class="m">${scope}${note}</text>`;
+        ? `Top ${n} of ${T.externalRepos} repos · ${shown} of ${fmt(TOTAL)} contributions`
+        : `All ${n} repos`;
+    s += `<text x="${lx}" y="${fy + 6}" font-size="11" class="m">${scope}</text>`;
     return svgDoc(t, h, s);
   },
 };

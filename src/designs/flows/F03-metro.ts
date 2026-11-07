@@ -99,13 +99,8 @@ function render(stats: Stats, theme: ThemeName): string {
 
   const footY = FIRST_LANE + (n - 1) * LANE + 62;
   const notes = [
-    `Lines: the ${n === 1 ? "ecosystem or owner" : `${n} ecosystems and owners`} with the most repos. Stations: up to ${MAX_STATIONS} biggest repos, in order of first contribution; size ∝ PRs + issues + discussions.`,
+    `Stations in order of first contribution${prefixes.length ? ` · … = shared prefix (${[...new Set(prefixes)].join(", ")})` : ""}`,
   ];
-  if (prefixes.length) {
-    notes.push(
-      `… stands for a prefix the line's repos share: ${[...new Set(prefixes)].join(", ")}`,
-    );
-  }
   const foot = notes
     .map((t, i) => `<text x="20" y="${footY + i * 16}" font-size="11" class="mu">${esc(t)}</text>`)
     .join("");

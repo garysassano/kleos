@@ -283,13 +283,7 @@ export const design: Design = {
 
     const fy = Math.max(...colBottom) + 18;
     body += `<line x1="${PAD}" y1="${fy - 18.5}" x2="${W - PAD}" y2="${fy - 18.5}" stroke="${p.hair}"/>`;
-    body += t(
-      PAD,
-      fy,
-      "Curve: cumulative PRs, issues and discussions by month; months without any are drawn narrower · stars are today's counts",
-      11,
-      p.faint,
-    );
+    body += t(PAD, fy, "Months without contributions are drawn narrower", 11, p.faint);
     const h = fy + 16;
     return svgDocument({ width: W, height: h, title: "Milestones", body: frame(W, h, p) + body });
   },

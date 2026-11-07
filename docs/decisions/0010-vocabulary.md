@@ -39,6 +39,10 @@ The same holds for color. Every card colors the contribution types the same way,
 
 Purple for PRs and green for issues follow GitHub's icons. Discussions have no color on GitHub, so they take blue. Colors that stand for something else, such as one color per ecosystem in a treemap or a donut, are free, but a total or other neutral figure next to these types uses a neutral color, not blue.
 
+## Footers
+
+A footer is at most one short line, and only for what the card can't show by itself: the scope ("Top 12 of 240 repos"), a key for symbols that aren't self-explanatory, a caveat ("Nov 2026 is partial") or a date. It doesn't define a contribution (a PR, issue or discussion the user opened, as the README says), give formulas such as "∝ √total", list an ecosystem's orgs, or repeat the title or the legend.
+
 ## Why
 
 The catalog is browsed card by card, and a profile shows several cards side by side. When one card says "families" and the next "ecosystems", readers wonder whether they're different things. The test exists because designs are often edited by agents, which reliably fix a failing test but don't always read a decision record.

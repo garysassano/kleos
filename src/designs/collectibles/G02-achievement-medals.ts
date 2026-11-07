@@ -240,7 +240,7 @@ ${pips}`;
 
     const asOf = stats.generatedAt.slice(0, 10);
     const head = `<text x="${PAD + 4}" y="30" font-size="17" font-weight="700" fill="${p.text}">Upstream achievements</text><text x="${width - PAD - 4}" y="30" text-anchor="end" font-size="12" fill="${p.muted}">${unlocked} of ${list.length} unlocked · as of ${asOf}</text><line x1="${PAD}" x2="${width - PAD}" y1="${HEAD - 8}" y2="${HEAD - 8}" stroke="${p.hair}"/>`;
-    const foot = `<line x1="${PAD}" x2="${width - PAD}" y1="${height - 30}" y2="${height - 30}" stroke="${p.hair}"/><text x="${PAD + 4}" y="${height - 11}" font-size="10.5" fill="${p.faint}">Tiers under each medal are bronze, silver and gold thresholds. Upstream = repos owned by other people and orgs.</text>`;
+    const foot = `<line x1="${PAD}" x2="${width - PAD}" y1="${height - 30}" y2="${height - 30}" stroke="${p.hair}"/><text x="${PAD + 4}" y="${height - 11}" font-size="10.5" fill="${p.faint}">Under each medal: its bronze, silver and gold thresholds</text>`;
     return document({
       width,
       height,

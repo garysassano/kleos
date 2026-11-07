@@ -133,7 +133,7 @@ function render(stats: Stats, theme: ThemeName, options: RenderOptions = DEFAULT
   const fy = HH + N * RH;
   b += `<line x1="0" x2="${W}" y1="${fy + 0.5}" y2="${fy + 0.5}" stroke="${t.border}"/>`;
   const scope = N < X.repos ? `Top ${N} of ${X.repos} repos` : `All ${plural(N, "repo")}`;
-  b += `<text x="16" y="${fy + 25}" font-size="12" fill="${t.muted}">${scope} by PRs + issues + discussions</text>`;
+  b += `<text x="16" y="${fy + 25}" font-size="12" fill="${t.muted}">${scope}</text>`;
   b += legend(
     W - 16,
     fy + 25,
