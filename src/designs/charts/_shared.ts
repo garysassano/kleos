@@ -5,7 +5,7 @@
  */
 
 import type { PrPartKey } from "../../kit/outcomes.ts";
-import { MONO, SANS, esc } from "../../kit/svg.ts";
+import { MONO, PALETTES, SANS, esc } from "../../kit/svg.ts";
 import type { EcosystemStats, RepoStats, Stats } from "../../stats/types.ts";
 import type { Level, ThemeName } from "../types.ts";
 
@@ -26,8 +26,12 @@ export interface Theme {
   other: string;
   /** Eight categorical slots, adjacent pairs distinguishable. */
   cat: string[];
-  /** Lighter blue for "other PRs" next to merged ones. */
-  blueLight: string;
+  /** Contribution kinds, shared with every category through src/kit/svg.ts PALETTES. */
+  merged: string;
+  prOther: string;
+  open: string;
+  issue: string;
+  disc: string;
   /** Fill opacity of treemap tiles. */
   tint: number;
   /** Fill opacity of stacked areas. */
@@ -46,7 +50,11 @@ export const THEMES: Record<ThemeName, Theme> = {
     faint: "#1c2128",
     other: "#656c76",
     cat: ["#3987e5", "#d95926", "#199e70", "#c98500", "#d55181", "#008300", "#9085e9", "#e66767"],
-    blueLight: "#1c5cab",
+    merged: PALETTES.dark.merged,
+    prOther: PALETTES.dark.pr,
+    open: PALETTES.dark.open,
+    issue: PALETTES.dark.issue,
+    disc: PALETTES.dark.discussion,
     tint: 0.34,
     areaTint: 0.9,
   },
@@ -61,7 +69,11 @@ export const THEMES: Record<ThemeName, Theme> = {
     faint: "#f6f8fa",
     other: "#afb8c1",
     cat: ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4", "#008300", "#6250d6", "#e34948"],
-    blueLight: "#9ec5f4",
+    merged: PALETTES.light.merged,
+    prOther: PALETTES.light.pr,
+    open: PALETTES.light.open,
+    issue: PALETTES.light.issue,
+    disc: PALETTES.light.discussion,
     tint: 0.22,
     areaTint: 0.9,
   },
@@ -257,20 +269,17 @@ export function monthName(m: string): string {
   return `${MONTHS[(mo ?? 1) - 1]} ${y}`;
 }
 
-/** Lighter tone of the merged blue, for PRs still open at outcomes "full". */
-const OPEN: Record<ThemeName, string> = { dark: "#8fbcf4", light: "#9ec5f4" };
-
 /**
- * Colour of a PR outcome part at an explicit level: merged blue, open a lighter blue, closed
- * unmerged the neutral grey, and plain PRs blue under "none" or the light blue rest under "merged".
+ * Colour of a PR outcome part at an explicit level: merged purple, open a lighter purple, closed
+ * unmerged the neutral grey, and plain PRs purple under "none" or the softer purple rest under "merged".
  */
 export const prColor = (t: Theme, key: PrPartKey, outcomes: Level): string =>
   key === "merged"
-    ? cat(t, 0)
+    ? t.merged
     : key === "open"
-      ? OPEN[t.name]
+      ? t.open
       : key === "closed"
         ? t.other
         : outcomes === "none"
-          ? cat(t, 0)
-          : t.blueLight;
+          ? t.merged
+          : t.prOther;

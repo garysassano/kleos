@@ -81,7 +81,7 @@ export const design: Design = {
         label: "Contributions",
         value: g.total,
         note: `in ${plural(g.repos.length, "repo")}`,
-        color: p.accent,
+        color: p.muted,
       },
       {
         label: "PRs opened",

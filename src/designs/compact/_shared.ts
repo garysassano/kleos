@@ -4,6 +4,7 @@
  */
 
 import { type PrCounts, prLegend, prParts } from "../../kit/outcomes.ts";
+import { PALETTES } from "../../kit/svg.ts";
 import type { OwnerStats, RepoStats, Stats } from "../../stats/types.ts";
 import type { Level, ThemeName } from "../types.ts";
 
@@ -46,12 +47,12 @@ export const THEMES: Record<ThemeName, Theme> = {
     accent: "#4493f8",
     track: "#262c36",
     mono: "#3d444d",
-    pr: "#a371f7",
-    prOther: "#6e4bb0",
-    issue: "#2ea043",
-    disc: "#4493f8",
-    open: "#c6a5fb",
-    closed: "#656c76",
+    pr: PALETTES.dark.merged,
+    prOther: PALETTES.dark.pr,
+    issue: PALETTES.dark.issue,
+    disc: PALETTES.dark.discussion,
+    open: PALETTES.dark.open,
+    closed: PALETTES.dark.closed,
     neutralBar: "#7d8590",
     badgeL: "#3d444d",
     badgeR: "#1f6feb",
@@ -70,12 +71,12 @@ export const THEMES: Record<ThemeName, Theme> = {
     accent: "#0969da",
     track: "#e6eaef",
     mono: "#d1d9e0",
-    pr: "#8250df",
-    prOther: "#c2a8f0",
-    issue: "#1a7f37",
-    disc: "#0969da",
-    open: "#a68ae8",
-    closed: "#aeb7c1",
+    pr: PALETTES.light.merged,
+    prOther: PALETTES.light.pr,
+    issue: PALETTES.light.issue,
+    disc: PALETTES.light.discussion,
+    open: PALETTES.light.open,
+    closed: PALETTES.light.closed,
     neutralBar: "#8c959f",
     badgeL: "#555555",
     badgeR: "#0969da",

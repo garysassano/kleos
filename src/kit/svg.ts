@@ -53,7 +53,7 @@ export const PALETTES: Record<ThemeName, Palette> = {
     open: "#b7aef5",
     closed: "#656c76",
     issue: "#199e70",
-    discussion: "#d95926",
+    discussion: "#3987e5",
   },
   light: {
     bg: "#ffffff",
@@ -69,7 +69,7 @@ export const PALETTES: Record<ThemeName, Palette> = {
     open: "#8f82e3",
     closed: "#aeb7c1",
     issue: "#1baf7a",
-    discussion: "#eb6834",
+    discussion: "#2a78d6",
   },
 };
 

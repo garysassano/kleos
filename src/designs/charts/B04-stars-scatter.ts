@@ -62,7 +62,7 @@ function levelCats(
 ): { cats: Cat[]; legend: { label: string; c: string | undefined; of: number[] }[] } {
   const issuesOnly: Cat = {
     label: "Issues / discussions only",
-    c: t.cat[2] ?? t.other,
+    c: t.issue,
     test: (r) => r.prs === 0,
   };
   const merged: Cat = {
@@ -121,13 +121,13 @@ export const design: Design = {
     const sx = (v: number) => PX0 + (Math.log10(Math.max(1, v)) / xmax) * (PX1 - PX0);
     const sy = (v: number, j = 0) => PY1 - ((Math.log10(v) + j) / ymax) * (PY1 - PY0);
     const cats0: Cat[] = [
-      { label: "Has a merged PR", c: t.cat[0], test: (r: Repo) => r.prsMerged > 0 },
+      { label: "Has a merged PR", c: t.merged, test: (r: Repo) => r.prsMerged > 0 },
       {
         label: "PRs, none merged yet",
-        c: t.cat[1],
+        c: t.prOther,
         test: (r: Repo) => r.prs > 0 && r.prsMerged === 0,
       },
-      { label: "Issues / discussions only", c: t.cat[2], test: (r: Repo) => r.prs === 0 },
+      { label: "Issues / discussions only", c: t.issue, test: (r: Repo) => r.prs === 0 },
     ];
     const L = lvl ? levelCats(t, lvl) : undefined;
     const cats = L?.cats ?? cats0;

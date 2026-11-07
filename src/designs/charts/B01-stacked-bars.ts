@@ -32,13 +32,13 @@ interface Col {
 /** Bar segments and table columns at an explicit outcomes level. */
 function levelCols(t: Theme, lvl: Level) {
   const rest: Col[] = [
-    { label: "Issues", c: cat0(t, 1), v: (r) => r.issues },
-    { label: "Disc.", c: cat0(t, 2), v: (r) => r.discussions },
+    { label: "Issues", c: t.issue, v: (r) => r.issues },
+    { label: "Disc.", c: t.disc, v: (r) => r.discussions },
   ];
   const segs = (r: Repo) => [
     ...prParts(r, lvl).map((p) => ({ v: p.count, c: prColor(t, p.key, lvl) })),
-    { v: r.issues, c: cat0(t, 1) },
-    { v: r.discussions, c: cat0(t, 2) },
+    { v: r.issues, c: t.issue },
+    { v: r.discussions, c: t.disc },
   ];
   const pr: Col[] =
     lvl === "none"
@@ -73,8 +73,6 @@ function levelCols(t: Theme, lvl: Level) {
   return { cols, colX, segs };
 }
 
-const cat0 = (t: Theme, i: number): string => t.cat[i] ?? t.other;
-
 export const design: Design = {
   id: "B01",
   slug: "stacked-bars",
@@ -93,10 +91,10 @@ export const design: Design = {
     const labelX = 48;
     const bx = 262;
     const cols = [
-      { k: "prsMerged", label: "Merged", c: t.cat[0] },
-      { k: "prsOther", label: "Other PRs", c: t.blueLight },
-      { k: "issues", label: "Issues", c: t.cat[1] },
-      { k: "discussions", label: "Disc.", c: t.cat[2] },
+      { k: "prsMerged", label: "Merged", c: t.merged },
+      { k: "prsOther", label: "Other PRs", c: t.prOther },
+      { k: "issues", label: "Issues", c: t.issue },
+      { k: "discussions", label: "Disc.", c: t.disc },
     ] as const;
     const colX0 = [603, 685, 745, 816]; // right-aligned numeric columns
     const L = lvl ? levelCols(t, lvl) : undefined;

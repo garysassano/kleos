@@ -2,7 +2,7 @@
  * Helpers shared by the visual (D) designs. Ported byte-for-byte from the prototype, so they keep
  * their own palette, rounding and avatar drawing instead of the kit's.
  */
-import { MONO, SANS, esc } from "../../kit/svg.ts";
+import { MONO, PALETTES, SANS, esc } from "../../kit/svg.ts";
 import type { Stats } from "../../stats/types.ts";
 import type { ThemeName } from "../types.ts";
 
@@ -36,10 +36,10 @@ export const THEMES: Record<ThemeName, Theme> = {
     faint: "#262c36",
     cell: "#151b23",
     cell2: "#1c2128",
-    merged: "#a371f7",
-    prOther: "#5b3e9e",
-    issue: "#3fb950",
-    disc: "#4493f8",
+    merged: PALETTES.dark.merged,
+    prOther: PALETTES.dark.pr,
+    issue: PALETTES.dark.issue,
+    disc: PALETTES.dark.discussion,
     avBg: "#ffffff",
     blue: ["#151b23", "#0c2d6b", "#0d419d", "#1f6feb", "#4493f8", "#a5d6ff"],
     green: ["#151b23", "#033a16", "#196c2e", "#2ea043", "#56d364"],
@@ -54,10 +54,10 @@ export const THEMES: Record<ThemeName, Theme> = {
     faint: "#e8ecf0",
     cell: "#f6f8fa",
     cell2: "#eff2f5",
-    merged: "#8250df",
-    prOther: "#c9b3f5",
-    issue: "#1a7f37",
-    disc: "#0969da",
+    merged: PALETTES.light.merged,
+    prOther: PALETTES.light.pr,
+    issue: PALETTES.light.issue,
+    disc: PALETTES.light.discussion,
     avBg: "#ffffff",
     blue: ["#eff2f5", "#b6e3ff", "#80ccff", "#218bff", "#0550ae", "#0a3069"],
     green: ["#eff2f5", "#aceebb", "#4ac26b", "#2da44e", "#116329"],

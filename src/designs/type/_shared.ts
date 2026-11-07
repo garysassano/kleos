@@ -2,7 +2,7 @@
  * Helpers for the typographic category. Ported byte-for-byte from the prototype, so this keeps
  * its own palette (GitHub's merged/open/diff colours) and document wrapper instead of src/kit.
  */
-import { MONO, SANS, esc } from "../../kit/svg.ts";
+import { MONO, PALETTES, SANS, esc } from "../../kit/svg.ts";
 import type { Stats } from "../../stats/types.ts";
 import type { ThemeName } from "../types.ts";
 
@@ -36,13 +36,13 @@ export const THEMES: Record<ThemeName, Theme> = {
     faint: "#6e7681",
     border: "#3d444d",
     hair: "#262c36",
-    merged: "#ab7df8",
+    merged: PALETTES.dark.merged,
     open: "#3fb950",
     add: "#3fb950",
     del: "#f85149",
     accent: "#4493f8",
-    prOpen: "#d0b8fb",
-    closed: "#7d8590",
+    prOpen: PALETTES.dark.open,
+    closed: PALETTES.dark.closed,
   },
   light: {
     bg: "#ffffff",
@@ -52,13 +52,13 @@ export const THEMES: Record<ThemeName, Theme> = {
     faint: "#818b98",
     border: "#d1d9e0",
     hair: "#e6eaef",
-    merged: "#8250df",
+    merged: PALETTES.light.merged,
     open: "#1a7f37",
     add: "#1a7f37",
     del: "#d1242f",
     accent: "#0969da",
-    prOpen: "#a58aea",
-    closed: "#818b98",
+    prOpen: PALETTES.light.open,
+    closed: PALETTES.light.closed,
   },
 };
 
