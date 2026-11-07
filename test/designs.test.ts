@@ -12,9 +12,8 @@ import { type Level, THEME_NAMES } from "../src/designs/types.ts";
 import { MAX_WIDTH } from "../src/kit/svg.ts";
 import { DEFAULT_FIXTURE, loadFixture } from "../src/stats/fixture.ts";
 
-/** The fictional demo account, a real snapshot, and a small synthetic account (6 repos, no avatars, no discussions), so designs never depend on one user's data. */
+/** A real snapshot and a small synthetic account (6 repos, no avatars, no discussions), so designs never depend on one user's data. */
 const fixtures = {
-  demo: loadFixture("demo"),
   garysassano: loadFixture("garysassano"),
   "sample-small": loadFixture("sample-small"),
 };

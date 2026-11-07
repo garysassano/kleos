@@ -82,7 +82,7 @@ if (!only) {
   const lines = [
     "# Design catalog",
     "",
-    `${total} card designs, each rendered in GitHub dark and light ${fixture === "demo" ? "from a fictional demo account" : `from the \`${fixture}\` snapshot taken ${asOf}`}. GitHub shows the variant that matches your theme.`,
+    `${total} card designs, each rendered in GitHub dark and light ${`from the \`${fixture}\` snapshot taken ${asOf}`}. GitHub shows the variant that matches your theme.`,
     "",
     "Regenerate with `pnpm gallery`. Do not edit the files here by hand.",
     "",

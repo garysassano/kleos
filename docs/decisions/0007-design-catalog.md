@@ -43,3 +43,7 @@ Later the same day the owner chose to keep the real snapshot in the README and c
 
 - **The 30 prototypes** (A–E) were written as plain JavaScript generators during exploration, then ported to TypeScript modules. Their output from the real fixture was compared byte for byte with the prototype output, and every intentional difference is listed in the commit that ported it.
 - **F–H were added afterwards** to cover flows, playful formats and focused deep dives, especially contributions to one chosen ecosystem or repository.
+
+## Update, 2026-11-07: the fictional account is gone
+
+The owner decided the real snapshot stays as the example for good, so `fixtures/demo.json` and `scripts/demo-fixture.ts` were removed. The tests render every design from the real snapshot and from `fixtures/sample-small.json`, which between them cover a large account with several ecosystems, a long tail and discussions, and a tiny one with none of those.

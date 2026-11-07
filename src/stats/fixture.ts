@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import type { Stats } from "./types.ts";
 
-/** The fixture the catalog and README render from: the author's real data while designs are in progress; "demo" before launch. */
+/** The fixture the catalog and README render from: the author's real data (decision 0007). */
 export const DEFAULT_FIXTURE = "garysassano";
 
 /** Loads a committed data snapshot from fixtures/<name>.json. */

@@ -15,8 +15,7 @@
     "lint:fix": "biome check --write .",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "build": "tsdown",
-    "fixture:demo": "node scripts/demo-fixture.ts"
+    "build": "tsdown"
   },
   "devDependencies": {
     "@biomejs/biome": "2.6.4",
