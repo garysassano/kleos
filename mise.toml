@@ -2,3 +2,6 @@
 [tools]
 node = "26"
 pnpm = "12.17.0"
+# Workflow checks, the same in CI and locally.
+actionlint = "1.7.12"
+"github:github/gh-actions-lock" = { version = "0.4.1", bin = "gh-actions-lock" }

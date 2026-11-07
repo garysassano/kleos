@@ -19,6 +19,7 @@ pnpm check                            # Biome, tsc, Prettier on Markdown, Vitest
 pnpm gallery                          # render every design into gallery/ (DEFAULT_FIXTURE in src/stats/fixture.ts)
 pnpm gallery sample-small --only A01  # render one design from another fixture
 pnpm fetch <login> --out data.json    # fetch a real snapshot (GITHUB_TOKEN, else the gh CLI login)
+gh actions-lock --ignore-local-actions --no-narrow  # after changing a workflow: refresh .github/workflows/actions.lock
 ```
 
 ## Rules for designs

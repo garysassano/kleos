@@ -1,0 +1,101 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    name: Biome, tsc, Prettier, Vitest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Install Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "26"
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check
+        run: pnpm check
+
+      - name: Catalog is up to date
+        run: |
+          pnpm gallery
+          git diff --exit-code -- gallery || {
+            echo "gallery/ is out of date: run pnpm gallery and commit the result." >&2
+            exit 1
+          }
+
+  action:
+    name: Action renders (no commit)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Run the action from this commit
+        uses: ./
+        with:
+          user: ${{ github.repository_owner }}
+          designs: D01 A05 owners=no repos=3
+          out: ci-cards
+          commit: "false"
+
+      - name: Cards were written
+        run: |
+          find ci-cards -name '*.svg' -print
+          test "$(find ci-cards -name '*.svg' | wc -l)" -eq 4
+
+  workflows:
+    name: Workflow lint and lockfile
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Install workflow tools
+        uses: jdx/mise-action@v5
+        with:
+          cache: true
+          install_args: actionlint github:github/gh-actions-lock
+
+      - name: Lint workflows
+        run: actionlint
+
+      - name: Verify the actions lockfile
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh-actions-lock --verify --ignore-local-actions
+
+      - name: External actions use major version tags
+        run: |
+          if grep -rEn '^\s*(-\s*)?uses:\s+[^.][^@[:space:]]*@' .github/workflows action.yml \
+            | grep -Ev '@v(0|[1-9][0-9]*)\s*$'; then
+            echo "Reference every external action by a major version tag, such as @v7." >&2
+            exit 1
+          fi
