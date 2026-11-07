@@ -31,8 +31,6 @@
    "discussions": 6,
    "commits": 111,
    "reviews": 0,
-   "additions": 6255,
-   "deletions": 1705,
    "first": "2023-03-01T11:11:00Z",
    "last": "2026-10-23T15:58:00Z",
    "monthly": {
@@ -96,8 +94,6 @@
    "discussions": 9,
    "commits": 63,
    "reviews": 0,
-   "additions": 3374,
-   "deletions": 1016,
    "first": "2022-11-17T13:21:00Z",
    "last": "2026-08-16T11:54:00Z",
    "monthly": {
@@ -156,8 +152,6 @@
    "discussions": 4,
    "commits": 28,
    "reviews": 0,
-   "additions": 2250,
-   "deletions": 508,
    "first": "2024-03-01T19:27:00Z",
    "last": "2026-10-09T08:54:00Z",
    "monthly": {
@@ -206,8 +200,6 @@
    "discussions": 2,
    "commits": 39,
    "reviews": 0,
-   "additions": 1483,
-   "deletions": 624,
    "first": "2023-09-08T18:29:00Z",
    "last": "2026-09-13T10:58:00Z",
    "monthly": {
@@ -255,8 +247,6 @@
    "discussions": 3,
    "commits": 42,
    "reviews": 0,
-   "additions": 2928,
-   "deletions": 673,
    "first": "2022-04-07T19:35:00Z",
    "last": "2024-12-14T12:33:00Z",
    "monthly": {
@@ -306,8 +296,6 @@
    "discussions": 2,
    "commits": 4,
    "reviews": 0,
-   "additions": 188,
-   "deletions": 73,
    "first": "2023-05-06T13:39:00Z",
    "last": "2026-05-17T09:35:00Z",
    "monthly": {
@@ -349,8 +337,6 @@
    "discussions": 7,
    "commits": 18,
    "reviews": 0,
-   "additions": 1064,
-   "deletions": 246,
    "first": "2025-01-13T09:32:00Z",
    "last": "2026-09-20T09:34:00Z",
    "monthly": {
@@ -387,8 +373,6 @@
    "discussions": 0,
    "commits": 18,
    "reviews": 0,
-   "additions": 1283,
-   "deletions": 322,
    "first": "2024-12-08T16:44:00Z",
    "last": "2026-06-20T08:38:00Z",
    "monthly": {
@@ -424,8 +408,6 @@
    "discussions": 0,
    "commits": 23,
    "reviews": 0,
-   "additions": 1757,
-   "deletions": 381,
    "first": "2023-01-03T15:48:00Z",
    "last": "2026-06-10T10:12:00Z",
    "monthly": {
@@ -461,8 +443,6 @@
    "discussions": 1,
    "commits": 9,
    "reviews": 0,
-   "additions": 726,
-   "deletions": 223,
    "first": "2023-08-26T17:57:00Z",
    "last": "2025-09-05T17:08:00Z",
    "monthly": {
@@ -500,8 +480,6 @@
    "discussions": 1,
    "commits": 10,
    "reviews": 0,
-   "additions": 1100,
-   "deletions": 211,
    "first": "2024-09-13T13:59:00Z",
    "last": "2026-07-25T10:47:00Z",
    "monthly": {
@@ -533,8 +511,6 @@
    "discussions": 0,
    "commits": 17,
    "reviews": 0,
-   "additions": 757,
-   "deletions": 392,
    "first": "2025-05-04T09:47:00Z",
    "last": "2026-09-21T15:13:00Z",
    "monthly": {
@@ -567,8 +543,6 @@
    "discussions": 0,
    "commits": 16,
    "reviews": 0,
-   "additions": 1223,
-   "deletions": 295,
    "first": "2024-01-19T15:51:00Z",
    "last": "2025-11-26T14:38:00Z",
    "monthly": {
@@ -601,8 +575,6 @@
    "discussions": 0,
    "commits": 4,
    "reviews": 0,
-   "additions": 413,
-   "deletions": 76,
    "first": "2025-01-01T08:02:00Z",
    "last": "2026-04-09T08:23:00Z",
    "monthly": {
@@ -631,8 +603,6 @@
    "discussions": 0,
    "commits": 18,
    "reviews": 0,
-   "additions": 729,
-   "deletions": 273,
    "first": "2024-04-02T17:13:00Z",
    "last": "2025-06-19T10:38:00Z",
    "monthly": {
@@ -664,8 +634,6 @@
    "discussions": 3,
    "commits": 3,
    "reviews": 0,
-   "additions": 273,
-   "deletions": 75,
    "first": "2025-06-20T13:50:00Z",
    "last": "2026-08-22T13:41:00Z",
    "monthly": {
@@ -698,8 +666,6 @@
    "discussions": 0,
    "commits": 8,
    "reviews": 0,
-   "additions": 449,
-   "deletions": 91,
    "first": "2025-03-07T17:53:00Z",
    "last": "2026-01-18T11:28:00Z",
    "monthly": {
@@ -729,8 +695,6 @@
    "discussions": 0,
    "commits": 2,
    "reviews": 0,
-   "additions": 180,
-   "deletions": 17,
    "first": "2024-04-21T19:36:00Z",
    "last": "2026-01-21T08:45:00Z",
    "monthly": {
@@ -760,8 +724,6 @@
    "discussions": 0,
    "commits": 9,
    "reviews": 0,
-   "additions": 779,
-   "deletions": 203,
    "first": "2023-09-09T13:13:00Z",
    "last": "2025-03-23T11:22:00Z",
    "monthly": {
@@ -789,8 +751,6 @@
    "discussions": 0,
    "commits": 6,
    "reviews": 0,
-   "additions": 604,
-   "deletions": 40,
    "first": "2026-01-19T14:04:00Z",
    "last": "2026-06-01T15:02:00Z",
    "monthly": {
@@ -817,8 +777,6 @@
    "discussions": 0,
    "commits": 1,
    "reviews": 0,
-   "additions": 143,
-   "deletions": 102,
    "first": "2022-09-04T19:50:00Z",
    "last": "2022-09-26T18:01:00Z",
    "monthly": {
@@ -842,8 +800,6 @@
    "discussions": 0,
    "commits": 4,
    "reviews": 0,
-   "additions": 628,
-   "deletions": 135,
    "first": "2022-10-02T17:34:00Z",
    "last": "2022-10-27T17:26:00Z",
    "monthly": {
@@ -867,8 +823,6 @@
    "discussions": 0,
    "commits": 6,
    "reviews": 0,
-   "additions": 507,
-   "deletions": 141,
    "first": "2023-01-05T08:40:00Z",
    "last": "2023-01-15T10:04:00Z",
    "monthly": {
@@ -892,8 +846,6 @@
    "discussions": 0,
    "commits": 2,
    "reviews": 0,
-   "additions": 528,
-   "deletions": 7,
    "first": "2025-08-09T15:38:00Z",
    "last": "2025-08-25T18:34:00Z",
    "monthly": {
@@ -917,8 +869,6 @@
    "discussions": 0,
    "commits": 6,
    "reviews": 0,
-   "additions": 262,
-   "deletions": 90,
    "first": "2023-02-03T18:17:00Z",
    "last": "2023-02-17T17:28:00Z",
    "monthly": {
@@ -942,8 +892,6 @@
    "discussions": 0,
    "commits": 6,
    "reviews": 0,
-   "additions": 266,
-   "deletions": 145,
    "first": "2022-04-02T10:10:00Z",
    "last": "2022-04-27T17:44:00Z",
    "monthly": {
@@ -967,8 +915,6 @@
    "discussions": 0,
    "commits": 9,
    "reviews": 0,
-   "additions": 590,
-   "deletions": 192,
    "first": "2024-09-04T10:28:00Z",
    "last": "2024-09-15T17:03:00Z",
    "monthly": {
@@ -992,8 +938,6 @@
    "discussions": 0,
    "commits": 3,
    "reviews": 0,
-   "additions": 5,
-   "deletions": 0,
    "first": "2025-01-08T16:51:00Z",
    "last": "2025-01-27T16:26:00Z",
    "monthly": {
@@ -1017,8 +961,6 @@
    "discussions": 0,
    "commits": 1,
    "reviews": 0,
-   "additions": 10,
-   "deletions": 26,
    "first": "2023-08-03T10:47:00Z",
    "last": "2023-08-18T17:11:00Z",
    "monthly": {
@@ -1042,8 +984,6 @@
    "discussions": 0,
    "commits": 0,
    "reviews": 0,
-   "additions": 0,
-   "deletions": 0,
    "first": "2026-07-07T11:54:00Z",
    "last": "2026-07-15T17:54:00Z",
    "monthly": {
@@ -1067,8 +1007,6 @@
    "discussions": 0,
    "commits": 3,
    "reviews": 0,
-   "additions": 98,
-   "deletions": 114,
    "first": "2025-05-03T08:09:00Z",
    "last": "2025-05-17T10:10:00Z",
    "monthly": {
@@ -1092,8 +1030,6 @@
    "discussions": 0,
    "commits": 1,
    "reviews": 0,
-   "additions": 171,
-   "deletions": 29,
    "first": "2025-03-07T16:02:00Z",
    "last": "2025-03-26T12:18:00Z",
    "monthly": {
@@ -1117,8 +1053,6 @@
    "discussions": 0,
    "commits": 2,
    "reviews": 0,
-   "additions": 299,
-   "deletions": 227,
    "first": "2025-10-08T15:20:00Z",
    "last": "2025-10-26T08:01:00Z",
    "monthly": {
@@ -1142,8 +1076,6 @@
    "discussions": 0,
    "commits": 3,
    "reviews": 0,
-   "additions": 101,
-   "deletions": 170,
    "first": "2024-08-05T08:36:00Z",
    "last": "2024-08-23T16:12:00Z",
    "monthly": {
@@ -1167,8 +1099,6 @@
    "discussions": 0,
    "commits": 1,
    "reviews": 0,
-   "additions": 37,
-   "deletions": 43,
    "first": "2026-09-01T12:32:00Z",
    "last": "2026-09-22T10:15:00Z",
    "monthly": {
@@ -1192,8 +1122,6 @@
    "discussions": 0,
    "commits": 1,
    "reviews": 0,
-   "additions": 61,
-   "deletions": 8,
    "first": "2025-05-02T14:36:00Z",
    "last": "2025-05-14T16:24:00Z",
    "monthly": {
@@ -1217,8 +1145,6 @@
    "discussions": 0,
    "commits": 1,
    "reviews": 0,
-   "additions": 199,
-   "deletions": 19,
    "first": "2026-01-08T16:14:00Z",
    "last": "2026-01-11T19:09:00Z",
    "monthly": {
@@ -1242,8 +1168,6 @@
    "discussions": 0,
    "commits": 2,
    "reviews": 0,
-   "additions": 266,
-   "deletions": 14,
    "first": "2022-04-05T12:27:00Z",
    "last": "2022-04-13T13:42:00Z",
    "monthly": {
@@ -1267,8 +1191,6 @@
    "discussions": 0,
    "commits": 0,
    "reviews": 0,
-   "additions": 0,
-   "deletions": 0,
    "first": "2024-03-10T09:54:00Z",
    "last": "2024-03-26T10:29:00Z",
    "monthly": {
@@ -1292,8 +1214,6 @@
    "discussions": 0,
    "commits": 0,
    "reviews": 0,
-   "additions": 0,
-   "deletions": 0,
    "first": "2024-06-16T08:27:00Z",
    "last": "2024-06-23T17:36:00Z",
    "monthly": {
@@ -1317,8 +1237,6 @@
    "discussions": 0,
    "commits": 1,
    "reviews": 0,
-   "additions": 17,
-   "deletions": 4,
    "first": "2022-04-20T19:09:00Z",
    "last": "2022-04-20T19:09:00Z",
    "monthly": {
@@ -1342,8 +1260,6 @@
    "discussions": 0,
    "commits": 2,
    "reviews": 0,
-   "additions": 63,
-   "deletions": 24,
    "first": "2022-04-23T12:30:00Z",
    "last": "2022-04-23T12:30:00Z",
    "monthly": {
@@ -1367,8 +1283,6 @@
    "discussions": 0,
    "commits": 1,
    "reviews": 0,
-   "additions": 82,
-   "deletions": 43,
    "first": "2026-06-15T10:27:00Z",
    "last": "2026-06-15T10:27:00Z",
    "monthly": {
@@ -1392,8 +1306,6 @@
    "discussions": 0,
    "commits": 0,
    "reviews": 0,
-   "additions": 0,
-   "deletions": 0,
    "first": "2025-08-26T15:35:00Z",
    "last": "2025-08-26T15:35:00Z",
    "monthly": {
@@ -1417,8 +1329,6 @@
    "discussions": 0,
    "commits": 0,
    "reviews": 0,
-   "additions": 0,
-   "deletions": 0,
    "first": "2025-04-24T11:48:00Z",
    "last": "2025-04-24T11:48:00Z",
    "monthly": {
@@ -1442,8 +1352,6 @@
    "discussions": 0,
    "commits": 0,
    "reviews": 0,
-   "additions": 0,
-   "deletions": 0,
    "first": "2026-04-13T10:18:00Z",
    "last": "2026-04-13T10:18:00Z",
    "monthly": {
@@ -1467,8 +1375,6 @@
    "discussions": 0,
    "commits": 0,
    "reviews": 0,
-   "additions": 0,
-   "deletions": 0,
    "first": "2026-02-05T16:27:00Z",
    "last": "2026-02-05T16:27:00Z",
    "monthly": {

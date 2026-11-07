@@ -8,6 +8,7 @@
  * 12 years that is ~30 requests and ~30 rate-limit points of the 5000/hour budget.
  * See docs/decisions/0004-graphql-connections-not-search.md.
  */
+import { RECENT_PRS } from "../stats/aggregate.ts";
 import type { GraphQL } from "./graphql.ts";
 
 export interface RawRepo {
@@ -20,17 +21,20 @@ export interface RawRepo {
 }
 
 export interface RawPullRequest {
+  id: string;
   number: number;
   title: string;
   state: "OPEN" | "CLOSED" | "MERGED";
   merged: boolean;
   createdAt: string;
-  additions: number;
-  deletions: number;
+  /** Lines changed. Fetched only for the PRs that end up in `Stats.recentPRs`: they are expensive to compute. */
+  additions?: number;
+  deletions?: number;
   repository: RawRepo;
 }
 
 export interface RawIssue {
+  id: string;
   number: number;
   title: string;
   state: "OPEN" | "CLOSED";
@@ -39,6 +43,7 @@ export interface RawIssue {
 }
 
 export interface RawDiscussion {
+  id: string;
   number: number;
   title: string;
   createdAt: string;
@@ -78,35 +83,73 @@ const REPO = `repository {
 }`;
 
 const CONNECTIONS = {
-  pullRequests: `number title state merged createdAt additions deletions ${REPO}`,
-  issues: `number title state createdAt ${REPO}`,
-  repositoryDiscussions: `number title createdAt ${REPO}`,
+  pullRequests: `id number title state merged createdAt ${REPO}`,
+  issues: `id number title state createdAt ${REPO}`,
+  repositoryDiscussions: `id number title createdAt ${REPO}`,
 } as const;
 
 interface Page<T> {
   user: {
-    conn: { pageInfo: { hasNextPage: boolean; endCursor: string | null }; nodes: T[] };
+    conn: {
+      totalCount: number;
+      pageInfo: {
+        hasNextPage: boolean;
+        endCursor: string | null;
+        hasPreviousPage: boolean;
+        startCursor: string | null;
+      };
+      nodes: T[];
+    };
   } | null;
 }
 
-async function paginate<T>(gql: GraphQL, login: string, field: keyof typeof CONNECTIONS) {
-  const query = `query($login: String!, $after: String) {
+/**
+ * Reads a whole connection, walking from both ends at once (first/after and last/before) until
+ * the two walks have covered it. Pages within one walk must wait for the previous cursor, so this
+ * halves the requests made one after another; at most one page overlaps and is deduplicated.
+ */
+async function paginate<T extends { id: string }>(
+  gql: GraphQL,
+  login: string,
+  field: keyof typeof CONNECTIONS,
+): Promise<T[]> {
+  const query = (dir: "forward" | "backward") => `query($login: String!, $cursor: String) {
     user(login: $login) {
-      conn: ${field}(first: 100, after: $after) {
-        pageInfo { hasNextPage endCursor }
+      conn: ${field}(${dir === "forward" ? "first: 100, after: $cursor" : "last: 100, before: $cursor"}) {
+        totalCount
+        pageInfo { hasNextPage endCursor hasPreviousPage startCursor }
         nodes { ${CONNECTIONS[field]} }
       }
     }
   }`;
-  const nodes: T[] = [];
-  let after: string | null = null;
-  do {
-    const page: Page<T> = await gql<Page<T>>(query, { login, after });
-    if (!page.user) throw new Error(`GitHub user "${login}" not found`);
-    nodes.push(...page.user.conn.nodes);
-    after = page.user.conn.pageInfo.hasNextPage ? page.user.conn.pageInfo.endCursor : null;
-  } while (after);
-  return nodes;
+  const seen = new Map<string, T>();
+  let total = Number.POSITIVE_INFINITY;
+  const walk = async (dir: "forward" | "backward") => {
+    let cursor: string | null = null;
+    while (seen.size < total) {
+      const page: Page<T> = await gql<Page<T>>(query(dir), { login, cursor });
+      if (!page.user) throw new Error(`GitHub user "${login}" not found`);
+      const { conn } = page.user;
+      total = conn.totalCount;
+      for (const n of conn.nodes) seen.set(n.id, n);
+      const more = dir === "forward" ? conn.pageInfo.hasNextPage : conn.pageInfo.hasPreviousPage;
+      if (!more) return;
+      cursor = dir === "forward" ? conn.pageInfo.endCursor : conn.pageInfo.startCursor;
+    }
+  };
+  await Promise.all([walk("forward"), walk("backward")]);
+  return [...seen.values()];
+}
+
+/** Lines changed for a few PRs, in one request. */
+async function fetchLineCounts(gql: GraphQL, ids: string[]) {
+  if (!ids.length) return new Map<string, { additions: number; deletions: number }>();
+  const data = await gql<{
+    nodes: ({ id: string; additions: number; deletions: number } | null)[];
+  }>(`query($ids: [ID!]!) { nodes(ids: $ids) { ... on PullRequest { id additions deletions } } }`, {
+    ids,
+  });
+  return new Map(data.nodes.filter((n) => n !== null).map((n) => [n.id, n]));
 }
 
 const BY_REPO = `contributions { totalCount } ${REPO}`;
@@ -148,5 +191,15 @@ export async function fetchUser(gql: GraphQL, login: string): Promise<RawData> {
       meta.user.contributionsCollection.contributionYears.map((y) => fetchYear(gql, login, y)),
     ),
   ]);
+  // Line counts only for the PRs that Stats.recentPRs keeps (see aggregate.ts).
+  const recent = pullRequests
+    .filter((p) => p.repository.owner.login !== login && !p.repository.isPrivate)
+    .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+    .slice(0, RECENT_PRS);
+  const lines = await fetchLineCounts(
+    gql,
+    recent.map((p) => p.id),
+  );
+  for (const p of pullRequests) Object.assign(p, lines.get(p.id) ?? {});
   return { login, fetchedAt, pullRequests, issues, discussions, years };
 }

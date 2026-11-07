@@ -71,9 +71,6 @@ export interface RepoStats {
   discussions: number;
   commits: number;
   reviews: number;
-  /** Lines changed across the user's PRs. Unreliable: generated files inflate it. */
-  additions: number;
-  deletions: number;
   /** ISO timestamps of the first and last PR, issue or discussion; null when the repo only has commits. */
   first: string | null;
   last: string | null;

@@ -6,9 +6,6 @@
  * token ever has to be copied into the environment.
  */
 import { execFile } from "node:child_process";
-import { promisify } from "node:util";
-
-const run = promisify(execFile);
 
 export type GraphQL = <T>(query: string, variables?: Record<string, unknown>) => Promise<T>;
 
@@ -38,15 +35,25 @@ function viaFetch(token: string): GraphQL {
 }
 
 function viaGhCli(): GraphQL {
-  return async (query, variables = {}) => {
-    const args = ["api", "graphql", "-f", `query=${query}`];
-    for (const [k, v] of Object.entries(variables)) {
-      if (v === null || v === undefined) continue;
-      args.push(typeof v === "string" ? "-f" : "-F", `${k}=${v}`);
-    }
-    const { stdout } = await run("gh", args, { maxBuffer: 64 * 1024 * 1024 });
-    return unwrap(JSON.parse(stdout) as Response<unknown>);
-  };
+  // The request body goes in as JSON on stdin, so variables keep their types (lists, numbers, null).
+  return (query, variables = {}) =>
+    new Promise((resolve, reject) => {
+      const child = execFile(
+        "gh",
+        ["api", "graphql", "--input", "-"],
+        { maxBuffer: 64 * 1024 * 1024 },
+        (error, stdout, stderr) => {
+          if (error && !stdout)
+            return reject(new Error(`gh api graphql: ${stderr || error.message}`));
+          try {
+            resolve(unwrap(JSON.parse(stdout) as Response<unknown>));
+          } catch (e) {
+            reject(e);
+          }
+        },
+      );
+      child.stdin?.end(JSON.stringify({ query, variables }));
+    });
 }
 
 function unwrap<T>(body: Response<unknown>): T {

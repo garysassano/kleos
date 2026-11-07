@@ -21,5 +21,5 @@ The previous card (github-contribution-card) showed commit contributions only. I
 
 ## Not used
 
-- **Lines added and removed** are stored but not featured. Generated files make them misleading: two open aws-cdk PRs show about +119,000 lines each.
+- **Lines added and removed** are fetched only for the recent PRs a card lists (C04). Generated files make totals misleading (two open aws-cdk PRs show about +119,000 lines each), and computing them for every PR doubled fetch time.
 - **"Contributor rank"**, the user's percentile among a repository's contributors, would need the contributor list of every repository: hundreds of extra REST calls, and GitHub caps the list at 500. It may come back for a handful of chosen repositories.

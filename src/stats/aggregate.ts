@@ -22,7 +22,8 @@ export const DEFAULT_FAMILIES: FamilyRule[] = [
 ];
 
 const CALENDAR_DAYS = 371;
-const RECENT_PRS = 30;
+/** How many recent PRs Stats keeps; the fetcher gets line counts for exactly these. */
+export const RECENT_PRS = 30;
 
 export function aggregate(
   raw: RawData,
@@ -50,8 +51,6 @@ export function aggregate(
         discussions: 0,
         commits: 0,
         reviews: 0,
-        additions: 0,
-        deletions: 0,
         first: null,
         last: null,
         monthly: {},
@@ -77,8 +76,6 @@ export function aggregate(
     x.prs++;
     if (p.merged) x.prsMerged++;
     if (p.state === "OPEN") x.prsOpen++;
-    x.additions += p.additions;
-    x.deletions += p.deletions;
     touch(x, p.createdAt);
   }
   for (const i of raw.issues) {
@@ -175,8 +172,8 @@ export function aggregate(
     title: p.title,
     createdAt: p.createdAt,
     state: p.merged ? "MERGED" : p.state === "OPEN" ? "OPEN" : "CLOSED",
-    additions: p.additions,
-    deletions: p.deletions,
+    additions: p.additions ?? 0,
+    deletions: p.deletions ?? 0,
   }));
 
   const sumAll = (k: "prs" | "prsMerged" | "issues" | "discussions") =>

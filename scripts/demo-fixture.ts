@@ -467,6 +467,7 @@ for (const spec of [...SPECS, ...OWN]) {
     const isMerged = i < merged;
     const open = !isMerged && createdAt > "2026-08";
     pullRequests.push({
+      id: `PR_demo_${number}`,
       number: number++,
       title: title("pr"),
       state: isMerged ? "MERGED" : open ? "OPEN" : "CLOSED",
@@ -479,6 +480,7 @@ for (const spec of [...SPECS, ...OWN]) {
   }
   for (let i = 0; i < spec.issues; i++) {
     issues.push({
+      id: `I_demo_${number}`,
       number: number++,
       title: title("issue"),
       state: rand() < 0.7 ? "CLOSED" : "OPEN",
@@ -488,6 +490,7 @@ for (const spec of [...SPECS, ...OWN]) {
   }
   for (let i = 0; i < spec.discussions; i++) {
     discussions.push({
+      id: `D_demo_${number}`,
       number: number++,
       title: title("discussion"),
       createdAt: dateIn(months),

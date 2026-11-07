@@ -22,6 +22,7 @@ const raw: RawData = {
   fetchedAt: "2026-03-02T10:00:00Z",
   pullRequests: [
     {
+      id: "n1",
       number: 1,
       title: "a",
       state: "MERGED",
@@ -32,6 +33,7 @@ const raw: RawData = {
       repository: cdk,
     },
     {
+      id: "n2",
       number: 2,
       title: "b",
       state: "OPEN",
@@ -42,6 +44,7 @@ const raw: RawData = {
       repository: cdk,
     },
     {
+      id: "n3",
       number: 3,
       title: "c",
       state: "MERGED",
@@ -52,6 +55,7 @@ const raw: RawData = {
       repository: mine,
     },
     {
+      id: "n4",
       number: 4,
       title: "d",
       state: "CLOSED",
@@ -64,15 +68,25 @@ const raw: RawData = {
   ],
   issues: [
     {
+      id: "n9",
       number: 9,
       title: "i",
       state: "OPEN",
       createdAt: "2025-12-01T00:00:00Z",
       repository: samples,
     },
-    { number: 10, title: "j", state: "CLOSED", createdAt: "2026-01-09T00:00:00Z", repository: cdk },
+    {
+      id: "n10",
+      number: 10,
+      title: "j",
+      state: "CLOSED",
+      createdAt: "2026-01-09T00:00:00Z",
+      repository: cdk,
+    },
   ],
-  discussions: [{ number: 3, title: "q", createdAt: "2026-01-20T00:00:00Z", repository: samples }],
+  discussions: [
+    { id: "n3", number: 3, title: "q", createdAt: "2026-01-20T00:00:00Z", repository: samples },
+  ],
   years: [
     {
       year: 2026,
