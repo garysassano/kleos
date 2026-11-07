@@ -6,9 +6,8 @@
  */
 import { writeFileSync } from "node:fs";
 import { parseArgs } from "node:util";
-import { fetchUser } from "../github/fetch.ts";
 import { graphql } from "../github/graphql.ts";
-import { aggregate, avatarOwners } from "../stats/aggregate.ts";
+import { snapshot } from "../github/snapshot.ts";
 
 const { values, positionals } = parseArgs({
   allowPositionals: true,
@@ -21,20 +20,7 @@ if (!login) {
 }
 const out = values.out ?? `fixtures/${login}.json`;
 
-const raw = await fetchUser(graphql(process.env.GITHUB_TOKEN), login);
-const draft = aggregate(raw);
-
-const avatars: Record<string, string> = {};
-await Promise.all(
-  [...avatarOwners(draft)].map(async ([owner, url]) => {
-    const res = await fetch(`${url}${url.includes("?") ? "&" : "?"}s=64`);
-    if (!res.ok) return;
-    const type = res.headers.get("content-type") ?? "image/png";
-    avatars[owner] =
-      `data:${type};base64,${Buffer.from(await res.arrayBuffer()).toString("base64")}`;
-  }),
-);
-const stats = aggregate(raw, { avatars: Object.fromEntries(Object.entries(avatars).sort()) });
+const { raw, stats } = await snapshot(graphql(process.env.GITHUB_TOKEN), login);
 
 writeFileSync(out, `${JSON.stringify(stats, null, 1)}\n`);
 const t = stats.totals;

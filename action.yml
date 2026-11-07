@@ -1,0 +1,71 @@
+name: kleos
+description: Render SVG cards of the pull requests, issues and discussions you opened in other people's repos, and commit them.
+author: garysassano
+branding:
+  icon: award
+  color: purple
+
+inputs:
+  designs:
+    description: Design ids to render, separated by spaces, commas or new lines, such as "D01 A05". The ids are listed in the catalog (gallery/README.md).
+    required: true
+  user:
+    description: GitHub login whose contributions are shown.
+    default: ${{ github.repository_owner }}
+  outcomes:
+    description: How much PR outcome detail the cards show. original (each design's own look), none, merged or full.
+    default: original
+  ecosystems:
+    description: >-
+      One ecosystem per line, "Name: regular expression" matched against the whole owner login,
+      such as "AWS: ^(aws|awslabs|aws-.*)$". Replaces kleos's defaults when set.
+    default: ""
+  out:
+    description: Folder in the repository that receives the cards.
+    default: kleos
+  commit:
+    description: >-
+      Commit and push the cards when they changed. Needs "permissions: contents: write" and a
+      checked-out repository.
+    default: "true"
+  commit-message:
+    description: Message of that commit.
+    default: Update kleos cards
+  token:
+    description: Token for the GitHub GraphQL API. The workflow's own token is enough for public data.
+    default: ${{ github.token }}
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v7
+      with:
+        node-version: "26"
+
+    - name: Render cards
+      shell: bash
+      run: node "$GITHUB_ACTION_PATH/src/cli/action.ts"
+      env:
+        INPUT_USER: ${{ inputs.user }}
+        INPUT_DESIGNS: ${{ inputs.designs }}
+        INPUT_OUTCOMES: ${{ inputs.outcomes }}
+        INPUT_ECOSYSTEMS: ${{ inputs.ecosystems }}
+        INPUT_OUT: ${{ inputs.out }}
+        GITHUB_TOKEN: ${{ inputs.token }}
+
+    - name: Commit cards
+      if: inputs.commit == 'true'
+      shell: bash
+      env:
+        OUT: ${{ inputs.out }}
+        MESSAGE: ${{ inputs.commit-message }}
+      run: |
+        git add -A -- "$OUT"
+        if git diff --cached --quiet; then
+          echo "Cards unchanged, nothing to commit."
+          exit 0
+        fi
+        git -c user.name="github-actions[bot]" \
+          -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+          commit -m "$MESSAGE"
+        git push

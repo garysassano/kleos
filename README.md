@@ -37,3 +37,46 @@ flowchart LR
 ```
 
 kleos runs as a scheduled GitHub Action in your profile repository. There's no server to host and no shared rate limit to run into, and the cards update on whatever schedule you choose.
+
+## Use it
+
+Pick designs from the [catalog](gallery/README.md) and add this workflow to your profile repository (the one named after your username) as `.github/workflows/kleos.yml`:
+
+```yaml
+name: kleos
+on:
+  schedule:
+    - cron: "17 4 * * *" # daily
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  cards:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: garysassano/kleos@main
+        with:
+          designs: D01 A05
+```
+
+Run it once from the Actions tab. It commits the cards to a `kleos/` folder, and the next runs commit only when your numbers change. Then show a card in your README:
+
+```html
+<picture>
+  <source
+    media="(prefers-color-scheme: dark)"
+    srcset="kleos/D01-orbit-dark.svg"
+  />
+  <img alt="Where my contributions go" src="kleos/D01-orbit-light.svg" />
+</picture>
+```
+
+| Input        | Default                  | What it does                                                                                                                         |
+| ------------ | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `designs`    | required                 | Design ids from the catalog, separated by spaces.                                                                                    |
+| `outcomes`   | `original`               | How much of your PRs' fate to show: `none` (just PRs), `merged`, `full` (merged, open and closed), or each design's `original` look. |
+| `ecosystems` | AWS, Microsoft, GitHub … | One `Name: regular expression` per line, grouping the orgs of one vendor. Replaces the defaults.                                     |
+| `user`       | the repository owner     | Whose contributions to show.                                                                                                         |
+| `out`        | `kleos`                  | Folder for the cards.                                                                                                                |
+| `commit`     | `true`                   | Set to `false` to commit the files yourself in a later step.                                                                         |

@@ -2,7 +2,7 @@
   "name": "kleos",
   "version": "0.0.0",
   "private": true,
-  "description": "SVG cards for a GitHub profile README that show where your open-source contributions go: PRs, issues and discussions by repository, owner and family.",
+  "description": "SVG cards for a GitHub profile README that show where your open-source contributions go: PRs, issues and discussions by repo, owner and ecosystem.",
   "license": "MIT",
   "type": "module",
   "scripts": {
