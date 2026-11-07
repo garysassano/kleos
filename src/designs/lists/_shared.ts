@@ -306,7 +306,6 @@ text{font-family:${SANS};font-variant-numeric:tabular-nums}
 .growl{transform-box:fill-box;transform-origin:right center;animation:grow .7s cubic-bezier(.2,.7,.2,1) both}
 @keyframes fade{from{opacity:0}to{opacity:1}}
 @keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-@media (prefers-reduced-motion:reduce){.row,.grow,.growl{animation:none}}
 </style>
 <defs><clipPath id="cc" clipPathUnits="objectBoundingBox"><circle cx=".5" cy=".5" r=".5"/></clipPath><clipPath id="cr" clipPathUnits="objectBoundingBox"><rect width="1" height="1" rx=".22"/></clipPath></defs>
 <rect x=".5" y=".5" width="${W - 1}" height="${H - 1}" rx="6" fill="${T.card}" stroke="${T.border}"/>

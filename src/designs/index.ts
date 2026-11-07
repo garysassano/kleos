@@ -1,3 +1,4 @@
+import { withReducedMotion } from "../kit/svg.ts";
 import type { Stats } from "../stats/types.ts";
 import { category as charts } from "./charts/index.ts";
 import { category as collectibles } from "./collectibles/index.ts";
@@ -91,17 +92,19 @@ export interface CatalogDesign extends Omit<Design, "render"> {
   render(stats: Stats, theme: ThemeName, options?: CardOptions): string;
 }
 
-/** Every design, with an unset level filled in before it reaches the design. */
+/** Every design, with unset options filled in, and the reduced-motion rule added to animated cards. */
 export const allDesigns = (): CatalogDesign[] =>
   categories.flatMap((category) =>
     category.designs.map((d) => ({
       ...d,
       category,
       render: (stats: Stats, theme: ThemeName, options: CardOptions = {}) =>
-        d.render(stats, theme, {
-          outcomes: options.outcomes ?? DEFAULT_LEVEL,
-          settings: settingsOf(d, options.settings),
-        }),
+        withReducedMotion(
+          d.render(stats, theme, {
+            outcomes: options.outcomes ?? DEFAULT_LEVEL,
+            settings: settingsOf(d, options.settings),
+          }),
+        ),
     })),
   );
 

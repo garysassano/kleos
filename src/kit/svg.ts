@@ -139,3 +139,17 @@ export function document(opts: {
   const { width, height, title, body, style } = opts;
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="${esc(title)}"><title>${esc(title)}</title>${style ? `<style>${style}</style>` : ""}${body}</svg>`;
 }
+
+/**
+ * For viewers whose system asks for reduced motion (the CSS `prefers-reduced-motion` media
+ * feature): every animation finishes at once. Each animation holds its last frame (`both`), so
+ * the card appears directly in its final state, never half-drawn.
+ */
+export const REDUCED_MOTION_CSS =
+  "@media (prefers-reduced-motion:reduce){*{animation-duration:0s!important;animation-delay:0s!important;animation-iteration-count:1!important}}";
+
+/** Adds `REDUCED_MOTION_CSS` to an animated SVG's first <style>; static SVGs are returned unchanged. */
+export const withReducedMotion = (svg: string): string =>
+  /animation\s*:/.test(svg) && !svg.includes(REDUCED_MOTION_CSS)
+    ? svg.replace("</style>", `${REDUCED_MOTION_CSS}</style>`)
+    : svg;

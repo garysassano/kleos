@@ -9,7 +9,7 @@ import {
   settingsText,
 } from "../src/designs/index.ts";
 import { type Level, THEME_NAMES } from "../src/designs/types.ts";
-import { MAX_WIDTH } from "../src/kit/svg.ts";
+import { MAX_WIDTH, REDUCED_MOTION_CSS } from "../src/kit/svg.ts";
 import { DEFAULT_FIXTURE, loadFixture } from "../src/stats/fixture.ts";
 
 /** A real snapshot and a small synthetic account (6 repos, no avatars, no discussions), so designs never depend on one user's data. */
@@ -144,6 +144,8 @@ describe("every design", () => {
     expect(Buffer.byteLength(svg)).toBeLessThan(400 * 1024);
 
     expect(design.render(stats, theme, { outcomes, settings }), "deterministic").toBe(svg);
+    if (/animation\s*:/.test(svg))
+      expect(svg, "animated cards honour prefers-reduced-motion").toContain(REDUCED_MOTION_CSS);
     if (outcomes === "full" && !Object.keys(settings).length)
       expect(design.render(stats, theme), "unset = full").toBe(svg);
 

@@ -118,7 +118,7 @@
         "settings": "repos=3",
         "width": 840,
         "height": 1504,
-        "kb": 115,
+        "kb": 116,
         "dark": "lists/A05-ecosystem-rollup-repos-3-dark.svg",
         "light": "lists/A05-ecosystem-rollup-repos-3-light.svg"
       }
@@ -499,7 +499,7 @@
     "settings": [],
     "width": 840,
     "height": 118,
-    "kb": 19,
+    "kb": 20,
     "dark": "compact/E01-stat-tiles-dark.svg",
     "light": "compact/E01-stat-tiles-light.svg",
     "examples": []
