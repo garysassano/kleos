@@ -11,4 +11,4 @@ Each record says what was decided, why, and what was rejected. A record is never
 | [0005](0005-svg-rules-for-github-readmes.md) | What a card may contain so it renders inside a GitHub README              | 2026-11-07 |
 | [0006](0006-what-counts.md)                  | What counts as a contribution, and what is grouped together               | 2026-11-07 |
 | [0007](0007-design-catalog.md)               | Designs are a catalog of stable ids rendered from committed fixtures      | 2026-11-07 |
-| [0008](0008-name.md)                         | The name: tributary                                                       | 2026-11-07 |
+| [0008](0008-name.md)                         | The name: kleos                                                           | 2026-11-07 |

@@ -10,10 +10,10 @@ The goal is a better card on the `garysassano/garysassano` profile README, and m
 
 Two repositories with clearly different jobs:
 
-- **`tributary`** (this repository) holds everything reusable: the GitHub fetcher, the aggregation into `Stats`, every card design, the generated catalog, the decision records and, later, the GitHub Action.
+- **`kleos`** (this repository) holds everything reusable: the GitHub fetcher, the aggregation into `Stats`, every card design, the generated catalog, the decision records and, later, the GitHub Action.
 - **The profile repository** holds only a workflow that runs the action on a schedule, a small config file (which designs, families and limits), the generated SVGs, and the README that shows them.
 
-The design catalog stays inside `tributary` and does not get its own repository.
+The design catalog stays inside `kleos` and does not get its own repository.
 
 ## Why
 

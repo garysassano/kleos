@@ -28,7 +28,7 @@ function viaFetch(token: string): GraphQL {
       headers: {
         authorization: `bearer ${token}`,
         "content-type": "application/json",
-        "user-agent": "tributary",
+        "user-agent": "kleos",
       },
       body: JSON.stringify({ query, variables }),
     });

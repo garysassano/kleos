@@ -1,4 +1,6 @@
-# tributary
+# kleos
+
+_κλέος (KLEH-os)_ is the Greek word for the glory a person wins through their deeds: literally "what is heard" about them, carried by other people's voices. These cards show what other people's projects would say about you.
 
 SVG cards for a GitHub profile README that show where your open-source work goes: the PRs, issues and discussions you opened in other people's repositories, summed per repository, per owner, and per vendor family (for example AWS across aws, aws-samples, aws-cloudformation and more).
 
@@ -21,7 +23,7 @@ What's next: a config file for choosing designs and filters, and a GitHub Action
 
 ```mermaid
 flowchart LR
-  A[Scheduled workflow<br/>in your profile repo] --> B[tributary fetch<br/>GitHub GraphQL]
+  A[Scheduled workflow<br/>in your profile repo] --> B[kleos fetch<br/>GitHub GraphQL]
   B --> C[Stats JSON]
   C --> D[render chosen designs<br/>dark + light SVG]
   D --> E[commit SVGs]
@@ -50,7 +52,7 @@ Why TypeScript, why no server, why GraphQL connections, what counts as a contrib
 
 ## Prior art
 
-[github-readme-stats](https://github.com/anuraghazra/github-readme-stats) and [github-contribution-card](https://github.com/FrancoStino/github-contribution-card), both served live from Vercel. tributary differs in counting PRs, issues and discussions rather than commits, in grouping organizations into families, and in rendering ahead of time instead of on request.
+[github-readme-stats](https://github.com/anuraghazra/github-readme-stats) and [github-contribution-card](https://github.com/FrancoStino/github-contribution-card), both served live from Vercel. kleos differs in counting PRs, issues and discussions rather than commits, in grouping organizations into families, and in rendering ahead of time instead of on request.
 
 ## License
 
