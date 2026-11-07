@@ -36,19 +36,17 @@ kleos does the same for open source. It turns the work you did in other people's
   </tr>
 </table>
 
-**[Browse all 48 designs →](gallery/README.md)** The examples show the author's own contributions.
+**[Browse all 48 designs →](gallery/README.md)**
 
 ## How it works
 
-```mermaid
-flowchart LR
-  A[Scheduled workflow<br/>in your profile repo] --> B[kleos reads your activity<br/>GitHub GraphQL API]
-  B --> C[Renders your chosen designs<br/>dark + light SVG]
-  C --> D[Commits the images]
-  D --> E[Your README shows the one<br/>matching the visitor's theme]
-```
+A scheduled GitHub Action in your profile repository does the work, so there's no server to host and no shared rate limit to run into. On each run it:
 
-kleos runs as a scheduled GitHub Action in your profile repository. There's no server to host and no shared rate limit to run into, and the cards update on whatever schedule you choose.
+1. reads your contributions through GitHub's GraphQL API,
+2. renders the designs you chose, each in a dark and a light version,
+3. commits the SVG files; your README shows the one that matches the visitor's theme.
+
+The cards update on whatever schedule you set.
 
 **What counts:** a contribution is a pull request, issue or discussion you opened in a public repo you don't own. Cards sum them per **repo**, per **owner** (the org or person the repo belongs to) and per **ecosystem** (several orgs counted as one, such as AWS across `aws`, `awslabs` and `aws-samples`). Your own repos and private work are left out.
 
@@ -142,7 +140,7 @@ A rule with the same name as a default replaces it. Set `default-ecosystems: fal
 
 ## Preview locally
 
-The `kleos` command renders the same cards on your machine, so you can try designs and settings before changing your workflow. It needs Node.js 22 or later, and nothing to install:
+The `kleos` command renders the same cards on your machine, so you can try designs and settings before changing your workflow. It also works in other CI systems, where you commit the output folder yourself. It needs Node.js 22 or later, and nothing to install:
 
 ```sh
 npx kleos <your-login> -d D01 -d "A05 repos=3"
@@ -170,7 +168,3 @@ Every Action input has a matching flag, and they combine freely:
 | `--list-designs`          |                             | List every design and its settings.                               |
 
 It reads your data with `GITHUB_TOKEN` (or `GH_TOKEN`) when set, and otherwise with the account the [GitHub CLI](https://cli.github.com) is signed in to. No token scopes are needed.
-
-### Outside GitHub Actions
-
-The same command works in any scheduler or CI system: run it with a `GITHUB_TOKEN`, then commit the `kleos/` folder to your profile repository yourself.
