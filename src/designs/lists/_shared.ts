@@ -379,3 +379,201 @@ export const topOf = (shown: number, total: number): string =>
   shown >= total ? `all ${total}` : `top ${shown} of ${total}`;
 
 export const capitalize = (s: string): string => s.charAt(0).toUpperCase() + s.slice(1);
+
+/** What sits under each ecosystem line in the roll-ups: A05 owners, A07 repos, A08 owners and their repos. */
+export type RollupRows = "owners" | "repos" | "tree";
+
+/** Repos listed under one ecosystem (A07) or one owner (A08); the line above gives the full count. */
+export const ROLLUP_REPOS = 3;
+
+const ROLLUP_TEXT: Record<RollupRows, { sub: string; column: string }> = {
+  owners: { sub: "Related GitHub owners grouped into one line", column: "Ecosystem / owner" },
+  repos: { sub: "Each ecosystem with its top repos", column: "Ecosystem / repo" },
+  tree: {
+    sub: "Each ecosystem with its owners and their top repos",
+    column: "Ecosystem / owner / repo",
+  },
+};
+
+/** The shared body of A05, A07 and A08: one line per ecosystem, with owners, repos or both below. */
+export function ecosystemRollup(
+  stats: Stats,
+  theme: ThemeName,
+  level: Level | undefined,
+  rows: RollupRows,
+  title: string,
+): string {
+  const T = themeOf(theme);
+  const d = dataOf(stats);
+  const W = 840;
+  const frh = 38;
+  const crh = 26;
+  const grh = 22;
+  const fams = [...stats.ecosystems].sort(
+    (a, b) => b.total - a.total || a.name.localeCompare(b.name),
+  );
+  const max = fams[0]?.total ?? 0;
+  const bx = 360;
+  const bw = 230;
+  const cPR = 680;
+  const cIss = 740;
+  const cTot = 812;
+  const reposOf = (owners: string[]) =>
+    stats.repos.filter((r) => owners.includes(r.owner)).slice(0, ROLLUP_REPOS);
+  const prCell = (o: Counts, x: number, y: number, size: number, muted: boolean) =>
+    level === "none"
+      ? num(T, x, y, o.prs, muted ? { size, fill: "muted" } : { size })
+      : o.prs
+        ? t(T, x, y, `${o.prsMerged}/${o.prs}`, {
+            size,
+            ...(muted ? { fill: "muted" as const } : {}),
+            anchor: "end",
+            mono: true,
+          })
+        : num(T, x, y, 0, muted ? { size } : {});
+  let b = header(
+    T,
+    "Contributions by ecosystem",
+    `${ROLLUP_TEXT[rows].sub} · ${plural(fams.length, "ecosystem", "ecosystems")}`,
+  );
+  let y = 100;
+  b +=
+    t(T, 24, y - 12, ROLLUP_TEXT[rows].column, { size: 11, fill: "muted" }) +
+    t(T, bx, y - 12, "Mix (to scale)", { size: 11, fill: "muted" });
+  b +=
+    t(T, cPR, y - 12, level === "none" ? "PRs" : "PRs merged", {
+      size: 11,
+      fill: "muted",
+      anchor: "end",
+    }) +
+    t(T, cIss, y - 12, "Issues", { size: 11, fill: "muted", anchor: "end" }) +
+    t(T, cTot, y - 12, "Total", { size: 11, fill: "muted", anchor: "end", weight: 600 });
+  b += rule(T, W, y - 1);
+  let i = 0;
+  const famOwners = new Set<string>();
+
+  /** A row one level under the ecosystem line: an owner (A05, A08) or a repo (A07, A08 with one owner). */
+  const child = (
+    o: Counts & { total: number },
+    login: string,
+    type: "Organization" | "User",
+    name: string,
+    note: string,
+    first: boolean,
+    last: boolean,
+    span: number,
+  ) => {
+    const ccy = y + crh / 2;
+    let c = `<path d="M36 ${y - (first ? 6 : 0)}V${last ? ccy : y + span}M36 ${ccy}H48" fill="none" stroke="${T.border}"/>`;
+    c += avatar(T, d.avatars, login, type, 54, ccy - 8, 16);
+    c += t(T, 78, ccy + 4.3, esc(truncate(name, 200, 12.5)), { size: 12.5, fill: "muted" });
+    c += t(T, bx - 14, ccy + 4.3, esc(note), { size: 11, fill: "faint", anchor: "end" });
+    c += `<g class="grow"${delay(i)}>${stack(T, bx, ccy - 3, 6, segsOf(T, o, level), max, bw, { gap: 1.5 })}</g>`;
+    c += prCell(o, cPR, ccy + 4.3, 12, true);
+    c +=
+      num(T, cIss, ccy + 4.3, o.issues, { size: 12, fill: "muted" }) +
+      num(T, cTot, ccy + 4.3, o.total, { size: 12.5, fill: "muted" });
+    b += `<g class="row"${delay(i)}>${c}</g>`;
+    y += crh;
+  };
+
+  /** A repo under an owner row in A08, with the owner's connector carried past it unless that owner is last. */
+  const grandchild = (r: RepoStats, first: boolean, last: boolean, ownerLast: boolean) => {
+    const gcy = y + grh / 2;
+    let c = ownerLast ? "" : `<path d="M36 ${y}V${y + grh}" fill="none" stroke="${T.border}"/>`;
+    c += `<path d="M62 ${y - (first ? 5 : 0)}V${last ? gcy : y + grh}M62 ${gcy}H72" fill="none" stroke="${T.border}"/>`;
+    c += t(T, 78, gcy + 4, esc(truncate(r.repo.split("/")[1] ?? r.repo, 190, 12)), {
+      size: 12,
+      fill: "muted",
+    });
+    c += t(T, bx - 14, gcy + 4, `${compact(r.stars)}★`, { size: 11, fill: "faint", anchor: "end" });
+    c += `<g class="grow"${delay(i)}>${stack(T, bx, gcy - 2.5, 5, segsOf(T, r, level), max, bw, { gap: 1.5 })}</g>`;
+    c += prCell(r, cPR, gcy + 4, 11.5, true);
+    c +=
+      num(T, cIss, gcy + 4, r.issues, { size: 11.5, fill: "muted" }) +
+      num(T, cTot, gcy + 4, r.total, { size: 12, fill: "muted" });
+    b += `<g class="row"${delay(i)}>${c}</g>`;
+    y += grh;
+  };
+
+  const repoChildren = (repos: RepoStats[]) =>
+    repos.forEach((r, j) => {
+      const owner = d.ownerBy.get(r.owner);
+      child(
+        r,
+        r.owner,
+        owner?.type ?? r.ownerType,
+        r.repo.split("/")[1] ?? r.repo,
+        `${compact(r.stars)}★`,
+        j === 0,
+        j === repos.length - 1,
+        crh,
+      );
+    });
+
+  for (const f of fams) {
+    const mem = f.owners
+      .map((o) => d.ownerBy.get(o))
+      .filter((o): o is OwnerStats => o !== undefined)
+      .sort((a, b) => b.total - a.total);
+    for (const m of mem) famOwners.add(m.owner);
+    const lead = mem[0];
+    const cy = y + frh / 2;
+    let g = "";
+    if (i) g += rule(T, W, y, "hair");
+    g += avatar(T, d.avatars, lead?.owner ?? f.name, lead?.type ?? "Organization", 24, cy - 12, 24);
+    g += t(T, 58, cy + 5, esc(f.name), { size: 14, weight: 600 });
+    const sub =
+      mem.length > 1 || !lead
+        ? `${mem.length} owners · ${plural(f.repos, "repo")}`
+        : `${lead.owner} · ${plural(f.repos, "repo")}`;
+    g += t(T, 58 + textW(f.name, 14) + 12, cy + 4.5, esc(sub), { size: 11.5, fill: "muted" });
+    g += `<g class="grow"${delay(i)}>${stack(T, bx, cy - 5, 10, segsOf(T, f, level), max, bw)}</g>`;
+    g += prCell(f, cPR, cy + 4.5, 12.5, false);
+    g +=
+      num(T, cIss, cy + 4.5, f.issues, { size: 12.5 }) +
+      num(T, cTot, cy + 4.5, f.total, { size: 14, weight: 700 });
+    b += `<g class="row"${delay(i)}>${g}</g>`;
+    y += frh;
+    i++;
+
+    if (rows === "repos" || (rows === "tree" && mem.length <= 1)) {
+      const repos = reposOf(f.owners);
+      if (f.repos > 1 && repos.length) {
+        repoChildren(repos);
+        y += 6;
+      }
+    } else if (mem.length > 1) {
+      mem.forEach((m, j) => {
+        const last = j === mem.length - 1;
+        const repos = rows === "tree" && m.repos > 1 ? reposOf([m.owner]) : [];
+        const single = rows === "tree" && m.repos === 1 ? reposOf([m.owner])[0] : undefined;
+        const note = single ? (single.repo.split("/")[1] ?? single.repo) : plural(m.repos, "repo");
+        child(m, m.owner, m.type, m.owner, truncate(note, 110, 11), j === 0, last, crh);
+        repos.forEach((r, k) => {
+          grandchild(r, k === 0, k === repos.length - 1, last);
+        });
+      });
+      y += 6;
+    }
+  }
+  b += rule(T, W, y);
+  const famTotal = fams.reduce((s, f) => s + f.total, 0);
+  const solo = d.owners.filter((o) => !famOwners.has(o.owner));
+  const top3 = solo
+    .slice(0, 3)
+    .map((o) => `${o.owner} ${o.total}`)
+    .join(", ");
+  const rest = solo.length
+    ? `The other ${solo.length} owners are independent; biggest: ${top3}.`
+    : "Every owner belongs to an ecosystem.";
+  b += legend(T, 24, y + 26, STD_LEGEND(T, level));
+  b += t(
+    T,
+    24,
+    y + 48,
+    esc(`Ecosystems hold ${famTotal} of ${d.ext.total} upstream contributions. ${rest}`),
+    { size: 11.5, fill: "muted" },
+  );
+  return frame(T, W, y + 66, b, title);
+}

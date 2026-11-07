@@ -51,7 +51,7 @@
     "id": "A05",
     "slug": "ecosystem-rollup",
     "title": "Ecosystem roll-up",
-    "idea": "Groups related GitHub owners into ecosystems (AWS: aws, aws-samples, …) with the ecosystem total on top and member owners indented below, so an ecosystem spread across many orgs shows up as one line.",
+    "idea": "Groups related GitHub owners into ecosystems (AWS: aws, aws-samples, …) with the ecosystem total on top and member owners indented below, so an ecosystem spread across many orgs shows up as one line. A07 lists repos instead of owners, A08 both.",
     "category": "lists",
     "width": 840,
     "height": 724,
@@ -70,6 +70,30 @@
     "kb": 87,
     "dark": "lists/A06-tier-vs-share-dark.svg",
     "light": "lists/A06-tier-vs-share-light.svg"
+  },
+  {
+    "id": "A07",
+    "slug": "ecosystem-rollup-repos",
+    "title": "Ecosystem roll-up by repo",
+    "idea": "A05 with repos instead of owners: each ecosystem's total on top and its top 3 repos by contributions indented below, each with its owner's avatar and its stars. An ecosystem with a single repo shows no rows below it.",
+    "category": "lists",
+    "width": 840,
+    "height": 898,
+    "kb": 81,
+    "dark": "lists/A07-ecosystem-rollup-repos-dark.svg",
+    "light": "lists/A07-ecosystem-rollup-repos-light.svg"
+  },
+  {
+    "id": "A08",
+    "slug": "ecosystem-tree",
+    "title": "Ecosystem tree",
+    "idea": "The full tree: each ecosystem, every owner in it, and each owner's top 3 repos by contributions. An owner with one repo names it on its own line instead; an ecosystem with one owner lists its top 3 repos directly.",
+    "category": "lists",
+    "width": 840,
+    "height": 1504,
+    "kb": 115,
+    "dark": "lists/A08-ecosystem-tree-dark.svg",
+    "light": "lists/A08-ecosystem-tree-light.svg"
   },
   {
     "id": "B01",

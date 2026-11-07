@@ -1,10 +1,10 @@
 # Design catalog
 
-48 card designs, each rendered in GitHub dark and light from the `garysassano` snapshot taken 2026-11-07. GitHub shows the variant that matches your theme.
+50 card designs, each rendered in GitHub dark and light from the `garysassano` snapshot taken 2026-11-07. GitHub shows the variant that matches your theme.
 
 Regenerate with `pnpm gallery`. Do not edit the files here by hand.
 
-- [A · Ranked lists](#a--ranked-lists) (6)
+- [A · Ranked lists](#a--ranked-lists) (8)
 - [B · Charts](#b--charts) (6)
 - [C · Typographic](#c--typographic) (6)
 - [D · Visual](#d--visual) (6)
@@ -43,7 +43,7 @@ A compact 15-row table with explicit columns (stars, PRs, merged, issues, discus
 
 ### A05 · Ecosystem roll-up
 
-Groups related GitHub owners into ecosystems (AWS: aws, aws-samples, …) with the ecosystem total on top and member owners indented below, so an ecosystem spread across many orgs shows up as one line.
+Groups related GitHub owners into ecosystems (AWS: aws, aws-samples, …) with the ecosystem total on top and member owners indented below, so an ecosystem spread across many orgs shows up as one line. A07 lists repos instead of owners, A08 both.
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="lists/A05-ecosystem-rollup-dark.svg"><img alt="Ecosystem roll-up" src="lists/A05-ecosystem-rollup-light.svg" width="840"></picture>
 
@@ -52,6 +52,18 @@ Groups related GitHub owners into ecosystems (AWS: aws, aws-samples, …) with t
 Star-tier letters (S+ to C) that say what they mean: the left side is the repo’s popularity (stars, log scale, tier letter), the right side is what I contributed there. Big repos with small bars and small repos with big bars become obvious. When the top repo has more than twice the runner-up's total, its bar is shortened and marked “not to scale”.
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="lists/A06-tier-vs-share-dark.svg"><img alt="Star tier vs my share" src="lists/A06-tier-vs-share-light.svg" width="840"></picture>
+
+### A07 · Ecosystem roll-up by repo
+
+A05 with repos instead of owners: each ecosystem's total on top and its top 3 repos by contributions indented below, each with its owner's avatar and its stars. An ecosystem with a single repo shows no rows below it.
+
+<picture><source media="(prefers-color-scheme: dark)" srcset="lists/A07-ecosystem-rollup-repos-dark.svg"><img alt="Ecosystem roll-up by repo" src="lists/A07-ecosystem-rollup-repos-light.svg" width="840"></picture>
+
+### A08 · Ecosystem tree
+
+The full tree: each ecosystem, every owner in it, and each owner's top 3 repos by contributions. An owner with one repo names it on its own line instead; an ecosystem with one owner lists its top 3 repos directly.
+
+<picture><source media="(prefers-color-scheme: dark)" srcset="lists/A08-ecosystem-tree-dark.svg"><img alt="Ecosystem tree" src="lists/A08-ecosystem-tree-light.svg" width="840"></picture>
 
 ## B · Charts
 
