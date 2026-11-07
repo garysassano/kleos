@@ -15,7 +15,9 @@ const { values, positionals } = parseArgs({
   allowPositionals: true,
   options: { only: { type: "string" } },
 });
-const fixture = positionals[0] ?? "garysassano";
+/** The catalog shows the author's real data while designs are being worked on; switch to "demo" before launch. */
+const DEFAULT_FIXTURE = "garysassano";
+const fixture = positionals[0] ?? DEFAULT_FIXTURE;
 const only = values.only ? new Set(values.only.split(",")) : null;
 const stats = loadFixture(fixture);
 const root = new URL("../../gallery/", import.meta.url).pathname;
@@ -63,7 +65,7 @@ if (!only) {
   const lines = [
     "# Design catalog",
     "",
-    `${total} card designs, each rendered in GitHub dark and light from the \`${fixture}\` snapshot taken ${asOf}. GitHub shows the variant that matches your theme.`,
+    `${total} card designs, each rendered in GitHub dark and light ${fixture === "demo" ? "from a fictional demo account" : `from the \`${fixture}\` snapshot taken ${asOf}`}. GitHub shows the variant that matches your theme.`,
     "",
     "Regenerate with `pnpm gallery`. Do not edit the files here by hand.",
     "",

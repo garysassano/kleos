@@ -27,6 +27,12 @@ The first round produced 30 prototype designs across five directions. The owner 
 - **No user-specific literals in designs.** Where a design must choose something, such as which repository to spotlight or whether to break an axis, it picks by a rule stated in its `idea`. That rule can later become a config option.
 - **The catalog is generated.** `pnpm gallery` writes `gallery/<category>/<ID>-<slug>-{dark,light}.svg`, `gallery/README.md` (every design with `<picture>`, so GitHub shows the matching theme) and `gallery/gallery.json`. The files are committed, so the catalog can be browsed on GitHub. They are never edited by hand.
 
+## Update, 2026-11-07
+
+The README and the catalog render from `fixtures/demo.json`, a fictional account with made-up users, organizations, repositories and generated avatars, built by `scripts/demo-fixture.ts`. Public examples shouldn't show the owner's own activity, and a fictional account can show every feature (two families, a long tail, discussions). The real snapshot stays as a test fixture.
+
+Later the same day the owner chose to keep the real snapshot in the README and catalog while the designs are still being worked on, because judging a design is easier with familiar numbers. `DEFAULT_FIXTURE` in `src/cli/gallery.ts` switches to `demo` before launch.
+
 ## Why
 
 - Stable ids let the owner say "A03 and D06" and mean the same thing a year from now.

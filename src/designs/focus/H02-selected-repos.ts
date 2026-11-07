@@ -34,7 +34,7 @@ export const design: Design = {
   id: "H02",
   slug: "selected-repos",
   title: "Selected repositories",
-  idea: 'Headline tiles such as "79 contributions to aws-cdk" for a short list of notable repositories, each with its PR, issue and discussion counts and a monthly activity strip. Rule: the top 5 repositories with at least 1,000 stars by contributions; if fewer than 3 qualify, the biggest remaining repositories fill up to 3.',
+  idea: "A headline tile per notable repository, led by its total contribution count, each with its PR, issue and discussion counts and a monthly activity strip. Rule: the top 5 repositories with at least 1,000 stars by contributions; if fewer than 3 qualify, the biggest remaining repositories fill up to 3.",
   render(stats, theme) {
     const p = PALETTES[theme];
     const { picked, filled } = select(stats.repos);

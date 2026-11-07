@@ -1,0 +1,3929 @@
+{
+ "user": "kleos-demo",
+ "generatedAt": "2026-11-01T09:00:00Z",
+ "totals": {
+  "prs": 341,
+  "prsMerged": 279,
+  "issues": 231,
+  "discussions": 38,
+  "externalRepos": 47,
+  "externalOwners": 38,
+  "externalPRs": 321,
+  "externalMerged": 259,
+  "firstExternalPR": "2022-04-02T10:10:00Z"
+ },
+ "ownRepoActivity": 25,
+ "repos": [
+  {
+   "repo": "nimbus/nimbus-sdk",
+   "owner": "nimbus",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 18400,
+   "private": false,
+   "language": "TypeScript",
+   "langColor": "#3178c6",
+   "prs": 64,
+   "prsMerged": 55,
+   "prsOpen": 0,
+   "issues": 41,
+   "discussions": 6,
+   "commits": 111,
+   "reviews": 0,
+   "additions": 6255,
+   "deletions": 1705,
+   "first": "2023-03-01T11:11:00Z",
+   "last": "2026-10-23T15:58:00Z",
+   "monthly": {
+    "2026-03": 3,
+    "2026-10": 3,
+    "2025-04": 3,
+    "2024-04": 3,
+    "2024-12": 2,
+    "2025-03": 4,
+    "2023-06": 1,
+    "2024-10": 9,
+    "2023-05": 3,
+    "2025-01": 1,
+    "2026-08": 1,
+    "2025-05": 3,
+    "2025-07": 3,
+    "2026-07": 2,
+    "2025-10": 2,
+    "2023-12": 3,
+    "2025-02": 4,
+    "2024-05": 2,
+    "2024-11": 1,
+    "2023-04": 3,
+    "2025-11": 3,
+    "2024-08": 2,
+    "2026-04": 4,
+    "2023-07": 4,
+    "2025-12": 5,
+    "2026-05": 5,
+    "2023-11": 4,
+    "2023-08": 3,
+    "2026-01": 6,
+    "2025-08": 2,
+    "2025-06": 2,
+    "2023-10": 2,
+    "2023-09": 1,
+    "2026-09": 2,
+    "2026-02": 2,
+    "2023-03": 2,
+    "2024-01": 1,
+    "2024-02": 2,
+    "2026-06": 1,
+    "2024-06": 1,
+    "2024-03": 1
+   },
+   "total": 111
+  },
+  {
+   "repo": "tidepool/tidepool",
+   "owner": "tidepool",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 7200,
+   "private": false,
+   "language": "Rust",
+   "langColor": "#dea584",
+   "prs": 38,
+   "prsMerged": 32,
+   "prsOpen": 0,
+   "issues": 22,
+   "discussions": 9,
+   "commits": 63,
+   "reviews": 0,
+   "additions": 3374,
+   "deletions": 1016,
+   "first": "2022-11-17T13:21:00Z",
+   "last": "2026-08-16T11:54:00Z",
+   "monthly": {
+    "2026-03": 3,
+    "2022-12": 4,
+    "2024-09": 1,
+    "2024-05": 4,
+    "2025-02": 3,
+    "2024-03": 2,
+    "2023-03": 2,
+    "2025-07": 3,
+    "2023-11": 5,
+    "2022-11": 1,
+    "2025-09": 1,
+    "2023-12": 3,
+    "2023-09": 1,
+    "2025-10": 1,
+    "2026-05": 3,
+    "2024-08": 2,
+    "2025-08": 2,
+    "2026-08": 4,
+    "2026-07": 2,
+    "2024-10": 3,
+    "2024-12": 1,
+    "2025-04": 1,
+    "2023-01": 1,
+    "2024-06": 2,
+    "2023-05": 1,
+    "2024-02": 1,
+    "2026-01": 1,
+    "2026-04": 1,
+    "2024-07": 1,
+    "2024-01": 1,
+    "2025-12": 3,
+    "2025-03": 1,
+    "2025-05": 1,
+    "2026-06": 1,
+    "2023-07": 1,
+    "2025-11": 1
+   },
+   "total": 69
+  },
+  {
+   "repo": "kestrel-rs/kestrel",
+   "owner": "kestrel-rs",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 12100,
+   "private": false,
+   "language": "Rust",
+   "langColor": "#dea584",
+   "prs": 19,
+   "prsMerged": 13,
+   "prsOpen": 0,
+   "issues": 25,
+   "discussions": 4,
+   "commits": 28,
+   "reviews": 0,
+   "additions": 2250,
+   "deletions": 508,
+   "first": "2024-03-01T19:27:00Z",
+   "last": "2026-10-09T08:54:00Z",
+   "monthly": {
+    "2025-01": 2,
+    "2026-06": 3,
+    "2025-05": 3,
+    "2024-05": 2,
+    "2025-10": 2,
+    "2026-04": 1,
+    "2025-12": 1,
+    "2024-10": 2,
+    "2026-05": 4,
+    "2026-03": 1,
+    "2025-11": 1,
+    "2025-07": 2,
+    "2025-02": 2,
+    "2025-08": 2,
+    "2024-04": 1,
+    "2024-08": 2,
+    "2025-09": 2,
+    "2024-03": 3,
+    "2026-09": 2,
+    "2024-11": 3,
+    "2024-06": 1,
+    "2026-10": 2,
+    "2026-01": 1,
+    "2026-08": 1,
+    "2025-04": 1,
+    "2026-07": 1
+   },
+   "total": 48
+  },
+  {
+   "repo": "nimbus/nimbus-cli",
+   "owner": "nimbus",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 2900,
+   "private": false,
+   "language": "Go",
+   "langColor": "#00ADD8",
+   "prs": 22,
+   "prsMerged": 18,
+   "prsOpen": 2,
+   "issues": 17,
+   "discussions": 2,
+   "commits": 39,
+   "reviews": 0,
+   "additions": 1483,
+   "deletions": 624,
+   "first": "2023-09-08T18:29:00Z",
+   "last": "2026-09-13T10:58:00Z",
+   "monthly": {
+    "2025-08": 1,
+    "2024-12": 1,
+    "2023-09": 1,
+    "2026-03": 2,
+    "2024-06": 1,
+    "2026-06": 1,
+    "2024-01": 2,
+    "2024-10": 3,
+    "2026-01": 1,
+    "2026-08": 3,
+    "2023-11": 2,
+    "2026-02": 1,
+    "2024-09": 4,
+    "2025-02": 2,
+    "2024-07": 3,
+    "2026-09": 3,
+    "2023-10": 1,
+    "2025-05": 1,
+    "2025-04": 1,
+    "2026-04": 1,
+    "2023-12": 2,
+    "2025-06": 1,
+    "2024-04": 1,
+    "2024-02": 1,
+    "2026-07": 1
+   },
+   "total": 41
+  },
+  {
+   "repo": "orchard-js/orchard",
+   "owner": "orchard-js",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 5300,
+   "private": false,
+   "language": "TypeScript",
+   "langColor": "#3178c6",
+   "prs": 26,
+   "prsMerged": 23,
+   "prsOpen": 0,
+   "issues": 12,
+   "discussions": 3,
+   "commits": 42,
+   "reviews": 0,
+   "additions": 2928,
+   "deletions": 673,
+   "first": "2022-04-07T19:35:00Z",
+   "last": "2024-12-14T12:33:00Z",
+   "monthly": {
+    "2024-04": 3,
+    "2022-04": 2,
+    "2023-01": 2,
+    "2023-06": 1,
+    "2022-06": 4,
+    "2023-09": 3,
+    "2024-02": 1,
+    "2022-12": 1,
+    "2022-09": 1,
+    "2024-12": 1,
+    "2023-11": 1,
+    "2023-12": 2,
+    "2024-01": 1,
+    "2023-03": 1,
+    "2024-03": 2,
+    "2024-08": 1,
+    "2023-02": 2,
+    "2022-07": 1,
+    "2023-08": 1,
+    "2024-05": 3,
+    "2024-11": 1,
+    "2023-05": 1,
+    "2023-07": 1,
+    "2022-08": 1,
+    "2022-11": 1,
+    "2024-09": 1,
+    "2022-10": 1
+   },
+   "total": 41
+  },
+  {
+   "repo": "lattice-db/lattice",
+   "owner": "lattice-db",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 23800,
+   "private": false,
+   "language": "Go",
+   "langColor": "#00ADD8",
+   "prs": 4,
+   "prsMerged": 2,
+   "prsOpen": 0,
+   "issues": 19,
+   "discussions": 2,
+   "commits": 4,
+   "reviews": 0,
+   "additions": 188,
+   "deletions": 73,
+   "first": "2023-05-06T13:39:00Z",
+   "last": "2026-05-17T09:35:00Z",
+   "monthly": {
+    "2025-09": 2,
+    "2023-12": 2,
+    "2025-04": 2,
+    "2026-01": 1,
+    "2024-03": 1,
+    "2024-08": 1,
+    "2023-09": 1,
+    "2025-02": 1,
+    "2023-07": 2,
+    "2023-05": 1,
+    "2025-07": 2,
+    "2026-04": 1,
+    "2025-03": 1,
+    "2024-10": 1,
+    "2026-02": 2,
+    "2026-05": 1,
+    "2024-12": 1,
+    "2024-05": 1,
+    "2024-07": 1
+   },
+   "total": 25
+  },
+  {
+   "repo": "quill-docs/quill",
+   "owner": "quill-docs",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 3100,
+   "private": false,
+   "language": "TypeScript",
+   "langColor": "#3178c6",
+   "prs": 11,
+   "prsMerged": 9,
+   "prsOpen": 0,
+   "issues": 5,
+   "discussions": 7,
+   "commits": 18,
+   "reviews": 0,
+   "additions": 1064,
+   "deletions": 246,
+   "first": "2025-01-13T09:32:00Z",
+   "last": "2026-09-20T09:34:00Z",
+   "monthly": {
+    "2025-03": 3,
+    "2025-04": 3,
+    "2025-07": 1,
+    "2026-09": 1,
+    "2025-01": 1,
+    "2025-09": 1,
+    "2025-06": 1,
+    "2026-05": 1,
+    "2026-03": 3,
+    "2026-02": 2,
+    "2025-11": 1,
+    "2026-01": 2,
+    "2025-02": 2,
+    "2025-12": 1
+   },
+   "total": 23
+  },
+  {
+   "repo": "nimbus-labs/edge-router",
+   "owner": "nimbus-labs",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 1300,
+   "private": false,
+   "language": "Rust",
+   "langColor": "#dea584",
+   "prs": 14,
+   "prsMerged": 10,
+   "prsOpen": 0,
+   "issues": 6,
+   "discussions": 0,
+   "commits": 18,
+   "reviews": 0,
+   "additions": 1283,
+   "deletions": 322,
+   "first": "2024-12-08T16:44:00Z",
+   "last": "2026-06-20T08:38:00Z",
+   "monthly": {
+    "2025-06": 1,
+    "2026-06": 3,
+    "2025-08": 2,
+    "2024-12": 2,
+    "2026-03": 1,
+    "2025-01": 2,
+    "2025-02": 1,
+    "2025-11": 2,
+    "2026-02": 2,
+    "2025-12": 1,
+    "2025-10": 1,
+    "2025-05": 1,
+    "2025-07": 1
+   },
+   "total": 20
+  },
+  {
+   "repo": "tidepool/tidepool-docs",
+   "owner": "tidepool",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 380,
+   "private": false,
+   "language": "MDX",
+   "langColor": "#fcb32c",
+   "prs": 15,
+   "prsMerged": 14,
+   "prsOpen": 0,
+   "issues": 2,
+   "discussions": 0,
+   "commits": 23,
+   "reviews": 0,
+   "additions": 1757,
+   "deletions": 381,
+   "first": "2023-01-03T15:48:00Z",
+   "last": "2026-06-10T10:12:00Z",
+   "monthly": {
+    "2023-01": 2,
+    "2025-01": 2,
+    "2024-12": 3,
+    "2023-08": 1,
+    "2025-06": 1,
+    "2023-04": 1,
+    "2024-02": 1,
+    "2025-09": 1,
+    "2025-02": 1,
+    "2026-06": 1,
+    "2026-03": 1,
+    "2026-04": 1,
+    "2024-11": 1
+   },
+   "total": 17
+  },
+  {
+   "repo": "ember-ui/ember-ui",
+   "owner": "ember-ui",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 8700,
+   "private": false,
+   "language": "TypeScript",
+   "langColor": "#3178c6",
+   "prs": 7,
+   "prsMerged": 5,
+   "prsOpen": 0,
+   "issues": 9,
+   "discussions": 1,
+   "commits": 9,
+   "reviews": 0,
+   "additions": 726,
+   "deletions": 223,
+   "first": "2023-08-26T17:57:00Z",
+   "last": "2025-09-05T17:08:00Z",
+   "monthly": {
+    "2024-12": 1,
+    "2024-02": 1,
+    "2023-11": 3,
+    "2024-08": 1,
+    "2025-02": 1,
+    "2024-07": 1,
+    "2025-08": 1,
+    "2023-09": 1,
+    "2025-06": 1,
+    "2024-01": 1,
+    "2025-09": 1,
+    "2024-05": 1,
+    "2023-08": 1,
+    "2024-03": 1,
+    "2024-04": 1
+   },
+   "total": 17
+  },
+  {
+   "repo": "tidepool-dev/collector",
+   "owner": "tidepool-dev",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 960,
+   "private": false,
+   "language": "Go",
+   "langColor": "#00ADD8",
+   "prs": 8,
+   "prsMerged": 5,
+   "prsOpen": 0,
+   "issues": 7,
+   "discussions": 1,
+   "commits": 10,
+   "reviews": 0,
+   "additions": 1100,
+   "deletions": 211,
+   "first": "2024-09-13T13:59:00Z",
+   "last": "2026-07-25T10:47:00Z",
+   "monthly": {
+    "2026-02": 3,
+    "2026-01": 1,
+    "2025-02": 1,
+    "2026-07": 2,
+    "2026-05": 3,
+    "2025-05": 2,
+    "2024-10": 2,
+    "2024-09": 1,
+    "2026-04": 1
+   },
+   "total": 16
+  },
+  {
+   "repo": "ferrous-tools/ferrous-fmt",
+   "owner": "ferrous-tools",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 1500,
+   "private": false,
+   "language": "Rust",
+   "langColor": "#dea584",
+   "prs": 10,
+   "prsMerged": 9,
+   "prsOpen": 0,
+   "issues": 3,
+   "discussions": 0,
+   "commits": 17,
+   "reviews": 0,
+   "additions": 757,
+   "deletions": 392,
+   "first": "2025-05-04T09:47:00Z",
+   "last": "2026-09-21T15:13:00Z",
+   "monthly": {
+    "2025-11": 2,
+    "2026-09": 1,
+    "2026-01": 1,
+    "2025-08": 1,
+    "2026-05": 1,
+    "2025-12": 1,
+    "2025-09": 2,
+    "2025-07": 1,
+    "2026-02": 2,
+    "2025-05": 1
+   },
+   "total": 13
+  },
+  {
+   "repo": "nimbus-samples/serverless-patterns",
+   "owner": "nimbus-samples",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 640,
+   "private": false,
+   "language": "TypeScript",
+   "langColor": "#3178c6",
+   "prs": 9,
+   "prsMerged": 8,
+   "prsOpen": 0,
+   "issues": 3,
+   "discussions": 0,
+   "commits": 16,
+   "reviews": 0,
+   "additions": 1223,
+   "deletions": 295,
+   "first": "2024-01-19T15:51:00Z",
+   "last": "2025-11-26T14:38:00Z",
+   "monthly": {
+    "2025-04": 2,
+    "2024-01": 1,
+    "2025-05": 1,
+    "2025-06": 1,
+    "2025-02": 1,
+    "2024-12": 1,
+    "2025-03": 1,
+    "2025-01": 1,
+    "2025-11": 2,
+    "2024-03": 1
+   },
+   "total": 12
+  },
+  {
+   "repo": "cobalt-cli/cobalt",
+   "owner": "cobalt-cli",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 4400,
+   "private": false,
+   "language": "Go",
+   "langColor": "#00ADD8",
+   "prs": 3,
+   "prsMerged": 2,
+   "prsOpen": 0,
+   "issues": 8,
+   "discussions": 0,
+   "commits": 4,
+   "reviews": 0,
+   "additions": 413,
+   "deletions": 76,
+   "first": "2025-01-01T08:02:00Z",
+   "last": "2026-04-09T08:23:00Z",
+   "monthly": {
+    "2026-02": 2,
+    "2025-08": 4,
+    "2026-04": 1,
+    "2025-01": 1,
+    "2025-10": 2,
+    "2026-03": 1
+   },
+   "total": 11
+  },
+  {
+   "repo": "mira-kowal/sparkline-kit",
+   "owner": "mira-kowal",
+   "ownerType": "User",
+   "avatar": "",
+   "stars": 820,
+   "private": false,
+   "language": "TypeScript",
+   "langColor": "#3178c6",
+   "prs": 9,
+   "prsMerged": 8,
+   "prsOpen": 0,
+   "issues": 2,
+   "discussions": 0,
+   "commits": 18,
+   "reviews": 0,
+   "additions": 729,
+   "deletions": 273,
+   "first": "2024-04-02T17:13:00Z",
+   "last": "2025-06-19T10:38:00Z",
+   "monthly": {
+    "2024-11": 2,
+    "2024-10": 1,
+    "2024-08": 1,
+    "2024-07": 1,
+    "2024-12": 1,
+    "2024-04": 1,
+    "2025-05": 1,
+    "2025-06": 1,
+    "2024-05": 2
+   },
+   "total": 11
+  },
+  {
+   "repo": "driftwood-io/drift",
+   "owner": "driftwood-io",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 650,
+   "private": false,
+   "language": "Python",
+   "langColor": "#3572A5",
+   "prs": 2,
+   "prsMerged": 1,
+   "prsOpen": 0,
+   "issues": 6,
+   "discussions": 3,
+   "commits": 3,
+   "reviews": 0,
+   "additions": 273,
+   "deletions": 75,
+   "first": "2025-06-20T13:50:00Z",
+   "last": "2026-08-22T13:41:00Z",
+   "monthly": {
+    "2025-06": 1,
+    "2026-05": 1,
+    "2026-08": 1,
+    "2026-03": 2,
+    "2025-10": 1,
+    "2025-09": 1,
+    "2026-06": 1,
+    "2025-12": 1,
+    "2025-07": 1,
+    "2026-01": 1
+   },
+   "total": 11
+  },
+  {
+   "repo": "jonas-heller/dotenv-schema",
+   "owner": "jonas-heller",
+   "ownerType": "User",
+   "avatar": "",
+   "stars": 290,
+   "private": false,
+   "language": "TypeScript",
+   "langColor": "#3178c6",
+   "prs": 5,
+   "prsMerged": 4,
+   "prsOpen": 0,
+   "issues": 3,
+   "discussions": 0,
+   "commits": 8,
+   "reviews": 0,
+   "additions": 449,
+   "deletions": 91,
+   "first": "2025-03-07T17:53:00Z",
+   "last": "2026-01-18T11:28:00Z",
+   "monthly": {
+    "2026-01": 2,
+    "2025-10": 1,
+    "2025-03": 1,
+    "2025-11": 1,
+    "2025-07": 1,
+    "2025-05": 1,
+    "2025-06": 1
+   },
+   "total": 8
+  },
+  {
+   "repo": "beacon-hq/beacon",
+   "owner": "beacon-hq",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 14600,
+   "private": false,
+   "language": "Go",
+   "langColor": "#00ADD8",
+   "prs": 1,
+   "prsMerged": 1,
+   "prsOpen": 0,
+   "issues": 7,
+   "discussions": 0,
+   "commits": 2,
+   "reviews": 0,
+   "additions": 180,
+   "deletions": 17,
+   "first": "2024-04-21T19:36:00Z",
+   "last": "2026-01-21T08:45:00Z",
+   "monthly": {
+    "2025-06": 1,
+    "2025-11": 1,
+    "2024-04": 1,
+    "2024-07": 2,
+    "2024-11": 1,
+    "2024-06": 1,
+    "2026-01": 1
+   },
+   "total": 8
+  },
+  {
+   "repo": "nimbus-community/awesome-nimbus",
+   "owner": "nimbus-community",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 410,
+   "private": false,
+   "language": "MDX",
+   "langColor": "#fcb32c",
+   "prs": 6,
+   "prsMerged": 6,
+   "prsOpen": 0,
+   "issues": 1,
+   "discussions": 0,
+   "commits": 9,
+   "reviews": 0,
+   "additions": 779,
+   "deletions": 203,
+   "first": "2023-09-09T13:13:00Z",
+   "last": "2025-03-23T11:22:00Z",
+   "monthly": {
+    "2025-03": 1,
+    "2024-07": 2,
+    "2023-10": 1,
+    "2024-02": 2,
+    "2023-09": 1
+   },
+   "total": 7
+  },
+  {
+   "repo": "tess-ober/rusty-cache",
+   "owner": "tess-ober",
+   "ownerType": "User",
+   "avatar": "",
+   "stars": 1200,
+   "private": false,
+   "language": "Rust",
+   "langColor": "#dea584",
+   "prs": 4,
+   "prsMerged": 3,
+   "prsOpen": 0,
+   "issues": 1,
+   "discussions": 0,
+   "commits": 6,
+   "reviews": 0,
+   "additions": 604,
+   "deletions": 40,
+   "first": "2026-01-19T14:04:00Z",
+   "last": "2026-06-01T15:02:00Z",
+   "monthly": {
+    "2026-01": 2,
+    "2026-04": 1,
+    "2026-05": 1,
+    "2026-06": 1
+   },
+   "total": 5
+  },
+  {
+   "repo": "pixelforge/config",
+   "owner": "pixelforge",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 338,
+   "private": false,
+   "language": "TypeScript",
+   "langColor": "#3178c6",
+   "prs": 2,
+   "prsMerged": 1,
+   "prsOpen": 0,
+   "issues": 2,
+   "discussions": 0,
+   "commits": 1,
+   "reviews": 0,
+   "additions": 143,
+   "deletions": 102,
+   "first": "2022-09-04T19:50:00Z",
+   "last": "2022-09-26T18:01:00Z",
+   "monthly": {
+    "2022-09": 4
+   },
+   "total": 4
+  },
+  {
+   "repo": "gridline/ui-2",
+   "owner": "gridline",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 959,
+   "private": false,
+   "language": "Rust",
+   "langColor": "#dea584",
+   "prs": 4,
+   "prsMerged": 3,
+   "prsOpen": 0,
+   "issues": 0,
+   "discussions": 0,
+   "commits": 4,
+   "reviews": 0,
+   "additions": 628,
+   "deletions": 135,
+   "first": "2022-10-02T17:34:00Z",
+   "last": "2022-10-27T17:26:00Z",
+   "monthly": {
+    "2022-10": 4
+   },
+   "total": 4
+  },
+  {
+   "repo": "polaris-dev/server",
+   "owner": "polaris-dev",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 31,
+   "private": false,
+   "language": "TypeScript",
+   "langColor": "#3178c6",
+   "prs": 4,
+   "prsMerged": 3,
+   "prsOpen": 0,
+   "issues": 0,
+   "discussions": 0,
+   "commits": 6,
+   "reviews": 0,
+   "additions": 507,
+   "deletions": 141,
+   "first": "2023-01-05T08:40:00Z",
+   "last": "2023-01-15T10:04:00Z",
+   "monthly": {
+    "2023-01": 4
+   },
+   "total": 4
+  },
+  {
+   "repo": "rivet-rs/sdk",
+   "owner": "rivet-rs",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 520,
+   "private": false,
+   "language": "TypeScript",
+   "langColor": "#3178c6",
+   "prs": 2,
+   "prsMerged": 1,
+   "prsOpen": 0,
+   "issues": 2,
+   "discussions": 0,
+   "commits": 2,
+   "reviews": 0,
+   "additions": 528,
+   "deletions": 7,
+   "first": "2025-08-09T15:38:00Z",
+   "last": "2025-08-25T18:34:00Z",
+   "monthly": {
+    "2025-08": 4
+   },
+   "total": 4
+  },
+  {
+   "repo": "vesper-io/lint",
+   "owner": "vesper-io",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 41,
+   "private": false,
+   "language": "MDX",
+   "langColor": "#fcb32c",
+   "prs": 3,
+   "prsMerged": 2,
+   "prsOpen": 0,
+   "issues": 1,
+   "discussions": 0,
+   "commits": 6,
+   "reviews": 0,
+   "additions": 262,
+   "deletions": 90,
+   "first": "2023-02-03T18:17:00Z",
+   "last": "2023-02-17T17:28:00Z",
+   "monthly": {
+    "2023-02": 4
+   },
+   "total": 4
+  },
+  {
+   "repo": "vesper-io/sdk-2",
+   "owner": "vesper-io",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 64,
+   "private": false,
+   "language": "Python",
+   "langColor": "#3572A5",
+   "prs": 3,
+   "prsMerged": 2,
+   "prsOpen": 0,
+   "issues": 1,
+   "discussions": 0,
+   "commits": 6,
+   "reviews": 0,
+   "additions": 266,
+   "deletions": 145,
+   "first": "2022-04-02T10:10:00Z",
+   "last": "2022-04-27T17:44:00Z",
+   "monthly": {
+    "2022-04": 4
+   },
+   "total": 4
+  },
+  {
+   "repo": "elm-street-dev/ui",
+   "owner": "elm-street-dev",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 108,
+   "private": false,
+   "language": "Rust",
+   "langColor": "#dea584",
+   "prs": 4,
+   "prsMerged": 3,
+   "prsOpen": 0,
+   "issues": 0,
+   "discussions": 0,
+   "commits": 9,
+   "reviews": 0,
+   "additions": 590,
+   "deletions": 192,
+   "first": "2024-09-04T10:28:00Z",
+   "last": "2024-09-15T17:03:00Z",
+   "monthly": {
+    "2024-09": 4
+   },
+   "total": 4
+  },
+  {
+   "repo": "fjord-data/cli",
+   "owner": "fjord-data",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 803,
+   "private": false,
+   "language": "TypeScript",
+   "langColor": "#3178c6",
+   "prs": 1,
+   "prsMerged": 1,
+   "prsOpen": 0,
+   "issues": 3,
+   "discussions": 0,
+   "commits": 3,
+   "reviews": 0,
+   "additions": 5,
+   "deletions": 0,
+   "first": "2025-01-08T16:51:00Z",
+   "last": "2025-01-27T16:26:00Z",
+   "monthly": {
+    "2025-01": 4
+   },
+   "total": 4
+  },
+  {
+   "repo": "glasshouse/action-2",
+   "owner": "glasshouse",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 1127,
+   "private": false,
+   "language": "Rust",
+   "langColor": "#dea584",
+   "prs": 1,
+   "prsMerged": 1,
+   "prsOpen": 0,
+   "issues": 3,
+   "discussions": 0,
+   "commits": 1,
+   "reviews": 0,
+   "additions": 10,
+   "deletions": 26,
+   "first": "2023-08-03T10:47:00Z",
+   "last": "2023-08-18T17:11:00Z",
+   "monthly": {
+    "2023-08": 4
+   },
+   "total": 4
+  },
+  {
+   "repo": "duskmoon/plugin-2",
+   "owner": "duskmoon",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 364,
+   "private": false,
+   "language": "MDX",
+   "langColor": "#fcb32c",
+   "prs": 0,
+   "prsMerged": 0,
+   "prsOpen": 0,
+   "issues": 4,
+   "discussions": 0,
+   "commits": 0,
+   "reviews": 0,
+   "additions": 0,
+   "deletions": 0,
+   "first": "2026-07-07T11:54:00Z",
+   "last": "2026-07-15T17:54:00Z",
+   "monthly": {
+    "2026-07": 4
+   },
+   "total": 4
+  },
+  {
+   "repo": "harbor-ops/plugin",
+   "owner": "harbor-ops",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 391,
+   "private": false,
+   "language": "MDX",
+   "langColor": "#fcb32c",
+   "prs": 3,
+   "prsMerged": 2,
+   "prsOpen": 0,
+   "issues": 0,
+   "discussions": 0,
+   "commits": 3,
+   "reviews": 0,
+   "additions": 98,
+   "deletions": 114,
+   "first": "2025-05-03T08:09:00Z",
+   "last": "2025-05-17T10:10:00Z",
+   "monthly": {
+    "2025-05": 3
+   },
+   "total": 3
+  },
+  {
+   "repo": "sable-sh/lint",
+   "owner": "sable-sh",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 28,
+   "private": false,
+   "language": "Rust",
+   "langColor": "#dea584",
+   "prs": 2,
+   "prsMerged": 1,
+   "prsOpen": 0,
+   "issues": 1,
+   "discussions": 0,
+   "commits": 1,
+   "reviews": 0,
+   "additions": 171,
+   "deletions": 29,
+   "first": "2025-03-07T16:02:00Z",
+   "last": "2025-03-26T12:18:00Z",
+   "monthly": {
+    "2025-03": 3
+   },
+   "total": 3
+  },
+  {
+   "repo": "duskmoon/cli",
+   "owner": "duskmoon",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 169,
+   "private": false,
+   "language": "TypeScript",
+   "langColor": "#3178c6",
+   "prs": 3,
+   "prsMerged": 2,
+   "prsOpen": 0,
+   "issues": 0,
+   "discussions": 0,
+   "commits": 2,
+   "reviews": 0,
+   "additions": 299,
+   "deletions": 227,
+   "first": "2025-10-08T15:20:00Z",
+   "last": "2025-10-26T08:01:00Z",
+   "monthly": {
+    "2025-10": 3
+   },
+   "total": 3
+  },
+  {
+   "repo": "glasshouse/core",
+   "owner": "glasshouse",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 1158,
+   "private": false,
+   "language": "Go",
+   "langColor": "#00ADD8",
+   "prs": 3,
+   "prsMerged": 2,
+   "prsOpen": 0,
+   "issues": 0,
+   "discussions": 0,
+   "commits": 3,
+   "reviews": 0,
+   "additions": 101,
+   "deletions": 170,
+   "first": "2024-08-05T08:36:00Z",
+   "last": "2024-08-23T16:12:00Z",
+   "monthly": {
+    "2024-08": 3
+   },
+   "total": 3
+  },
+  {
+   "repo": "harbor-ops/server-2",
+   "owner": "harbor-ops",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 73,
+   "private": false,
+   "language": "Go",
+   "langColor": "#00ADD8",
+   "prs": 1,
+   "prsMerged": 1,
+   "prsOpen": 0,
+   "issues": 1,
+   "discussions": 0,
+   "commits": 1,
+   "reviews": 0,
+   "additions": 37,
+   "deletions": 43,
+   "first": "2026-09-01T12:32:00Z",
+   "last": "2026-09-22T10:15:00Z",
+   "monthly": {
+    "2026-09": 2
+   },
+   "total": 2
+  },
+  {
+   "repo": "polaris-dev/config-2",
+   "owner": "polaris-dev",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 1622,
+   "private": false,
+   "language": "Go",
+   "langColor": "#00ADD8",
+   "prs": 1,
+   "prsMerged": 1,
+   "prsOpen": 0,
+   "issues": 1,
+   "discussions": 0,
+   "commits": 1,
+   "reviews": 0,
+   "additions": 61,
+   "deletions": 8,
+   "first": "2025-05-02T14:36:00Z",
+   "last": "2025-05-14T16:24:00Z",
+   "monthly": {
+    "2025-05": 2
+   },
+   "total": 2
+  },
+  {
+   "repo": "wren-tools/plugin",
+   "owner": "wren-tools",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 268,
+   "private": false,
+   "language": "MDX",
+   "langColor": "#fcb32c",
+   "prs": 2,
+   "prsMerged": 1,
+   "prsOpen": 0,
+   "issues": 0,
+   "discussions": 0,
+   "commits": 1,
+   "reviews": 0,
+   "additions": 199,
+   "deletions": 19,
+   "first": "2026-01-08T16:14:00Z",
+   "last": "2026-01-11T19:09:00Z",
+   "monthly": {
+    "2026-01": 2
+   },
+   "total": 2
+  },
+  {
+   "repo": "atlas-maps-oss/core-2",
+   "owner": "atlas-maps-oss",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 292,
+   "private": false,
+   "language": "MDX",
+   "langColor": "#fcb32c",
+   "prs": 2,
+   "prsMerged": 1,
+   "prsOpen": 0,
+   "issues": 0,
+   "discussions": 0,
+   "commits": 2,
+   "reviews": 0,
+   "additions": 266,
+   "deletions": 14,
+   "first": "2022-04-05T12:27:00Z",
+   "last": "2022-04-13T13:42:00Z",
+   "monthly": {
+    "2022-04": 2
+   },
+   "total": 2
+  },
+  {
+   "repo": "oakhaven/docs",
+   "owner": "oakhaven",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 881,
+   "private": false,
+   "language": "Python",
+   "langColor": "#3572A5",
+   "prs": 0,
+   "prsMerged": 0,
+   "prsOpen": 0,
+   "issues": 2,
+   "discussions": 0,
+   "commits": 0,
+   "reviews": 0,
+   "additions": 0,
+   "deletions": 0,
+   "first": "2024-03-10T09:54:00Z",
+   "last": "2024-03-26T10:29:00Z",
+   "monthly": {
+    "2024-03": 2
+   },
+   "total": 2
+  },
+  {
+   "repo": "copperleaf/cli",
+   "owner": "copperleaf",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 289,
+   "private": false,
+   "language": "MDX",
+   "langColor": "#fcb32c",
+   "prs": 0,
+   "prsMerged": 0,
+   "prsOpen": 0,
+   "issues": 2,
+   "discussions": 0,
+   "commits": 0,
+   "reviews": 0,
+   "additions": 0,
+   "deletions": 0,
+   "first": "2024-06-16T08:27:00Z",
+   "last": "2024-06-23T17:36:00Z",
+   "monthly": {
+    "2024-06": 2
+   },
+   "total": 2
+  },
+  {
+   "repo": "meadow-labs/sdk",
+   "owner": "meadow-labs",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 439,
+   "private": false,
+   "language": "Rust",
+   "langColor": "#dea584",
+   "prs": 1,
+   "prsMerged": 1,
+   "prsOpen": 0,
+   "issues": 0,
+   "discussions": 0,
+   "commits": 1,
+   "reviews": 0,
+   "additions": 17,
+   "deletions": 4,
+   "first": "2022-04-20T19:09:00Z",
+   "last": "2022-04-20T19:09:00Z",
+   "monthly": {
+    "2022-04": 1
+   },
+   "total": 1
+  },
+  {
+   "repo": "zephyr-ci/sdk",
+   "owner": "zephyr-ci",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 39,
+   "private": false,
+   "language": "Go",
+   "langColor": "#00ADD8",
+   "prs": 1,
+   "prsMerged": 1,
+   "prsOpen": 0,
+   "issues": 0,
+   "discussions": 0,
+   "commits": 2,
+   "reviews": 0,
+   "additions": 63,
+   "deletions": 24,
+   "first": "2022-04-23T12:30:00Z",
+   "last": "2022-04-23T12:30:00Z",
+   "monthly": {
+    "2022-04": 1
+   },
+   "total": 1
+  },
+  {
+   "repo": "atlas-maps-oss/sdk",
+   "owner": "atlas-maps-oss",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 1084,
+   "private": false,
+   "language": "Go",
+   "langColor": "#00ADD8",
+   "prs": 1,
+   "prsMerged": 1,
+   "prsOpen": 0,
+   "issues": 0,
+   "discussions": 0,
+   "commits": 1,
+   "reviews": 0,
+   "additions": 82,
+   "deletions": 43,
+   "first": "2026-06-15T10:27:00Z",
+   "last": "2026-06-15T10:27:00Z",
+   "monthly": {
+    "2026-06": 1
+   },
+   "total": 1
+  },
+  {
+   "repo": "gridline/config",
+   "owner": "gridline",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 1733,
+   "private": false,
+   "language": "MDX",
+   "langColor": "#fcb32c",
+   "prs": 0,
+   "prsMerged": 0,
+   "prsOpen": 0,
+   "issues": 1,
+   "discussions": 0,
+   "commits": 0,
+   "reviews": 0,
+   "additions": 0,
+   "deletions": 0,
+   "first": "2025-08-26T15:35:00Z",
+   "last": "2025-08-26T15:35:00Z",
+   "monthly": {
+    "2025-08": 1
+   },
+   "total": 1
+  },
+  {
+   "repo": "sundial-js/server",
+   "owner": "sundial-js",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 2519,
+   "private": false,
+   "language": "Rust",
+   "langColor": "#dea584",
+   "prs": 0,
+   "prsMerged": 0,
+   "prsOpen": 0,
+   "issues": 1,
+   "discussions": 0,
+   "commits": 0,
+   "reviews": 0,
+   "additions": 0,
+   "deletions": 0,
+   "first": "2025-04-24T11:48:00Z",
+   "last": "2025-04-24T11:48:00Z",
+   "monthly": {
+    "2025-04": 1
+   },
+   "total": 1
+  },
+  {
+   "repo": "brightside/lint",
+   "owner": "brightside",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 1119,
+   "private": false,
+   "language": "TypeScript",
+   "langColor": "#3178c6",
+   "prs": 0,
+   "prsMerged": 0,
+   "prsOpen": 0,
+   "issues": 1,
+   "discussions": 0,
+   "commits": 0,
+   "reviews": 0,
+   "additions": 0,
+   "deletions": 0,
+   "first": "2026-04-13T10:18:00Z",
+   "last": "2026-04-13T10:18:00Z",
+   "monthly": {
+    "2026-04": 1
+   },
+   "total": 1
+  },
+  {
+   "repo": "hollow-pine/ui",
+   "owner": "hollow-pine",
+   "ownerType": "Organization",
+   "avatar": "",
+   "stars": 68,
+   "private": false,
+   "language": "Python",
+   "langColor": "#3572A5",
+   "prs": 0,
+   "prsMerged": 0,
+   "prsOpen": 0,
+   "issues": 1,
+   "discussions": 0,
+   "commits": 0,
+   "reviews": 0,
+   "additions": 0,
+   "deletions": 0,
+   "first": "2026-02-05T16:27:00Z",
+   "last": "2026-02-05T16:27:00Z",
+   "monthly": {
+    "2026-02": 1
+   },
+   "total": 1
+  }
+ ],
+ "owners": [
+  {
+   "owner": "nimbus",
+   "type": "Organization",
+   "avatar": "",
+   "prs": 86,
+   "prsMerged": 73,
+   "issues": 58,
+   "discussions": 8,
+   "commits": 150,
+   "total": 152,
+   "repos": 2,
+   "stars": 21300,
+   "topRepos": [
+    "nimbus/nimbus-sdk",
+    "nimbus/nimbus-cli"
+   ]
+  },
+  {
+   "owner": "tidepool",
+   "type": "Organization",
+   "avatar": "",
+   "prs": 53,
+   "prsMerged": 46,
+   "issues": 24,
+   "discussions": 9,
+   "commits": 86,
+   "total": 86,
+   "repos": 2,
+   "stars": 7580,
+   "topRepos": [
+    "tidepool/tidepool",
+    "tidepool/tidepool-docs"
+   ]
+  },
+  {
+   "owner": "kestrel-rs",
+   "type": "Organization",
+   "avatar": "",
+   "prs": 19,
+   "prsMerged": 13,
+   "issues": 25,
+   "discussions": 4,
+   "commits": 28,
+   "total": 48,
+   "repos": 1,
+   "stars": 12100,
+   "topRepos": [
+    "kestrel-rs/kestrel"
+   ]
+  },
+  {
+   "owner": "orchard-js",
+   "type": "Organization",
+   "avatar": "",
+   "prs": 26,
+   "prsMerged": 23,
+   "issues": 12,
+   "discussions": 3,
+   "commits": 42,
+   "total": 41,
+   "repos": 1,
+   "stars": 5300,
+   "topRepos": [
+    "orchard-js/orchard"
+   ]
+  },
+  {
+   "owner": "lattice-db",
+   "type": "Organization",
+   "avatar": "",
+   "prs": 4,
+   "prsMerged": 2,
+   "issues": 19,
+   "discussions": 2,
+   "commits": 4,
+   "total": 25,
+   "repos": 1,
+   "stars": 23800,
+   "topRepos": [
+    "lattice-db/lattice"
+   ]
+  },
+  {
+   "owner": "quill-docs",
+   "type": "Organization",
+   "avatar": "",
+   "prs": 11,
+   "prsMerged": 9,
+   "issues": 5,
+   "discussions": 7,
+   "commits": 18,
+   "total": 23,
+   "repos": 1,
+   "stars": 3100,
+   "topRepos": [
+    "quill-docs/quill"
+   ]
+  },
+  {
+   "owner": "nimbus-labs",
+   "type": "Organization",
+   "avatar": "",
+   "prs": 14,
+   "prsMerged": 10,
+   "issues": 6,
+   "discussions": 0,
+   "commits": 18,
+   "total": 20,
+   "repos": 1,
+   "stars": 1300,
+   "topRepos": [
+    "nimbus-labs/edge-router"
+   ]
+  },
+  {
+   "owner": "ember-ui",
+   "type": "Organization",
+   "avatar": "",
+   "prs": 7,
+   "prsMerged": 5,
+   "issues": 9,
+   "discussions": 1,
+   "commits": 9,
+   "total": 17,
+   "repos": 1,
+   "stars": 8700,
+   "topRepos": [
+    "ember-ui/ember-ui"
+   ]
+  },
+  {
+   "owner": "tidepool-dev",
+   "type": "Organization",
+   "avatar": "",
+   "prs": 8,
+   "prsMerged": 5,
+   "issues": 7,
+   "discussions": 1,
+   "commits": 10,
+   "total": 16,
+   "repos": 1,
+   "stars": 960,
+   "topRepos": [
+    "tidepool-dev/collector"
+   ]
+  },
+  {
+   "owner": "ferrous-tools",
+   "type": "Organization",
+   "avatar": "",
+   "prs": 10,
+   "prsMerged": 9,
+   "issues": 3,
+   "discussions": 0,
+   "commits": 17,
+   "total": 13,
+   "repos": 1,
+   "stars": 1500,
+   "topRepos": [
+    "ferrous-tools/ferrous-fmt"
+   ]
+  },
+  {
+   "owner": "nimbus-samples",
+   "type": "Organization",
+   "avatar": "",
+   "prs": 9,
+   "prsMerged": 8,
+   "issues": 3,
+   "discussions": 0,
+   "commits": 16,
+   "total": 12,
+   "repos": 1,
+   "stars": 640,
+   "topRepos": [
+    "nimbus-samples/serverless-patterns"
+   ]
+  },
+  {
+   "owner": "cobalt-cli",
+   "type": "Organization",
+   "avatar": "",
+   "prs": 3,
+   "prsMerged": 2,
+   "issues": 8,
+   "discussions": 0,
+   "commits": 4,
+   "total": 11,
+   "repos": 1,
+   "stars": 4400,
+   "topRepos": [
+    "cobalt-cli/cobalt"
+   ]
+  },
+  {
+   "owner": "mira-kowal",
+   "type": "User",
+   "avatar": "",
+   "prs": 9,
+   "prsMerged": 8,
+   "issues": 2,
+   "discussions": 0,
+   "commits": 18,
+   "total": 11,
+   "repos": 1,
+   "stars": 820,
+   "topRepos": [
+    "mira-kowal/sparkline-kit"
+   ]
+  },
+  {
+   "owner": "driftwood-io",
+   "type": "Organization",
+   "avatar": "",
+   "prs": 2,
+   "prsMerged": 1,
+   "issues": 6,
+   "discussions": 3,
+   "commits": 3,
+   "total": 11,
+   "repos": 1,
+   "stars": 650,
+   "topRepos": [
+    "driftwood-io/drift"
+   ]
+  },
+  {
+   "owner": "jonas-heller",
+   "type": "User",
+   "avatar": "",
+   "prs": 5,
+   "prsMerged": 4,
+   "issues": 3,
+   "discussions": 0,
+   "commits": 8,
+   "total": 8,
+   "repos": 1,
+   "stars": 290,
+   "topRepos": [
+    "jonas-heller/dotenv-schema"
+   ]
+  },
+  {
+   "owner": "beacon-hq",
+   "type": "Organization",
+   "avatar": "",
+   "prs": 1,
+   "prsMerged": 1,
+   "issues": 7,
+   "discussions": 0,
+   "commits": 2,
+   "total": 8,
+   "repos": 1,
+   "stars": 14600,
+   "topRepos": [
+    "beacon-hq/beacon"
+   ]
+  },
+  {
+   "owner": "vesper-io",
+   "type": "Organization",
+   "avatar": "",
+   "prs": 6,
+   "prsMerged": 4,
+   "issues": 2,
+   "discussions": 0,
+   "commits": 12,
+   "total": 8,
+   "repos": 2,
+   "stars": 105,
+   "topRepos": [
+    "vesper-io/lint",
+    "vesper-io/sdk-2"
+   ]
+  },
+  {
+   "owner": "nimbus-community",
+   "type": "Organization",
+   "avatar": "",
+   "prs": 6,
+   "prsMerged": 6,
+   "issues": 1,
+   "discussions": 0,
+   "commits": 9,
+   "total": 7,
+   "repos": 1,
+   "stars": 410,
+   "topRepos": [
+    "nimbus-community/awesome-nimbus"
+   ]
+  },
+  {
+   "owner": "glasshouse",
+   "type": "Organization",
+   "avatar": "",
+   "prs": 4,
+   "prsMerged": 3,
+   "issues": 3,
+   "discussions": 0,
+   "commits": 4,
+   "total": 7,
+   "repos": 2,
+   "stars": 2285,
+   "topRepos": [
+    "glasshouse/action-2",
+    "glasshouse/core"
+   ]
+  },
+  {
+   "owner": "duskmoon",
+   "type": "Organization",
+   "avatar": "",
+   "prs": 3,
+   "prsMerged": 2,
+   "issues": 4,
+   "discussions": 0,
+   "commits": 2,
+   "total": 7,
+   "repos": 2,
+   "stars": 533,
+   "topRepos": [
+    "duskmoon/plugin-2",
+    "duskmoon/cli"
+   ]
+  },
+  {
+   "owner": "polaris-dev",
+   "type": "Organization",
+   "avatar": "",
+   "prs": 5,
+   "prsMerged": 4,
+   "issues": 1,
+   "discussions": 0,
+   "commits": 7,
+   "total": 6,
+   "repos": 2,
+   "stars": 1653,
+   "topRepos": [
+    "polaris-dev/server",
+    "polaris-dev/config-2"
+   ]
+  },
+  {
+   "owner": "tess-ober",
+   "type": "User",
+   "avatar": "",
+   "prs": 4,
+   "prsMerged": 3,
+   "issues": 1,
+   "discussions": 0,
+   "commits": 6,
+   "total": 5,
+   "repos": 1,
+   "stars": 1200,
+   "topRepos": [
+    "tess-ober/rusty-cache"
+   ]
+  },
+  {
+   "owner": "gridline",
+   "type": "Organization",
+   "avatar": "",
+   "prs": 4,
+   "prsMerged": 3,
+   "issues": 1,
+   "discussions": 0,
+   "commits": 4,
+   "total": 5,
+   "repos": 2,
+   "stars": 2692,
+   "topRepos": [
+    "gridline/ui-2",
+    "gridline/config"
+   ]
+  },
+  {
+   "owner": "harbor-ops",
+   "type": "Organization",
+   "avatar": "",
+   "prs": 4,
+   "prsMerged": 3,
+   "issues": 1,
+   "discussions": 0,
+   "commits": 4,
+   "total": 5,
+   "repos": 2,
+   "stars": 464,
+   "topRepos": [
+    "harbor-ops/plugin",
+    "harbor-ops/server-2"
+   ]
+  },
+  {
+   "owner": "pixelforge",
+   "type": "Organization",
+   "avatar": "",
+   "prs": 2,
+   "prsMerged": 1,
+   "issues": 2,
+   "discussions": 0,
+   "commits": 1,
+   "total": 4,
+   "repos": 1,
+   "stars": 338,
+   "topRepos": [
+    "pixelforge/config"
+   ]
+  },
+  {
+   "owner": "rivet-rs",
+   "type": "Organization",
+   "avatar": "",
+   "prs": 2,
+   "prsMerged": 1,
+   "issues": 2,
+   "discussions": 0,
+   "commits": 2,
+   "total": 4,
+   "repos": 1,
+   "stars": 520,
+   "topRepos": [
+    "rivet-rs/sdk"
+   ]
+  },
+  {
+   "owner": "elm-street-dev",
+   "type": "Organization",
+   "avatar": "",
+   "prs": 4,
+   "prsMerged": 3,
+   "issues": 0,
+   "discussions": 0,
+   "commits": 9,
+   "total": 4,
+   "repos": 1,
+   "stars": 108,
+   "topRepos": [
+    "elm-street-dev/ui"
+   ]
+  },
+  {
+   "owner": "fjord-data",
+   "type": "Organization",
+   "avatar": "",
+   "prs": 1,
+   "prsMerged": 1,
+   "issues": 3,
+   "discussions": 0,
+   "commits": 3,
+   "total": 4,
+   "repos": 1,
+   "stars": 803,
+   "topRepos": [
+    "fjord-data/cli"
+   ]
+  },
+  {
+   "owner": "sable-sh",
+   "type": "Organization",
+   "avatar": "",
+   "prs": 2,
+   "prsMerged": 1,
+   "issues": 1,
+   "discussions": 0,
+   "commits": 1,
+   "total": 3,
+   "repos": 1,
+   "stars": 28,
+   "topRepos": [
+    "sable-sh/lint"
+   ]
+  },
+  {
+   "owner": "atlas-maps-oss",
+   "type": "Organization",
+   "avatar": "",
+   "prs": 3,
+   "prsMerged": 2,
+   "issues": 0,
+   "discussions": 0,
+   "commits": 3,
+   "total": 3,
+   "repos": 2,
+   "stars": 1376,
+   "topRepos": [
+    "atlas-maps-oss/core-2",
+    "atlas-maps-oss/sdk"
+   ]
+  },
+  {
+   "owner": "wren-tools",
+   "type": "Organization",
+   "avatar": "",
+   "prs": 2,
+   "prsMerged": 1,
+   "issues": 0,
+   "discussions": 0,
+   "commits": 1,
+   "total": 2,
+   "repos": 1,
+   "stars": 268,
+   "topRepos": [
+    "wren-tools/plugin"
+   ]
+  },
+  {
+   "owner": "oakhaven",
+   "type": "Organization",
+   "avatar": "",
+   "prs": 0,
+   "prsMerged": 0,
+   "issues": 2,
+   "discussions": 0,
+   "commits": 0,
+   "total": 2,
+   "repos": 1,
+   "stars": 881,
+   "topRepos": [
+    "oakhaven/docs"
+   ]
+  },
+  {
+   "owner": "copperleaf",
+   "type": "Organization",
+   "avatar": "",
+   "prs": 0,
+   "prsMerged": 0,
+   "issues": 2,
+   "discussions": 0,
+   "commits": 0,
+   "total": 2,
+   "repos": 1,
+   "stars": 289,
+   "topRepos": [
+    "copperleaf/cli"
+   ]
+  },
+  {
+   "owner": "meadow-labs",
+   "type": "Organization",
+   "avatar": "",
+   "prs": 1,
+   "prsMerged": 1,
+   "issues": 0,
+   "discussions": 0,
+   "commits": 1,
+   "total": 1,
+   "repos": 1,
+   "stars": 439,
+   "topRepos": [
+    "meadow-labs/sdk"
+   ]
+  },
+  {
+   "owner": "zephyr-ci",
+   "type": "Organization",
+   "avatar": "",
+   "prs": 1,
+   "prsMerged": 1,
+   "issues": 0,
+   "discussions": 0,
+   "commits": 2,
+   "total": 1,
+   "repos": 1,
+   "stars": 39,
+   "topRepos": [
+    "zephyr-ci/sdk"
+   ]
+  },
+  {
+   "owner": "sundial-js",
+   "type": "Organization",
+   "avatar": "",
+   "prs": 0,
+   "prsMerged": 0,
+   "issues": 1,
+   "discussions": 0,
+   "commits": 0,
+   "total": 1,
+   "repos": 1,
+   "stars": 2519,
+   "topRepos": [
+    "sundial-js/server"
+   ]
+  },
+  {
+   "owner": "brightside",
+   "type": "Organization",
+   "avatar": "",
+   "prs": 0,
+   "prsMerged": 0,
+   "issues": 1,
+   "discussions": 0,
+   "commits": 0,
+   "total": 1,
+   "repos": 1,
+   "stars": 1119,
+   "topRepos": [
+    "brightside/lint"
+   ]
+  },
+  {
+   "owner": "hollow-pine",
+   "type": "Organization",
+   "avatar": "",
+   "prs": 0,
+   "prsMerged": 0,
+   "issues": 1,
+   "discussions": 0,
+   "commits": 0,
+   "total": 1,
+   "repos": 1,
+   "stars": 68,
+   "topRepos": [
+    "hollow-pine/ui"
+   ]
+  }
+ ],
+ "families": [
+  {
+   "name": "Nimbus",
+   "match": "^nimbus(-.*)?$",
+   "owners": [
+    "nimbus",
+    "nimbus-labs",
+    "nimbus-samples",
+    "nimbus-community"
+   ],
+   "total": 191,
+   "prs": 115,
+   "prsMerged": 97,
+   "issues": 68,
+   "discussions": 8,
+   "repos": 5
+  },
+  {
+   "name": "Tidepool",
+   "match": "^tidepool(-.*)?$",
+   "owners": [
+    "tidepool",
+    "tidepool-dev"
+   ],
+   "total": 102,
+   "prs": 61,
+   "prsMerged": 51,
+   "issues": 31,
+   "discussions": 10,
+   "repos": 3
+  }
+ ],
+ "calendar": [
+  [
+   "2025-10-27",
+   0
+  ],
+  [
+   "2025-10-28",
+   1
+  ],
+  [
+   "2025-10-29",
+   0
+  ],
+  [
+   "2025-10-30",
+   0
+  ],
+  [
+   "2025-10-31",
+   0
+  ],
+  [
+   "2025-11-01",
+   2
+  ],
+  [
+   "2025-11-02",
+   0
+  ],
+  [
+   "2025-11-03",
+   1
+  ],
+  [
+   "2025-11-04",
+   1
+  ],
+  [
+   "2025-11-05",
+   0
+  ],
+  [
+   "2025-11-06",
+   1
+  ],
+  [
+   "2025-11-07",
+   0
+  ],
+  [
+   "2025-11-08",
+   0
+  ],
+  [
+   "2025-11-09",
+   0
+  ],
+  [
+   "2025-11-10",
+   1
+  ],
+  [
+   "2025-11-11",
+   2
+  ],
+  [
+   "2025-11-12",
+   1
+  ],
+  [
+   "2025-11-13",
+   1
+  ],
+  [
+   "2025-11-14",
+   7
+  ],
+  [
+   "2025-11-15",
+   1
+  ],
+  [
+   "2025-11-16",
+   1
+  ],
+  [
+   "2025-11-17",
+   0
+  ],
+  [
+   "2025-11-18",
+   6
+  ],
+  [
+   "2025-11-19",
+   5
+  ],
+  [
+   "2025-11-20",
+   0
+  ],
+  [
+   "2025-11-21",
+   3
+  ],
+  [
+   "2025-11-22",
+   0
+  ],
+  [
+   "2025-11-23",
+   0
+  ],
+  [
+   "2025-11-24",
+   0
+  ],
+  [
+   "2025-11-25",
+   0
+  ],
+  [
+   "2025-11-26",
+   2
+  ],
+  [
+   "2025-11-27",
+   9
+  ],
+  [
+   "2025-11-28",
+   2
+  ],
+  [
+   "2025-11-29",
+   0
+  ],
+  [
+   "2025-11-30",
+   0
+  ],
+  [
+   "2025-12-01",
+   3
+  ],
+  [
+   "2025-12-02",
+   0
+  ],
+  [
+   "2025-12-03",
+   1
+  ],
+  [
+   "2025-12-04",
+   4
+  ],
+  [
+   "2025-12-05",
+   2
+  ],
+  [
+   "2025-12-06",
+   3
+  ],
+  [
+   "2025-12-07",
+   1
+  ],
+  [
+   "2025-12-08",
+   2
+  ],
+  [
+   "2025-12-09",
+   5
+  ],
+  [
+   "2025-12-10",
+   0
+  ],
+  [
+   "2025-12-11",
+   2
+  ],
+  [
+   "2025-12-12",
+   0
+  ],
+  [
+   "2025-12-13",
+   1
+  ],
+  [
+   "2025-12-14",
+   1
+  ],
+  [
+   "2025-12-15",
+   0
+  ],
+  [
+   "2025-12-16",
+   2
+  ],
+  [
+   "2025-12-17",
+   6
+  ],
+  [
+   "2025-12-18",
+   4
+  ],
+  [
+   "2025-12-19",
+   6
+  ],
+  [
+   "2025-12-20",
+   1
+  ],
+  [
+   "2025-12-21",
+   1
+  ],
+  [
+   "2025-12-22",
+   7
+  ],
+  [
+   "2025-12-23",
+   3
+  ],
+  [
+   "2025-12-24",
+   1
+  ],
+  [
+   "2025-12-25",
+   4
+  ],
+  [
+   "2025-12-26",
+   3
+  ],
+  [
+   "2025-12-27",
+   1
+  ],
+  [
+   "2025-12-28",
+   1
+  ],
+  [
+   "2025-12-29",
+   0
+  ],
+  [
+   "2025-12-30",
+   0
+  ],
+  [
+   "2025-12-31",
+   0
+  ],
+  [
+   "2026-01-01",
+   6
+  ],
+  [
+   "2026-01-02",
+   3
+  ],
+  [
+   "2026-01-03",
+   1
+  ],
+  [
+   "2026-01-04",
+   5
+  ],
+  [
+   "2026-01-05",
+   1
+  ],
+  [
+   "2026-01-06",
+   2
+  ],
+  [
+   "2026-01-07",
+   6
+  ],
+  [
+   "2026-01-08",
+   4
+  ],
+  [
+   "2026-01-09",
+   4
+  ],
+  [
+   "2026-01-10",
+   0
+  ],
+  [
+   "2026-01-11",
+   1
+  ],
+  [
+   "2026-01-12",
+   0
+  ],
+  [
+   "2026-01-13",
+   0
+  ],
+  [
+   "2026-01-14",
+   2
+  ],
+  [
+   "2026-01-15",
+   5
+  ],
+  [
+   "2026-01-16",
+   3
+  ],
+  [
+   "2026-01-17",
+   1
+  ],
+  [
+   "2026-01-18",
+   2
+  ],
+  [
+   "2026-01-19",
+   2
+  ],
+  [
+   "2026-01-20",
+   4
+  ],
+  [
+   "2026-01-21",
+   6
+  ],
+  [
+   "2026-01-22",
+   6
+  ],
+  [
+   "2026-01-23",
+   8
+  ],
+  [
+   "2026-01-24",
+   2
+  ],
+  [
+   "2026-01-25",
+   2
+  ],
+  [
+   "2026-01-26",
+   2
+  ],
+  [
+   "2026-01-27",
+   0
+  ],
+  [
+   "2026-01-28",
+   0
+  ],
+  [
+   "2026-01-29",
+   0
+  ],
+  [
+   "2026-01-30",
+   0
+  ],
+  [
+   "2026-01-31",
+   3
+  ],
+  [
+   "2026-02-01",
+   0
+  ],
+  [
+   "2026-02-02",
+   0
+  ],
+  [
+   "2026-02-03",
+   1
+  ],
+  [
+   "2026-02-04",
+   1
+  ],
+  [
+   "2026-02-05",
+   4
+  ],
+  [
+   "2026-02-06",
+   0
+  ],
+  [
+   "2026-02-07",
+   1
+  ],
+  [
+   "2026-02-08",
+   0
+  ],
+  [
+   "2026-02-09",
+   2
+  ],
+  [
+   "2026-02-10",
+   1
+  ],
+  [
+   "2026-02-11",
+   2
+  ],
+  [
+   "2026-02-12",
+   9
+  ],
+  [
+   "2026-02-13",
+   1
+  ],
+  [
+   "2026-02-14",
+   2
+  ],
+  [
+   "2026-02-15",
+   0
+  ],
+  [
+   "2026-02-16",
+   1
+  ],
+  [
+   "2026-02-17",
+   2
+  ],
+  [
+   "2026-02-18",
+   1
+  ],
+  [
+   "2026-02-19",
+   2
+  ],
+  [
+   "2026-02-20",
+   1
+  ],
+  [
+   "2026-02-21",
+   0
+  ],
+  [
+   "2026-02-22",
+   0
+  ],
+  [
+   "2026-02-23",
+   0
+  ],
+  [
+   "2026-02-24",
+   2
+  ],
+  [
+   "2026-02-25",
+   5
+  ],
+  [
+   "2026-02-26",
+   4
+  ],
+  [
+   "2026-02-27",
+   1
+  ],
+  [
+   "2026-02-28",
+   0
+  ],
+  [
+   "2026-03-01",
+   0
+  ],
+  [
+   "2026-03-02",
+   1
+  ],
+  [
+   "2026-03-03",
+   0
+  ],
+  [
+   "2026-03-04",
+   0
+  ],
+  [
+   "2026-03-05",
+   2
+  ],
+  [
+   "2026-03-06",
+   0
+  ],
+  [
+   "2026-03-07",
+   1
+  ],
+  [
+   "2026-03-08",
+   2
+  ],
+  [
+   "2026-03-09",
+   4
+  ],
+  [
+   "2026-03-10",
+   0
+  ],
+  [
+   "2026-03-11",
+   1
+  ],
+  [
+   "2026-03-12",
+   2
+  ],
+  [
+   "2026-03-13",
+   1
+  ],
+  [
+   "2026-03-14",
+   0
+  ],
+  [
+   "2026-03-15",
+   1
+  ],
+  [
+   "2026-03-16",
+   1
+  ],
+  [
+   "2026-03-17",
+   1
+  ],
+  [
+   "2026-03-18",
+   1
+  ],
+  [
+   "2026-03-19",
+   1
+  ],
+  [
+   "2026-03-20",
+   1
+  ],
+  [
+   "2026-03-21",
+   2
+  ],
+  [
+   "2026-03-22",
+   1
+  ],
+  [
+   "2026-03-23",
+   2
+  ],
+  [
+   "2026-03-24",
+   2
+  ],
+  [
+   "2026-03-25",
+   9
+  ],
+  [
+   "2026-03-26",
+   1
+  ],
+  [
+   "2026-03-27",
+   3
+  ],
+  [
+   "2026-03-28",
+   0
+  ],
+  [
+   "2026-03-29",
+   0
+  ],
+  [
+   "2026-03-30",
+   0
+  ],
+  [
+   "2026-03-31",
+   5
+  ],
+  [
+   "2026-04-01",
+   0
+  ],
+  [
+   "2026-04-02",
+   3
+  ],
+  [
+   "2026-04-03",
+   1
+  ],
+  [
+   "2026-04-04",
+   5
+  ],
+  [
+   "2026-04-05",
+   0
+  ],
+  [
+   "2026-04-06",
+   1
+  ],
+  [
+   "2026-04-07",
+   0
+  ],
+  [
+   "2026-04-08",
+   2
+  ],
+  [
+   "2026-04-09",
+   1
+  ],
+  [
+   "2026-04-10",
+   10
+  ],
+  [
+   "2026-04-11",
+   0
+  ],
+  [
+   "2026-04-12",
+   0
+  ],
+  [
+   "2026-04-13",
+   7
+  ],
+  [
+   "2026-04-14",
+   4
+  ],
+  [
+   "2026-04-15",
+   6
+  ],
+  [
+   "2026-04-16",
+   9
+  ],
+  [
+   "2026-04-17",
+   1
+  ],
+  [
+   "2026-04-18",
+   7
+  ],
+  [
+   "2026-04-19",
+   1
+  ],
+  [
+   "2026-04-20",
+   3
+  ],
+  [
+   "2026-04-21",
+   0
+  ],
+  [
+   "2026-04-22",
+   1
+  ],
+  [
+   "2026-04-23",
+   2
+  ],
+  [
+   "2026-04-24",
+   1
+  ],
+  [
+   "2026-04-25",
+   0
+  ],
+  [
+   "2026-04-26",
+   6
+  ],
+  [
+   "2026-04-27",
+   0
+  ],
+  [
+   "2026-04-28",
+   2
+  ],
+  [
+   "2026-04-29",
+   4
+  ],
+  [
+   "2026-04-30",
+   1
+  ],
+  [
+   "2026-05-01",
+   0
+  ],
+  [
+   "2026-05-02",
+   0
+  ],
+  [
+   "2026-05-03",
+   1
+  ],
+  [
+   "2026-05-04",
+   8
+  ],
+  [
+   "2026-05-05",
+   0
+  ],
+  [
+   "2026-05-06",
+   0
+  ],
+  [
+   "2026-05-07",
+   1
+  ],
+  [
+   "2026-05-08",
+   3
+  ],
+  [
+   "2026-05-09",
+   0
+  ],
+  [
+   "2026-05-10",
+   1
+  ],
+  [
+   "2026-05-11",
+   2
+  ],
+  [
+   "2026-05-12",
+   2
+  ],
+  [
+   "2026-05-13",
+   4
+  ],
+  [
+   "2026-05-14",
+   2
+  ],
+  [
+   "2026-05-15",
+   4
+  ],
+  [
+   "2026-05-16",
+   1
+  ],
+  [
+   "2026-05-17",
+   1
+  ],
+  [
+   "2026-05-18",
+   3
+  ],
+  [
+   "2026-05-19",
+   0
+  ],
+  [
+   "2026-05-20",
+   0
+  ],
+  [
+   "2026-05-21",
+   2
+  ],
+  [
+   "2026-05-22",
+   1
+  ],
+  [
+   "2026-05-23",
+   0
+  ],
+  [
+   "2026-05-24",
+   4
+  ],
+  [
+   "2026-05-25",
+   1
+  ],
+  [
+   "2026-05-26",
+   2
+  ],
+  [
+   "2026-05-27",
+   8
+  ],
+  [
+   "2026-05-28",
+   1
+  ],
+  [
+   "2026-05-29",
+   3
+  ],
+  [
+   "2026-05-30",
+   0
+  ],
+  [
+   "2026-05-31",
+   0
+  ],
+  [
+   "2026-06-01",
+   3
+  ],
+  [
+   "2026-06-02",
+   1
+  ],
+  [
+   "2026-06-03",
+   7
+  ],
+  [
+   "2026-06-04",
+   1
+  ],
+  [
+   "2026-06-05",
+   4
+  ],
+  [
+   "2026-06-06",
+   1
+  ],
+  [
+   "2026-06-07",
+   0
+  ],
+  [
+   "2026-06-08",
+   5
+  ],
+  [
+   "2026-06-09",
+   0
+  ],
+  [
+   "2026-06-10",
+   2
+  ],
+  [
+   "2026-06-11",
+   1
+  ],
+  [
+   "2026-06-12",
+   1
+  ],
+  [
+   "2026-06-13",
+   0
+  ],
+  [
+   "2026-06-14",
+   0
+  ],
+  [
+   "2026-06-15",
+   3
+  ],
+  [
+   "2026-06-16",
+   5
+  ],
+  [
+   "2026-06-17",
+   1
+  ],
+  [
+   "2026-06-18",
+   0
+  ],
+  [
+   "2026-06-19",
+   0
+  ],
+  [
+   "2026-06-20",
+   2
+  ],
+  [
+   "2026-06-21",
+   0
+  ],
+  [
+   "2026-06-22",
+   1
+  ],
+  [
+   "2026-06-23",
+   1
+  ],
+  [
+   "2026-06-24",
+   0
+  ],
+  [
+   "2026-06-25",
+   0
+  ],
+  [
+   "2026-06-26",
+   1
+  ],
+  [
+   "2026-06-27",
+   0
+  ],
+  [
+   "2026-06-28",
+   2
+  ],
+  [
+   "2026-06-29",
+   0
+  ],
+  [
+   "2026-06-30",
+   1
+  ],
+  [
+   "2026-07-01",
+   6
+  ],
+  [
+   "2026-07-02",
+   0
+  ],
+  [
+   "2026-07-03",
+   3
+  ],
+  [
+   "2026-07-04",
+   0
+  ],
+  [
+   "2026-07-05",
+   0
+  ],
+  [
+   "2026-07-06",
+   3
+  ],
+  [
+   "2026-07-07",
+   2
+  ],
+  [
+   "2026-07-08",
+   3
+  ],
+  [
+   "2026-07-09",
+   2
+  ],
+  [
+   "2026-07-10",
+   2
+  ],
+  [
+   "2026-07-11",
+   0
+  ],
+  [
+   "2026-07-12",
+   1
+  ],
+  [
+   "2026-07-13",
+   2
+  ],
+  [
+   "2026-07-14",
+   0
+  ],
+  [
+   "2026-07-15",
+   5
+  ],
+  [
+   "2026-07-16",
+   0
+  ],
+  [
+   "2026-07-17",
+   4
+  ],
+  [
+   "2026-07-18",
+   3
+  ],
+  [
+   "2026-07-19",
+   2
+  ],
+  [
+   "2026-07-20",
+   6
+  ],
+  [
+   "2026-07-21",
+   1
+  ],
+  [
+   "2026-07-22",
+   1
+  ],
+  [
+   "2026-07-23",
+   0
+  ],
+  [
+   "2026-07-24",
+   2
+  ],
+  [
+   "2026-07-25",
+   1
+  ],
+  [
+   "2026-07-26",
+   0
+  ],
+  [
+   "2026-07-27",
+   2
+  ],
+  [
+   "2026-07-28",
+   3
+  ],
+  [
+   "2026-07-29",
+   0
+  ],
+  [
+   "2026-07-30",
+   4
+  ],
+  [
+   "2026-07-31",
+   2
+  ],
+  [
+   "2026-08-01",
+   0
+  ],
+  [
+   "2026-08-02",
+   3
+  ],
+  [
+   "2026-08-03",
+   1
+  ],
+  [
+   "2026-08-04",
+   5
+  ],
+  [
+   "2026-08-05",
+   1
+  ],
+  [
+   "2026-08-06",
+   1
+  ],
+  [
+   "2026-08-07",
+   1
+  ],
+  [
+   "2026-08-08",
+   1
+  ],
+  [
+   "2026-08-09",
+   0
+  ],
+  [
+   "2026-08-10",
+   4
+  ],
+  [
+   "2026-08-11",
+   2
+  ],
+  [
+   "2026-08-12",
+   1
+  ],
+  [
+   "2026-08-13",
+   3
+  ],
+  [
+   "2026-08-14",
+   3
+  ],
+  [
+   "2026-08-15",
+   0
+  ],
+  [
+   "2026-08-16",
+   2
+  ],
+  [
+   "2026-08-17",
+   1
+  ],
+  [
+   "2026-08-18",
+   0
+  ],
+  [
+   "2026-08-19",
+   1
+  ],
+  [
+   "2026-08-20",
+   1
+  ],
+  [
+   "2026-08-21",
+   2
+  ],
+  [
+   "2026-08-22",
+   1
+  ],
+  [
+   "2026-08-23",
+   0
+  ],
+  [
+   "2026-08-24",
+   0
+  ],
+  [
+   "2026-08-25",
+   0
+  ],
+  [
+   "2026-08-26",
+   3
+  ],
+  [
+   "2026-08-27",
+   4
+  ],
+  [
+   "2026-08-28",
+   4
+  ],
+  [
+   "2026-08-29",
+   0
+  ],
+  [
+   "2026-08-30",
+   0
+  ],
+  [
+   "2026-08-31",
+   1
+  ],
+  [
+   "2026-09-01",
+   4
+  ],
+  [
+   "2026-09-02",
+   0
+  ],
+  [
+   "2026-09-03",
+   1
+  ],
+  [
+   "2026-09-04",
+   1
+  ],
+  [
+   "2026-09-05",
+   1
+  ],
+  [
+   "2026-09-06",
+   0
+  ],
+  [
+   "2026-09-07",
+   1
+  ],
+  [
+   "2026-09-08",
+   3
+  ],
+  [
+   "2026-09-09",
+   6
+  ],
+  [
+   "2026-09-10",
+   5
+  ],
+  [
+   "2026-09-11",
+   1
+  ],
+  [
+   "2026-09-12",
+   1
+  ],
+  [
+   "2026-09-13",
+   1
+  ],
+  [
+   "2026-09-14",
+   0
+  ],
+  [
+   "2026-09-15",
+   0
+  ],
+  [
+   "2026-09-16",
+   1
+  ],
+  [
+   "2026-09-17",
+   4
+  ],
+  [
+   "2026-09-18",
+   2
+  ],
+  [
+   "2026-09-19",
+   0
+  ],
+  [
+   "2026-09-20",
+   2
+  ],
+  [
+   "2026-09-21",
+   5
+  ],
+  [
+   "2026-09-22",
+   4
+  ],
+  [
+   "2026-09-23",
+   1
+  ],
+  [
+   "2026-09-24",
+   2
+  ],
+  [
+   "2026-09-25",
+   3
+  ],
+  [
+   "2026-09-26",
+   0
+  ],
+  [
+   "2026-09-27",
+   0
+  ],
+  [
+   "2026-09-28",
+   1
+  ],
+  [
+   "2026-09-29",
+   1
+  ],
+  [
+   "2026-09-30",
+   0
+  ],
+  [
+   "2026-10-01",
+   3
+  ],
+  [
+   "2026-10-02",
+   3
+  ],
+  [
+   "2026-10-03",
+   0
+  ],
+  [
+   "2026-10-04",
+   0
+  ],
+  [
+   "2026-10-05",
+   4
+  ],
+  [
+   "2026-10-06",
+   2
+  ],
+  [
+   "2026-10-07",
+   0
+  ],
+  [
+   "2026-10-08",
+   0
+  ],
+  [
+   "2026-10-09",
+   1
+  ],
+  [
+   "2026-10-10",
+   0
+  ],
+  [
+   "2026-10-11",
+   0
+  ],
+  [
+   "2026-10-12",
+   0
+  ],
+  [
+   "2026-10-13",
+   1
+  ],
+  [
+   "2026-10-14",
+   0
+  ],
+  [
+   "2026-10-15",
+   9
+  ],
+  [
+   "2026-10-16",
+   3
+  ],
+  [
+   "2026-10-17",
+   1
+  ],
+  [
+   "2026-10-18",
+   0
+  ],
+  [
+   "2026-10-19",
+   0
+  ],
+  [
+   "2026-10-20",
+   9
+  ],
+  [
+   "2026-10-21",
+   0
+  ],
+  [
+   "2026-10-22",
+   3
+  ],
+  [
+   "2026-10-23",
+   1
+  ],
+  [
+   "2026-10-24",
+   0
+  ],
+  [
+   "2026-10-25",
+   2
+  ],
+  [
+   "2026-10-26",
+   2
+  ],
+  [
+   "2026-10-27",
+   0
+  ],
+  [
+   "2026-10-28",
+   0
+  ],
+  [
+   "2026-10-29",
+   0
+  ],
+  [
+   "2026-10-30",
+   2
+  ],
+  [
+   "2026-10-31",
+   0
+  ],
+  [
+   "2026-11-01",
+   0
+  ]
+ ],
+ "recentPRs": [
+  {
+   "repo": "nimbus/nimbus-sdk",
+   "number": 101,
+   "title": "refactor: simplify cache error paths",
+   "createdAt": "2026-10-23T15:58:00Z",
+   "state": "MERGED",
+   "additions": 151,
+   "deletions": 33
+  },
+  {
+   "repo": "nimbus/nimbus-sdk",
+   "number": 102,
+   "title": "fix: correct timeout handling in exporter",
+   "createdAt": "2026-10-02T18:36:00Z",
+   "state": "MERGED",
+   "additions": 276,
+   "deletions": 21
+  },
+  {
+   "repo": "ferrous-tools/ferrous-fmt",
+   "number": 548,
+   "title": "docs: clarify config setup",
+   "createdAt": "2026-09-21T15:13:00Z",
+   "state": "MERGED",
+   "additions": 113,
+   "deletions": 14
+  },
+  {
+   "repo": "quill-docs/quill",
+   "number": 510,
+   "title": "chore: bump minimum Node version",
+   "createdAt": "2026-09-20T09:34:00Z",
+   "state": "MERGED",
+   "additions": 107,
+   "deletions": 1
+  },
+  {
+   "repo": "harbor-ops/server-2",
+   "number": 617,
+   "title": "docs: clarify loader setup",
+   "createdAt": "2026-09-01T12:32:00Z",
+   "state": "MERGED",
+   "additions": 37,
+   "deletions": 43
+  },
+  {
+   "repo": "nimbus/nimbus-cli",
+   "number": 230,
+   "title": "refactor: simplify cache error paths",
+   "createdAt": "2026-09-01T09:14:00Z",
+   "state": "OPEN",
+   "additions": 67,
+   "deletions": 58
+  },
+  {
+   "repo": "nimbus/nimbus-cli",
+   "number": 220,
+   "title": "fix: correct timeout handling in exporter",
+   "createdAt": "2026-08-26T16:09:00Z",
+   "state": "MERGED",
+   "additions": 31,
+   "deletions": 15
+  },
+  {
+   "repo": "nimbus/nimbus-cli",
+   "number": 224,
+   "title": "chore: bump minimum Node version",
+   "createdAt": "2026-08-12T12:44:00Z",
+   "state": "MERGED",
+   "additions": 76,
+   "deletions": 13
+  },
+  {
+   "repo": "tidepool/tidepool",
+   "number": 313,
+   "title": "feat: add retry option to cache",
+   "createdAt": "2026-08-11T13:51:00Z",
+   "state": "MERGED",
+   "additions": 51,
+   "deletions": 94
+  },
+  {
+   "repo": "nimbus/nimbus-sdk",
+   "number": 112,
+   "title": "test: cover parser edge cases",
+   "createdAt": "2026-08-11T10:17:00Z",
+   "state": "MERGED",
+   "additions": 114,
+   "deletions": 9
+  },
+  {
+   "repo": "nimbus/nimbus-cli",
+   "number": 232,
+   "title": "fix: handle empty config in loader",
+   "createdAt": "2026-08-03T16:29:00Z",
+   "state": "OPEN",
+   "additions": 35,
+   "deletions": 47
+  },
+  {
+   "repo": "tidepool-dev/collector",
+   "number": 380,
+   "title": "docs: clarify loader setup",
+   "createdAt": "2026-07-25T10:47:00Z",
+   "state": "MERGED",
+   "additions": 156,
+   "deletions": 96
+  },
+  {
+   "repo": "tidepool/tidepool",
+   "number": 322,
+   "title": "chore: bump minimum Node version",
+   "createdAt": "2026-07-24T15:24:00Z",
+   "state": "MERGED",
+   "additions": 109,
+   "deletions": 46
+  },
+  {
+   "repo": "tidepool/tidepool",
+   "number": 314,
+   "title": "feat: support custom endpoints in exporter",
+   "createdAt": "2026-07-20T14:35:00Z",
+   "state": "MERGED",
+   "additions": 14,
+   "deletions": 8
+  },
+  {
+   "repo": "nimbus/nimbus-sdk",
+   "number": 117,
+   "title": "fix: correct timeout handling in exporter",
+   "createdAt": "2026-07-15T14:43:00Z",
+   "state": "MERGED",
+   "additions": 31,
+   "deletions": 39
+  },
+  {
+   "repo": "nimbus/nimbus-sdk",
+   "number": 146,
+   "title": "docs: clarify parser setup",
+   "createdAt": "2026-07-03T19:50:00Z",
+   "state": "MERGED",
+   "additions": 17,
+   "deletions": 3
+  },
+  {
+   "repo": "kestrel-rs/kestrel",
+   "number": 394,
+   "title": "refactor: simplify auth error paths",
+   "createdAt": "2026-06-26T08:22:00Z",
+   "state": "MERGED",
+   "additions": 53,
+   "deletions": 32
+  },
+  {
+   "repo": "nimbus-labs/edge-router",
+   "number": 256,
+   "title": "feat: add retry option to parser",
+   "createdAt": "2026-06-20T08:38:00Z",
+   "state": "MERGED",
+   "additions": 25,
+   "deletions": 19
+  },
+  {
+   "repo": "atlas-maps-oss/sdk",
+   "number": 656,
+   "title": "chore: bump minimum Node version",
+   "createdAt": "2026-06-15T10:27:00Z",
+   "state": "MERGED",
+   "additions": 82,
+   "deletions": 43
+  },
+  {
+   "repo": "tidepool/tidepool-docs",
+   "number": 371,
+   "title": "fix: correct timeout handling in exporter",
+   "createdAt": "2026-06-10T10:12:00Z",
+   "state": "MERGED",
+   "additions": 62,
+   "deletions": 24
+  },
+  {
+   "repo": "nimbus/nimbus-cli",
+   "number": 216,
+   "title": "refactor: simplify exporter error paths",
+   "createdAt": "2026-06-06T12:56:00Z",
+   "state": "MERGED",
+   "additions": 34,
+   "deletions": 43
+  },
+  {
+   "repo": "nimbus-labs/edge-router",
+   "number": 258,
+   "title": "refactor: simplify config error paths",
+   "createdAt": "2026-06-04T10:45:00Z",
+   "state": "MERGED",
+   "additions": 86,
+   "deletions": 3
+  },
+  {
+   "repo": "nimbus-labs/edge-router",
+   "number": 253,
+   "title": "chore: bump minimum Node version",
+   "createdAt": "2026-06-01T09:15:00Z",
+   "state": "MERGED",
+   "additions": 71,
+   "deletions": 6
+  },
+  {
+   "repo": "tess-ober/rusty-cache",
+   "number": 612,
+   "title": "refactor: simplify parser error paths",
+   "createdAt": "2026-05-27T11:06:00Z",
+   "state": "CLOSED",
+   "additions": 15,
+   "deletions": 3
+  },
+  {
+   "repo": "nimbus/nimbus-sdk",
+   "number": 149,
+   "title": "fix: correct timeout handling in cache",
+   "createdAt": "2026-05-27T10:03:00Z",
+   "state": "MERGED",
+   "additions": 67,
+   "deletions": 7
+  },
+  {
+   "repo": "tidepool/tidepool",
+   "number": 308,
+   "title": "docs: clarify router setup",
+   "createdAt": "2026-05-26T19:22:00Z",
+   "state": "MERGED",
+   "additions": 5,
+   "deletions": 26
+  },
+  {
+   "repo": "tidepool/tidepool",
+   "number": 311,
+   "title": "fix: handle empty config in exporter",
+   "createdAt": "2026-05-22T09:11:00Z",
+   "state": "MERGED",
+   "additions": 16,
+   "deletions": 39
+  },
+  {
+   "repo": "nimbus/nimbus-sdk",
+   "number": 158,
+   "title": "docs: clarify client setup",
+   "createdAt": "2026-05-21T16:29:00Z",
+   "state": "CLOSED",
+   "additions": 30,
+   "deletions": 51
+  },
+  {
+   "repo": "tidepool-dev/collector",
+   "number": 383,
+   "title": "fix: handle empty config in loader",
+   "createdAt": "2026-05-16T08:56:00Z",
+   "state": "CLOSED",
+   "additions": 95,
+   "deletions": 4
+  },
+  {
+   "repo": "nimbus/nimbus-sdk",
+   "number": 140,
+   "title": "feat: support custom endpoints in parser",
+   "createdAt": "2026-05-13T18:18:00Z",
+   "state": "MERGED",
+   "additions": 12,
+   "deletions": 66
+  }
+ ],
+ "avatars": {
+  "atlas-maps-oss": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiMyNTYzZWIiLz48cmVjdCB4PSIxNCIgeT0iMTQiIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgcng9IjMiIGZpbGw9IiNmZmZmZmYiLz48cmVjdCB4PSIzNCIgeT0iMzQiIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgcng9IjMiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9Ii43Ii8+PHJlY3QgeD0iMzQiIHk9IjE0IiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHJ4PSI4IiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIuNDUiLz48L3N2Zz4=",
+  "beacon-hq": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiM2ZTU2Y2YiLz48cGF0aCBkPSJNMTQgNDQgTDMyIDE2IEw1MCA0NCBaIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIuOSIvPjxjaXJjbGUgY3g9IjMyIiBjeT0iMzYiIHI9IjUiIGZpbGw9IiM2ZTU2Y2YiLz48L3N2Zz4=",
+  "brightside": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNiNDUzMDkiLz48cmVjdCB4PSIxNyIgeT0iMTciIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgcng9IjYiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9Ii45IiB0cmFuc2Zvcm09InJvdGF0ZSg0NSAzMiAzMikiLz48L3N2Zz4=",
+  "cobalt-cli": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNiZTE4NWQiLz48cGF0aCBkPSJNMTQgNDQgTDMyIDE2IEw1MCA0NCBaIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIuOSIvPjxjaXJjbGUgY3g9IjMyIiBjeT0iMzYiIHI9IjUiIGZpbGw9IiNiZTE4NWQiLz48L3N2Zz4=",
+  "copperleaf": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiM3YzNhZWQiLz48cmVjdCB4PSIxNCIgeT0iMTQiIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgcng9IjMiIGZpbGw9IiNmZmZmZmYiLz48cmVjdCB4PSIzNCIgeT0iMzQiIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgcng9IjMiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9Ii43Ii8+PHJlY3QgeD0iMzQiIHk9IjE0IiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHJ4PSI4IiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIuNDUiLz48L3N2Zz4=",
+  "driftwood-io": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNiNDUzMDkiLz48cmVjdCB4PSIxNyIgeT0iMTciIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgcng9IjYiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9Ii45IiB0cmFuc2Zvcm09InJvdGF0ZSg0NSAzMiAzMikiLz48L3N2Zz4=",
+  "duskmoon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiM2ZTU2Y2YiLz48cGF0aCBkPSJNMTQgNDQgTDMyIDE2IEw1MCA0NCBaIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIuOSIvPjxjaXJjbGUgY3g9IjMyIiBjeT0iMzYiIHI9IjUiIGZpbGw9IiM2ZTU2Y2YiLz48L3N2Zz4=",
+  "elm-street-dev": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNiZTE4NWQiLz48cGF0aCBkPSJNMTQgNDQgTDMyIDE2IEw1MCA0NCBaIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIuOSIvPjxjaXJjbGUgY3g9IjMyIiBjeT0iMzYiIHI9IjUiIGZpbGw9IiNiZTE4NWQiLz48L3N2Zz4=",
+  "ember-ui": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiM2ZTU2Y2YiLz48cGF0aCBkPSJNMTQgNDQgTDMyIDE2IEw1MCA0NCBaIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIuOSIvPjxjaXJjbGUgY3g9IjMyIiBjeT0iMzYiIHI9IjUiIGZpbGw9IiM2ZTU2Y2YiLz48L3N2Zz4=",
+  "ferrous-tools": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiMxNTgwM2QiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSIxNiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iLjkiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSI3IiBmaWxsPSIjMTU4MDNkIi8+PC9zdmc+",
+  "fjord-data": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNiZTE4NWQiLz48cGF0aCBkPSJNMTQgNDQgTDMyIDE2IEw1MCA0NCBaIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIuOSIvPjxjaXJjbGUgY3g9IjMyIiBjeT0iMzYiIHI9IjUiIGZpbGw9IiNiZTE4NWQiLz48L3N2Zz4=",
+  "glasshouse": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNiZTE4NWQiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSIxNiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iLjkiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSI3IiBmaWxsPSIjYmUxODVkIi8+PC9zdmc+",
+  "gridline": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNjMjQxMGMiLz48cGF0aCBkPSJNMTQgNDQgTDMyIDE2IEw1MCA0NCBaIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIuOSIvPjxjaXJjbGUgY3g9IjMyIiBjeT0iMzYiIHI9IjUiIGZpbGw9IiNjMjQxMGMiLz48L3N2Zz4=",
+  "harbor-ops": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiM3YzNhZWQiLz48cmVjdCB4PSIxNyIgeT0iMTciIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgcng9IjYiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9Ii45IiB0cmFuc2Zvcm09InJvdGF0ZSg0NSAzMiAzMikiLz48L3N2Zz4=",
+  "hollow-pine": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiM2ZTU2Y2YiLz48cGF0aCBkPSJNMTQgNDQgTDMyIDE2IEw1MCA0NCBaIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIuOSIvPjxjaXJjbGUgY3g9IjMyIiBjeT0iMzYiIHI9IjUiIGZpbGw9IiM2ZTU2Y2YiLz48L3N2Zz4=",
+  "jonas-heller": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiMwODkxYjIiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSIxNiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iLjkiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSI3IiBmaWxsPSIjMDg5MWIyIi8+PC9zdmc+",
+  "kestrel-rs": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNiZTE4NWQiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSIxNiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iLjkiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSI3IiBmaWxsPSIjYmUxODVkIi8+PC9zdmc+",
+  "kleos-demo": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiMxNTgwM2QiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSIxNiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iLjkiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSI3IiBmaWxsPSIjMTU4MDNkIi8+PC9zdmc+",
+  "lattice-db": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiM0NzU1NjkiLz48cmVjdCB4PSIxNyIgeT0iMTciIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgcng9IjYiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9Ii45IiB0cmFuc2Zvcm09InJvdGF0ZSg0NSAzMiAzMikiLz48L3N2Zz4=",
+  "meadow-labs": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiMwODkxYjIiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSIxNiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iLjkiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSI3IiBmaWxsPSIjMDg5MWIyIi8+PC9zdmc+",
+  "mira-kowal": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNjMjQxMGMiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSIxNiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iLjkiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSI3IiBmaWxsPSIjYzI0MTBjIi8+PC9zdmc+",
+  "nimbus": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiMxNTgwM2QiLz48cGF0aCBkPSJNMTQgNDQgTDMyIDE2IEw1MCA0NCBaIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIuOSIvPjxjaXJjbGUgY3g9IjMyIiBjeT0iMzYiIHI9IjUiIGZpbGw9IiMxNTgwM2QiLz48L3N2Zz4=",
+  "nimbus-community": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiMwODkxYjIiLz48cGF0aCBkPSJNMTQgNDQgTDMyIDE2IEw1MCA0NCBaIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIuOSIvPjxjaXJjbGUgY3g9IjMyIiBjeT0iMzYiIHI9IjUiIGZpbGw9IiMwODkxYjIiLz48L3N2Zz4=",
+  "nimbus-labs": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNiNDUzMDkiLz48cmVjdCB4PSIxNyIgeT0iMTciIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgcng9IjYiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9Ii45IiB0cmFuc2Zvcm09InJvdGF0ZSg0NSAzMiAzMikiLz48L3N2Zz4=",
+  "nimbus-samples": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiM2ZTU2Y2YiLz48cGF0aCBkPSJNMTQgNDQgTDMyIDE2IEw1MCA0NCBaIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIuOSIvPjxjaXJjbGUgY3g9IjMyIiBjeT0iMzYiIHI9IjUiIGZpbGw9IiM2ZTU2Y2YiLz48L3N2Zz4=",
+  "oakhaven": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiM3YzNhZWQiLz48cmVjdCB4PSIxNyIgeT0iMTciIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgcng9IjYiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9Ii45IiB0cmFuc2Zvcm09InJvdGF0ZSg0NSAzMiAzMikiLz48L3N2Zz4=",
+  "orchard-js": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNiNDUzMDkiLz48cmVjdCB4PSIxNCIgeT0iMTQiIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgcng9IjMiIGZpbGw9IiNmZmZmZmYiLz48cmVjdCB4PSIzNCIgeT0iMzQiIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgcng9IjMiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9Ii43Ii8+PHJlY3QgeD0iMzQiIHk9IjE0IiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHJ4PSI4IiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIuNDUiLz48L3N2Zz4=",
+  "pixelforge": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNiNDUzMDkiLz48cmVjdCB4PSIxNyIgeT0iMTciIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgcng9IjYiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9Ii45IiB0cmFuc2Zvcm09InJvdGF0ZSg0NSAzMiAzMikiLz48L3N2Zz4=",
+  "polaris-dev": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiM2ZTU2Y2YiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSIxNiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iLjkiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSI3IiBmaWxsPSIjNmU1NmNmIi8+PC9zdmc+",
+  "quill-docs": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiM3YzNhZWQiLz48cmVjdCB4PSIxNCIgeT0iMTQiIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgcng9IjMiIGZpbGw9IiNmZmZmZmYiLz48cmVjdCB4PSIzNCIgeT0iMzQiIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgcng9IjMiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9Ii43Ii8+PHJlY3QgeD0iMzQiIHk9IjE0IiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHJ4PSI4IiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIuNDUiLz48L3N2Zz4=",
+  "rivet-rs": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNiZTE4NWQiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSIxNiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iLjkiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSI3IiBmaWxsPSIjYmUxODVkIi8+PC9zdmc+",
+  "sable-sh": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiMwZTdjODYiLz48cmVjdCB4PSIxNyIgeT0iMTciIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgcng9IjYiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9Ii45IiB0cmFuc2Zvcm09InJvdGF0ZSg0NSAzMiAzMikiLz48L3N2Zz4=",
+  "sundial-js": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiMxNTgwM2QiLz48cGF0aCBkPSJNMTQgNDQgTDMyIDE2IEw1MCA0NCBaIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIuOSIvPjxjaXJjbGUgY3g9IjMyIiBjeT0iMzYiIHI9IjUiIGZpbGw9IiMxNTgwM2QiLz48L3N2Zz4=",
+  "tess-ober": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiM2ZTU2Y2YiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSIxNiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iLjkiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSI3IiBmaWxsPSIjNmU1NmNmIi8+PC9zdmc+",
+  "tidepool": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiMxNTgwM2QiLz48cGF0aCBkPSJNMTQgNDQgTDMyIDE2IEw1MCA0NCBaIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIuOSIvPjxjaXJjbGUgY3g9IjMyIiBjeT0iMzYiIHI9IjUiIGZpbGw9IiMxNTgwM2QiLz48L3N2Zz4=",
+  "tidepool-dev": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiMxNTgwM2QiLz48cGF0aCBkPSJNMTQgNDQgTDMyIDE2IEw1MCA0NCBaIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIuOSIvPjxjaXJjbGUgY3g9IjMyIiBjeT0iMzYiIHI9IjUiIGZpbGw9IiMxNTgwM2QiLz48L3N2Zz4=",
+  "vesper-io": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiMxNTgwM2QiLz48cGF0aCBkPSJNMTQgNDQgTDMyIDE2IEw1MCA0NCBaIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIuOSIvPjxjaXJjbGUgY3g9IjMyIiBjeT0iMzYiIHI9IjUiIGZpbGw9IiMxNTgwM2QiLz48L3N2Zz4=",
+  "wren-tools": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiMxNTgwM2QiLz48cGF0aCBkPSJNMTQgNDQgTDMyIDE2IEw1MCA0NCBaIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIuOSIvPjxjaXJjbGUgY3g9IjMyIiBjeT0iMzYiIHI9IjUiIGZpbGw9IiMxNTgwM2QiLz48L3N2Zz4=",
+  "zephyr-ci": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiMwZTdjODYiLz48cmVjdCB4PSIxNCIgeT0iMTQiIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgcng9IjMiIGZpbGw9IiNmZmZmZmYiLz48cmVjdCB4PSIzNCIgeT0iMzQiIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgcng9IjMiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9Ii43Ii8+PHJlY3QgeD0iMzQiIHk9IjE0IiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHJ4PSI4IiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIuNDUiLz48L3N2Zz4="
+ }
+}

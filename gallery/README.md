@@ -305,7 +305,7 @@ One family in depth: its member orgs, its repositories and the PR, issue and dis
 
 ### H02 · Selected repositories
 
-Headline tiles such as "79 contributions to aws-cdk" for a short list of notable repositories, each with its PR, issue and discussion counts and a monthly activity strip. Rule: the top 5 repositories with at least 1,000 stars by contributions; if fewer than 3 qualify, the biggest remaining repositories fill up to 3.
+A headline tile per notable repository, led by its total contribution count, each with its PR, issue and discussion counts and a monthly activity strip. Rule: the top 5 repositories with at least 1,000 stars by contributions; if fewer than 3 qualify, the biggest remaining repositories fill up to 3.
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="focus/H02-selected-repos-dark.svg"><img alt="Selected repositories" src="focus/H02-selected-repos-light.svg" width="840"></picture>
 

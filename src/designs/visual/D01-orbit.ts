@@ -123,7 +123,7 @@ export const design: Design = {
     b += `<text x="20" y="${H - 16}" font-size="11" class="mu">${esc(legend)}</text>`;
     if (hidden.length) {
       const hiddenTotal = hidden.reduce((a, o) => a + o.total, 0);
-      b += `<text x="${W - 20}" y="${H - 16}" text-anchor="end" font-size="11" class="mu">+${hidden.length} more with ≤ ${MIN_SHOWN - 1} each (${hiddenTotal} total)</text>`;
+      b += `<text x="${W - 20}" y="${H - 16}" text-anchor="end" font-size="11" class="mu">+${hidden.length} owners with ≤ ${MIN_SHOWN - 1} each (${hiddenTotal} contributions)</text>`;
     }
     return doc(
       W,

@@ -4,7 +4,12 @@
     "actions": {
       "preset": "recommended",
       "source": {
-        "organizeImports": { "level": "on", "options": { "identifierOrder": "lexicographic" } }
+        "organizeImports": {
+          "level": "on",
+          "options": {
+            "identifierOrder": "lexicographic"
+          }
+        }
       }
     }
   },
@@ -15,10 +20,23 @@
       "biome.json",
       "tsconfig.json",
       "package.json",
-      "vitest.config.ts"
+      "vitest.config.ts",
+      "scripts/**/*.ts"
     ]
   },
-  "formatter": { "indentStyle": "space", "indentWidth": 2, "lineWidth": 100 },
-  "linter": { "rules": { "preset": "recommended" } },
-  "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true }
+  "formatter": {
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 100
+  },
+  "linter": {
+    "rules": {
+      "preset": "recommended"
+    }
+  },
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  }
 }
