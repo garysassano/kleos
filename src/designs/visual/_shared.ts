@@ -194,10 +194,10 @@ export function header(title: string, sub: string, right = ""): string {
   );
 }
 
-/** "N PRs, issues and discussions on R repos of O other orgs and users". */
+/** "N PRs, issues and discussions on R repos of O other orgs and people". */
 export function extLine(stats: Stats): string {
   const total = stats.repos.reduce((a, r) => a + r.total, 0);
-  return `${fmt(total)} PRs, issues and discussions on ${fmt(stats.totals.externalRepos)} repos of ${fmt(stats.totals.externalOwners)} other orgs and users`;
+  return `${fmt(total)} PRs, issues and discussions on ${fmt(stats.totals.externalRepos)} repos of ${fmt(stats.totals.externalOwners)} other orgs and people`;
 }
 
 /** Splits "owner/name" for a row label; drops the owner when the whole thing would not fit. */

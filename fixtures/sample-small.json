@@ -276,7 +276,7 @@
    ]
   }
  ],
- "families": [
+ "ecosystems": [
   {
    "name": "Acme",
    "match": "^acme-.*$",

@@ -6,7 +6,7 @@ export const design: Design = {
   id: "C01",
   slug: "big-numbers",
   title: "Big numbers",
-  idea: "Four large, labelled headline figures for upstream work (PRs opened, merged, issues, owners), with the five most active owners underneath. Reads in one glance. With outcomes none the merged figure gives way to repositories; merged drops the merge rate; full adds open and closed-unmerged PRs.",
+  idea: "Four large, labeled headline figures for upstream work (PRs opened, merged, issues, owners), with the five most active owners underneath. Reads in one glance. With outcomes none the merged figure gives way to repos; merged drops the merge rate; full adds open and closed-unmerged PRs.",
   render(stats, theme, options = DEFAULT_OPTIONS) {
     const lv = options.outcomes;
     const t = THEMES[theme];
@@ -17,8 +17,8 @@ export const design: Design = {
     const c = totalsCounts(T);
     const prsCol: [number, string, string] =
       lv === "full"
-        ? [T.externalPRs, "pull requests", `${c.prsOpen} open · ${prsClosed(c)} closed unmerged`]
-        : [T.externalPRs, "pull requests", "opened upstream"];
+        ? [T.externalPRs, "PRs", `${c.prsOpen} open · ${prsClosed(c)} closed unmerged`]
+        : [T.externalPRs, "PRs", "opened upstream"];
     const mergedCol: [number, string, string] = [
       T.externalMerged,
       "merged",
@@ -31,14 +31,14 @@ export const design: Design = {
         ? [
             prsCol,
             [extIssues, "issues", "reported upstream"],
-            [T.externalRepos, "repositories", "contributed to"],
-            [T.externalOwners, "owners", "orgs and users"],
+            [T.externalRepos, "repos", "contributed to"],
+            [T.externalOwners, "owners", "orgs and people"],
           ]
         : [
             prsCol,
             mergedCol,
             [extIssues, "issues", "reported upstream"],
-            [T.externalOwners, "owners", `${T.externalRepos} repositories`],
+            [T.externalOwners, "owners", `${T.externalRepos} repos`],
           ];
     const top = stats.owners.slice(0, 5);
     const cw = (W - 2 * P) / 4;
@@ -51,7 +51,7 @@ export const design: Design = {
     b += text(
       P + 82,
       34,
-      `Contributions to repositories owned by others · ${years}`,
+      `Contributions to repos owned by others · ${years}`,
       "s mu",
       'font-size="12"',
     );
@@ -89,7 +89,7 @@ export const design: Design = {
       `.fi{animation:fi .6s ease-out both}${css}`,
       b,
       lv === "none"
-        ? `Upstream: ${T.externalPRs} PRs opened, ${extIssues} issues, ${T.externalRepos} repositories, ${T.externalOwners} owners`
+        ? `Upstream: ${T.externalPRs} PRs opened, ${extIssues} issues, ${T.externalRepos} repos, ${T.externalOwners} owners`
         : `Upstream: ${T.externalPRs} PRs opened, ${T.externalMerged} merged, ${extIssues} issues, ${T.externalOwners} owners`,
     );
   },

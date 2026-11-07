@@ -33,7 +33,7 @@ export const design: Design = {
   id: "G05",
   slug: "ticket-stubs",
   title: "Ticket stubs",
-  idea: "The top six repositories by contributions as admission tickets: the repo is the show, its stars and language the billing, PRs, merged, issues and discussions the printed fields, and the stub keeps the rank and total. The coloured edge is the repo's language colour. With outcomes none the merged field goes; full adds open and closed-unmerged fields.",
+  idea: "The top six repos by contributions as admission tickets: the repo is the show, its stars and language the billing, PRs, merged, issues and discussions the printed fields, and the stub keeps the rank and total. The colored edge is the repo's language color. With outcomes none the merged field goes; full adds open and closed-unmerged fields.",
   render(stats, theme, options = DEFAULT_OPTIONS) {
     const lv = options.outcomes;
     const p = PALETTES[theme];
@@ -62,7 +62,7 @@ export const design: Design = {
           ? [
               ["PRS", r.prs],
               ["ISSUES", r.issues],
-              ["DISCUSS.", r.discussions],
+              ["DISC.", r.discussions],
             ]
           : lv === "full"
             ? [
@@ -77,7 +77,7 @@ export const design: Design = {
                 ["PRS", r.prs],
                 ["MERGED", r.prsMerged],
                 ["ISSUES", r.issues],
-                ["DISCUSS.", r.discussions],
+                ["DISC.", r.discussions],
               ];
       const fw = (px - 34) / fields.length;
       const fieldSvg = fields
@@ -93,7 +93,7 @@ export const design: Design = {
 <path d="${shape}" fill="none" stroke="${p.border}"/>
 <line x1="${px}" x2="${px}" y1="10" y2="${TH - 10}" stroke="${p.border}" stroke-dasharray="3 4"/>
 <text x="18" y="22" font-family="${MONO}" font-size="8.5" font-weight="700" letter-spacing="2.2" fill="${p.muted}">ADMIT ONE</text>
-<text x="${px - 14}" y="22" text-anchor="end" font-size="10.5" fill="${p.muted}">★ ${compact(r.stars)} stars</text>
+<text x="${px - 14}" y="22" text-anchor="end" font-size="10.5" fill="${p.muted}">${compact(r.stars)}★</text>
 <text x="18" y="45" font-size="13" fill="${p.muted}">${esc(ownerTxt)}<tspan font-size="16.5" font-weight="700" fill="${p.text}">${esc(truncate(name ?? "", px - 34 - ownerW, 16.5))}</tspan></text>
 <circle cx="22" cy="58.5" r="4" fill="${edge}"/><text x="31" y="62" font-size="10.5" fill="${p.muted}">${esc(truncate(`${r.language ?? "No language"} · ${span}`, px - 50, 10.5))}</text>
 <line x1="18" x2="${px - 14}" y1="70" y2="70" stroke="${p.hair}"/>
@@ -106,15 +106,15 @@ ${fieldSvg}
 </g>`;
     });
 
-    const head = `<text x="${x0 + 2}" y="26" font-size="16" font-weight="700" fill="${p.text}">Upstream season pass</text><text x="${W - x0 - 2}" y="26" text-anchor="end" font-size="11.5" fill="${p.muted}">top ${repos.length} of ${stats.repos.length} repositories · as of ${stats.generatedAt.slice(0, 10)}</text>`;
+    const head = `<text x="${x0 + 2}" y="26" font-size="16" font-weight="700" fill="${p.text}">Upstream season pass</text><text x="${W - x0 - 2}" y="26" text-anchor="end" font-size="11.5" fill="${p.muted}">top ${repos.length} of ${stats.repos.length} repos · as of ${stats.generatedAt.slice(0, 10)}</text>`;
     const empty = repos.length
       ? ""
-      : `<text x="${W / 2}" y="${HEAD + TH / 2}" text-anchor="middle" font-size="13" fill="${p.muted}">No external contributions yet</text>`;
+      : `<text x="${W / 2}" y="${HEAD + TH / 2}" text-anchor="middle" font-size="13" fill="${p.muted}">No upstream contributions yet</text>`;
     const foot = `<text x="${x0 + 2}" y="${height - 12}" font-size="10.5" fill="${p.faint}">TOTAL = PRs + issues + discussions I opened in the repo. Dates run from my first to my latest one.${lv === "full" ? " CLOSED = closed without merging." : ""}</text>`;
     return document({
       width: W,
       height,
-      title: `Top ${repos.length} upstream repositories as ticket stubs`,
+      title: `Top ${repos.length} upstream repos as ticket stubs`,
       body: `<defs><clipPath id="g05clip"><path d="${shape}"/></clipPath></defs><g font-family="${SANS}">${head}${tickets.join("")}${empty}${foot}</g>`,
     });
   },

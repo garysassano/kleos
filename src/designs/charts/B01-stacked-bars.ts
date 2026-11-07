@@ -33,7 +33,7 @@ interface Col {
 function levelCols(t: Theme, lvl: Level) {
   const rest: Col[] = [
     { label: "Issues", c: cat0(t, 1), v: (r) => r.issues },
-    { label: "Discuss.", c: cat0(t, 2), v: (r) => r.discussions },
+    { label: "Disc.", c: cat0(t, 2), v: (r) => r.discussions },
   ];
   const segs = (r: Repo) => [
     ...prParts(r, lvl).map((p) => ({ v: p.count, c: prColor(t, p.key, lvl) })),
@@ -79,7 +79,7 @@ export const design: Design = {
   id: "B01",
   slug: "stacked-bars",
   title: "Stacked bars + table",
-  idea: 'The top 12 external repos as horizontal stacked bars (merged PRs, other PRs, issues, discussions) with the exact counts in aligned columns that double as the legend. With outcomes "none" PRs are one segment and column, "merged" shows PRs with the merged ones as a subset, and "full" splits merged, open and closed-unmerged PRs.',
+  idea: 'The top 12 upstream repos as horizontal stacked bars (merged PRs, other PRs, issues, discussions) with the exact counts in aligned columns that double as the legend. With outcomes "none" PRs are one segment and column, "merged" shows PRs with the merged ones as a subset, and "full" splits merged, open and closed-unmerged PRs.',
   render(stats, theme, options: RenderOptions = DEFAULT_OPTIONS) {
     const lvl = options.outcomes;
     const t = THEMES[theme];
@@ -96,7 +96,7 @@ export const design: Design = {
       { k: "prsMerged", label: "Merged", c: t.cat[0] },
       { k: "prsOther", label: "Other PRs", c: t.blueLight },
       { k: "issues", label: "Issues", c: t.cat[1] },
-      { k: "discussions", label: "Discuss.", c: t.cat[2] },
+      { k: "discussions", label: "Disc.", c: t.cat[2] },
     ] as const;
     const colX0 = [603, 685, 745, 816]; // right-aligned numeric columns
     const L = lvl ? levelCols(t, lvl) : undefined;
@@ -113,12 +113,12 @@ export const design: Design = {
           ? `${P.prsMerged} of ${P.prs} PRs merged (${mergeRate(P, "full") ?? 0}%)`
           : `${T.externalMerged} PRs merged`;
     const sub = lvl
-      ? `${fmt(TOTAL)} contributions to other people's projects · ${T.externalRepos} repos · ${T.externalOwners} owners · ${prNote}`
+      ? `${fmt(TOTAL)} contributions to upstream repos · ${T.externalRepos} repos · ${T.externalOwners} owners · ${prNote}`
       : SUB;
     let s = header("Where my contributions went", sub);
     // column headers (= legend)
     const hy = 82;
-    s += `<text x="${labelX}" y="${hy}" font-size="11" class="m">Repository</text>`;
+    s += `<text x="${labelX}" y="${hy}" font-size="11" class="m">Repo</text>`;
     s += `<text x="${bx}" y="${hy}" font-size="11" class="m">PRs, issues and discussions (opened)</text>`;
     heads.forEach((c, i) => {
       const w = tw(c.label, 11);

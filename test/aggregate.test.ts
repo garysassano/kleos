@@ -155,8 +155,8 @@ describe("aggregate", () => {
     expect(stats.owners.some((o) => o.owner === "acme")).toBe(false);
   });
 
-  it("rolls owners up into families by login pattern", () => {
-    const aws = stats.families.find((f) => f.name === "AWS");
+  it("rolls owners up into ecosystems by login pattern", () => {
+    const aws = stats.ecosystems.find((f) => f.name === "AWS");
     expect(aws).toMatchObject({
       owners: ["aws", "aws-samples"],
       total: 5,

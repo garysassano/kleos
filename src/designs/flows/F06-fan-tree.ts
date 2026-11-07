@@ -128,7 +128,7 @@ function render(stats: Stats, theme: ThemeName): string {
     width: W,
     height: footY + 20,
     title: "Contribution tree",
-    subtitle: `You → the ${plural(shown.length, "biggest family or owner", "biggest families and owners")} → their top repositories · ${fmt(shownTotal)} of ${fmt(total)} contributions`,
+    subtitle: `You → the ${plural(shown.length, "biggest ecosystem or owner", "biggest ecosystems and owners")} → their top repos · ${fmt(shownTotal)} of ${fmt(total)} contributions`,
     body: links + nodes + labels + center + foot,
   });
 }
@@ -137,6 +137,6 @@ export const design: Design = {
   id: "F06",
   slug: "fan-tree",
   title: "Contribution tree",
-  idea: "A half-radial tree: you at the root, the 8 biggest families and owners on the inner ring, and up to 4 of each one's biggest repos as leaves, with stroke width proportional to PRs + issues + discussions. A compact picture of how the work branches out.",
+  idea: "A half-radial tree: you at the root, the 8 biggest ecosystems and owners on the inner ring, and up to 4 of each one's biggest repos as leaves, with stroke width proportional to PRs + issues + discussions. A compact picture of how the work branches out.",
   render,
 };

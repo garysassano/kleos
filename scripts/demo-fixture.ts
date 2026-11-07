@@ -1,7 +1,7 @@
 /**
  * Builds fixtures/demo.json: a fictional account used for the README and the public catalog.
  * Every user, organization, repository and avatar here is made up. The raw items go through the
- * real aggregation, so totals, owners and families are consistent with each other.
+ * real aggregation, so totals, owners and ecosystems are consistent with each other.
  *
  * Usage: node scripts/demo-fixture.ts
  */
@@ -14,7 +14,7 @@ import type {
   RawRepo,
   RawYear,
 } from "../src/github/fetch.ts";
-import { type FamilyRule, aggregate } from "../src/stats/aggregate.ts";
+import { type EcosystemRule, aggregate } from "../src/stats/aggregate.ts";
 
 const LOGIN = "kleos-demo";
 const FETCHED_AT = "2026-11-01T09:00:00Z";
@@ -393,7 +393,7 @@ const OWN: RepoSpec[] = [
   },
 ];
 
-const FAMILIES: FamilyRule[] = [
+const ECOSYSTEMS: EcosystemRule[] = [
   { name: "Nimbus", match: "^nimbus(-.*)?$" },
   { name: "Tidepool", match: "^tidepool(-.*)?$" },
 ];
@@ -552,11 +552,11 @@ const raw: RawData = {
   discussions,
   years,
 };
-const draft = aggregate(raw, { families: FAMILIES });
+const draft = aggregate(raw, { ecosystems: ECOSYSTEMS });
 const avatars = Object.fromEntries(
   [LOGIN, ...draft.owners.map((o) => o.owner)].sort().map((login) => [login, avatarFor(login)]),
 );
-const stats = aggregate(raw, { families: FAMILIES, avatars });
+const stats = aggregate(raw, { ecosystems: ECOSYSTEMS, avatars });
 
 const out = new URL("../fixtures/demo.json", import.meta.url);
 writeFileSync(out, `${JSON.stringify(stats, null, 1)}\n`);

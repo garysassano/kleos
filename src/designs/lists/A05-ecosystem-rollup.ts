@@ -20,13 +20,13 @@ import {
   truncate,
 } from "./_shared.ts";
 
-const title = "Family roll-up";
+const title = "Ecosystem roll-up";
 
 export const design: Design = {
   id: "A05",
-  slug: "family-rollup",
+  slug: "ecosystem-rollup",
   title,
-  idea: "Groups related GitHub owners into families (one vendor's several organisations) with the family total on top and member owners indented below, so a big vendor spread across many orgs shows up as one line.",
+  idea: "Groups related GitHub owners into ecosystems (AWS: aws, aws-samples, …) with the ecosystem total on top and member owners indented below, so an ecosystem spread across many orgs shows up as one line.",
   render(stats, theme, options = DEFAULT_OPTIONS) {
     const level = options.outcomes;
     const T = themeOf(theme);
@@ -34,7 +34,7 @@ export const design: Design = {
     const W = 840;
     const frh = 38;
     const crh = 26;
-    const fams = [...stats.families].sort(
+    const fams = [...stats.ecosystems].sort(
       (a, b) => b.total - a.total || a.name.localeCompare(b.name),
     );
     const max = fams[0]?.total ?? 0;
@@ -45,12 +45,12 @@ export const design: Design = {
     const cTot = 812;
     let b = header(
       T,
-      "Contributions by vendor family",
-      `Related GitHub owners grouped into one line · ${plural(fams.length, "family", "families")}`,
+      "Contributions by ecosystem",
+      `Related GitHub owners grouped into one line · ${plural(fams.length, "ecosystem", "ecosystems")}`,
     );
     let y = 100;
     b +=
-      t(T, 24, y - 12, "Family / owner", { size: 11, fill: "muted" }) +
+      t(T, 24, y - 12, "Ecosystem / owner", { size: 11, fill: "muted" }) +
       t(T, bx, y - 12, "Mix (to scale)", { size: 11, fill: "muted" });
     b +=
       t(T, cPR, y - 12, level === "none" ? "PRs" : "PRs merged", {
@@ -150,13 +150,13 @@ export const design: Design = {
       .join(", ");
     const rest = solo.length
       ? `The other ${solo.length} owners are independent; biggest: ${top3}.`
-      : "Every owner belongs to a family.";
+      : "Every owner belongs to an ecosystem.";
     b += legend(T, 24, y + 26, STD_LEGEND(T, level));
     b += t(
       T,
       24,
       y + 48,
-      esc(`Families hold ${famTotal} of ${d.ext.total} external contributions. ${rest}`),
+      esc(`Ecosystems hold ${famTotal} of ${d.ext.total} upstream contributions. ${rest}`),
       { size: 11.5, fill: "muted" },
     );
     return frame(T, W, y + 66, b, title);

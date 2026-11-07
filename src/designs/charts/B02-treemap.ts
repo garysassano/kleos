@@ -103,10 +103,10 @@ export const design: Design = {
   id: "B02",
   slug: "treemap",
   title: "Treemap",
-  idea: "Every external repo as a tile sized by contributions, nested family → owner → repo, so the shape of the whole footprint (a few dominant blocks, a wide family spread, a long tail) is visible at a glance. The seven largest groups get colours.",
+  idea: "Every upstream repo as a tile sized by contributions, nested ecosystem → owner → repo, so the shape of the whole footprint (a few dominant blocks, a wide ecosystem spread, a long tail) is visible at a glance. The seven largest groups get colors.",
   render(stats, theme) {
     const t = THEMES[theme];
-    const { T, total: TOTAL, groups, restGroups, rest, bigFamily } = derive(stats);
+    const { T, total: TOTAL, groups, restGroups, rest, bigEcosystem } = derive(stats);
     const X = 24;
     const Y = 74;
     const WW = W - 48;
@@ -114,7 +114,7 @@ export const design: Design = {
     const h = Y + HH + 40;
     let s = header(
       "Contribution map",
-      `Area = PRs + issues + discussions · grouped by family → owner → repo · ${fmt(TOTAL)} contributions in ${T.externalRepos} repos`,
+      `Area = PRs + issues + discussions · grouped by ecosystem → owner → repo · ${fmt(TOTAL)} contributions in ${T.externalRepos} repos`,
     );
     const gRects = squarify(
       groups.map((g) => ({ v: g.total, g })),
@@ -194,26 +194,26 @@ export const design: Design = {
     }
     s += labels;
     const fy = Y + HH + 22;
-    // Spell out the largest multi-owner family among the coloured groups, naming up to three of its owners by contributions.
+    // Spell out the largest multi-owner ecosystem among the coloured groups, naming up to three of its owners by contributions.
     let fam = "";
-    if (bigFamily?.family) {
-      const owners = bigFamily.family.owners;
+    if (bigEcosystem?.ecosystem) {
+      const owners = bigEcosystem.ecosystem.owners;
       const kind = owners.every((o) => stats.owners.find((x) => x.owner === o)?.type !== "User")
         ? "orgs"
         : "owners";
-      const ranked = [...bigFamily.owners].sort(
+      const ranked = [...bigEcosystem.owners].sort(
         (a, b) =>
-          sum(bigFamily.repos.filter((r) => r.owner === b).map((r) => r.total)) -
-          sum(bigFamily.repos.filter((r) => r.owner === a).map((r) => r.total)),
+          sum(bigEcosystem.repos.filter((r) => r.owner === b).map((r) => r.total)) -
+          sum(bigEcosystem.repos.filter((r) => r.owner === a).map((r) => r.total)),
       );
       fam =
         owners.length > 3
-          ? ` (${bigFamily.name} spans ${owners.length} ${kind}, e.g. ${ranked.slice(0, 3).join(", ")})`
-          : ` (${bigFamily.name} = ${list(owners)})`;
+          ? ` (${bigEcosystem.name} spans ${owners.length} ${kind}, e.g. ${ranked.slice(0, 3).join(", ")})`
+          : ` (${bigEcosystem.name} = ${list(owners)})`;
     }
     const foot = restGroups.length
-      ? `Coloured: the ${NCOL} largest groups${fam}. Gray: everyone else, ${rest.owners} owners and ${rest.total} contributions.`
-      : `One colour per group, ${groups.length} in all${fam}.`;
+      ? `Colored: the ${NCOL} largest groups${fam}. Gray: everyone else, ${rest.owners} owners and ${rest.total} contributions.`
+      : `One color per group, ${groups.length} in all${fam}.`;
     s += `<text x="24" y="${fy}" font-size="11" class="m">${esc(foot)}</text>`;
     return svgDoc(t, h, s);
   },

@@ -19,7 +19,7 @@ A GitHub Action on a schedule (daily is plenty) fetches the data, renders the ch
 </picture>
 ```
 
-Filters are config, chosen by the README's owner: designs, families, row limits, excluded repositories.
+Filters are config, chosen by the README's owner: designs, ecosystems, row limits, excluded repositories.
 
 ## Why
 

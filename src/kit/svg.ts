@@ -125,7 +125,7 @@ export function avatar(opts: {
     return `${clip}<image href="${uri}" x="${x}" y="${y}" width="${size}" height="${size}" clip-path="url(#${id})" preserveAspectRatio="xMidYMid slice"/>${ring}`;
   }
   const letter = esc((login[0] ?? "?").toUpperCase());
-  return `<rect x="${x}" y="${y}" width="${size}" height="${size}" rx="${r}" fill="${palette.surface}"/>${ring}<text x="${x + size / 2}" y="${y + size / 2}" dy="0.35em" text-anchor="middle" font-family="${SANS}" font-size="${Math.round(size * 0.48)}" font-weight="600" fill="${palette.muted}">${letter}</text>`;
+  return `<rect x="${x}" y="${y}" width="${size}" height="${size}" rx="${r}" fill="${palette.surface}"/>${ring}<text x="${x + size / 2}" y="${y + size / 2}" dy="0.35em" text-anchor="middle" font-ecosystem="${SANS}" font-size="${Math.round(size * 0.48)}" font-weight="600" fill="${palette.muted}">${letter}</text>`;
 }
 
 /** Wraps a body in a root <svg> with title, size and viewBox. */

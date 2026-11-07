@@ -99,7 +99,7 @@ function render(stats: Stats, theme: ThemeName): string {
 
   const footY = FIRST_LANE + (n - 1) * LANE + 62;
   const notes = [
-    `Lines: the ${n === 1 ? "family or owner" : `${n} families and owners`} with the most repos. Stations: up to ${MAX_STATIONS} biggest repos, in order of first contribution; size ∝ PRs + issues + discussions.`,
+    `Lines: the ${n === 1 ? "ecosystem or owner" : `${n} ecosystems and owners`} with the most repos. Stations: up to ${MAX_STATIONS} biggest repos, in order of first contribution; size ∝ PRs + issues + discussions.`,
   ];
   if (prefixes.length) {
     notes.push(
@@ -116,7 +116,7 @@ function render(stats: Stats, theme: ThemeName): string {
     width: W,
     height: footY + (notes.length - 1) * 16 + 20,
     title: "Upstream network map",
-    subtitle: `${plural(totalRepos, "repository", "repositories")} across ${plural(all.length, "family or owner", "families and owners")} · the widest-reaching ${n === 1 ? "line" : `${n} lines`}`,
+    subtitle: `${plural(totalRepos, "repo")} across ${plural(all.length, "ecosystem or owner", "ecosystems and owners")} · the widest-reaching ${n === 1 ? "line" : `${n} lines`}`,
     body: tracks + hub + stations + labels + foot,
   });
 }
@@ -125,6 +125,6 @@ export const design: Design = {
   id: "F03",
   slug: "metro",
   title: "Metro map",
-  idea: "A subway map where each line is one of the 6 families or owners with the most repositories (ties by contributions), and its stations are up to 8 of its biggest repos in order of first contribution, sized by PRs + issues + discussions. Shows breadth: where you branched out, not just where you contributed most.",
+  idea: "A subway map where each line is one of the 6 ecosystems or owners with the most repos (ties by contributions), and its stations are up to 8 of its biggest repos in order of first contribution, sized by PRs + issues + discussions. Shows breadth: where you branched out, not just where you contributed most.",
   render,
 };

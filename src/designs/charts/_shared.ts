@@ -6,7 +6,7 @@
 
 import type { PrPartKey } from "../../kit/outcomes.ts";
 import { MONO, SANS, esc } from "../../kit/svg.ts";
-import type { FamilyStats, RepoStats, Stats } from "../../stats/types.ts";
+import type { EcosystemStats, RepoStats, Stats } from "../../stats/types.ts";
 import type { Level, ThemeName } from "../types.ts";
 
 export { esc };
@@ -160,7 +160,7 @@ export interface Group extends Counts {
   rank: number;
   /** Login whose avatar stands for the group: the group's owner with the most contributions. */
   avatar: string;
-  family: FamilyStats | undefined;
+  ecosystem: EcosystemStats | undefined;
 }
 
 export interface Rest extends Counts {
@@ -182,16 +182,16 @@ const addCounts = (a: Counts, b: Counts): void => {
 
 const zero = (): Counts => ({ total: 0, prs: 0, prsMerged: 0, issues: 0, discussions: 0 });
 
-/** Repos tagged with their group (family when one matches the owner, otherwise the owner), and the groups ranked. */
+/** Repos tagged with their group (ecosystem when one matches the owner, otherwise the owner), and the groups ranked. */
 export function derive(stats: Stats) {
-  const famOf = new Map<string, FamilyStats>();
-  for (const f of stats.families) for (const o of f.owners) famOf.set(o, f);
-  const famRe = stats.families.map((f) => [new RegExp(f.match), f] as const);
-  const familyOf = (owner: string): FamilyStats | undefined =>
+  const famOf = new Map<string, EcosystemStats>();
+  for (const f of stats.ecosystems) for (const o of f.owners) famOf.set(o, f);
+  const famRe = stats.ecosystems.map((f) => [new RegExp(f.match), f] as const);
+  const ecosystemOf = (owner: string): EcosystemStats | undefined =>
     famOf.get(owner) ?? famRe.find(([re]) => re.test(owner))?.[1];
   const repos: Repo[] = stats.repos.map((r) => ({
     ...r,
-    group: familyOf(r.owner)?.name ?? r.owner,
+    group: ecosystemOf(r.owner)?.name ?? r.owner,
     name: r.repo.split("/")[1] ?? r.repo,
   }));
   const total = sum(repos.map((r) => r.total));
@@ -205,7 +205,7 @@ export function derive(stats: Stats) {
         owners: new Set(),
         rank: 0,
         avatar: r.owner,
-        family: familyOf(r.owner),
+        ecosystem: ecosystemOf(r.owner),
         ...zero(),
       };
       groupMap.set(r.group, g);
@@ -219,7 +219,7 @@ export function derive(stats: Stats) {
   );
   groups.forEach((g, i) => {
     g.rank = i;
-    // For a family, the owner with the most contributions (first seen wins a tie).
+    // For an ecosystem, the owner with the most contributions (first seen wins a tie).
     let best = "";
     let bestTotal = -1;
     for (const o of g.owners) {
@@ -229,7 +229,7 @@ export function derive(stats: Stats) {
         bestTotal = v;
       }
     }
-    g.avatar = g.family ? best : g.name;
+    g.avatar = g.ecosystem ? best : g.name;
   });
   const topGroups = groups.slice(0, NCOL);
   const restGroups = groups.slice(NCOL);
@@ -241,10 +241,10 @@ export function derive(stats: Stats) {
   };
   for (const g of restGroups) addCounts(rest, g);
   const T = stats.totals;
-  const SUB = `${fmt(total)} contributions to other people's projects · ${T.externalRepos} repos · ${T.externalOwners} owners · ${T.externalMerged} PRs merged`;
-  /** The largest coloured family that spans more than one owner, used to spell out a family in footnotes. */
-  const bigFamily = topGroups.find((g) => g.family && g.owners.size > 1);
-  return { T, repos, total, groups, topGroups, restGroups, rest, SUB, bigFamily };
+  const SUB = `${fmt(total)} contributions to upstream repos · ${T.externalRepos} repos · ${T.externalOwners} owners · ${T.externalMerged} PRs merged`;
+  /** The largest colored ecosystem that spans more than one owner, used to spell out an ecosystem in footnotes. */
+  const bigEcosystem = topGroups.find((g) => g.ecosystem && g.owners.size > 1);
+  return { T, repos, total, groups, topGroups, restGroups, rest, SUB, bigEcosystem };
 }
 
 export const colorOf = (t: Theme, g: { rank: number }): string =>

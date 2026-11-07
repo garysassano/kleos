@@ -35,7 +35,7 @@ export const design: Design = {
   id: "D05",
   slug: "skyline",
   title: "Skyline",
-  idea: 'Each building is one of the top 15 orgs or users, its height is the number of contributions and its floors split them into merged PRs, other PRs, issues and discussions, on a real scale with round-number gridlines. With outcomes "none" PRs are one floor; "full" splits them into merged, open and closed unmerged.',
+  idea: 'Each building is one of the top 15 owners (orgs or people), its height is the number of contributions and its floors split them into merged PRs, other PRs, issues and discussions, on a real scale with round-number gridlines. With outcomes "none" PRs are one floor; "full" splits them into merged, open and closed unmerged.',
   render(stats, theme, options = DEFAULT_OPTIONS) {
     const level = options.outcomes;
     const ctx = makeCtx(stats, theme);
@@ -93,7 +93,7 @@ export const design: Design = {
 
     let b = header(
       "Upstream skyline",
-      `Top ${sel.length} of ${stats.totals.externalOwners} orgs and users · building height = PRs + issues + discussions`,
+      `Top ${sel.length} of ${stats.totals.externalOwners} orgs and people · building height = PRs + issues + discussions`,
     );
     let lx = W - 20;
     const leg: string[] = [];
@@ -144,7 +144,7 @@ export const design: Design = {
       H,
       ctx,
       b,
-      `Upstream skyline: top ${sel.length} orgs and users by contributions`,
+      `Upstream skyline: top ${sel.length} orgs and people by contributions`,
       `@keyframes g{from{transform:scaleY(0)}to{transform:scaleY(1)}}@keyframes f{from{opacity:0}to{opacity:1}}
 .grow{transform-box:fill-box;transform-origin:50% 100%;animation:g .7s cubic-bezier(.2,.7,.2,1) both}.fade{animation:f .4s ease-out both}`,
     );

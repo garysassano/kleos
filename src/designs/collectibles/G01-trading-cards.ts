@@ -38,7 +38,7 @@ export const design: Design = {
       const id = `g01c${i}`;
       const lang = ownerLanguage(stats, o.owner);
       const span = ownerSpan(stats, o.owner);
-      const typeLine = [o.type === "User" ? "User" : "Organization", lang, plural(o.repos, "repo")]
+      const typeLine = [o.type === "User" ? "Person" : "Org", lang, plural(o.repos, "repo")]
         .filter(Boolean)
         .join(" · ");
       const total = String(o.total);
@@ -110,7 +110,7 @@ ${statRows}
 
     const empty = top.length
       ? ""
-      : `<text x="${width / 2}" y="${PAD + CH / 2}" text-anchor="middle" font-size="13" fill="${p.muted}">No external contributions yet</text>`;
+      : `<text x="${width / 2}" y="${PAD + CH / 2}" text-anchor="middle" font-size="13" fill="${p.muted}">No upstream contributions yet</text>`;
 
     // Legend: the rarity thresholds, then what TOTAL means.
     const est = (t: string) => [...t].length * 10.5 * 0.54;

@@ -1,5 +1,5 @@
 import { prsClosed, mergeRate as rateOf, totalsCounts } from "../../kit/outcomes.ts";
-import type { FamilyStats, Stats } from "../../stats/types.ts";
+import type { EcosystemStats, Stats } from "../../stats/types.ts";
 import { DEFAULT_OPTIONS, type Design, type Level } from "../types.ts";
 import { THEMES, derive, fmt, kinds, svg, text, trunc } from "./_shared.ts";
 
@@ -12,14 +12,14 @@ interface Item {
   issues: number;
   discussions: number;
   repos: number;
-  /** Owners rolled into this line when it is a family of more than one. */
+  /** Owners rolled into this line when it is an ecosystem of more than one. */
   famOwners: number;
 }
 
-/** Owners as receipt lines, a family's owners collapsed into one line, most contributions first. */
+/** Owners as receipt lines, an ecosystem's owners collapsed into one line, most contributions first. */
 function lineItems(stats: Stats) {
-  const famOf = new Map<string, FamilyStats>();
-  for (const f of stats.families) for (const o of f.owners) famOf.set(o, f);
+  const famOf = new Map<string, EcosystemStats>();
+  for (const f of stats.ecosystems) for (const o of f.owners) famOf.set(o, f);
   const items = new Map<string, Item>();
   for (const o of stats.owners) {
     const f = famOf.get(o.owner);
@@ -54,7 +54,7 @@ export const design: Design = {
   id: "C03",
   slug: "receipt",
   title: "Receipt",
-  idea: "A till receipt itemised by owner, with company families (several orgs under one brand) rolled into one line, a breakdown under each item and a grand total of every upstream PR, issue and discussion. The barcode is the last 53 weeks of activity. With outcomes none PRs are one line; merged keeps the merged sub-line without the open line or merge rate; full adds closed-unmerged PRs.",
+  idea: "A till receipt itemized by owner, with ecosystems (several orgs under one name) rolled into one line each, a breakdown under each item and a grand total of every upstream PR, issue and discussion. The barcode is the last 53 weeks of activity. With outcomes none PRs are one line; merged keeps the merged sub-line without the open line or merge rate; full adds closed-unmerged PRs.",
   render(stats, theme, options = DEFAULT_OPTIONS) {
     const lv = options.outcomes;
     const t = THEMES[theme];
@@ -128,7 +128,7 @@ export const design: Design = {
       b += text(R, y, v, `m n e ${cls}`, fs);
       nl();
     };
-    kv("Pull requests", fmt(T.externalPRs));
+    kv("PRs", fmt(T.externalPRs));
     if (lv !== "none") kv("merged", fmt(T.externalMerged), "pu", 2 * cw);
     if (lv === undefined || lv === "full") kv("still open", fmt(prsOpen), "mu", 2 * cw);
     if (lv === "full") kv("closed unmerged", fmt(prsClosed(totalsCounts(T))), "mu", 2 * cw);
@@ -140,7 +140,7 @@ export const design: Design = {
     b += text(L, y, "TOTAL", "m b t cap", 'font-size="15"');
     b += text(R, y, fmt(extTotal), "m b n t e", 'font-size="15"');
     nl();
-    b += text(L, y, `${T.externalRepos} repositories · ${T.externalOwners} owners`, "m mu", fs);
+    b += text(L, y, `${T.externalRepos} repos · ${T.externalOwners} owners`, "m mu", fs);
     if (lv === undefined) b += text(R, y, `${(mergeRate * 100).toFixed(1)}% merged`, "m pu e", fs);
     else if (lv === "full") b += text(R, y, `${rateOf(totalsCounts(T), lv)}% merged`, "m pu e", fs);
     nl(1.3);
@@ -170,7 +170,7 @@ export const design: Design = {
     b += text(
       W / 2,
       y,
-      `${weeks.length} weeks of activity · bar width = contributions`,
+      `${weeks.length} weeks of activity · bar width = activity`,
       "m f c",
       'font-size="10"',
     );

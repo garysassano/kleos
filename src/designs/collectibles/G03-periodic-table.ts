@@ -1,14 +1,14 @@
 import { PALETTES, SANS, document, esc, truncate } from "../../kit/svg.ts";
 import type { OwnerStats } from "../../stats/types.ts";
 import type { Design } from "../types.ts";
-import { familyOf, series } from "./_shared.ts";
+import { ecosystemOf, series } from "./_shared.ts";
 
 const CW = 43;
 const CH = 54;
 const G = 2;
 const X0 = 16;
 const Y0 = 12;
-const MAX_FAMILIES = 6;
+const MAX_ECOSYSTEMS = 6;
 
 /** Grid columns (1–18) of each period in the first five rows of the periodic table. */
 const PERIODS: number[][] = [
@@ -44,7 +44,7 @@ export const design: Design = {
   id: "G03",
   slug: "periodic-table",
   title: "Periodic table of owners",
-  idea: "The top 54 owners laid out in the first five periods of the periodic table: atomic number = rank, a unique two-letter symbol from the login, mass = PRs + issues + discussions. Families colour their owners like element groups; other owners are grouped as organizations or users.",
+  idea: "The top 54 owners laid out in the first five periods of the periodic table: atomic number = rank, a unique two-letter symbol from the login, mass = PRs + issues + discussions. Ecosystems color their owners like element series; other owners are shown as orgs or people.",
   render(stats, theme) {
     const p = PALETTES[theme];
     const pal = series(theme);
@@ -53,15 +53,15 @@ export const design: Design = {
     const lastRow = SLOTS[Math.max(shown.length - 1, 0)]?.row ?? 0;
     const periods = Math.max(3, lastRow + 1);
 
-    // Series: the first few families with a shown owner, then other organizations and users.
-    const fams = stats.families
+    // Series: the first few ecosystems with a shown owner, then other orgs and people.
+    const fams = stats.ecosystems
       .filter((f) => shown.some((o) => f.owners.includes(o.owner)))
-      .slice(0, MAX_FAMILIES);
+      .slice(0, MAX_ECOSYSTEMS);
     const famColor = new Map(fams.map((f, i) => [f.name, pal[i] as string]));
     const userColor = pal[6] as string;
     const orgColor = pal[7] as string;
     const colorOf = (o: OwnerStats) => {
-      const f = familyOf(stats, o.owner);
+      const f = ecosystemOf(stats, o.owner);
       if (f && famColor.has(f)) return famColor.get(f) as string;
       return o.type === "User" ? userColor : orgColor;
     };
@@ -92,8 +92,8 @@ export const design: Design = {
     // Title in the gap of period 1, key in the gap of periods 2–3.
     const tx = cx(3);
     const more = stats.owners.length - shown.length;
-    body += `<text x="${tx}" y="${cy(0) + 24}" font-size="18" font-weight="700" fill="${p.text}">Periodic Table of Upstream Owners</text>
-<text x="${tx}" y="${cy(0) + 43}" font-size="11.5" fill="${p.muted}">${shown.length ? `Top ${shown.length} of ${stats.owners.length} owners I contributed to, ranked by PRs + issues + discussions` : "No external contributions yet"}</text>`;
+    body += `<text x="${tx}" y="${cy(0) + 24}" font-size="18" font-weight="700" fill="${p.text}">Periodic table of upstream owners</text>
+<text x="${tx}" y="${cy(0) + 43}" font-size="11.5" fill="${p.muted}">${shown.length ? `Top ${shown.length} of ${stats.owners.length} owners I contributed to, ranked by PRs + issues + discussions` : "No upstream contributions yet"}</text>`;
     const first = shown[0];
     if (first) {
       const kx = cx(3);
@@ -122,9 +122,9 @@ export const design: Design = {
     // Legend of series.
     const ly = cy(periods) + 18;
     const items = [
-      ...fams.map((f) => ({ c: famColor.get(f.name) as string, label: `${f.name} family` })),
-      { c: orgColor, label: "Other organizations" },
-      { c: userColor, label: "Users" },
+      ...fams.map((f) => ({ c: famColor.get(f.name) as string, label: `${f.name} ecosystem` })),
+      { c: orgColor, label: "Other orgs" },
+      { c: userColor, label: "People" },
     ].filter((it) =>
       it.c === orgColor
         ? shown.some((o) => colorOf(o) === orgColor)

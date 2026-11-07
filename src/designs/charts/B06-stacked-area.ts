@@ -28,8 +28,8 @@ const nextMonth = (m: string): string => {
 export const design: Design = {
   id: "B06",
   slug: "stacked-area",
-  title: "Activity over time",
-  idea: "Monthly contributions as a stacked area by family or owner, showing peaks and how the mix shifts between groups. It starts in the first year holding at least 5% of all activity; anything earlier is counted in the footnote.",
+  title: "Contributions over time",
+  idea: "Monthly contributions as a stacked area by ecosystem or owner, showing peaks and how the mix shifts between groups. It starts in the first year holding at least 5% of all contributions; anything earlier is counted in the footnote.",
   render(stats, theme) {
     const t = THEMES[theme];
     const { repos, topGroups, restGroups, rest } = derive(stats);
@@ -90,8 +90,8 @@ export const design: Design = {
     const sy = (v: number) => PY1 - (v / ymax) * (PY1 - PY0);
     const peakAt = months[stackTot.indexOf(ymaxRaw)] ?? START;
     let s = header(
-      "Upstream activity over time",
-      `Monthly PRs + issues + discussions on other people's repos, stacked by family or owner · peak ${ymaxRaw} in ${monthName(peakAt)}`,
+      "Upstream contributions over time",
+      `Monthly PRs + issues + discussions on upstream repos, stacked by ecosystem or owner · peak ${ymaxRaw} in ${monthName(peakAt)}`,
     );
     // legend (wraps to more rows as needed)
     let lx = 24;

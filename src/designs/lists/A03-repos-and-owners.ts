@@ -38,10 +38,10 @@ export const design: Design = {
     let b = header(
       T,
       "Where my open-source contributions go",
-      `PRs, issues and discussions in repositories I don't own`,
+      `PRs, issues and discussions in repos I don't own`,
     );
     const tiles: [string, string][] = [
-      [String(d.nRepos), "repositories"],
+      [String(d.nRepos), "repos"],
       [String(d.nOwners), "owners (orgs and people)"],
       [
         String(ext.prs),
@@ -89,7 +89,7 @@ export const design: Design = {
     const right = 24 + cw + 32;
     b += panel(
       left,
-      "Top repositories",
+      "Top repos",
       repoRows.map((r, i) => {
         const cy = rowY(i);
         return (

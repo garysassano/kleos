@@ -12,7 +12,7 @@ export const design: Design = {
   id: "D04",
   slug: "swimlanes",
   title: "Swimlanes",
-  idea: "One lane per top upstream repo in the order I started on it: a line from first to last contribution and a dot per month sized by that month’s count, so the hand-offs between projects read like a timeline.",
+  idea: "One lane per top upstream repo in the order I started on it: a line from first to last contribution and a dot per month sized by that month’s count, so the hand-offs between repos read like a timeline.",
   render(stats, theme) {
     const ctx = makeCtx(stats, theme);
     const T = ctx.T;

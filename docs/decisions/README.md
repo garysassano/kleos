@@ -13,3 +13,4 @@ Each record says what was decided, why, and what was rejected. A record is never
 | [0007](0007-design-catalog.md)               | Designs are a catalog of stable ids rendered from committed fixtures      | 2026-11-07 |
 | [0008](0008-name.md)                         | The name: kleos                                                           | 2026-11-07 |
 | [0009](0009-outcomes-option.md)              | An `outcomes` option controls how much PR outcome detail a card shows     | 2026-11-07 |
+| [0010](0010-vocabulary.md)                   | One name per concept on every card                                        | 2026-11-07 |

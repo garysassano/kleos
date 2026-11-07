@@ -33,12 +33,12 @@ function paragraph(stats: Parameters<Design["render"]>[0], lv: Level | undefined
   const { repos, owners } = stats;
   const runs: Run[] = [
     [`Since ${monthYear(firstPR)} I have opened `, ""],
-    [`${T.externalPRs} pull requests`, "b"],
+    [`${T.externalPRs} PRs`, "b"],
     ...outcomeRuns(T, lv),
     [". Counting issues and discussions, that is ", ""],
     [`${fmt(extTotal)} contributions`, "b"],
     [" to ", ""],
-    [`${T.externalRepos} repositories`, "b"],
+    [`${T.externalRepos} repos`, "b"],
     [` under ${T.externalOwners} owners. `, ""],
   ];
   const lead = repos.slice(0, 3);
@@ -47,7 +47,7 @@ function paragraph(stats: Parameters<Design["render"]>[0], lv: Level | undefined
     runs.push([before, ""], [r.repo, "b"], [` (${desc(r, lv)})`, ""]);
   });
   if (lead.length) runs.push([". ", ""]);
-  const fam = stats.families
+  const fam = stats.ecosystems
     .filter((f) => f.owners.length > 1)
     .sort((a, b) => b.total - a.total)[0];
   if (fam) {
@@ -55,7 +55,7 @@ function paragraph(stats: Parameters<Design["render"]>[0], lv: Level | undefined
     runs.push(
       [`Across its ${words(active)} GitHub orgs, `, ""],
       [fam.name, "b"],
-      [` adds up to ${fam.total} contributions in ${fam.repos} repositories. `, ""],
+      [` adds up to ${fam.total} contributions in ${fam.repos} repos. `, ""],
     );
   }
   const yr = asOf.slice(0, 4);
@@ -73,7 +73,7 @@ function paragraph(stats: Parameters<Design["render"]>[0], lv: Level | undefined
     const yRepos = yearly.filter((x) => x.n > 0).length;
     runs.push(
       [`In ${yr} so far: `, ""],
-      [`${yTotal} contributions to ${yRepos} ${yRepos === 1 ? "repository" : "repositories"}`, "b"],
+      [`${yTotal} contributions to ${yRepos} ${yRepos === 1 ? "repo" : "repos"}`, "b"],
       [", led by ", ""],
       [best.r.repo, "b"],
       [` (${best.n}).`, ""],
@@ -91,12 +91,12 @@ function paragraph(stats: Parameters<Design["render"]>[0], lv: Level | undefined
   return merged;
 }
 
-/** What follows "I have opened N pull requests": no outcome for "none", the merge count by default, every outcome for "full". */
+/** What follows "I have opened N PRs": no outcome for "none", the merge count by default, every outcome for "full". */
 function outcomeRuns(T: Parameters<typeof totalsCounts>[0], lv: Level | undefined): Run[] {
   const c = totalsCounts(T);
-  if (lv === "none") return [[" in repositories I don't own", ""]];
+  if (lv === "none") return [[" in repos I don't own", ""]];
   const runs: Run[] = [
-    [" in repositories I don't own, and ", ""],
+    [" in repos I don't own, and ", ""],
     [`${c.prsMerged} of them were merged`, "b"],
   ];
   if (lv === "full") {
@@ -114,7 +114,7 @@ export const design: Design = {
   id: "C05",
   slug: "in-brief",
   title: "In brief",
-  idea: "A short paragraph written from the data: totals, merge count, the top three repositories, the biggest company family (the one with several owners and the most contributions) and this year's leading repository, with every figure set in bold. The merge count follows the outcomes level: left out for none, joined by open and closed-unmerged PRs for full.",
+  idea: "A short paragraph written from the data: totals, merge count, the top three repos, the biggest ecosystem (the one with several owners and the most contributions) and this year's leading repo, with every figure set in bold. The merge count follows the outcomes level: left out for none, joined by open and closed-unmerged PRs for full.",
   render(stats, theme, options = DEFAULT_OPTIONS) {
     const t = THEMES[theme];
     const { asOf } = derive(stats);
@@ -165,7 +165,7 @@ export const design: Design = {
     b += text(
       x,
       H - 20,
-      `Public repositories owned by someone else · PRs, issues and discussions · as of ${longDate(asOf)}`,
+      `Public repos owned by someone else · PRs, issues and discussions · as of ${longDate(asOf)}`,
       "s f",
       'font-size="11.5"',
     );

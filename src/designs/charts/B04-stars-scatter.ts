@@ -103,7 +103,7 @@ export const design: Design = {
   id: "B04",
   slug: "stars-scatter",
   title: "Stars vs involvement",
-  idea: 'Each repo plotted by stars (log) against my contributions (log), coloured by whether code landed (with outcomes "none", only by whether I opened PRs; with "full", also open versus only closed-unmerged PRs); shows depth in mid-size projects versus drive-by issues on giant ones. Labels go to the 7 repos with most contributions, then the highest stars × contributions among repos with at least 3, up to 11 in all, each placed where it overlaps no other label and no other labelled repo\'s dot.',
+  idea: 'Each repo plotted by stars (log) against my contributions (log), colored by whether a PR was merged (with outcomes "none", only by whether I opened PRs; with "full", also open versus only closed-unmerged PRs); shows depth in mid-size repos versus drive-by issues on giant ones. Labels go to the 7 repos with most contributions, then the highest stars × contributions among repos with at least 3, up to 11 in all, each placed where it overlaps no other label and no other labelled repo\'s dot.',
   render(stats, theme, options: RenderOptions = DEFAULT_OPTIONS) {
     const lvl = options.outcomes;
     const t = THEMES[theme];
@@ -142,7 +142,7 @@ export const design: Design = {
         }))
       : cats.map((c) => ({ label: c.label, c: c.c, n: plotted.filter(c.test).length }));
     let s = header(
-      "Popular projects vs. how involved I got",
+      "Popular repos vs. how involved I got",
       `Each dot is one of ${plotted.length} repos · x = stars (log) · y = my PRs + issues + discussions (log)`,
     );
     // legend

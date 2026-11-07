@@ -7,7 +7,7 @@ import {
 } from "../../kit/svg.ts";
 import { DEFAULT_OPTIONS, type Design } from "../types.ts";
 import {
-  allFamilies,
+  allEcosystems,
   dayLabel,
   frame,
   independentOwners,
@@ -20,7 +20,7 @@ import {
 
 const W = 840;
 const PAD = 24;
-const MAX_FAMILIES = 7;
+const MAX_ECOSYSTEMS = 7;
 
 interface Outcome {
   opened: number;
@@ -40,13 +40,13 @@ export const design: Design = {
   id: "H03",
   slug: "merge-funnel",
   title: "Merge funnel",
-  idea: "What happens to the PRs I open upstream: opened, decided (merged or closed), merged, with the drop at each step, then the same split for each family next to everyone else. Rule: families ranked by PRs opened, up to 7, the remaining owners summed in one row.",
+  idea: "What happens to the PRs I open upstream: opened, decided (merged or closed), merged, with the drop at each step, then the same split for each ecosystem next to everyone else. Rule: ecosystems ranked by PRs opened, up to 7, the remaining owners summed in one row.",
   // A funnel is the drop between outcomes; without them there is no funnel left to draw.
   outcomes: ["full"],
   render(stats, theme, options = DEFAULT_OPTIONS) {
     const p = PALETTES[theme];
     // Unset: the original accent for open and faded purple for closed. "full" (decision 0009):
-    // open in a lighter tone of the merged purple, closed unmerged in neutral grey.
+    // open in a lighter tone of the merged purple, closed unmerged in neutral gray.
     const full = options.outcomes === "full";
     const openC = full ? p.open : p.accent;
     const closedC = full ? p.closed : p.pr;
@@ -59,11 +59,11 @@ export const design: Design = {
     const decided = all.merged + all.closed;
     let body = "";
 
-    body += t(PAD, 38, "Pull request outcomes", 16, p.text, 'font-weight="600"');
+    body += t(PAD, 38, "PR outcomes", 16, p.text, 'font-weight="600"');
     body += t(
       PAD,
       58,
-      `${plural(all.opened, "PR")} opened in other people's repositories, as of ${dayLabel(stats.generatedAt)}`,
+      `${plural(all.opened, "PR")} opened in upstream repos, as of ${dayLabel(stats.generatedAt)}`,
       12,
       p.muted,
     );
@@ -136,22 +136,22 @@ export const design: Design = {
     });
     let leftBottom = ry + 17;
 
-    // Families (right panel)
+    // Ecosystems (right panel)
     const tx = fx + fw + 40;
     const tw = W - PAD - tx;
     const nameW = 150;
     const barX = tx + nameW + 50;
     const barW = tw - nameW - 50 - 46;
-    body += t(tx, top - 8, "By family", 13, p.text, 'font-weight="600"');
+    body += t(tx, top - 8, "By ecosystem", 13, p.text, 'font-weight="600"');
     body += t(barX - 8, top - 8, "opened", 11, p.faint, 'text-anchor="end"');
     body += t(tx + tw, top - 8, "merged", 11, p.faint, 'text-anchor="end"');
     body += `<line x1="${tx}" y1="${top + 0.5}" x2="${tx + tw}" y2="${top + 0.5}" stroke="${p.border}"/>`;
 
-    const fams = allFamilies(stats)
+    const fams = allEcosystems(stats)
       .sort((a, b) => b.prs - a.prs || b.total - a.total)
-      .slice(0, MAX_FAMILIES);
-    const inFamily = new Set(fams.flatMap((g) => g.owners));
-    const rest = stats.repos.filter((r) => !inFamily.has(r.owner));
+      .slice(0, MAX_ECOSYSTEMS);
+    const inEcosystem = new Set(fams.flatMap((g) => g.owners));
+    const rest = stats.repos.filter((r) => !inEcosystem.has(r.owner));
     const others = outcome({
       prs: sum(rest, (r) => r.prs),
       prsMerged: sum(rest, (r) => r.prsMerged),
@@ -252,7 +252,7 @@ export const design: Design = {
     body += t(
       W - PAD,
       ly,
-      "family bars: share of that row's opened PRs",
+      "ecosystem bars: share of that row's opened PRs",
       11,
       p.faint,
       'text-anchor="end"',
@@ -261,7 +261,7 @@ export const design: Design = {
     return svgDocument({
       width: W,
       height: h,
-      title: "Pull request outcomes",
+      title: "PR outcomes",
       body: frame(W, h, p) + body,
     });
   },

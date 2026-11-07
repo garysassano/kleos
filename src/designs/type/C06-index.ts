@@ -84,13 +84,7 @@ export const design: Design = {
         b += `<line x1="${x0 - gutter / 2}" y1="${top - 10}" x2="${x0 - gutter / 2}" y2="${top + LH * (rowsMax - 1) + 8}" stroke="${t.hair}"/>`;
       }
     });
-    b += text(
-      P,
-      H - 18,
-      "Italic: personal accounts. Roman: organisations.",
-      "s f",
-      'font-size="11"',
-    );
+    b += text(P, H - 18, "Italic: people. Roman: orgs.", "s f", 'font-size="11"');
     b += text(W - P, H - 18, `as of ${longDate(asOf)}`, "s f e", 'font-size="11"');
     const css = `.halo{paint-order:stroke;stroke:${t.bg};stroke-width:7px;stroke-linejoin:round}.it{font-style:italic}`;
     return svg(

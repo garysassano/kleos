@@ -91,12 +91,12 @@ export function metals(theme: ThemeName): Metal[] {
       ];
 }
 
-/** Categorical colours (Primer scale steps) for families and series, per theme. */
+/** Categorical colours (Primer scale steps) for ecosystems and series, per theme. */
 export const series = (theme: ThemeName): string[] =>
   theme === "dark"
     ? ["#4493f8", "#3fb950", "#d29922", "#ab7df8", "#f778ba", "#39c5cf", "#f0883e", "#8b949e"]
     : ["#0969da", "#1a7f37", "#9a6700", "#8250df", "#bf3989", "#1b7c83", "#bc4c00", "#6e7781"];
 
-/** Family name of an owner, or null when the owner is not in any family. */
-export const familyOf = (stats: Stats, owner: string): string | null =>
-  stats.families.find((f) => f.owners.includes(owner))?.name ?? null;
+/** Ecosystem name of an owner, or null when the owner is not in any ecosystem. */
+export const ecosystemOf = (stats: Stats, owner: string): string | null =>
+  stats.ecosystems.find((f) => f.owners.includes(owner))?.name ?? null;

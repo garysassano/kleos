@@ -26,7 +26,7 @@ export const design: Design = {
   id: "A01",
   slug: "repo-leaderboard",
   title,
-  idea: 'Top 12 external repos ranked by PRs + issues + discussions, each with a stacked bar showing the mix (merged PRs, other PRs, issues, discussions) and the counts beside it. When the top repo has more than twice the runner-up\'s total, its bar is shortened and labelled with its true total and “not to scale”, so the other bars stay readable. With outcomes "none" PRs are one segment; "merged" highlights merged PRs within them; "full" splits them into merged, open and closed unmerged.',
+  idea: 'Top 12 upstream repos ranked by PRs + issues + discussions, each with a stacked bar showing the mix (merged PRs, other PRs, issues, discussions) and the counts beside it. When the top repo has more than twice the runner-up\'s total, its bar is shortened and labeled with its true total and “not to scale”, so the other bars stay readable. With outcomes "none" PRs are one segment; "merged" highlights merged PRs within them; "full" splits them into merged, open and closed unmerged.',
   render(stats, theme, options = DEFAULT_OPTIONS) {
     const level = options.outcomes;
     const T = themeOf(theme);
@@ -45,12 +45,12 @@ export const design: Design = {
       broken && rows[0] ? Math.min(254, 254 + 30 - 8 - breakCueW(rows[0].total, cueSize)) : 254;
     let b = header(
       T,
-      "Top repositories I contribute to",
+      "Top repos I contribute to",
       `Other people's repos, ranked by PRs + issues + discussions · ${topOf(N, d.nRepos)}`,
     );
     b +=
       t(T, 40, top - 10, "#", { size: 11, fill: "muted", anchor: "end" }) +
-      t(T, 84, top - 10, "Repository", { size: 11, fill: "muted" }) +
+      t(T, 84, top - 10, "Repo", { size: 11, fill: "muted" }) +
       t(T, bx, top - 10, "Mix", { size: 11, fill: "muted" });
     b +=
       t(T, 664, top - 10, "PRs", { size: 11, fill: "muted", anchor: "end" }) +

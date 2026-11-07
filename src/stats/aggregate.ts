@@ -3,16 +3,16 @@
  * See docs/decisions/0006-what-counts.md for what is counted and why.
  */
 import type { RawData, RawRepo } from "../github/fetch.ts";
-import type { FamilyStats, OwnerStats, RecentPR, RepoStats, Stats } from "./types.ts";
+import type { EcosystemStats, OwnerStats, RecentPR, RepoStats, Stats } from "./types.ts";
 
-export interface FamilyRule {
+export interface EcosystemRule {
   name: string;
   /** Regular expression matched against the whole owner login. */
   match: string;
 }
 
 /** Vendors that spread their open source over several GitHub organizations. */
-export const DEFAULT_FAMILIES: FamilyRule[] = [
+export const DEFAULT_ECOSYSTEMS: EcosystemRule[] = [
   { name: "AWS", match: "^(aws|awslabs|aws-.*|amazon-.*)$" },
   { name: "HashiCorp", match: "^hashicorp$" },
   { name: "OpenTelemetry", match: "^open-telemetry$" },
@@ -27,9 +27,9 @@ export const RECENT_PRS = 30;
 
 export function aggregate(
   raw: RawData,
-  opts: { families?: FamilyRule[]; avatars?: Record<string, string> } = {},
+  opts: { ecosystems?: EcosystemRule[]; avatars?: Record<string, string> } = {},
 ): Stats {
-  const families = opts.families ?? DEFAULT_FAMILIES;
+  const ecosystems = opts.ecosystems ?? DEFAULT_ECOSYSTEMS;
   const repos = new Map<string, RepoStats>();
 
   const get = (r: RawRepo): RepoStats => {
@@ -144,7 +144,7 @@ export function aggregate(
   }
   const ownerList = [...owners.values()].sort((a, b) => b.total - a.total);
 
-  const familyStats: FamilyStats[] = families.map((f) => {
+  const ecosystemStats: EcosystemStats[] = ecosystems.map((f) => {
     const re = new RegExp(f.match);
     const members = ownerList.filter((o) => re.test(o.owner));
     const sum = (
@@ -196,7 +196,7 @@ export function aggregate(
     ownRepoActivity: all.filter((x) => x.owner === raw.login).reduce((a, x) => a + x.total, 0),
     repos: external,
     owners: ownerList,
-    families: familyStats,
+    ecosystems: ecosystemStats,
     calendar: calendar.slice(-CALENDAR_DAYS),
     recentPRs,
     avatars: opts.avatars ?? {},

@@ -65,6 +65,33 @@ const FORBIDDEN: Record<Exclude<Outcomes, "original">, RegExp | null> = {
   full: null,
 };
 
+/** Other names for the concepts in docs/decisions/0010-vocabulary.md. */
+const REPLACED_WORDS =
+  /\b(organi[sz]ations?|organis\w*|users?|famil(y|ies)|vendors?|brands?|compan(y|ies)|external)\b/i;
+
+/** Data (repo names, logins, ecosystem names, PR titles) removed so only our own wording is checked. */
+const withoutData = (text: string, stats: (typeof fixtures)[keyof typeof fixtures]): string => {
+  const names = [
+    ...stats.repos.map((r) => r.repo),
+    ...stats.repos.map((r) => r.repo.split("/")[1] ?? ""),
+    ...stats.owners.map((o) => o.owner),
+    ...stats.ecosystems.map((e) => e.name),
+    ...stats.recentPRs.map((p) => p.title),
+    stats.user,
+  ]
+    .filter((n) => n.length > 2)
+    .sort((a, b) => b.length - a.length);
+  let out = text;
+  for (const n of names) out = out.split(n).join(" ");
+  return out;
+};
+
+describe("vocabulary", () => {
+  it.each(designs.map((d) => [d.id, d] as const))("%s title and description", (_, d) => {
+    expect(`${d.title} ${d.idea}`.match(REPLACED_WORDS)?.[0], "replaced word").toBeUndefined();
+  });
+});
+
 describe("every design", () => {
   it.each(cases)("%s renders a GitHub-safe SVG", (_, design, stats, theme, outcomes) => {
     const svg = design.render(stats, theme, { outcomes });
@@ -91,8 +118,17 @@ describe("every design", () => {
     expect(design.render(stats, theme, { outcomes }), "deterministic").toBe(svg);
     if (outcomes === "original") {
       expect(design.render(stats, theme), "unset = original").toBe(svg);
+      expect(
+        withoutData(visibleText(svg), stats).match(REPLACED_WORDS)?.[0],
+        "replaced word on the card",
+      ).toBeUndefined();
       return;
     }
+
+    expect(
+      withoutData(visibleText(svg), stats).match(REPLACED_WORDS)?.[0],
+      "replaced word on the card",
+    ).toBeUndefined();
 
     const forbidden = FORBIDDEN[outcomes];
     if (forbidden) {

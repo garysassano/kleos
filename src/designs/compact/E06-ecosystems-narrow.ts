@@ -23,18 +23,18 @@ function render(stats: Stats, theme: ThemeName, options: RenderOptions = DEFAULT
   const W = 420;
   const P = 16;
   const RH = 64;
-  const fams = [...stats.families].sort((a, b) => b.total - a.total);
+  const fams = [...stats.ecosystems].sort((a, b) => b.total - a.total);
   const top = 62;
   const rows = Math.max(1, fams.length);
   const H = top + rows * RH + 34;
   let b = card(W, H, t);
   b += `<text x="${P}" y="30" font-size="15" font-weight="600" fill="${t.text}">Ecosystems</text>`;
-  b += `<text x="${P}" y="48" font-size="12" fill="${t.muted}">Upstream work grouped by vendor, across all their orgs</text>`;
+  b += `<text x="${P}" y="48" font-size="12" fill="${t.muted}">Upstream work grouped by ecosystem, across all its orgs</text>`;
   const max = Math.max(1, fams[0]?.total ?? 0);
   const barW = W - 2 * P;
   const byLogin = new Map(stats.owners.map((o) => [o.owner, o]));
   if (!fams.length)
-    b += `<line x1="${P}" x2="${W - P}" y1="${top + 0.5}" y2="${top + 0.5}" stroke="${t.borderMuted}"/><text x="${P}" y="${top + 36}" font-size="12" fill="${t.muted}">No vendor family has upstream activity yet</text>`;
+    b += `<line x1="${P}" x2="${W - P}" y1="${top + 0.5}" y2="${top + 0.5}" stroke="${t.borderMuted}"/><text x="${P}" y="${top + 36}" font-size="12" fill="${t.muted}">No ecosystem has upstream contributions yet</text>`;
   fams.forEach((f, i) => {
     const y = top + i * RH;
     b += `<line x1="${P}" x2="${W - P}" y1="${y + 0.5}" y2="${y + 0.5}" stroke="${t.borderMuted}"/>`;
@@ -97,6 +97,6 @@ export const design: Design = {
   id: "E06",
   slug: "ecosystems-narrow",
   title: "Ecosystems (narrow)",
-  idea: "A 420px card grouping work by vendor family (one brand spread across several orgs) with member-org avatars, scaled stacked bars and a written breakdown. Built to pair with another narrow card.",
+  idea: "A 420px card grouping work by ecosystem (several orgs under one name, such as AWS) with member-org avatars, scaled stacked bars and a written breakdown. Built to pair with another narrow card.",
   render,
 };

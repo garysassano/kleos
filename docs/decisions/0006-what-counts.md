@@ -10,11 +10,11 @@ The previous card (github-contribution-card) showed commit contributions only. I
 
 ## Decision
 
-- **A contribution is a PR, issue or discussion the user opened.** `total = prs + issues + discussions`, per repository, then summed per owner and per family.
+- **A contribution is a PR, issue or discussion the user opened.** `total = prs + issues + discussions`, per repository, then summed per owner and per ecosystem.
 - **Merged PRs are counted separately** (`prsMerged`) and shown as the strongest signal. Open PRs (`prsOpen`) are also tracked. The rest are PRs closed without merging.
 - **External only.** Cards show repositories the user doesn't own (`owner !== user`), and only public ones. Activity in the user's own repositories is kept as one number, `ownRepoActivity`.
 - **Owners** are organizations or users, aggregated from their repositories.
-- **Families** group several organizations under one vendor by a regular expression on the owner login. For example, AWS = `^(aws|awslabs|aws-.*|amazon-.*)$`. The defaults live in `DEFAULT_FAMILIES` in [`src/stats/aggregate.ts`](../../src/stats/aggregate.ts) and will become config.
+- **Ecosystems** group several organizations under one vendor by a regular expression on the owner login. For example, AWS = `^(aws|awslabs|aws-.*|amazon-.*)$`. The defaults live in `DEFAULT_ECOSYSTEMS` in [`src/stats/aggregate.ts`](../../src/stats/aggregate.ts) and will become config.
 - **Commits and reviews** from `contributionsCollection` are kept per repository as context but are not part of `total`. Commits double-count merged PRs, and the API only counts default-branch commits.
 - **The calendar** is the last 371 days up to the fetch, and it includes private contributions, as GitHub's own graph does. Designs that show it next to public-only numbers must say so.
 - **Stars describe the repository, not the user.** A design may show them as context, such as how big the project is, never as the user's rank.

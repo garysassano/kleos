@@ -1,6 +1,6 @@
 /**
  * Helpers shared by the flow and network cards (category F): the card frame, contribution groups
- * (a family counts as one group, every other owner is its own), a fixed categorical palette, and
+ * (an ecosystem counts as one group, every other owner is its own), a fixed categorical palette, and
  * small layout utilities.
  */
 
@@ -23,11 +23,11 @@ export const SERIES: Record<ThemeName, readonly string[]> = {
   dark: ["#3987e5", "#d95926", "#199e70", "#c98500", "#d55181", "#008300", "#9085e9", "#e66767"],
 };
 
-/** A family (several owners under one brand) or a single owner outside any family. */
+/** An ecosystem (several related owners) or a single owner outside any ecosystem. */
 export interface Group {
   key: string;
   name: string;
-  family: boolean;
+  ecosystem: boolean;
   owners: string[];
   /** Owner whose avatar stands for the group: the one with the most contributions. */
   lead: string;
@@ -42,7 +42,7 @@ export interface Group {
   discussions: number;
 }
 
-/** External repositories with at least one PR, issue or discussion, by total descending. */
+/** Upstream repos with at least one PR, issue or discussion, by total descending. */
 export const activeRepos = (stats: Stats): RepoStats[] =>
   stats.repos
     .filter((r) => r.total > 0)
@@ -50,19 +50,19 @@ export const activeRepos = (stats: Stats): RepoStats[] =>
 
 /** Groups summed from the repositories, so every flow adds up exactly. Sorted by total, then name. */
 export function groups(stats: Stats): Group[] {
-  const familyOf = new Map<string, string>();
-  for (const f of stats.families) for (const o of f.owners) familyOf.set(o, f.name);
+  const ecosystemOf = new Map<string, string>();
+  for (const f of stats.ecosystems) for (const o of f.owners) ecosystemOf.set(o, f.name);
   const byKey = new Map<string, Group>();
   const ownerTotals = new Map<string, number>();
   for (const r of activeRepos(stats)) {
-    const fam = familyOf.get(r.owner);
-    const key = fam ? `family:${fam}` : `owner:${r.owner}`;
+    const fam = ecosystemOf.get(r.owner);
+    const key = fam ? `ecosystem:${fam}` : `owner:${r.owner}`;
     let g = byKey.get(key);
     if (!g) {
       g = {
         key,
         name: fam ?? r.owner,
-        family: fam !== undefined,
+        ecosystem: fam !== undefined,
         owners: [],
         lead: r.owner,
         org: fam !== undefined || r.ownerType === "Organization",

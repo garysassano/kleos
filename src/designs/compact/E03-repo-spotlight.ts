@@ -44,8 +44,8 @@ function render(stats: Stats, theme: ThemeName, options: RenderOptions = DEFAULT
   const P = 16;
   const r = spotlight(stats);
   if (!r) {
-    const body = `${card(W, H, t)}<text x="${W / 2}" y="${H / 2}" text-anchor="middle" font-size="13" fill="${t.muted}">No upstream pull requests, issues or discussions yet</text>`;
-    return svg(W, H, "Repository spotlight", body);
+    const body = `${card(W, H, t)}<text x="${W / 2}" y="${H / 2}" text-anchor="middle" font-size="13" fill="${t.muted}">No upstream PRs, issues or discussions yet</text>`;
+    return svg(W, H, "Repo spotlight", body);
   }
   const slash = r.repo.indexOf("/");
   const own = r.repo.slice(0, slash);
@@ -69,7 +69,7 @@ function render(stats: Stats, theme: ThemeName, options: RenderOptions = DEFAULT
     {
       ic: "pr",
       c: t.pr,
-      label: "Pull requests",
+      label: "PRs",
       v: r.prs,
       sub: !r.prs
         ? "none yet"
@@ -170,6 +170,6 @@ export const design: Design = {
   id: "E03",
   slug: "repo-spotlight",
   title: "Repo spotlight",
-  idea: "One repository in focus: avatar, stars, language, PR/issue/discussion breakdown and a monthly activity histogram over the active span. It picks the repository with the most contributions among those not owned by the top owner. 410px, so two sit side by side.",
+  idea: "One repo in focus: avatar, stars, language, PR/issue/discussion breakdown and a histogram of monthly contributions over the active span. It picks the repo with the most contributions among those not owned by the top owner. 410px, so two sit side by side.",
   render,
 };

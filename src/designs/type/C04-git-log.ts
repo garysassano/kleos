@@ -9,7 +9,7 @@ export const design: Design = {
   id: "C04",
   slug: "git-log",
   title: "Git log",
-  idea: "The latest upstream pull requests (merged and open; closed-unmerged ones are hidden) as a `git log --graph` timeline: date, repo#number, title and diffstat, so visitors see what you are working on right now. With outcomes none every node looks the same; merged fills merged nodes and leaves the rest plain; full lists closed-unmerged PRs too, each state with its own node.",
+  idea: "The latest upstream PRs (merged and open; closed-unmerged ones are hidden) as a `git log --graph` timeline: date, repo#number, title and diffstat, so visitors see what you are working on right now. With outcomes none every node looks the same; merged fills merged nodes and leaves the rest plain; full lists closed-unmerged PRs too, each state with its own node.",
   render(stats, theme, options = DEFAULT_OPTIONS) {
     const lv = options.outcomes;
     const t = THEMES[theme];
@@ -54,7 +54,7 @@ export const design: Design = {
       b += `<circle cx="${xEnd - 172}" cy="26" r="4.5" fill="${t.merged}"/>${text(xEnd - 162, 30, `${T.externalMerged} merged`, "s mu", 'font-size="12"')}`;
       b += `<circle cx="${xEnd - 76}" cy="26" r="4" fill="${t.bg}" stroke="${t.open}" stroke-width="1.6"/>${text(xEnd - 66, 30, `${prsOpen} open`, "s mu", 'font-size="12"')}`;
     } else if (lv === "none") {
-      b += text(xEnd, 30, `${T.externalPRs} pull requests`, "s mu e", 'font-size="12"');
+      b += text(xEnd, 30, `${T.externalPRs} PRs`, "s mu e", 'font-size="12"');
     } else {
       // Right-aligned legend: "○ 312 PRs ● 278 merged", or one entry per outcome for "full".
       const c = totalsCounts(T);
@@ -115,11 +115,11 @@ export const design: Design = {
     const footer =
       lv === undefined
         ? n
-          ? `${n} most recent of ${T.externalPRs} pull requests to repositories I don't own · closed-unmerged hidden · ${asOf}`
-          : `No merged or open pull requests among the latest ${stats.recentPRs.length} to repositories I don't own · ${asOf}`
+          ? `${n} most recent of ${T.externalPRs} upstream PRs · closed-unmerged hidden · ${asOf}`
+          : `No merged or open PRs among the latest ${stats.recentPRs.length} upstream · ${asOf}`
         : n
-          ? `${n} ${lv === "full" ? "most recent" : "recent"} of ${T.externalPRs} pull requests to repositories I don't own · ${asOf}`
-          : `No recent pull requests to repositories I don't own · ${asOf}`;
+          ? `${n} ${lv === "full" ? "most recent" : "recent"} of ${T.externalPRs} upstream PRs · ${asOf}`
+          : `No recent upstream PRs · ${asOf}`;
     b += text(xDate, H - 14, footer, "s f", 'font-size="11"');
     const css =
       (lv ? `.po{fill:${t.prOpen}}.cl{fill:${t.closed}}` : "") +
@@ -130,7 +130,7 @@ export const design: Design = {
       t,
       css,
       b,
-      `Latest upstream pull requests: ${list.map((p) => `${p.repo}#${p.number}`).join(", ")}`,
+      `Latest upstream PRs: ${list.map((p) => `${p.repo}#${p.number}`).join(", ")}`,
     );
   },
 };

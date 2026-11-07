@@ -65,12 +65,12 @@ export const design: Design = {
     let b = header(
       T,
       "Repo popularity vs what I contributed",
-      `${capitalize(topOf(N, d.nRepos))} external repos by my PRs + issues + discussions`,
+      `${capitalize(topOf(N, d.nRepos))} upstream repos by my PRs + issues + discussions`,
     );
     b +=
       t(T, 24, top - 26, "Repo popularity", { size: 12, weight: 600 }) +
-      t(T, 24, top - 11, "tier · ★ stars (log scale)", { size: 11, fill: "muted" });
-    b += t(T, nameX, top - 11, "Repository", { size: 11, fill: "muted" });
+      t(T, 24, top - 11, "tier · stars (log scale)", { size: 11, fill: "muted" });
+    b += t(T, nameX, top - 11, "Repo", { size: 11, fill: "muted" });
     b +=
       t(T, rx0, top - 26, "My contributions", { size: 12, weight: 600 }) +
       t(T, rx0, top - 11, "PRs + issues + discussions", { size: 11, fill: "muted" });
@@ -133,7 +133,7 @@ export const design: Design = {
         T,
         24,
         fy + 46,
-        `Lighter purple = PRs not merged. Stars measure the repo, not me; the bar on the right is my own activity there.`,
+        `Lighter purple = PRs not merged. Stars measure the repo, not me; the bar on the right is my own contributions there.`,
         { size: 11.5, fill: "muted" },
       );
       return frame(T, W, fy + 64, b, title);
@@ -146,7 +146,7 @@ export const design: Design = {
       T,
       24,
       ly + 20,
-      "Stars measure the repo, not me; the bar on the right is my own activity there.",
+      "Stars measure the repo, not me; the bar on the right is my own contributions there.",
       { size: 11.5, fill: "muted" },
     );
     return frame(T, W, ly + 38, b, title);

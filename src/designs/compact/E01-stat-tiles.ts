@@ -69,7 +69,7 @@ function render(stats: Stats, theme: ThemeName, options: RenderOptions = DEFAULT
     "Upstream PRs",
     (x, y) => icon("pr", x, y, 14, t.pr),
     fmt(X.prs),
-    "opened on others’ repos",
+    "opened on upstream repos",
     (x) => {
       if (!yrs.length) return "";
       const max = Math.max(1, ...yrs.map((y) => byYear[y] ?? 0));
@@ -87,7 +87,7 @@ function render(stats: Stats, theme: ThemeName, options: RenderOptions = DEFAULT
         })
         .join(
           "",
-        )}<text x="${x + TW - 16}" y="${base - hmax - 6}" text-anchor="end" font-size="9.5" fill="${t.muted}">activity per year</text>`;
+        )}<text x="${x + TW - 16}" y="${base - hmax - 6}" text-anchor="end" font-size="9.5" fill="${t.muted}">contributions per year</text>`;
     },
   );
 
@@ -141,7 +141,7 @@ function render(stats: Stats, theme: ThemeName, options: RenderOptions = DEFAULT
   }
 
   tile(
-    "Repositories",
+    "Repos",
     (x, y) => icon("repo", x, y, 14, t.muted),
     fmt(X.repos),
     lvl === "none"
@@ -164,7 +164,7 @@ function render(stats: Stats, theme: ThemeName, options: RenderOptions = DEFAULT
     "Owners",
     (x, y) => icon("org", x, y, 14, t.muted),
     fmt(X.owners),
-    `${plural(X.orgs, "org")} · ${plural(X.users, "user")}`,
+    `${plural(X.orgs, "org")} · ${plural(X.users, "person", "people")}`,
     (x) => {
       const top = stats.owners.slice(0, 4);
       const s = 26;
@@ -182,8 +182,8 @@ function render(stats: Stats, theme: ThemeName, options: RenderOptions = DEFAULT
     W,
     H,
     lvl === undefined || lvl === "full"
-      ? `Upstream PRs ${X.prs}, merge rate ${X.rate}%, ${X.repos} repositories, ${X.owners} owners`
-      : `Upstream PRs ${X.prs}${lvl === "merged" ? `, ${X.merged} merged` : ""}, ${X.repos} repositories, ${X.owners} owners`,
+      ? `Upstream PRs ${X.prs}, merge rate ${X.rate}%, ${X.repos} repos, ${X.owners} owners`
+      : `Upstream PRs ${X.prs}${lvl === "merged" ? `, ${X.merged} merged` : ""}, ${X.repos} repos, ${X.owners} owners`,
     tiles.join(""),
     css,
   );
@@ -193,6 +193,6 @@ export const design: Design = {
   id: "E01",
   slug: "stat-tiles",
   title: "Four stat tiles",
-  idea: 'Upstream PRs, merge rate, repositories and owners as four equal 198px tiles in one 840px strip, each with a tiny supporting visual (activity per year over the last four years, merge ring, top languages, top-owner avatars). Tiles rise in with a short staggered entrance. With outcomes "none" the merge tile goes and three tiles share the strip; "merged" shows merged PRs out of all PRs instead of a rate; "full" lists merged, open and closed beside the rate.',
+  idea: 'Upstream PRs, merge rate, repos and owners as four equal 198px tiles in one 840px strip, each with a tiny supporting visual (contributions per year over the last four years, merge ring, top languages, top-owner avatars). Tiles rise in with a short staggered entrance. With outcomes "none" the merge tile goes and three tiles share the strip; "merged" shows merged PRs out of all PRs instead of a rate; "full" lists merged, open and closed beside the rate.',
   render,
 };

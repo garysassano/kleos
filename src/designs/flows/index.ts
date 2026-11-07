@@ -11,6 +11,6 @@ export const category: Category = {
   dir: "flows",
   name: "Flows and networks",
   blurb:
-    "How contributions flow from you through families and owners to repositories, and how rankings shift.",
+    "How contributions flow from you through ecosystems and owners to repositories, and how rankings shift.",
   designs: [F01, F02, F03, F04, F05, F06],
 };

@@ -220,19 +220,19 @@ function render(stats: Stats, theme: ThemeName): string {
     `<text x="${x}" y="${TOP - 8}" font-size="11" class="fa" text-anchor="${anchor}">${esc(t)}</text>`;
   const heads =
     head(X_YOU + BAR / 2, "you", "middle") +
-    head(X_MID, all.some((g) => g.family) ? "family or owner" : "owner") +
-    head(X_REPO, "repository") +
+    head(X_MID, all.some((g) => g.ecosystem) ? "ecosystem or owner" : "owner") +
+    head(X_REPO, "repo") +
     head(W - 20, "total", "end");
 
   const footY = TOP + PLOT + 30;
-  const foot = `<text x="20" y="${footY}" font-size="11" class="mu">Band height ∝ PRs + issues + discussions. Families group related owners; the top ${right.length - (otherNode ? 1 : 0)} repos are named${otherNode ? `, the other ${fmt(others.length)} share one node` : ""}.</text>`;
+  const foot = `<text x="20" y="${footY}" font-size="11" class="mu">Band height ∝ PRs + issues + discussions. Ecosystems group related owners; the top ${right.length - (otherNode ? 1 : 0)} repos are named${otherNode ? `, the other ${fmt(others.length)} share one node` : ""}.</text>`;
 
   return card({
     theme,
     width: W,
     height: footY + 20,
     title: "Where my contributions flow",
-    subtitle: `${fmt(total)} PRs, issues and discussions → ${plural(all.length, "family or owner", "families and owners")} → ${plural(repos.length, "repository", "repositories")}`,
+    subtitle: `${fmt(total)} PRs, issues and discussions → ${plural(all.length, "ecosystem or owner", "ecosystems and owners")} → ${plural(repos.length, "repo")}`,
     body: heads + links + bars + labels + foot,
   });
 }
@@ -241,6 +241,6 @@ export const design: Design = {
   id: "F01",
   slug: "sankey",
   title: "Contribution Sankey",
-  idea: "A Sankey from you through families and owners to repositories, band height proportional to PRs + issues + discussions. The 7 biggest groups and 10 biggest repos are named; the rest are merged into one node per column so every band still adds up.",
+  idea: "A Sankey from you through ecosystems and owners to repos, band height proportional to PRs + issues + discussions. The 7 biggest groups and 10 biggest repos are named; the rest are merged into one node per column so every band still adds up.",
   render,
 };

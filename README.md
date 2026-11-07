@@ -2,7 +2,7 @@
 
 > _κλέος_ (KLEH-os), ancient Greek: the renown a person earns through their deeds. Literally "what is heard" about you. In Homer, heroes don't claim it for themselves; other people carry it.
 
-kleos does the same for open source. It turns the work you did in other people's projects into cards for your GitHub profile: the pull requests, issues and discussions you opened, summed per repository, per organization, and per vendor family (such as AWS across `aws`, `awslabs`, `aws-samples` and its other organizations).
+kleos does the same for open source. It turns the work you did in other people's projects into cards for your GitHub profile: the pull requests, issues and discussions you opened, summed per repository, per organization, and per ecosystem (such as AWS across `aws`, `awslabs`, `aws-samples` and its other organizations).
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="gallery/lists/A03-repos-and-owners-dark.svg">
@@ -15,7 +15,7 @@ kleos does the same for open source. It turns the work you did in other people's
     <td width="50%"><a href="gallery/README.md#d--visual"><picture><source media="(prefers-color-scheme: dark)" srcset="gallery/visual/D01-orbit-dark.svg"><img alt="Orbit" src="gallery/visual/D01-orbit-light.svg" width="100%"></picture></a><br><sub><b>D01</b> · Orbit</sub></td>
   </tr>
   <tr>
-    <td><a href="gallery/README.md#h--focus-and-stories"><picture><source media="(prefers-color-scheme: dark)" srcset="gallery/focus/H01-family-deep-dive-dark.svg"><img alt="Family deep-dive" src="gallery/focus/H01-family-deep-dive-light.svg" width="100%"></picture></a><br><sub><b>H01</b> · Family deep-dive</sub></td>
+    <td><a href="gallery/README.md#h--focus-and-stories"><picture><source media="(prefers-color-scheme: dark)" srcset="gallery/focus/H01-ecosystem-deep-dive-dark.svg"><img alt="Ecosystem deep-dive" src="gallery/focus/H01-ecosystem-deep-dive-light.svg" width="100%"></picture></a><br><sub><b>H01</b> · Ecosystem deep-dive</sub></td>
     <td><a href="gallery/README.md#g--badges-and-collectibles"><picture><source media="(prefers-color-scheme: dark)" srcset="gallery/collectibles/G03-periodic-table-dark.svg"><img alt="Periodic table of owners" src="gallery/collectibles/G03-periodic-table-light.svg" width="100%"></picture></a><br><sub><b>G03</b> · Periodic table of owners</sub></td>
   </tr>
   <tr>

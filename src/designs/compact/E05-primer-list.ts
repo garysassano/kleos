@@ -43,7 +43,7 @@ function render(stats: Stats, theme: ThemeName, options: RenderOptions = DEFAULT
   type Tab = [IconName, string, number, string, number];
   const mergedTab: Tab[] = lvl === "none" ? [] : [["merge", t.muted, X.merged, "Merged", 400]];
   const tabs: Tab[] = [
-    ["pr", t.text, X.prs, "Pull requests", 600],
+    ["pr", t.text, X.prs, "PRs", 600],
     ...mergedTab,
     ["issue", t.muted, X.issues, "Issues", 400],
     ["disc", t.muted, X.discussions, "Discussions", 400],
@@ -67,7 +67,7 @@ function render(stats: Stats, theme: ThemeName, options: RenderOptions = DEFAULT
     };
   };
   const c2 = counter(W - 16, "Owners", X.owners);
-  const c1 = counter(W - 16 - c2.w - 18, "Repositories", X.repos);
+  const c1 = counter(W - 16 - c2.w - 18, "Repos", X.repos);
   b += c1.s + c2.s;
 
   /** PR counters for a row: merged then the rest originally; PRs then merged, or each outcome, at a level. */
@@ -98,18 +98,23 @@ function render(stats: Stats, theme: ThemeName, options: RenderOptions = DEFAULT
     b += icon("repo", 16, y + 12, 16, t.muted);
     // Under "full" five counters need more room: the name and pills move left.
     const wide = lvl === "full";
-    const shown = trunc(r.repo, wide ? 340 : 380, 14, { bold: true });
+    // Primer Label pills, moved left when they would reach the first counter icon
+    const pills: [string, string | null][] = [];
+    if (r.language) pills.push([r.language, r.langColor ?? t.muted]);
+    pills.push([r.ownerType === "User" ? "person" : "org", null]);
+    const pillW = (txt: string, dot: string | null) => (dot ? 16 : 8) + tw(txt, 12) + 8;
+    const pillsW = pills.reduce((a, [txt, dot]) => a + pillW(txt, dot) + 6, -6);
+    const firstIcon = W - 16 - (prSlots(r).length + 1) * (wide ? 54 : 64) - (wide ? 40 : 46);
+    let lx = Math.min(wide ? 400 : 440, firstIcon - 10 - pillsW);
+    const shown = trunc(r.repo, Math.min(wide ? 340 : 380, lx - 50), 14, { bold: true });
     b += `<text x="40" y="${y + 25}" font-size="14" font-weight="600" fill="${t.accent}">${esc(shown)}</text>`;
-    // Primer Label pills
-    let lx = wide ? 400 : 440;
-    const pill = (txt: string, dot?: string | null) => {
-      const w = (dot ? 16 : 8) + tw(txt, 12) + 8;
+    const pill = (txt: string, dot: string | null) => {
+      const w = pillW(txt, dot);
       const s = `<rect x="${r1(lx)}" y="${y + 10.5}" width="${r1(w)}" height="20" rx="10" fill="none" stroke="${t.border}"/>${dot ? `<circle cx="${r1(lx + 10)}" cy="${y + 20.5}" r="4" fill="${dot}"/>` : ""}<text x="${r1(lx + (dot ? 18 : 8))}" y="${y + 24.5}" font-size="12" font-weight="500" fill="${t.muted}">${esc(txt)}</text>`;
       lx += w + 6;
       return s;
     };
-    if (r.language) b += pill(r.language, r.langColor ?? t.muted);
-    b += pill(r.ownerType === "User" ? "user" : "org");
+    for (const [txt, dot] of pills) b += pill(txt, dot);
     // meta line
     b += `${icon("star", 40, y + 36, 12, t.muted)}<text x="56" y="${y + 47}" font-size="12" fill="${t.muted}">${kfmt(r.stars)}</text>`;
     const mx = 56 + tw(kfmt(r.stars), 12) + 10;
@@ -132,10 +137,7 @@ function render(stats: Stats, theme: ThemeName, options: RenderOptions = DEFAULT
   // footer
   const fy = HH + N * RH;
   b += `<line x1="0" x2="${W}" y1="${fy + 0.5}" y2="${fy + 0.5}" stroke="${t.border}"/>`;
-  const scope =
-    N < X.repos
-      ? `Top ${N} of ${X.repos} repositories`
-      : `All ${plural(N, "repository", "repositories")}`;
+  const scope = N < X.repos ? `Top ${N} of ${X.repos} repos` : `All ${plural(N, "repo")}`;
   b += `<text x="16" y="${fy + 25}" font-size="12" fill="${t.muted}">${scope} by PRs + issues + discussions</text>`;
   b += legend(
     W - 16,
@@ -164,13 +166,13 @@ function render(stats: Stats, theme: ThemeName, options: RenderOptions = DEFAULT
     ],
     { anchor: "end", size: 11.5, swatchRx: 4.5 },
   );
-  return svg(W, H, `Top ${N} upstream repositories`, b);
+  return svg(W, H, `Top ${N} upstream repos`, b);
 }
 
 export const design: Design = {
   id: "E05",
   slug: "primer-list",
-  title: "Primer repository list",
+  title: "Primer repo list",
   idea: "Looks like a native GitHub list: an issues-style header with octicon tabs and counters, Box rows with blue repo links, language/owner label pills, dates and per-type counts.",
   render,
 };

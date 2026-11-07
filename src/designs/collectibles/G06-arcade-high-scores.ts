@@ -180,7 +180,7 @@ export const design: Design = {
     body += col("OPEN", cols.open, hy, p.muted);
     body += col("CLOSED", cols.closed, hy, p.muted);
     body += px("ISSUES", cols.issues, hy, 2, p.muted, true);
-    body += px("DISC", cols.disc, hy, 2, p.muted, true);
+    body += px("DISC.", cols.disc, hy, 2, p.muted, true);
     body += `<line x1="40" x2="${W - 40}" y1="${hy + 22}" y2="${hy + 22}" stroke="${p.border}" stroke-dasharray="2 4"/>`;
 
     board.forEach((o, i) => {

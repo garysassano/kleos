@@ -17,7 +17,7 @@ export const design: Design = {
   id: "H04",
   slug: "year-in-review",
   title: "Year in review",
-  idea: "A wrapped-style story of one year upstream: contributions per month, the busiest month, the top repository and family, owners and repositories contributed to for the first time, and the same months a year earlier. Rule: the year of the snapshot, or the latest year with activity if it has none; a partial year is compared with the same months of the year before.",
+  idea: "A wrapped-style story of one year upstream: contributions per month, the busiest month, the top repo and ecosystem, owners and repos contributed to for the first time, and the same months a year earlier. Rule: the year of the snapshot, or the latest year with contributions if it has none; a partial year is compared with the same months of the year before.",
   render(stats, theme) {
     const p = PALETTES[theme];
     const snapYear = stats.generatedAt.slice(0, 4);
@@ -60,7 +60,7 @@ export const design: Design = {
       .filter((o) => ownerFirst.get(o)?.startsWith(year))
       .sort((a, b) => (ownerYear.get(b) ?? 0) - (ownerYear.get(a) ?? 0) || a.localeCompare(b));
     const newRepos = [...repoYear.keys()].filter((r) => repoFirst.get(r)?.startsWith(year)).length;
-    const familyYear = stats.families
+    const ecosystemYear = stats.ecosystems
       .map((f) => ({
         name: f.name,
         lead:
@@ -80,7 +80,7 @@ export const design: Design = {
       12,
       p.faint,
     );
-    body += `<text x="${PAD}" y="88" font-family="${SANS}" font-size="14" fill="${p.muted}"><tspan font-weight="600" fill="${p.text}">${num(total)}</tspan> ${total === 1 ? "contribution" : "contributions"} to <tspan font-weight="600" fill="${p.text}">${num(repoYear.size)}</tspan> ${repoYear.size === 1 ? "repository" : "repositories"} of <tspan font-weight="600" fill="${p.text}">${num(ownerYear.size)}</tspan> ${ownerYear.size === 1 ? "owner" : "owners"}</text>`;
+    body += `<text x="${PAD}" y="88" font-family="${SANS}" font-size="14" fill="${p.muted}"><tspan font-weight="600" fill="${p.text}">${num(total)}</tspan> ${total === 1 ? "contribution" : "contributions"} to <tspan font-weight="600" fill="${p.text}">${num(repoYear.size)}</tspan> ${repoYear.size === 1 ? "repo" : "repos"} of <tspan font-weight="600" fill="${p.text}">${num(ownerYear.size)}</tspan> ${ownerYear.size === 1 ? "owner" : "owners"}</text>`;
 
     const cx0 = PAD;
     const cw = 430;
@@ -133,25 +133,25 @@ export const design: Design = {
     facts.push(
       topRepo
         ? {
-            label: "Top repository",
+            label: "Top repo",
             value: topRepo[0].split("/")[1] ?? topRepo[0],
             note: `${plural(topRepo[1], "contribution")} · ${percent(topRepo[1], total)}%`,
             lead: topRepo[0].split("/")[0] ?? "",
             org: stats.repos.find((r) => r.repo === topRepo[0])?.ownerType === "Organization",
           }
-        : { label: "Top repository", value: "–", note: "no contributions" },
+        : { label: "Top repo", value: "–", note: "no contributions" },
     );
-    if (familyYear && familyYear.n > 0) {
+    if (ecosystemYear && ecosystemYear.n > 0) {
       facts.push({
-        label: "Top family",
-        value: familyYear.name,
-        note: `${plural(familyYear.n, "contribution")} · ${percent(familyYear.n, total)}%`,
-        lead: familyYear.lead,
+        label: "Top ecosystem",
+        value: ecosystemYear.name,
+        note: `${plural(ecosystemYear.n, "contribution")} · ${percent(ecosystemYear.n, total)}%`,
+        lead: ecosystemYear.lead,
         org: true,
       });
     }
     facts.push({
-      label: "New repositories",
+      label: "New repos",
       value: num(newRepos),
       note: `of ${num(repoYear.size)} this year`,
     });
@@ -222,7 +222,7 @@ export const design: Design = {
     body += t(
       PAD,
       fy,
-      `PRs, issues and discussions opened in other people's repositories in ${year} · new = first contribution ever to that owner or repository`,
+      `PRs, issues and discussions opened in upstream repos in ${year} · new = first contribution ever to that owner or repo`,
       11,
       p.faint,
     );

@@ -2,7 +2,7 @@ import { prsClosed, totalsCounts } from "../../kit/outcomes.ts";
 import { DEFAULT_OPTIONS, type Design, type Level } from "../types.ts";
 import { THEMES, derive, esc, kfmt, svg, text, trunc } from "./_shared.ts";
 
-/** Rows the command asks for; fewer are printed when there are fewer repositories. */
+/** Rows the command asks for; fewer are printed when there are fewer repos. */
 const TOP = 12;
 const ORIGINAL = {
   rank: 40,
@@ -42,7 +42,7 @@ export const design: Design = {
   id: "C02",
   slug: "terminal",
   title: "Terminal table",
-  idea: "A fake `upstream --top 12` command that types itself out and prints an aligned monospace table of the top repositories (language, stars, PRs, merged, issues, discussions), with a totals line. With outcomes none the merged column goes; full adds open and closed-unmerged columns.",
+  idea: "A fake `upstream --top 12` command that types itself out and prints an aligned monospace table of the top repos (language, stars, PRs, merged, issues, discussions), with a totals line. With outcomes none the merged column goes; full adds open and closed-unmerged columns.",
   render(stats, theme, options = DEFAULT_OPTIONS) {
     const lv = options.outcomes;
     const C = lv ? LAYOUT[lv] : { ...ORIGINAL, repoC: 36, langC: 10 };
@@ -81,7 +81,7 @@ export const design: Design = {
     b += '<g class="row" style="animation-delay:.95s">';
     b +=
       th("rank", "#", true) +
-      th("repo", "REPOSITORY") +
+      th("repo", "REPO") +
       th("lang", "LANGUAGE") +
       th("stars", "STARS", true) +
       th("prs", "PRS", true) +
@@ -89,7 +89,7 @@ export const design: Design = {
       th("open", "OPEN", true) +
       th("closed", "CLOSED", true) +
       th("issues", "ISSUES", true) +
-      th("disc", "DISC", true) +
+      th("disc", "DISC.", true) +
       th("total", "TOTAL", true);
     b += "</g>";
     const num = (k: keyof Cols, y: number, v: number, cls = "t") =>

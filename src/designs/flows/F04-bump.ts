@@ -62,7 +62,7 @@ function render(stats: Stats, theme: ThemeName): string {
       });
   }
   const ranked = ents.filter((e) => e.rank.size > 0);
-  // Colour the biggest entities over the shown years; the rest stay grey for context.
+  // Color the biggest entities over the shown years; the rest stay gray for context.
   const inShown = (e: Entity) => years.reduce((s, y) => s + (e.byYear.get(y) ?? 0), 0);
   [...ranked]
     .sort((a, b) => inShown(b) - inShown(a) || a.name.localeCompare(b.name))
@@ -87,7 +87,7 @@ function render(stats: Stats, theme: ThemeName): string {
     grid += `<text x="20" y="${yOf(r)}" dy="0.35em" font-size="11" class="fa">#${r + 1}</text>`;
   }
 
-  // Grey entities first so coloured lines sit on top.
+  // Gray entities first so colored lines sit on top.
   const order = [...ranked].sort((a, b) => (a.color ? 1 : 0) - (b.color ? 1 : 0));
   let lines = "";
   let dots = "";
@@ -143,7 +143,7 @@ function render(stats: Stats, theme: ThemeName): string {
     width: W,
     height: footY + 20,
     title: "Who I worked with, year by year",
-    subtitle: `Rank of each family or owner per calendar year · ${years.length === 1 ? first : `${first}–${last}`} · ${plural(ranked.length, "family or owner", "families and owners")} reached the top ${RANKS}`,
+    subtitle: `Rank of each ecosystem or owner per calendar year · ${years.length === 1 ? first : `${first}–${last}`} · ${plural(ranked.length, "ecosystem or owner", "ecosystems and owners")} reached the top ${RANKS}`,
     body: grid + lines + dots + labels + foot,
   });
 }
@@ -152,6 +152,6 @@ export const design: Design = {
   id: "F04",
   slug: "bump",
   title: "Rank by year",
-  idea: "A bump chart of the top 8 families and owners in each calendar year (from repos' monthly counts), so you can see who rose, who faded and who stayed. Years with fewer than 10 contributions are left out (the latest 6 are shown); the 7 biggest over those years get colour, the rest stay grey.",
+  idea: "A bump chart of the top 8 ecosystems and owners in each calendar year (from repos' monthly counts), so you can see who rose, who faded and who stayed. Years with fewer than 10 contributions are left out (the latest 6 are shown); the 7 biggest over those years get color, the rest stay gray.",
   render,
 };

@@ -13,7 +13,7 @@ export const design: Design = {
   id: "D06",
   slug: "calendar",
   title: "Year calendar + top upstream",
-  idea: "The familiar 53-week contribution calendar beside the five upstream repos with the most contributions in the months that window touches, so the year’s rhythm and where the upstream part went sit together.",
+  idea: "The familiar 53-week activity calendar beside the five upstream repos with the most contributions in the months that window touches, so the year’s rhythm and where the upstream part went sit together.",
   render(stats, theme) {
     const ctx = makeCtx(stats, theme);
     const T = ctx.T;
@@ -67,7 +67,7 @@ export const design: Design = {
 
     let b = header(
       "The last 12 months",
-      `${fmt(yearTotal)} contributions on ${activeDays} days since ${dayLabel(startIso)}, ${startIso.slice(0, 4)} (all repos, incl. private)`,
+      `Activity: ${fmt(yearTotal)} on ${activeDays} days since ${dayLabel(startIso)}, ${startIso.slice(0, 4)} (all repos, incl. private)`,
     );
     // Label a month at the first column whose Sunday falls in it, skipping a partial first month and the last column.
     let lastM = "";
@@ -96,7 +96,7 @@ export const design: Design = {
     });
     const gRight = gx + weeks * p - 2;
     const ly = gy + 7 * p + 14;
-    b += `<text x="${gx}" y="${ly + 8}" font-size="10.5" class="mu">${best.c > 0 ? `Busiest day: ${best.c} on ${dayLabel(best.iso)}` : "No contributions in this window"}</text>`;
+    b += `<text x="${gx}" y="${ly + 8}" font-size="10.5" class="mu">${best.c > 0 ? `Busiest day: ${best.c} on ${dayLabel(best.iso)}` : "No activity in this window"}</text>`;
     const lx = gRight - 5 * p - tw("More", 10.5) - 4;
     b += `<text x="${lx - 4}" y="${ly + 8}" text-anchor="end" font-size="10.5" class="mu">Less</text>`;
     for (let l = 0; l < 5; l++)
@@ -120,6 +120,6 @@ export const design: Design = {
     if (!top5.length)
       b += `<text x="${sx}" y="${gy + 11}" font-size="11" class="mu">None in this window</text>`;
     b += `<text x="${sx}" y="${ly + 8}" font-size="10.5" class="mu">${winTotal} upstream on ${win.length} repos</text>`;
-    return doc(W, H, ctx, b, `The last 12 months: ${yearTotal} contributions`);
+    return doc(W, H, ctx, b, `The last 12 months of activity: ${yearTotal}`);
   },
 };

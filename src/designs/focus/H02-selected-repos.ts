@@ -33,28 +33,28 @@ function select(repos: RepoStats[]): { picked: RepoStats[]; filled: number } {
 export const design: Design = {
   id: "H02",
   slug: "selected-repos",
-  title: "Selected repositories",
-  idea: "A headline tile per notable repository, led by its total contribution count, each with its PR, issue and discussion counts and a monthly activity strip. Rule: the top 5 repositories with at least 1,000 stars by contributions; if fewer than 3 qualify, the biggest remaining repositories fill up to 3.",
+  title: "Selected repos",
+  idea: "A headline tile per notable repo, led by its total contribution count, each with its PR, issue and discussion counts and a strip of monthly contributions. Rule: the top 5 repos with at least 1,000 stars by contributions; if fewer than 3 qualify, the biggest remaining repos fill up to 3.",
   render(stats, theme, options = DEFAULT_OPTIONS) {
     const { outcomes } = options;
     const p = PALETTES[theme];
     const { picked, filled } = select(stats.repos);
     let body = "";
 
-    body += t(PAD, 38, "Selected repositories", 16, p.text, 'font-weight="600"');
+    body += t(PAD, 38, "Selected repos", 16, p.text, 'font-weight="600"');
     const rule =
       filled > 0
-        ? `Repositories with ${num(MIN_STARS)}+ stars by contributions, topped up with the next biggest`
-        : `Top ${picked.length} by contributions among repositories with ${num(MIN_STARS)}+ stars`;
+        ? `Repos with ${num(MIN_STARS)}+ stars by contributions, topped up with the next biggest`
+        : `Top ${picked.length} by contributions among repos with ${num(MIN_STARS)}+ stars`;
     body += t(PAD, 58, rule, 12, p.muted);
 
     if (!picked.length) {
       const h = 96;
-      body += t(PAD, 80, "No contributions to other people's repositories yet.", 12, p.faint);
+      body += t(PAD, 80, "No contributions to upstream repos yet.", 12, p.faint);
       return svgDocument({
         width: W,
         height: h,
-        title: "Selected repositories",
+        title: "Selected repos",
         body: frame(W, h, p) + body,
       });
     }
@@ -170,7 +170,7 @@ export const design: Design = {
     return svgDocument({
       width: W,
       height: h,
-      title: "Selected repositories",
+      title: "Selected repos",
       body: frame(W, h, p) + body,
     });
   },

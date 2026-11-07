@@ -35,7 +35,7 @@ export const design: Design = {
   id: "B05",
   slug: "waffle",
   title: "Waffle",
-  idea: 'One square per contribution, grouped by family or owner, with merged PRs solid and everything else faded, so volume and code-vs-reports read together. With outcomes "none" every PR is solid; with "full" open PRs are outlined and closed-unmerged ones grey. Very large totals switch to one square per few contributions so the grid always fits.',
+  idea: 'One square per contribution, grouped by ecosystem or owner, with merged PRs solid and everything else faded, so volume and code-vs-reports read together. With outcomes "none" every PR is solid; with "full" open PRs are outlined and closed-unmerged ones gray. Very large totals switch to one square per few contributions so the grid always fits.',
   render(stats, theme, options: RenderOptions = DEFAULT_OPTIONS) {
     const lvl = options.outcomes;
     const t = THEMES[theme];
@@ -88,7 +88,7 @@ export const design: Design = {
         : `${fmt(cellsN)} squares, each ≈ ${unit} of ${fmt(TOTAL)}`;
     let s = header(
       "Every contribution, one square",
-      `${what} PRs, issues and discussions on other people's repos · solid = ${lvl === "none" ? "PR" : "merged PR"}`,
+      `${what} PRs, issues and discussions on upstream repos · solid = ${lvl === "none" ? "PR" : "merged PR"}`,
     );
     let idx = 0;
     const bands: { it: Item; start: number; end: number }[] = [];
@@ -149,7 +149,7 @@ export const design: Design = {
       lvl === undefined
         ? `Columns fill top to bottom, ${plural(ROWS, "square")} each. Faded = issue, discussion or unmerged PR.`
         : lvl === "full"
-          ? `Columns of ${ROWS}, top to bottom. Solid = merged PR, outline = open PR, grey = PR closed unmerged, faded = issue or discussion.`
+          ? `Columns of ${ROWS}, top to bottom. Solid = merged PR, outline = open PR, gray = PR closed unmerged, faded = issue or discussion.`
           : `Columns fill top to bottom, ${plural(ROWS, "square")} each. Faded = ${lvl === "none" ? "issue or discussion" : "everything else"}.`;
     s += `<text x="24" y="${h - 14}" font-size="11" class="m">${key}</text>`;
     return svgDoc(t, h, s);

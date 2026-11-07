@@ -25,7 +25,7 @@ export const design: Design = {
   id: "A02",
   slug: "owner-leaderboard",
   title,
-  idea: 'Top 12 organisations and people whose repos I contribute to, with repo count, a merged-PR gauge (merged of opened) and issue/discussion counts. Shows where PRs actually land versus where I mostly file issues. With outcomes "none" or "merged" the gauge becomes the PRs\' share of each owner\'s total (merged highlighted at "merged"), with no rate; "full" splits the merge gauge into merged, open and closed unmerged.',
+  idea: 'Top 12 orgs and people whose repos I contribute to, with repo count, a merged-PR gauge (merged of opened) and issue/discussion counts. Shows where PRs actually get merged versus where I mostly file issues. With outcomes "none" or "merged" the gauge becomes the PRs\' share of each owner\'s total (merged highlighted at "merged"), with no rate; "full" splits the merge gauge into merged, open and closed unmerged.',
   render(stats, theme, options = DEFAULT_OPTIONS) {
     const level = options.outcomes;
     const T = themeOf(theme);
@@ -39,7 +39,7 @@ export const design: Design = {
     const gw = 130;
     let b = header(
       T,
-      "Organizations and people I contribute to",
+      "Orgs and people I contribute to",
       level === undefined || level === "full"
         ? `${d.nOwners} owners outside my account · ${d.ext.merged} of ${d.ext.prs} PRs merged (${percent(d.ext.merged, d.ext.prs)}%) · ranked by PRs + issues + discussions`
         : `${d.nOwners} owners outside my account · ${plural(d.ext.prs, "PR")}${level === "merged" ? `, ${d.ext.merged} merged` : ""} · ranked by PRs + issues + discussions`,
@@ -76,7 +76,7 @@ export const design: Design = {
         T,
         90,
         cy + 13,
-        `${o.type === "User" ? "User" : "Organization"} · ${plural(o.repos, "repo")}`,
+        `${o.type === "User" ? "Person" : "Org"} · ${plural(o.repos, "repo")}`,
         { size: 11, fill: "muted" },
       );
       g += `<rect x="${gx}" y="${cy - 3}" width="${gw}" height="6" rx="3" fill="${T.track}"/>`;
@@ -135,7 +135,7 @@ export const design: Design = {
         T,
         24,
         fy + 28,
-        `Total = PRs opened + issues + discussions. The bar shows how much of each total is PRs${level === "merged" ? ", with merged PRs in full colour" : ""}.`,
+        `Total = PRs opened + issues + discussions. The bar shows how much of each total is PRs${level === "merged" ? ", with merged PRs in full color" : ""}.`,
         { size: 11.5, fill: "muted" },
       );
     }

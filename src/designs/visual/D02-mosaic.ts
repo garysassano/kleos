@@ -83,7 +83,7 @@ export const design: Design = {
   id: "D02",
   slug: "mosaic",
   title: "Avatar mosaic",
-  idea: "A treemap wall of avatars: each tile’s area is that org’s or user’s share of all upstream contributions, with the count on every tile, a PR/issue breakdown on the big ones, and one tile pooling everyone with 5 or fewer.",
+  idea: "A treemap wall of avatars: each tile’s area is that owner’s share of all upstream contributions, with the count on every tile, a PR/issue breakdown on the big ones, and one tile pooling everyone with 5 or fewer.",
   render(stats, theme, options = DEFAULT_OPTIONS) {
     const level = options.outcomes;
     const ctx = makeCtx(stats, theme);
@@ -166,7 +166,7 @@ export const design: Design = {
         const a = Math.min(56, h * 0.3, w * 0.3);
         b += ctx.avatar(o.owner, x + 12 + a / 2, y + 12 + a / 2, a, "square");
         const nx = x + 12 + a + 10;
-        const meta = `${o.type === "User" ? "User" : "Org"} · ${plural(o.repos, "repo")}`;
+        const meta = `${o.type === "User" ? "Person" : "Org"} · ${plural(o.repos, "repo")}`;
         b +=
           `<text x="${r1(nx)}" y="${r1(y + 12 + a / 2 - 2)}" font-size="13" class="b">${esc(trunc(o.owner, x + w - nx - 8, 13))}</text>` +
           `<text x="${r1(nx)}" y="${r1(y + 12 + a / 2 + 14)}" font-size="11" class="mu">${esc(tw(meta, 11) <= x + w - nx - 8 ? meta : trunc(plural(o.repos, "repo"), x + w - nx - 8, 11))}</text>`;
@@ -203,7 +203,7 @@ export const design: Design = {
       }
       b += "</g>";
     });
-    b += `<text x="20" y="${H - 13}" font-size="11" class="mu">Tile area ∝ PRs + issues + discussions per org or user · ${N} with ${MIN_TILE} or more get their own tile</text>`;
+    b += `<text x="20" y="${H - 13}" font-size="11" class="mu">Tile area ∝ PRs + issues + discussions per org or person · ${N} with ${MIN_TILE} or more get their own tile</text>`;
     return doc(
       W,
       H,

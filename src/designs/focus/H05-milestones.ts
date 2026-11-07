@@ -11,7 +11,7 @@ import type { RepoStats } from "../../stats/types.ts";
 import type { Design } from "../types.ts";
 import {
   addMonths,
-  allFamilies,
+  allEcosystems,
   dayLabel,
   frame,
   longMonth,
@@ -37,7 +37,7 @@ interface Milestone {
   date: string;
   title: string;
   detail: string;
-  /** Other milestones that fell on the same repository and day. */
+  /** Other milestones that fell on the same repo and day. */
   also: string[];
   repo?: string;
   /** Lower is kept first when there are too many. */
@@ -81,20 +81,20 @@ function milestones(stats: Parameters<Design["render"]>[0]): Milestone[] {
     }
   }
 
-  // Number of repositories, by first contribution
+  // Number of repos, by first contribution
   for (const n of REPO_STEPS) {
     const r = dated[n - 1];
     if (!r) break;
     out.push({
       date: r.first.slice(0, 10),
-      title: `${num(n)}th repository`,
+      title: `${num(n)}th repo`,
       detail: r.repo,
       repo: r.repo,
       rank: 4,
     });
   }
 
-  // First repository above each star tier (current star counts)
+  // First repo above each star tier (current star counts)
   const seen = new Set<string>();
   for (const s of STAR_STEPS) {
     const r = dated.find((x) => x.stars >= s);
@@ -102,15 +102,15 @@ function milestones(stats: Parameters<Design["render"]>[0]): Milestone[] {
     seen.add(r.repo);
     out.push({
       date: r.first.slice(0, 10),
-      title: `First ${compact(s)}+ star repository`,
+      title: `First ${compact(s)}+★ repo`,
       detail: `${r.repo} · ${compact(r.stars)}★`,
       repo: r.repo,
       rank: 1,
     });
   }
 
-  // First contribution to the biggest family
-  const fam = allFamilies(stats)[0];
+  // First contribution to the biggest ecosystem
+  const fam = allEcosystems(stats)[0];
   if (fam) {
     const r = dated.find((x) => fam.owners.includes(x.owner));
     if (r) {
@@ -124,12 +124,12 @@ function milestones(stats: Parameters<Design["render"]>[0]): Milestone[] {
     }
   }
 
-  // Where the top repository began
+  // Where the top repo began
   const top = stats.repos[0];
   if (top?.first && top.total > 0) {
     out.push({
       date: top.first.slice(0, 10),
-      title: "Started on the top repository",
+      title: "Started on the top repo",
       detail: `${top.repo} · ${num(top.total)} since`,
       repo: top.repo,
       rank: 1,
@@ -168,7 +168,7 @@ export const design: Design = {
   id: "H05",
   slug: "milestones",
   title: "Milestones",
-  idea: "A timeline of firsts and round numbers derived from the data: the first upstream contribution, the 100th and 500th, the 10th and 100th repository, the first 1k+ and 10k+ star repository, the first contribution to the biggest family, the busiest month, on a cumulative curve. Rule: at most 12 milestones, firsts kept before round numbers; month-only dates come from monthly counts; months without contributions are drawn at a fifth of the width on the axis.",
+  idea: "A timeline of firsts and round numbers derived from the data: the first upstream contribution, the 100th and 500th, the 10th and 100th repo, the first repo with 1k+ and with 10k+ stars, the first contribution to the biggest ecosystem, the busiest month, on a cumulative curve. Rule: at most 12 milestones, firsts kept before round numbers; month-only dates come from monthly counts; months without contributions are drawn at a fifth of the width on the axis.",
   render(stats, theme) {
     const p = PALETTES[theme];
     const events = milestones(stats);
@@ -185,7 +185,7 @@ export const design: Design = {
     body += t(
       PAD,
       58,
-      `${plural(total, "contribution")} to other people's repositories, as of ${dayLabel(stats.generatedAt)}`,
+      `${plural(total, "contribution")} to upstream repos, as of ${dayLabel(stats.generatedAt)}`,
       12,
       p.muted,
     );
@@ -197,7 +197,7 @@ export const design: Design = {
       return svgDocument({ width: W, height: h, title: "Milestones", body: frame(W, h, p) + body });
     }
 
-    // Time axis: months without activity are drawn at a fifth of the width of active ones.
+    // Time axis: months without contributions are drawn at a fifth of the width of active ones.
     const cx0 = PAD + 4;
     const cw = W - 2 * PAD - 8;
     const count = monthIndex(end) - monthIndex(start) + 1;

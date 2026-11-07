@@ -28,7 +28,7 @@ interface Source {
 function render(stats: Stats, theme: ThemeName, options: RenderOptions = DEFAULT_OPTIONS): string {
   const p = PAL(theme);
   // Unset: the original GitHub-like purple, green and red. "full" (decision 0009): open in a
-  // lighter tone of the merged purple, closed unmerged in neutral grey.
+  // lighter tone of the merged purple, closed unmerged in neutral gray.
   const full = options.outcomes === "full";
   const outcomes = [
     { name: "Merged", color: p.merged },
@@ -156,15 +156,15 @@ function render(stats: Stats, theme: ThemeName, options: RenderOptions = DEFAULT
     .map((o) => o.name.toLowerCase());
   const footY = TOP + PLOT + 30;
   const foot = `<text x="20" y="${footY}" font-size="11" class="mu">${esc(
-    `Band height ∝ PRs. Families group related owners; the biggest ${Math.min(keep, sources.length)} by PRs opened are named.${missing.length ? ` None ${missing.join(" or ")}.` : ""}`,
+    `Band height ∝ PRs. Ecosystems group related owners; the biggest ${Math.min(keep, sources.length)} by PRs opened are named.${missing.length ? ` None ${missing.join(" or ")}.` : ""}`,
   )}</text>`;
 
   return card({
     theme,
     width: W,
     height: footY + 20,
-    title: "What happened to my pull requests",
-    subtitle: `${plural(totalPrs, "PR")} opened on other people's repositories, by family or owner, to where each one stands now`,
+    title: "What happened to my PRs",
+    subtitle: `${plural(totalPrs, "PR")} opened on upstream repos, by ecosystem or owner, to where each one stands now`,
     body: heads + links + bars + labels + foot,
   });
 }
@@ -173,7 +173,7 @@ export const design: Design = {
   id: "F02",
   slug: "pr-outcomes",
   title: "PR outcomes",
-  idea: "An alluvial from the families and owners you opened PRs with to how they ended: merged, still open or closed without merging (GitHub's purple, green and red). The 8 groups with the most PRs are named with their merge rate; the rest share one node.",
+  idea: "An alluvial from the ecosystems and owners you opened PRs with to how they ended: merged, still open or closed without merging (GitHub's purple, green and red). The 8 groups with the most PRs are named with their merge rate; the rest share one node.",
   // The card is about how PRs ended: hiding outcomes leaves nothing to flow into.
   outcomes: ["full"],
   render,

@@ -27,9 +27,9 @@ function achievements(stats: Stats, lv: Level | undefined): Achievement[] {
   const byMerged = [...repos].sort((a, b) => credited(b) - credited(a))[0];
 
   const groups = [
-    ...stats.families.map((f) => ({ name: f.name, repos: f.repos, owners: f.owners.length })),
+    ...stats.ecosystems.map((f) => ({ name: f.name, repos: f.repos, owners: f.owners.length })),
     ...stats.owners
-      .filter((o) => !stats.families.some((f) => f.owners.includes(o.owner)))
+      .filter((o) => !stats.ecosystems.some((f) => f.owners.includes(o.owner)))
       .map((o) => ({ name: o.owner, repos: o.repos, owners: 1 })),
   ].sort((a, b) => b.repos - a.repos);
   const group = groups[0];
@@ -70,7 +70,7 @@ function achievements(stats: Stats, lv: Level | undefined): Achievement[] {
           display: n(externalPRs),
           unit: "PRs",
           desc: "PRs opened upstream",
-          context: `in ${plural(repos.filter((r) => r.prs > 0).length, "repository", "repositories")}`,
+          context: `in ${plural(repos.filter((r) => r.prs > 0).length, "repo")}`,
           tiers: [25, 100, 250],
           tierLabel: n,
         }
@@ -81,7 +81,7 @@ function achievements(stats: Stats, lv: Level | undefined): Achievement[] {
             display: n(externalMerged),
             unit: "merged",
             desc: "PRs merged upstream",
-            context: `in ${plural(repos.filter((r) => r.prsMerged > 0).length, "repository", "repositories")}`,
+            context: `in ${plural(repos.filter((r) => r.prsMerged > 0).length, "repo")}`,
             tiers: [25, 100, 250],
             tierLabel: n,
           }
@@ -112,7 +112,7 @@ function achievements(stats: Stats, lv: Level | undefined): Achievement[] {
       value: group?.repos ?? 0,
       display: n(group?.repos ?? 0),
       unit: "repos",
-      desc: "repos in one owner or family",
+      desc: "repos in one owner or ecosystem",
       context: group
         ? `${group.name}${group.owners > 1 ? ` (${plural(group.owners, "owner")})` : ""}`
         : "no owners yet",
@@ -124,8 +124,8 @@ function achievements(stats: Stats, lv: Level | undefined): Achievement[] {
       value: stats.totals.externalOwners,
       display: n(stats.totals.externalOwners),
       unit: "owners",
-      desc: "orgs and users contributed to",
-      context: `across ${plural(stats.totals.externalRepos, "repository", "repositories")}`,
+      desc: "orgs and people contributed to",
+      context: `across ${plural(stats.totals.externalRepos, "repo")}`,
       tiers: [10, 50, 100],
       tierLabel: n,
     },
@@ -188,7 +188,7 @@ export const design: Design = {
   id: "G02",
   slug: "achievement-medals",
   title: "Achievement medals",
-  idea: "A sheet of eight medals, each computed from the data (most merged PRs in one repo, repos in one family, owners, issues, languages, stars, longest run, merge rate) and struck in bronze, silver or gold against thresholds printed under it. With outcomes none the merge medals count PRs instead and the merge rate becomes PRs opened; merged swaps the merge rate for merged PRs.",
+  idea: "A sheet of eight medals, each computed from the data (most merged PRs in one repo, repos in one ecosystem, owners, issues, languages, stars, longest run, merge rate) and struck in bronze, silver or gold against thresholds printed under it. With outcomes none the merge medals count PRs instead and the merge rate becomes PRs opened; merged swaps the merge rate for merged PRs.",
   render(stats, theme, options = DEFAULT_OPTIONS) {
     const p = PALETTES[theme];
     const metal = metals(theme);
@@ -240,7 +240,7 @@ ${pips}`;
 
     const asOf = stats.generatedAt.slice(0, 10);
     const head = `<text x="${PAD + 4}" y="30" font-size="17" font-weight="700" fill="${p.text}">Upstream achievements</text><text x="${width - PAD - 4}" y="30" text-anchor="end" font-size="12" fill="${p.muted}">${unlocked} of ${list.length} unlocked · as of ${asOf}</text><line x1="${PAD}" x2="${width - PAD}" y1="${HEAD - 8}" y2="${HEAD - 8}" stroke="${p.hair}"/>`;
-    const foot = `<line x1="${PAD}" x2="${width - PAD}" y1="${height - 30}" y2="${height - 30}" stroke="${p.hair}"/><text x="${PAD + 4}" y="${height - 11}" font-size="10.5" fill="${p.faint}">Tiers under each medal are bronze, silver and gold thresholds. Upstream = repositories owned by other people and orgs.</text>`;
+    const foot = `<line x1="${PAD}" x2="${width - PAD}" y1="${height - 30}" y2="${height - 30}" stroke="${p.hair}"/><text x="${PAD + 4}" y="${height - 11}" font-size="10.5" fill="${p.faint}">Tiers under each medal are bronze, silver and gold thresholds. Upstream = repos owned by other people and orgs.</text>`;
     return document({
       width,
       height,

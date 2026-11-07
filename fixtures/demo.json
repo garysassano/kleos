@@ -2040,7 +2040,7 @@
    ]
   }
  ],
- "families": [
+ "ecosystems": [
   {
    "name": "Nimbus",
    "match": "^nimbus(-.*)?$",

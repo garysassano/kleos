@@ -17,7 +17,7 @@ export interface Stats {
   /** External owners (organizations and users), sorted by `total` descending. */
   owners: OwnerStats[];
   /** Owners grouped under one brand, such as AWS = aws + aws-samples + aws-cloudformation + …. */
-  families: FamilyStats[];
+  ecosystems: EcosystemStats[];
   /** Daily contribution counts for the last 371 days up to `generatedAt`, oldest first. Includes private contributions. */
   calendar: [date: string, count: number][];
   /** The user's most recent PRs in external public repositories, newest first (at most 30). */
@@ -97,7 +97,7 @@ export interface OwnerStats {
   topRepos: string[];
 }
 
-export interface FamilyStats {
+export interface EcosystemStats {
   name: string;
   /** Regular expression matched against owner logins. */
   match: string;

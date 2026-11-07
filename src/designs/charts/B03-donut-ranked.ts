@@ -58,11 +58,11 @@ export const design: Design = {
   id: "B03",
   slug: "donut-ranked",
   title: "Donut + ranked legend",
-  idea: "Share of all upstream work by family or owner as a donut (seven largest groups plus everyone else), next to a ranked table with avatars, share and a PR/issue breakdown per group. The PR part of that breakdown follows the outcomes level: PRs only, PRs with merged ones, or merged, open and closed-unmerged.",
+  idea: "Share of all upstream work by ecosystem or owner as a donut (seven largest groups plus everyone else), next to a ranked table with avatars, share and a PR/issue breakdown per group. The PR part of that breakdown follows the outcomes level: PRs only, PRs with merged ones, or merged, open and closed-unmerged.",
   render(stats, theme, options: RenderOptions = DEFAULT_OPTIONS) {
     const lvl = options.outcomes;
     const t = THEMES[theme];
-    const { T, total: TOTAL, topGroups, restGroups, rest, bigFamily } = derive(stats);
+    const { T, total: TOTAL, topGroups, restGroups, rest, bigEcosystem } = derive(stats);
     const items: Item[] = topGroups.map((g) => ({
       ...g,
       c: colorOf(t, g),
@@ -91,7 +91,7 @@ export const design: Design = {
     const r = 84;
     let s = header(
       "Share of my upstream work",
-      `By organisation family or owner · ${fmt(TOTAL)} contributions across ${T.externalOwners} owners`,
+      `By ecosystem or owner · ${fmt(TOTAL)} contributions across ${T.externalOwners} owners`,
     );
     // ring
     let a = 0;
@@ -126,7 +126,7 @@ export const design: Design = {
     const LX = 352;
     const RX = W - 24;
     const pctX = RX - 62;
-    s += `<text x="${LX}" y="${top - 8}" font-size="11" class="m">Rank · owner</text>`;
+    s += `<text x="${LX}" y="${top - 8}" font-size="11" class="m">Rank · ecosystem or owner</text>`;
     s += `<text x="${pctX}" y="${top - 8}" font-size="11" text-anchor="end" class="m">Share</text>`;
     s += `<text x="${RX}" y="${top - 8}" font-size="11" text-anchor="end" class="m">Total</text>`;
     items.forEach((it, i) => {
@@ -160,9 +160,9 @@ export const design: Design = {
       s += `<text x="${RX}" y="${my + 5}" font-size="13" text-anchor="end" class="b mono">${it.total}</text>`;
     });
     s += `<line x1="${LX}" y1="${top + items.length * rowH}" x2="${RX}" y2="${top + items.length * rowH}" stroke="${t.grid}"/>`;
-    // Spell out the largest multi-owner family among the ranked groups.
-    if (bigFamily?.family)
-      s += `<text x="24" y="${h - 14}" font-size="11" class="m">${esc(`${bigFamily.name} family = ${bigFamily.family.owners.join(", ")}`)}</text>`;
+    // Spell out the largest multi-owner ecosystem among the ranked groups.
+    if (bigEcosystem?.ecosystem)
+      s += `<text x="24" y="${h - 14}" font-size="11" class="m">${esc(`${bigEcosystem.name} ecosystem = ${bigEcosystem.ecosystem.owners.join(", ")}`)}</text>`;
     return svgDoc(t, h, s);
   },
 };

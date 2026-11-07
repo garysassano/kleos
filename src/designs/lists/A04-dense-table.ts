@@ -25,7 +25,7 @@ export const design: Design = {
   id: "A04",
   slug: "dense-table",
   title,
-  idea: 'A compact 15-row table with explicit columns (stars, PRs, merged, issues, discussions, total, active years) and a totals row for all external repos. Nothing to decode: every number has a header. With outcomes "none" the merged column goes; "full" adds open and closed columns.',
+  idea: 'A compact 15-row table with explicit columns (stars, PRs, merged, issues, discussions, total, active years) and a totals row for all upstream repos. Nothing to decode: every number has a header. With outcomes "none" the merged column goes; "full" adds open and closed columns.',
   render(stats, theme, options = DEFAULT_OPTIONS) {
     const level = options.outcomes;
     const T = themeOf(theme);
@@ -37,7 +37,7 @@ export const design: Design = {
     const rows = d.repos.slice(0, 15);
     const N = rows.length;
     // Without a level, and at "merged", the original columns. "none" drops Merged and widens
-    // the repository column; "full" adds Open and Closed and narrows it.
+    // the repo column; "full" adds Open and Closed and narrows it.
     const C =
       level === "none"
         ? {
@@ -83,7 +83,7 @@ export const design: Design = {
     const cClosed = "closed" in C ? C.closed : undefined;
     let b = header(
       T,
-      "Contributions to other people’s repositories",
+      "Contributions to other people’s repos",
       `${capitalize(topOf(N, d.nRepos))} repos by PRs + issues + discussions`,
     );
     const hy = top - 9;
@@ -91,15 +91,15 @@ export const design: Design = {
       t(T, x, hy, s, { size: 11, fill: "muted", anchor, weight });
     b +=
       th(C.rank, "#") +
-      th(C.repo - 26, "Repository", "start") +
+      th(C.repo - 26, "Repo", "start") +
       th(C.lang, "Language", "start") +
-      th(C.star, "★ Stars") +
+      th(C.star, "Stars") +
       th(C.prs, "PRs") +
       (cMerged === undefined ? "" : th(cMerged, "Merged")) +
       (cOpen === undefined ? "" : th(cOpen, "Open")) +
       (cClosed === undefined ? "" : th(cClosed, "Closed")) +
       th(C.issues, "Issues") +
-      th(C.disc, "Discuss.") +
+      th(C.disc, "Disc.") +
       th(C.total, "Total", "end", 600) +
       th(C.active, "Active");
     b += rule(T, W, top - 1);
@@ -144,7 +144,7 @@ export const design: Design = {
     const fy = top + N * rh;
     const by = fy + 22;
     b += rule(T, W, fy);
-    b += t(T, C.repo - 26, by, `All ${d.nRepos} external repos · ${d.nOwners} owners`, {
+    b += t(T, C.repo - 26, by, `All ${d.nRepos} upstream repos · ${d.nOwners} owners`, {
       size: sz,
       weight: 600,
     });

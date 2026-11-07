@@ -29,23 +29,23 @@ const MAX_REPOS = 10;
 
 export const design: Design = {
   id: "H01",
-  slug: "family-deep-dive",
-  title: "Family deep-dive",
-  idea: "One family in depth: its member orgs, its repositories and the PR, issue and discussion split, so a cluster like AWS reads as one relationship. Rule: the family with the most contributions (a lone top owner if no families are defined); up to 8 owners and 10 repositories, the rest summed.",
+  slug: "ecosystem-deep-dive",
+  title: "Ecosystem deep-dive",
+  idea: "One ecosystem in depth: its member orgs, its repos and the PR, issue and discussion split, so a cluster like AWS reads as one relationship. Rule: the ecosystem with the most contributions (a lone top owner if no ecosystems are defined); up to 8 owners and 10 repos, the rest summed.",
   render(stats, theme, options = DEFAULT_OPTIONS) {
     const { outcomes } = options;
     const p = PALETTES[theme];
     const g = topGroups(stats, 1)[0];
-    const external = stats.repos.reduce((a, r) => a + r.total, 0);
+    const upstream = stats.repos.reduce((a, r) => a + r.total, 0);
     let body = "";
     let y = PAD;
 
     if (!g) {
       const h = 96;
       body += frame(W, h, p);
-      body += t(PAD, 44, "Family deep-dive", 18, p.text, 'font-weight="600"');
-      body += t(PAD, 70, "No contributions to other people's repositories yet.", 13, p.muted);
-      return svgDocument({ width: W, height: h, title: "Family deep-dive", body });
+      body += t(PAD, 44, "Ecosystem deep-dive", 18, p.text, 'font-weight="600"');
+      body += t(PAD, 70, "No contributions to upstream repos yet.", 13, p.muted);
+      return svgDocument({ width: W, height: h, title: "Ecosystem deep-dive", body });
     }
 
     // Header
@@ -60,19 +60,19 @@ export const design: Design = {
       palette: p,
     });
     body += t(PAD + 58, y + 19, fitText(g.name, 420, 20), 20, p.text, 'font-weight="600"');
-    const sub = g.family
-      ? `${plural(g.owners.length, "member owner")} · ${plural(g.repos.length, "repository", "repositories")} · biggest family by contributions`
-      : `${plural(g.repos.length, "repository", "repositories")} · biggest owner (no families defined)`;
+    const sub = g.ecosystem
+      ? `${plural(g.owners.length, "member owner")} · ${plural(g.repos.length, "repo")} · biggest ecosystem by contributions`
+      : `${plural(g.repos.length, "repo")} · biggest owner (no ecosystems defined)`;
     body += t(PAD + 58, y + 39, fitText(sub, 520, 12), 12, p.muted);
     body += t(
       W - PAD,
       y + 22,
-      `${percent(g.total, external)}%`,
+      `${percent(g.total, upstream)}%`,
       22,
       p.text,
       'text-anchor="end" font-weight="600"',
     );
-    body += t(W - PAD, y + 39, "of all external contributions", 12, p.muted, 'text-anchor="end"');
+    body += t(W - PAD, y + 39, "of all upstream contributions", 12, p.muted, 'text-anchor="end"');
     y += 64;
 
     // Tiles
@@ -80,7 +80,7 @@ export const design: Design = {
       {
         label: "Contributions",
         value: g.total,
-        note: `in ${plural(g.repos.length, "repository", "repositories")}`,
+        note: `in ${plural(g.repos.length, "repo")}`,
         color: p.accent,
       },
       {
@@ -129,7 +129,7 @@ export const design: Design = {
             ? g.prs
               ? `${mergeRate(c, outcomes)}% of opened`
               : "no PRs opened"
-            : `in ${plural(withMerged, "repository", "repositories")}`,
+            : `in ${plural(withMerged, "repo")}`,
         color: p.merged,
       };
       if (outcomes === "full") prs.note = `${num(g.prsOpen)} open · ${num(prsClosed(c))} closed`;
@@ -151,9 +151,9 @@ export const design: Design = {
     const colW = (W - 2 * PAD - 24) / 2;
     const lx = PAD;
     const rx = PAD + colW + 24;
-    body += t(lx, y, g.family ? "Member owners" : "Owner", 13, p.text, 'font-weight="600"');
+    body += t(lx, y, g.ecosystem ? "Member owners" : "Owner", 13, p.text, 'font-weight="600"');
     body += t(lx + colW, y, "contributions", 11, p.faint, 'text-anchor="end"');
-    body += t(rx, y, "Repositories", 13, p.text, 'font-weight="600"');
+    body += t(rx, y, "Repos", 13, p.text, 'font-weight="600"');
     body += t(rx + colW, y, "stars · contributions", 11, p.faint, 'text-anchor="end"');
     y += 10;
     body += `<line x1="${lx}" y1="${y + 0.5}" x2="${lx + colW}" y2="${y + 0.5}" stroke="${p.border}"/>`;
@@ -207,14 +207,14 @@ export const design: Design = {
       ownerRows++;
     }
 
-    // Repositories column
+    // Repos column
     const shownRepos = g.repos.slice(0, MAX_REPOS);
     const repoMax = Math.max(1, ...shownRepos.map((r) => r.total));
     const rBarX = rx + 250;
     const rBarW = colW - 250 - 44;
     shownRepos.forEach((r, i) => {
       const cy = top + i * ROW + ROW / 2;
-      // Each repository carries its owner's avatar, matching the owners column.
+      // Each repo carries its owner's avatar, matching the owners column.
       const owner = stats.owners.find((o) => o.owner === r.owner);
       body += avatar({
         id: `h01-r${i}`,
@@ -246,7 +246,7 @@ export const design: Design = {
       body += t(
         rx,
         cy + 4,
-        `+ ${plural(restRepos.length, "more repository", "more repositories")} · ${num(restRepos.reduce((a, r) => a + r.total, 0))} contributions`,
+        `+ ${plural(restRepos.length, "more repo")} · ${num(restRepos.reduce((a, r) => a + r.total, 0))} contributions`,
         12,
         p.muted,
       );
@@ -270,7 +270,7 @@ export const design: Design = {
     return svgDocument({
       width: W,
       height: h,
-      title: `${g.name}: family deep-dive`,
+      title: `${g.name}: ecosystem deep-dive`,
       body: frame(W, h, p) + body,
     });
   },

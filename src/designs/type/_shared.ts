@@ -131,7 +131,7 @@ const NUMW = [
 ];
 export const words = (n: number): string => NUMW[n] ?? String(n);
 
-/** Figures several cards share, all derived from the external repositories. */
+/** Figures several cards share, all derived from the upstream repos. */
 export function derive(stats: Stats) {
   const { repos } = stats;
   const T = stats.totals;

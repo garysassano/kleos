@@ -32,13 +32,13 @@ export const design: Design = {
   id: "D01",
   slug: "orbit",
   title: "Orbit",
-  idea: "You at the centre, every org or user you contributed to on a ring by how much (40+, 16–39, 9–15, 6–8), avatar size by total; dotted lines join owners of one family from the family list.",
+  idea: "You at the center, every owner (org or person) you contributed to on a ring by how much (40+, 16–39, 9–15, 6–8), avatar size by total; dotted lines join owners of one ecosystem from the ecosystem list.",
   render(stats, theme) {
     const ctx = makeCtx(stats, theme);
     const T = ctx.T;
     const line = extLine(stats);
-    const familyOf = new Map<string, string>();
-    for (const f of stats.families) for (const o of f.owners) familyOf.set(o, f.name);
+    const ecosystemOf = new Map<string, string>();
+    for (const f of stats.ecosystems) for (const o of f.owners) ecosystemOf.set(o, f.name);
 
     const shown = stats.owners.filter((o) => o.total >= MIN_SHOWN);
     const hidden = stats.owners.filter((o) => o.total < MIN_SHOWN);
@@ -50,13 +50,15 @@ export const design: Design = {
       const free: { a: number; used: boolean }[] = [];
       for (let i = 1; i < n; i++)
         free.push({ a: -Math.PI / 2 + (i * 2 * Math.PI) / n, used: false });
-      // Owners whose family head (the family's biggest shown owner) sits on an inner ring take the free slot nearest to it.
+      // Owners whose ecosystem head (the ecosystem's biggest shown owner) sits on an inner ring take the free slot nearest to it.
       const pref: { o: OwnerStats; a: number; head: string }[] = [];
       const rest: OwnerStats[] = [];
       for (const o of list) {
-        const fam = familyOf.get(o.owner);
+        const fam = ecosystemOf.get(o.owner);
         const head = fam
-          ? shown.filter((x) => familyOf.get(x.owner) === fam).sort((a, b) => b.total - a.total)[0]
+          ? shown
+              .filter((x) => ecosystemOf.get(x.owner) === fam)
+              .sort((a, b) => b.total - a.total)[0]
           : undefined;
         const hp = head ? pos.get(head.owner) : undefined;
         if (head && hp && head.owner !== o.owner) pref.push({ o, a: hp.a, head: head.owner });
@@ -97,7 +99,7 @@ export const design: Design = {
     for (const p of pos.values()) {
       const h = p.head ? pos.get(p.head) : undefined;
       if (!h) continue;
-      linked.add(familyOf.get(p.o.owner) ?? "");
+      linked.add(ecosystemOf.get(p.o.owner) ?? "");
       b += `<line x1="${r1(h.x)}" y1="${r1(h.y)}" x2="${r1(p.x)}" y2="${r1(p.y)}" stroke="${T.muted}" stroke-opacity="0.55" stroke-width="1" stroke-dasharray="1.5 3"/>`;
     }
     b += `<g class="fade" style="animation-delay:0s">${ctx.avatar(stats.user, cx, cy, 64)}</g>`;
@@ -114,11 +116,13 @@ export const design: Design = {
         `<text x="${r1(tx)}" y="${r1(ty)}" font-size="11">${esc(name)}<tspan dx="5" class="mono mu" font-size="11">${cnt}</tspan></text></g>`;
     }
 
-    const families = stats.families.map((f) => f.name).filter((n) => linked.has(n));
+    const ecosystems = stats.ecosystems.map((f) => f.name).filter((n) => linked.has(n));
     const legend = [
-      "Rings: contributions per org or user",
+      "Rings: contributions per owner",
       "avatar size ∝ √total",
-      ...(families.length ? [`dotted lines join orgs of one family (${families.join(", ")})`] : []),
+      ...(ecosystems.length
+        ? [`dotted lines join orgs of one ecosystem (${ecosystems.join(", ")})`]
+        : []),
     ].join(" · ");
     b += `<text x="20" y="${H - 16}" font-size="11" class="mu">${esc(legend)}</text>`;
     if (hidden.length) {

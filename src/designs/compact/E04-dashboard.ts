@@ -39,7 +39,7 @@ function render(stats: Stats, theme: ThemeName, options: RenderOptions = DEFAULT
   // header
   b += avatar(c, ME, P, 18, 40, { type: "User" });
   b += `<text x="${P + 52}" y="34" font-size="16" font-weight="600" fill="${t.text}">Upstream contributions</text>`;
-  b += `<text x="${P + 52}" y="53" font-size="12" fill="${t.muted}">@${esc(ME)} · public repositories owned by other users and orgs</text>`;
+  b += `<text x="${P + 52}" y="53" font-size="12" fill="${t.muted}">@${esc(ME)} · public repos owned by other people and orgs</text>`;
   b += legend(
     W - P,
     34,
@@ -67,7 +67,7 @@ function render(stats: Stats, theme: ThemeName, options: RenderOptions = DEFAULT
     ...merged,
     ["Issues opened", fmt(X.issues), t.issue],
     ["Discussions", fmt(X.discussions), t.disc],
-    ["Repositories", fmt(X.repos), null],
+    ["Repos", fmt(X.repos), null],
     ["Owners", fmt(X.owners), null, plural(X.orgs, "org")],
   ];
   const ky = 74;
@@ -94,7 +94,7 @@ function render(stats: Stats, theme: ThemeName, options: RenderOptions = DEFAULT
   const colR = 440;
   const colW = 380;
   b += `<text x="${colL}" y="${top}" font-size="13" font-weight="600" fill="${t.text}">Top owners</text><text x="${colL + colW}" y="${top}" text-anchor="end" font-size="11" fill="${t.muted}">contributions</text>`;
-  b += `<text x="${colR}" y="${top}" font-size="13" font-weight="600" fill="${t.text}">Top repositories</text>`;
+  b += `<text x="${colR}" y="${top}" font-size="13" font-weight="600" fill="${t.text}">Top repos</text>`;
   const rc = { stars: colR + 222, prs: colR + 290, iss: colR + 336, disc: colR + colW };
   b +=
     icon("star", rc.stars - 12, top - 11, 12, t.muted) +
@@ -170,6 +170,6 @@ export const design: Design = {
   id: "E04",
   slug: "dashboard",
   title: "Combined dashboard",
-  idea: "Everything in one card: KPI strip, top owners with stacked contribution bars, top repositories as a compact table, and a weekly activity strip for the last 12 months. Bars grow in on load.",
+  idea: "Everything in one card: KPI strip, top owners with stacked contribution bars, top repos as a compact table, and a weekly activity strip for the last 12 months. Bars grow in on load.",
   render,
 };

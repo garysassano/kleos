@@ -16,20 +16,20 @@ const MAX_MEMBERS = 7;
 
 export const design: Design = {
   id: "H06",
-  slug: "family-versus",
-  title: "Family versus family",
-  idea: "The three biggest families side by side: total and share, each contribution kind on one shared scale with the leader in bold, merge rate, active span, top repository and member owners. Rule: the top 3 families by contributions; when there are fewer than 3, the biggest independent owners fill the remaining columns as groups of one.",
+  slug: "ecosystem-versus",
+  title: "Ecosystem versus ecosystem",
+  idea: "The three biggest ecosystems side by side: total and share, each contribution kind on one shared scale with the leader in bold, merge rate, active span, top repo and member owners. Rule: the top 3 ecosystems by contributions; when there are fewer than 3, the biggest independent owners fill the remaining columns as groups of one.",
   render(stats, theme, options = DEFAULT_OPTIONS) {
     const { outcomes } = options;
     const p = PALETTES[theme];
     const groups = topGroups(stats, 3);
-    const external = sum(stats.repos, (r) => r.total);
+    const upstream = sum(stats.repos, (r) => r.total);
     let body = "";
 
     body += t(
       PAD,
       38,
-      groups.length > 1 ? "Family versus family" : "Biggest family",
+      groups.length > 1 ? "Ecosystem versus ecosystem" : "Biggest ecosystem",
       16,
       p.text,
       'font-weight="600"',
@@ -37,17 +37,17 @@ export const design: Design = {
     body += t(
       PAD,
       58,
-      `The ${groups.length === 1 ? "biggest group" : `${groups.length} biggest groups`} of owners by contributions · ${num(external)} external contributions in all`,
+      `The ${groups.length === 1 ? "biggest group" : `${groups.length} biggest groups`} of owners by contributions · ${num(upstream)} upstream contributions in all`,
       12,
       p.muted,
     );
     if (!groups.length) {
       const h = 96;
-      body += t(PAD, 80, "No contributions to other people's repositories yet.", 12, p.faint);
+      body += t(PAD, 80, "No contributions to upstream repos yet.", 12, p.faint);
       return svgDocument({
         width: W,
         height: h,
-        title: "Family versus family",
+        title: "Ecosystem versus ecosystem",
         body: frame(W, h, p) + body,
       });
     }
@@ -101,7 +101,7 @@ export const design: Design = {
         palette: p,
       });
       body += t(ix + 46, y + 32, fitText(g.name, iw - 46, 16), 16, p.text, 'font-weight="600"');
-      const sub = g.family
+      const sub = g.ecosystem
         ? `${plural(g.owners.length, "owner")} · ${plural(g.repos.length, "repo")}`
         : `independent owner · ${plural(g.repos.length, "repo")}`;
       body += t(ix + 46, y + 49, fitText(sub, iw - 46, 11), 11, p.muted);
@@ -112,12 +112,12 @@ export const design: Design = {
       body += t(
         ix + iw,
         y + 14,
-        `${percent(g.total, external)}%`,
+        `${percent(g.total, upstream)}%`,
         15,
         leadsTotal(i) ? p.text : p.muted,
         'text-anchor="end" font-weight="600"',
       );
-      body += t(ix + iw, y + 29, "of external", 11, p.faint, 'text-anchor="end"');
+      body += t(ix + iw, y + 29, "of upstream", 11, p.faint, 'text-anchor="end"');
       body += t(ix, y + 46, "contributions", 11, p.muted);
       y += 74;
 
@@ -192,7 +192,7 @@ export const design: Design = {
       y += facts.length * 22 + 8;
 
       // Member owners
-      if (g.family) {
+      if (g.ecosystem) {
         const shown = g.owners.slice(0, MAX_MEMBERS);
         const size = 22;
         const step = Math.min(size + 6, (iw - 30) / Math.max(1, shown.length));
@@ -242,7 +242,7 @@ export const design: Design = {
     return svgDocument({
       width: W,
       height: h,
-      title: "Family versus family",
+      title: "Ecosystem versus ecosystem",
       body: frame(W, h, p) + cards + body,
     });
   },
