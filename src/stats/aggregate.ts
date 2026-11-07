@@ -123,6 +123,7 @@ export function aggregate(
         avatar: x.avatar,
         prs: 0,
         prsMerged: 0,
+        prsOpen: 0,
         issues: 0,
         discussions: 0,
         commits: 0,
@@ -135,6 +136,7 @@ export function aggregate(
     }
     o.prs += x.prs;
     o.prsMerged += x.prsMerged;
+    o.prsOpen += x.prsOpen;
     o.issues += x.issues;
     o.discussions += x.discussions;
     o.commits += x.commits;
@@ -148,14 +150,16 @@ export function aggregate(
   const familyStats: FamilyStats[] = families.map((f) => {
     const re = new RegExp(f.match);
     const members = ownerList.filter((o) => re.test(o.owner));
-    const sum = (k: "total" | "prs" | "prsMerged" | "issues" | "discussions" | "repos") =>
-      members.reduce((a, o) => a + o[k], 0);
+    const sum = (
+      k: "total" | "prs" | "prsMerged" | "prsOpen" | "issues" | "discussions" | "repos",
+    ) => members.reduce((a, o) => a + o[k], 0);
     return {
       ...f,
       owners: members.map((o) => o.owner),
       total: sum("total"),
       prs: sum("prs"),
       prsMerged: sum("prsMerged"),
+      prsOpen: sum("prsOpen"),
       issues: sum("issues"),
       discussions: sum("discussions"),
       repos: sum("repos"),
@@ -189,6 +193,7 @@ export function aggregate(
       externalOwners: ownerList.length,
       externalPRs: external.reduce((a, x) => a + x.prs, 0),
       externalMerged: external.reduce((a, x) => a + x.prsMerged, 0),
+      externalOpen: external.reduce((a, x) => a + x.prsOpen, 0),
       firstExternalPR: externalPRs.at(-1)?.createdAt ?? null,
     },
     ownRepoActivity: all.filter((x) => x.owner === raw.login).reduce((a, x) => a + x.total, 0),

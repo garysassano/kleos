@@ -31,7 +31,7 @@ The first round produced 30 prototype designs across five directions. The owner 
 
 The README and the catalog render from `fixtures/demo.json`, a fictional account with made-up users, organizations, repositories and generated avatars, built by `scripts/demo-fixture.ts`. Public examples shouldn't show the owner's own activity, and a fictional account can show every feature (two families, a long tail, discussions). The real snapshot stays as a test fixture.
 
-Later the same day the owner chose to keep the real snapshot in the README and catalog while the designs are still being worked on, because judging a design is easier with familiar numbers. `DEFAULT_FIXTURE` in `src/cli/gallery.ts` switches to `demo` before launch.
+Later the same day the owner chose to keep the real snapshot in the README and catalog while the designs are still being worked on, because judging a design is easier with familiar numbers. `DEFAULT_FIXTURE` in `src/stats/fixture.ts` switches to `demo` before launch.
 
 ## Why
 

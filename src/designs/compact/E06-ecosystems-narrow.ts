@@ -1,5 +1,6 @@
+import { prParts } from "../../kit/outcomes.ts";
 import type { OwnerStats, Stats } from "../../stats/types.ts";
-import type { Design, ThemeName } from "../types.ts";
+import { DEFAULT_OPTIONS, type Design, type RenderOptions, type ThemeName } from "../types.ts";
 import {
   ONE_OF_EACH,
   avatar,
@@ -7,13 +8,16 @@ import {
   context,
   esc,
   kinds,
+  kindsAt,
   legend,
+  legendAt,
   plural,
   segBar,
   svg,
 } from "./_shared.ts";
 
-function render(stats: Stats, theme: ThemeName): string {
+function render(stats: Stats, theme: ThemeName, options: RenderOptions = DEFAULT_OPTIONS): string {
+  const lvl = options.outcomes;
   const c = context(stats, theme);
   const { t } = c;
   const W = 420;
@@ -51,11 +55,19 @@ function render(stats: Stats, theme: ThemeName): string {
         : `${plural(f.repos, "repo")}`;
     b += `<text x="${W - P - 44}" y="${y + 26}" text-anchor="end" font-size="11.5" fill="${t.muted}">${orgTxt}</text>`;
     b += `<text x="${W - P}" y="${y + 27}" text-anchor="end" font-size="16" font-weight="600" fill="${t.text}">${f.total}</text>`;
-    b += segBar(c, P, y + 38, barW, 6, kinds(t, f), {
+    b += segBar(c, P, y + 38, barW, 6, lvl ? kindsAt(t, f, lvl) : kinds(t, f), {
       fullWidth: Math.max(6, (f.total / max) * barW),
     });
+    const prCap =
+      lvl === "none"
+        ? [plural(f.prs, "PR")]
+        : lvl === "full" && f.prs
+          ? prParts(f, lvl)
+              .filter((p) => p.count)
+              .map((p) => `${p.count} ${p.key === "closed" ? "closed" : p.label}`)
+          : [`${plural(f.prs, "PR")}${f.prs ? ` (${f.prsMerged} merged)` : ""}`];
     const cap = [
-      `${plural(f.prs, "PR")}${f.prs ? ` (${f.prsMerged} merged)` : ""}`,
+      ...(lvl === "full" && f.prs ? [`${plural(f.prs, "PR")}: ${prCap.join(", ")}`] : prCap),
       plural(f.issues, "issue"),
       ...(f.discussions ? [plural(f.discussions, "discussion")] : []),
     ].join(" · ");
@@ -67,10 +79,15 @@ function render(stats: Stats, theme: ThemeName): string {
     P,
     ly + 22,
     t,
-    kinds(t, ONE_OF_EACH).map(({ k, c: col }) => ({
-      k: k === "other PRs" ? "not merged" : k,
-      c: col,
-    })),
+    lvl === "full"
+      ? // Short labels so five entries fit the narrow card; the PR context comes from the captions.
+        legendAt(t, lvl).map(({ k, c: col }) => ({ k: k.replace(/^PRs /, ""), c: col }))
+      : lvl
+        ? legendAt(t, lvl)
+        : kinds(t, ONE_OF_EACH).map(({ k, c: col }) => ({
+            k: k === "other PRs" ? "not merged" : k,
+            c: col,
+          })),
     { gap: 12, size: 11 },
   );
   return svg(W, H, "Upstream contributions by ecosystem", b);

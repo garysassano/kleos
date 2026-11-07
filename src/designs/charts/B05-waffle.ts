@@ -1,4 +1,5 @@
-import type { Design } from "../types.ts";
+import { prParts } from "../../kit/outcomes.ts";
+import { DEFAULT_OPTIONS, type Design, type RenderOptions } from "../types.ts";
 import {
   THEMES,
   W,
@@ -8,6 +9,7 @@ import {
   fmt,
   header,
   plural,
+  sum,
   svgDoc,
   trunc,
   tw,
@@ -21,7 +23,9 @@ const TARGET_COLS = 40;
 interface Item {
   name: string;
   total: number;
+  prs: number;
   prsMerged: number;
+  prsOpen: number;
   owners: number;
   c: string;
   isRest: boolean;
@@ -31,8 +35,9 @@ export const design: Design = {
   id: "B05",
   slug: "waffle",
   title: "Waffle",
-  idea: "One square per contribution, grouped by family or owner, with merged PRs solid and everything else faded, so volume and code-vs-reports read together. Very large totals switch to one square per few contributions so the grid always fits.",
-  render(stats, theme) {
+  idea: 'One square per contribution, grouped by family or owner, with merged PRs solid and everything else faded, so volume and code-vs-reports read together. With outcomes "none" every PR is solid; with "full" open PRs are outlined and closed-unmerged ones grey. Very large totals switch to one square per few contributions so the grid always fits.',
+  render(stats, theme, options: RenderOptions = DEFAULT_OPTIONS) {
+    const lvl = options.outcomes;
     const t = THEMES[theme];
     const { total: TOTAL, topGroups, restGroups, rest } = derive(stats);
     const cell = 12;
@@ -43,16 +48,34 @@ export const design: Design = {
     const items: Item[] = topGroups.map((g) => ({
       name: g.name,
       total: g.total,
+      prs: g.prs,
       prsMerged: g.prsMerged,
+      prsOpen: sum(g.repos.map((r) => r.prsOpen)),
       owners: g.owners.size,
       c: colorOf(t, g),
       isRest: false,
     }));
-    if (restGroups.length) items.push({ ...rest, c: t.other, isRest: true });
-    const squares = items.map((it) => ({
-      n: Math.round(it.total / unit),
-      solid: Math.round(it.prsMerged / unit),
-    }));
+    if (restGroups.length)
+      items.push({
+        ...rest,
+        prsOpen: sum(restGroups.flatMap((g) => g.repos.map((r) => r.prsOpen))),
+        c: t.other,
+        isRest: true,
+      });
+    // Squares per item, in order: solid, then (full only) open and closed unmerged, then faded.
+    // Each tier ends at the rounded cumulative count, so rounding never adds or drops squares.
+    const squares = items.map((it) => {
+      const n = Math.round(it.total / unit);
+      const end = (v: number) => Math.min(n, Math.round(v / unit));
+      if (lvl === "full") {
+        const [m, o, c] = prParts(it, lvl).map((p) => p.count);
+        const solid = end(m ?? 0);
+        const open = end((m ?? 0) + (o ?? 0));
+        return { n, solid, open, closed: end((m ?? 0) + (o ?? 0) + (c ?? 0)) };
+      }
+      const solid = lvl === "none" ? end(it.prs) : Math.round(it.prsMerged / unit);
+      return { n, solid, open: solid, closed: solid };
+    });
     const cellsN = squares.reduce((a, q) => a + q.n, 0);
     const ROWS = Math.min(MAX_ROWS, Math.max(MIN_ROWS, Math.ceil(cellsN / TARGET_COLS)));
     const COLS = Math.max(1, Math.ceil(cellsN / ROWS));
@@ -65,21 +88,28 @@ export const design: Design = {
         : `${fmt(cellsN)} squares, each ≈ ${unit} of ${fmt(TOTAL)}`;
     let s = header(
       "Every contribution, one square",
-      `${what} PRs, issues and discussions on other people's repos · solid = merged PR`,
+      `${what} PRs, issues and discussions on other people's repos · solid = ${lvl === "none" ? "PR" : "merged PR"}`,
     );
     let idx = 0;
     const bands: { it: Item; start: number; end: number }[] = [];
     let cells = "";
     items.forEach((it, i) => {
       const start = idx;
-      const q = squares[i] ?? { n: 0, solid: 0 };
+      const q = squares[i] ?? { n: 0, solid: 0, open: 0, closed: 0 };
       for (let k = 0; k < q.n; k++) {
         const solid = k < q.solid;
         const col = Math.floor(idx / ROWS);
         const row = idx % ROWS;
         const x = X0 + col * pitch;
         const y = Y0 + row * pitch;
-        cells += `<rect x="${x}" y="${y}" width="${cell}" height="${cell}" rx="2" fill="${it.c}"${solid ? "" : ` fill-opacity="${t.name === "dark" ? 0.4 : 0.38}"`}/>`;
+        if (!solid && k < q.open)
+          // open PR: hollow square in the group colour
+          cells += `<rect x="${x + 0.75}" y="${y + 0.75}" width="${cell - 1.5}" height="${cell - 1.5}" rx="2" fill="none" stroke="${it.c}" stroke-width="1.5"/>`;
+        else if (!solid && k < q.closed)
+          // closed without merging: neutral grey
+          cells += `<rect x="${x}" y="${y}" width="${cell}" height="${cell}" rx="2" fill="${t.border}"/>`;
+        else
+          cells += `<rect x="${x}" y="${y}" width="${cell}" height="${cell}" rx="2" fill="${it.c}"${solid ? "" : ` fill-opacity="${t.name === "dark" ? 0.4 : 0.38}"`}/>`;
         idx++;
       }
       bands.push({ it, start, end: idx });
@@ -112,10 +142,16 @@ export const design: Design = {
       const y = LY + Math.floor(i / 4) * 22;
       s += `<rect x="${x}" y="${y - 9}" width="10" height="10" rx="2" fill="${it.c}"/>`;
       const label = it.isRest ? `${it.owners} other owners` : it.name;
-      s += `<text x="${x + 16}" y="${y}" font-size="12">${esc(trunc(label, 12, colW - 80))} <tspan class="m">${it.total} · ${it.prsMerged} merged</tspan></text>`;
+      s += `<text x="${x + 16}" y="${y}" font-size="12">${esc(trunc(label, 12, colW - 80))} <tspan class="m">${it.total} · ${lvl === "none" ? plural(it.prs, "PR") : `${it.prsMerged} merged`}</tspan></text>`;
     });
     const h = LY + Math.ceil(items.length / 4) * 22 + 14;
-    s += `<text x="24" y="${h - 14}" font-size="11" class="m">Columns fill top to bottom, ${plural(ROWS, "square")} each. Faded = issue, discussion or unmerged PR.</text>`;
+    const key =
+      lvl === undefined
+        ? `Columns fill top to bottom, ${plural(ROWS, "square")} each. Faded = issue, discussion or unmerged PR.`
+        : lvl === "full"
+          ? `Columns of ${ROWS}, top to bottom. Solid = merged PR, outline = open PR, grey = PR closed unmerged, faded = issue or discussion.`
+          : `Columns fill top to bottom, ${plural(ROWS, "square")} each. Faded = ${lvl === "none" ? "issue or discussion" : "everything else"}.`;
+    s += `<text x="24" y="${h - 14}" font-size="11" class="m">${key}</text>`;
     return svgDoc(t, h, s);
   },
 };

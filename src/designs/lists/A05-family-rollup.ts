@@ -1,5 +1,5 @@
 import type { OwnerStats } from "../../stats/types.ts";
-import type { Design } from "../types.ts";
+import { DEFAULT_OPTIONS, type Design } from "../types.ts";
 import {
   STD_LEGEND,
   avatar,
@@ -27,7 +27,8 @@ export const design: Design = {
   slug: "family-rollup",
   title,
   idea: "Groups related GitHub owners into families (one vendor's several organisations) with the family total on top and member owners indented below, so a big vendor spread across many orgs shows up as one line.",
-  render(stats, theme) {
+  render(stats, theme, options = DEFAULT_OPTIONS) {
+    const level = options.outcomes;
     const T = themeOf(theme);
     const d = dataOf(stats);
     const W = 840;
@@ -52,7 +53,11 @@ export const design: Design = {
       t(T, 24, y - 12, "Family / owner", { size: 11, fill: "muted" }) +
       t(T, bx, y - 12, "Mix (to scale)", { size: 11, fill: "muted" });
     b +=
-      t(T, cPR, y - 12, "PRs merged", { size: 11, fill: "muted", anchor: "end" }) +
+      t(T, cPR, y - 12, level === "none" ? "PRs" : "PRs merged", {
+        size: 11,
+        fill: "muted",
+        anchor: "end",
+      }) +
       t(T, cIss, y - 12, "Issues", { size: 11, fill: "muted", anchor: "end" }) +
       t(T, cTot, y - 12, "Total", { size: 11, fill: "muted", anchor: "end", weight: 600 });
     b += rule(T, W, y - 1);
@@ -83,10 +88,17 @@ export const design: Design = {
           ? `${mem.length} owners · ${plural(f.repos, "repo")}`
           : `${lead.owner} · ${plural(f.repos, "repo")}`;
       g += t(T, 58 + textW(f.name, 14) + 12, cy + 4.5, esc(sub), { size: 11.5, fill: "muted" });
-      g += `<g class="grow"${delay(i)}>${stack(T, bx, cy - 5, 10, segsOf(T, f), max, bw)}</g>`;
-      g += f.prs
-        ? t(T, cPR, cy + 4.5, `${f.prsMerged}/${f.prs}`, { size: 12.5, anchor: "end", mono: true })
-        : num(T, cPR, cy + 4.5, 0);
+      g += `<g class="grow"${delay(i)}>${stack(T, bx, cy - 5, 10, segsOf(T, f, level), max, bw)}</g>`;
+      g +=
+        level === "none"
+          ? num(T, cPR, cy + 4.5, f.prs, { size: 12.5 })
+          : f.prs
+            ? t(T, cPR, cy + 4.5, `${f.prsMerged}/${f.prs}`, {
+                size: 12.5,
+                anchor: "end",
+                mono: true,
+              })
+            : num(T, cPR, cy + 4.5, 0);
       g +=
         num(T, cIss, cy + 4.5, f.issues, { size: 12.5 }) +
         num(T, cTot, cy + 4.5, f.total, { size: 14, weight: 700 });
@@ -108,15 +120,18 @@ export const design: Design = {
             fill: "faint",
             anchor: "end",
           });
-          c += `<g class="grow"${delay(i)}>${stack(T, bx, ccy - 3, 6, segsOf(T, m), max, bw, { gap: 1.5 })}</g>`;
-          c += m.prs
-            ? t(T, cPR, ccy + 4.3, `${m.prsMerged}/${m.prs}`, {
-                size: 12,
-                fill: "muted",
-                anchor: "end",
-                mono: true,
-              })
-            : num(T, cPR, ccy + 4.3, 0, { size: 12 });
+          c += `<g class="grow"${delay(i)}>${stack(T, bx, ccy - 3, 6, segsOf(T, m, level), max, bw, { gap: 1.5 })}</g>`;
+          c +=
+            level === "none"
+              ? num(T, cPR, ccy + 4.3, m.prs, { size: 12, fill: "muted" })
+              : m.prs
+                ? t(T, cPR, ccy + 4.3, `${m.prsMerged}/${m.prs}`, {
+                    size: 12,
+                    fill: "muted",
+                    anchor: "end",
+                    mono: true,
+                  })
+                : num(T, cPR, ccy + 4.3, 0, { size: 12 });
           c +=
             num(T, cIss, ccy + 4.3, m.issues, { size: 12, fill: "muted" }) +
             num(T, cTot, ccy + 4.3, m.total, { size: 12.5, fill: "muted" });
@@ -136,7 +151,7 @@ export const design: Design = {
     const rest = solo.length
       ? `The other ${solo.length} owners are independent; biggest: ${top3}.`
       : "Every owner belongs to a family.";
-    b += legend(T, 24, y + 26, STD_LEGEND(T));
+    b += legend(T, 24, y + 26, STD_LEGEND(T, level));
     b += t(
       T,
       24,

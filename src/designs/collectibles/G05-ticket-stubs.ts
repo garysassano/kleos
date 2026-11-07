@@ -1,3 +1,4 @@
+import { prsClosed } from "../../kit/outcomes.ts";
 import {
   MONO,
   PALETTES,
@@ -8,7 +9,7 @@ import {
   textWidth,
   truncate,
 } from "../../kit/svg.ts";
-import type { Design } from "../types.ts";
+import { DEFAULT_OPTIONS, type Design } from "../types.ts";
 import { monthYear } from "./_shared.ts";
 
 const W = 840;
@@ -32,8 +33,9 @@ export const design: Design = {
   id: "G05",
   slug: "ticket-stubs",
   title: "Ticket stubs",
-  idea: "The top six repositories by contributions as admission tickets: the repo is the show, its stars and language the billing, PRs, merged, issues and discussions the printed fields, and the stub keeps the rank and total. The coloured edge is the repo's language colour.",
-  render(stats, theme) {
+  idea: "The top six repositories by contributions as admission tickets: the repo is the show, its stars and language the billing, PRs, merged, issues and discussions the printed fields, and the stub keeps the rank and total. The coloured edge is the repo's language colour. With outcomes none the merged field goes; full adds open and closed-unmerged fields.",
+  render(stats, theme, options = DEFAULT_OPTIONS) {
+    const lv = options.outcomes;
     const p = PALETTES[theme];
     const repos = stats.repos.slice(0, MAX);
     const rows = Math.max(1, Math.ceil(repos.length / 2));
@@ -55,12 +57,28 @@ export const design: Design = {
             : `${monthYear(r.first)} – ${monthYear(r.last)}`
           : "dates unknown";
       const edge = r.langColor ?? p.faint;
-      const fields: [string, number][] = [
-        ["PRS", r.prs],
-        ["MERGED", r.prsMerged],
-        ["ISSUES", r.issues],
-        ["DISCUSS.", r.discussions],
-      ];
+      const fields: [string, number][] =
+        lv === "none"
+          ? [
+              ["PRS", r.prs],
+              ["ISSUES", r.issues],
+              ["DISCUSS.", r.discussions],
+            ]
+          : lv === "full"
+            ? [
+                ["PRS", r.prs],
+                ["MERGED", r.prsMerged],
+                ["OPEN", r.prsOpen],
+                ["CLOSED", prsClosed(r)],
+                ["ISSUES", r.issues],
+                ["DISC.", r.discussions],
+              ]
+            : [
+                ["PRS", r.prs],
+                ["MERGED", r.prsMerged],
+                ["ISSUES", r.issues],
+                ["DISCUSS.", r.discussions],
+              ];
       const fw = (px - 34) / fields.length;
       const fieldSvg = fields
         .map(
@@ -92,7 +110,7 @@ ${fieldSvg}
     const empty = repos.length
       ? ""
       : `<text x="${W / 2}" y="${HEAD + TH / 2}" text-anchor="middle" font-size="13" fill="${p.muted}">No external contributions yet</text>`;
-    const foot = `<text x="${x0 + 2}" y="${height - 12}" font-size="10.5" fill="${p.faint}">TOTAL = PRs + issues + discussions I opened in the repo. Dates run from my first to my latest one.</text>`;
+    const foot = `<text x="${x0 + 2}" y="${height - 12}" font-size="10.5" fill="${p.faint}">TOTAL = PRs + issues + discussions I opened in the repo. Dates run from my first to my latest one.${lv === "full" ? " CLOSED = closed without merging." : ""}</text>`;
     return document({
       width: W,
       height,

@@ -2,9 +2,10 @@
  * Helpers shared by the ranked-list designs (A01–A06). Ported byte-for-byte from the prototype,
  * so the text-width estimate, `truncate` and the avatar markup differ slightly from `src/kit/svg.ts`.
  */
+import { type PrCounts, type PrPartKey, prLegend, prParts } from "../../kit/outcomes.ts";
 import { MONO, PALETTES, SANS, compact, esc, percent } from "../../kit/svg.ts";
 import type { OwnerStats, RepoStats, Stats } from "../../stats/types.ts";
-import type { ThemeName } from "../types.ts";
+import type { Level, ThemeName } from "../types.ts";
 
 export { compact, esc, percent };
 
@@ -21,6 +22,9 @@ export interface Theme {
   pr: string;
   iss: string;
   disc: string;
+  /** PRs still open and PRs closed without merging, shown only at outcomes "full". */
+  open: string;
+  closed: string;
   /** Neutral bar (repo stars in A06). */
   bar: string;
 }
@@ -44,6 +48,8 @@ export function themeOf(theme: ThemeName): Theme {
     pr: p.merged,
     iss: p.issue,
     disc: p.discussion,
+    open: p.open,
+    closed: p.closed,
     bar: EXTRA[theme].bar,
   };
 }
@@ -53,6 +59,7 @@ export const PR_OTHER_OPACITY = 0.42;
 export interface Counts {
   prs: number;
   prsMerged: number;
+  prsOpen: number;
   issues: number;
   discussions: number;
 }
@@ -170,12 +177,37 @@ export interface Segment {
   op?: number;
 }
 
-export const segsOf = (T: Theme, o: Counts): Segment[] => [
-  { v: o.prsMerged, c: T.pr },
-  { v: o.prs - o.prsMerged, c: T.pr, op: PR_OTHER_OPACITY },
-  { v: o.issues, c: T.iss },
-  { v: o.discussions, c: T.disc },
-];
+/**
+ * Colour of one PR part (`prParts`): merged PRs solid, the rest of the PRs faded at "merged",
+ * all PRs solid at "none", open and closed-unmerged their own tones at "full".
+ */
+export function prFill(T: Theme, key: PrPartKey, level: Level): { c: string; op?: number } {
+  switch (key) {
+    case "merged":
+      return { c: T.pr };
+    case "pr":
+      return level === "none" ? { c: T.pr } : { c: T.pr, op: PR_OTHER_OPACITY };
+    case "open":
+      return { c: T.open };
+    case "closed":
+      return { c: T.closed };
+  }
+}
+
+/** Bar segments for the PRs alone at `level`. */
+export const prSegs = (T: Theme, o: PrCounts, level: Level): Segment[] =>
+  prParts(o, level).map((p) => ({ v: p.count, ...prFill(T, p.key, level) }));
+
+/** Bar segments for a row: PRs, issues, discussions. Without a level, the original four. */
+export const segsOf = (T: Theme, o: Counts, level?: Level): Segment[] =>
+  level === undefined
+    ? [
+        { v: o.prsMerged, c: T.pr },
+        { v: o.prs - o.prsMerged, c: T.pr, op: PR_OTHER_OPACITY },
+        { v: o.issues, c: T.iss },
+        { v: o.discussions, c: T.disc },
+      ]
+    : [...prSegs(T, o, level), { v: o.issues, c: T.iss }, { v: o.discussions, c: T.disc }];
 
 /** Horizontal stacked bar. Totals above `scaleMax` are drawn to `maxW` with an axis-break mark. */
 export function stack(
@@ -236,12 +268,28 @@ export function legend(
   return out;
 }
 
-export const STD_LEGEND = (T: Theme): LegendItem[] => [
-  { c: T.pr, label: "PRs merged" },
-  { c: T.pr, op: PR_OTHER_OPACITY, label: "PRs open or closed" },
-  { c: T.iss, label: "Issues" },
-  { c: T.disc, label: "Discussions" },
-];
+/** Legend entries for the PRs at `level`, in the words of `prLegend`. */
+export const prLegendItems = (T: Theme, level: Level): LegendItem[] =>
+  prLegend(level).map((l) => ({ ...prFill(T, l.key, level), label: l.label }));
+
+/** Legend for `segsOf`. Without a level, the original wording. */
+export const STD_LEGEND = (T: Theme, level?: Level): LegendItem[] =>
+  level === undefined
+    ? [
+        { c: T.pr, label: "PRs merged" },
+        { c: T.pr, op: PR_OTHER_OPACITY, label: "PRs open or closed" },
+        { c: T.iss, label: "Issues" },
+        { c: T.disc, label: "Discussions" },
+      ]
+    : [
+        ...prLegendItems(T, level),
+        { c: T.iss, label: "Issues" },
+        { c: T.disc, label: "Discussions" },
+      ];
+
+/** Width `legend` gives `items`, without the trailing gap. */
+export const legendW = (items: LegendItem[], size = 11.5, gapX = 18): number =>
+  items.reduce((w, it) => w + (it.c ? 14 : 0) + it.label.length * size * 0.53 + gapX, 0) - gapX;
 
 /** "owner/name" with the owner muted, truncated to `maxPx`. */
 export function repoLabel(

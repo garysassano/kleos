@@ -1,6 +1,7 @@
+import { mergeRate, prsClosed } from "../../kit/outcomes.ts";
 import { esc } from "../../kit/svg.ts";
 import type { OwnerStats } from "../../stats/types.ts";
-import type { Design } from "../types.ts";
+import { DEFAULT_OPTIONS, type Design, type Level } from "../types.ts";
 import { doc, extLine, header, makeCtx, plural, r1, trunc, tw } from "./_shared.ts";
 
 const W = 840;
@@ -65,6 +66,17 @@ function squarify(values: number[], x: number, y: number, w: number, h: number):
   return out;
 }
 
+/**
+ * The PR line on a large tile: without a level (and at "merged") PRs with the merged count; at
+ * "none" just the PRs; at "full" the merge rate.
+ */
+function prLine(o: OwnerStats, level: Level | undefined): string {
+  const prs = plural(o.prs, "PR");
+  if (level === "none") return prs;
+  if (level !== "full") return `${prs} · ${o.prsMerged} merged`;
+  return `${prs} · ${mergeRate(o, level)}% merged`;
+}
+
 type Item = { o: OwnerStats; v: number } | { rest: true; v: number; n: number };
 
 export const design: Design = {
@@ -72,7 +84,8 @@ export const design: Design = {
   slug: "mosaic",
   title: "Avatar mosaic",
   idea: "A treemap wall of avatars: each tile’s area is that org’s or user’s share of all upstream contributions, with the count on every tile, a PR/issue breakdown on the big ones, and one tile pooling everyone with 5 or fewer.",
-  render(stats, theme) {
+  render(stats, theme, options = DEFAULT_OPTIONS) {
+    const level = options.outcomes;
     const ctx = makeCtx(stats, theme);
     const T = ctx.T;
     const line = extLine(stats);
@@ -158,10 +171,20 @@ export const design: Design = {
           `<text x="${r1(nx)}" y="${r1(y + 12 + a / 2 - 2)}" font-size="13" class="b">${esc(trunc(o.owner, x + w - nx - 8, 13))}</text>` +
           `<text x="${r1(nx)}" y="${r1(y + 12 + a / 2 + 14)}" font-size="11" class="mu">${esc(tw(meta, 11) <= x + w - nx - 8 ? meta : trunc(plural(o.repos, "repo"), x + w - nx - 8, 11))}</text>`;
         const lines: string[] = [];
-        if (o.prs) lines.push(`${plural(o.prs, "PR")} · ${o.prsMerged} merged`);
+        if (o.prs) lines.push(prLine(o, level));
+        // At "full", PRs still open and closed without merging get a line when the tile has room.
+        const later = level === "full" ? [o.prsOpen, prsClosed(o)] : [0, 0];
         if (o.issues) lines.push(plural(o.issues, "issue"));
         if (o.discussions) lines.push(plural(o.discussions, "discussion"));
         const big = Math.round(Math.max(24, Math.min(40, Math.min(w, h) * 0.2)));
+        if ((later[0] || later[1]) && h - 12 - lines.length * 15 - 20 - big - (12 + a) >= 6) {
+          const say = (closed: string) =>
+            [later[0] ? `${later[0]} open` : "", later[1] ? `${later[1]} ${closed}` : ""]
+              .filter(Boolean)
+              .join(" · ");
+          const long = say("closed unmerged");
+          lines.splice(1, 0, tw(long, 11) <= w - 24 ? long : say("closed"));
+        }
         let yy = y + h - 12 - (lines.length - 1) * 15;
         b += `<text x="${r1(x + 12)}" y="${r1(yy - 20)}" font-size="${big}" class="b">${o.total}</text>`;
         for (const l of lines) {

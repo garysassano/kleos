@@ -36,6 +36,8 @@ export interface Totals {
   externalOwners: number;
   externalPRs: number;
   externalMerged: number;
+  /** PRs in external public repositories that are still open. */
+  externalOpen: number;
   /** ISO timestamp of the user's first PR in an external public repository, or null. */
   firstExternalPR: string | null;
 }
@@ -86,6 +88,7 @@ export interface OwnerStats {
   avatar: string;
   prs: number;
   prsMerged: number;
+  prsOpen: number;
   issues: number;
   discussions: number;
   commits: number;
@@ -105,6 +108,7 @@ export interface FamilyStats {
   total: number;
   prs: number;
   prsMerged: number;
+  prsOpen: number;
   issues: number;
   discussions: number;
   repos: number;

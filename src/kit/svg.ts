@@ -31,6 +31,9 @@ export interface Palette {
   /** Merged PRs, other PRs, issues, discussions: the four contribution kinds, validated for both themes. */
   merged: string;
   pr: string;
+  /** PRs still open, and PRs closed without merging (outcomes "full"). Closed is neutral grey on purpose. */
+  open: string;
+  closed: string;
   issue: string;
   discussion: string;
 }
@@ -47,6 +50,8 @@ export const PALETTES: Record<ThemeName, Palette> = {
     accent: "#4493f8",
     merged: "#9085e9",
     pr: "#5b5592",
+    open: "#b7aef5",
+    closed: "#656c76",
     issue: "#199e70",
     discussion: "#d95926",
   },
@@ -61,6 +66,8 @@ export const PALETTES: Record<ThemeName, Palette> = {
     accent: "#0969da",
     merged: "#6250d6",
     pr: "#b1a8ef",
+    open: "#8f82e3",
+    closed: "#aeb7c1",
     issue: "#1baf7a",
     discussion: "#eb6834",
   },

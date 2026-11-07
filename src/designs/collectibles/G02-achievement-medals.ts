@@ -1,6 +1,6 @@
 import { PALETTES, SANS, compact, document, esc, truncate } from "../../kit/svg.ts";
 import type { Stats } from "../../stats/types.ts";
-import type { Design } from "../types.ts";
+import { DEFAULT_OPTIONS, type Design, type Level } from "../types.ts";
 import { metals, plural, series } from "./_shared.ts";
 
 interface Achievement {
@@ -19,9 +19,12 @@ interface Achievement {
 const YEAR_MS = 365.25 * 24 * 3600 * 1000;
 
 /** Every achievement is computed from the data; the thresholds are the tiers printed on the card. */
-function achievements(stats: Stats): Achievement[] {
+function achievements(stats: Stats, lv: Level | undefined): Achievement[] {
   const repos = stats.repos;
-  const byMerged = [...repos].sort((a, b) => b.prsMerged - a.prsMerged)[0];
+  /** "none" counts PRs where the others count merged PRs. */
+  const none = lv === "none";
+  const credited = (r: (typeof repos)[number]) => (none ? r.prs : r.prsMerged);
+  const byMerged = [...repos].sort((a, b) => credited(b) - credited(a))[0];
 
   const groups = [
     ...stats.families.map((f) => ({ name: f.name, repos: f.repos, owners: f.owners.length })),
@@ -36,12 +39,12 @@ function achievements(stats: Stats): Achievement[] {
 
   const langCount = new Map<string, number>();
   for (const r of repos) {
-    if (r.prsMerged > 0 && r.language)
+    if (credited(r) > 0 && r.language)
       langCount.set(r.language, (langCount.get(r.language) ?? 0) + 1);
   }
   const langs = [...langCount.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
 
-  const bigStage = repos.filter((r) => r.prsMerged > 0).sort((a, b) => b.stars - a.stars)[0];
+  const bigStage = repos.filter((r) => credited(r) > 0).sort((a, b) => b.stars - a.stars)[0];
 
   const spans = repos
     .filter((r) => r.first && r.last)
@@ -56,14 +59,51 @@ function achievements(stats: Stats): Achievement[] {
   const rate = externalPRs >= 10 ? Math.round((100 * externalMerged) / externalPRs) : 0;
 
   const n = (x: number) => String(x);
+  const noPRs = none ? "no PRs yet" : "no merged PRs yet";
+  const top = byMerged ? credited(byMerged) : 0;
+  /** The eighth medal: merge rate by default and for "full", which "merged" and "none" may not show. */
+  const last: Achievement =
+    lv === "none"
+      ? {
+          title: "Prolific",
+          value: externalPRs,
+          display: n(externalPRs),
+          unit: "PRs",
+          desc: "PRs opened upstream",
+          context: `in ${plural(repos.filter((r) => r.prs > 0).length, "repository", "repositories")}`,
+          tiers: [25, 100, 250],
+          tierLabel: n,
+        }
+      : lv === "merged"
+        ? {
+            title: "Shipper",
+            value: externalMerged,
+            display: n(externalMerged),
+            unit: "merged",
+            desc: "PRs merged upstream",
+            context: `in ${plural(repos.filter((r) => r.prsMerged > 0).length, "repository", "repositories")}`,
+            tiers: [25, 100, 250],
+            tierLabel: n,
+          }
+        : {
+            title: "Sharpshooter",
+            value: rate,
+            display: `${rate}%`,
+            unit: "merged",
+            desc: `of ${plural(externalPRs, "upstream PR")} merged`,
+            context:
+              externalPRs >= 10 ? `${externalMerged} of ${externalPRs}` : "needs 10+ upstream PRs",
+            tiers: [50, 70, 90],
+            tierLabel: (x) => `${x}%`,
+          };
   return [
     {
-      title: "Merge Master",
-      value: byMerged?.prsMerged ?? 0,
-      display: n(byMerged?.prsMerged ?? 0),
-      unit: "merged",
-      desc: "merged PRs in a single repo",
-      context: byMerged?.prsMerged ? byMerged.repo : "no merged PRs yet",
+      title: none ? "Workhorse" : "Merge Master",
+      value: top,
+      display: n(top),
+      unit: none ? "PRs" : "merged",
+      desc: none ? "PRs in a single repo" : "merged PRs in a single repo",
+      context: top && byMerged ? byMerged.repo : noPRs,
       tiers: [10, 50, 100],
       tierLabel: n,
     },
@@ -104,13 +144,13 @@ function achievements(stats: Stats): Achievement[] {
       value: langs.length,
       display: n(langs.length),
       unit: "languages",
-      desc: "languages with a merged PR",
+      desc: none ? "languages with a PR" : "languages with a merged PR",
       context: langs.length
         ? langs
             .slice(0, 3)
             .map(([l]) => l)
             .join(", ")
-        : "no merged PRs yet",
+        : noPRs,
       tiers: [3, 5, 10],
       tierLabel: n,
     },
@@ -119,8 +159,8 @@ function achievements(stats: Stats): Achievement[] {
       value: bigStage?.stars ?? 0,
       display: compact(bigStage?.stars ?? 0),
       unit: "stars",
-      desc: "most-starred repo merged into",
-      context: bigStage ? bigStage.repo : "no merged PRs yet",
+      desc: none ? "most-starred repo with a PR" : "most-starred repo merged into",
+      context: bigStage ? bigStage.repo : noPRs,
       tiers: [1000, 10000, 100000],
       tierLabel: compact,
     },
@@ -134,16 +174,7 @@ function achievements(stats: Stats): Achievement[] {
       tiers: [1, 2, 3],
       tierLabel: (x) => `${x}y`,
     },
-    {
-      title: "Sharpshooter",
-      value: rate,
-      display: `${rate}%`,
-      unit: "merged",
-      desc: `of ${plural(externalPRs, "upstream PR")} merged`,
-      context: externalPRs >= 10 ? `${externalMerged} of ${externalPRs}` : "needs 10+ upstream PRs",
-      tiers: [50, 70, 90],
-      tierLabel: (x) => `${x}%`,
-    },
+    last,
   ];
 }
 
@@ -157,12 +188,12 @@ export const design: Design = {
   id: "G02",
   slug: "achievement-medals",
   title: "Achievement medals",
-  idea: "A sheet of eight medals, each computed from the data (most merged PRs in one repo, repos in one family, owners, issues, languages, stars, longest run, merge rate) and struck in bronze, silver or gold against thresholds printed under it.",
-  render(stats, theme) {
+  idea: "A sheet of eight medals, each computed from the data (most merged PRs in one repo, repos in one family, owners, issues, languages, stars, longest run, merge rate) and struck in bronze, silver or gold against thresholds printed under it. With outcomes none the merge medals count PRs instead and the merge rate becomes PRs opened; merged swaps the merge rate for merged PRs.",
+  render(stats, theme, options = DEFAULT_OPTIONS) {
     const p = PALETTES[theme];
     const metal = metals(theme);
     const ribbons = series(theme);
-    const list = achievements(stats)
+    const list = achievements(stats, options.outcomes)
       .map((a, i) => ({ a, i, tier: a.tiers.filter((t) => a.value >= t).length }))
       .sort((x, y) => y.tier - x.tier || x.i - y.i);
     const unlocked = list.filter((x) => x.tier > 0).length;

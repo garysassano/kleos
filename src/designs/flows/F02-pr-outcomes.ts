@@ -1,6 +1,6 @@
 import { esc, truncate as fitText, percent } from "../../kit/svg.ts";
 import type { Stats } from "../../stats/types.ts";
-import type { Design, ThemeName } from "../types.ts";
+import { DEFAULT_OPTIONS, type Design, type RenderOptions, type ThemeName } from "../types.ts";
 import { PAL, SERIES, card, fmt, groups, halo, plural, r1, spread } from "./_shared.ts";
 
 const W = 840;
@@ -25,12 +25,15 @@ interface Source {
   h: number;
 }
 
-function render(stats: Stats, theme: ThemeName): string {
+function render(stats: Stats, theme: ThemeName, options: RenderOptions = DEFAULT_OPTIONS): string {
   const p = PAL(theme);
+  // Unset: the original GitHub-like purple, green and red. "full" (decision 0009): open in a
+  // lighter tone of the merged purple, closed unmerged in neutral grey.
+  const full = options.outcomes === "full";
   const outcomes = [
     { name: "Merged", color: p.merged },
-    { name: "Still open", color: p.issue },
-    { name: "Closed unmerged", color: SERIES[theme][7] ?? p.faint },
+    { name: "Still open", color: full ? p.open : p.issue },
+    { name: "Closed unmerged", color: full ? p.closed : (SERIES[theme][7] ?? p.faint) },
   ];
   const withPrs = groups(stats)
     .filter((g) => g.prs > 0)
@@ -171,5 +174,7 @@ export const design: Design = {
   slug: "pr-outcomes",
   title: "PR outcomes",
   idea: "An alluvial from the families and owners you opened PRs with to how they ended: merged, still open or closed without merging (GitHub's purple, green and red). The 8 groups with the most PRs are named with their merge rate; the rest share one node.",
+  // The card is about how PRs ended: hiding outcomes leaves nothing to flow into.
+  outcomes: ["full"],
   render,
 };

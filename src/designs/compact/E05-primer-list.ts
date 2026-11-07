@@ -1,5 +1,6 @@
+import { prParts } from "../../kit/outcomes.ts";
 import type { Stats } from "../../stats/types.ts";
-import type { Design, ThemeName } from "../types.ts";
+import { DEFAULT_OPTIONS, type Design, type RenderOptions, type ThemeName } from "../types.ts";
 import {
   type IconName,
   context,
@@ -20,7 +21,8 @@ import {
 /** Most repository rows. */
 const MAX_ROWS = 7;
 
-function render(stats: Stats, theme: ThemeName): string {
+function render(stats: Stats, theme: ThemeName, options: RenderOptions = DEFAULT_OPTIONS): string {
+  const lvl = options.outcomes;
   const c = context(stats, theme);
   const { t } = c;
   const X = upstream(stats);
@@ -38,9 +40,11 @@ function render(stats: Stats, theme: ThemeName): string {
   b += `<clipPath id="${hid}"><rect x=".5" y=".5" width="${W - 1}" height="${H - 1}" rx="6"/></clipPath><rect x="0" y="0" width="${W}" height="${HH}" fill="${t.card}" clip-path="url(#${hid})"/><line x1="0" x2="${W}" y1="${HH - 0.5}" y2="${HH - 0.5}" stroke="${t.border}"/>`;
 
   // issue-list style header tabs
-  const tabs: [IconName, string, number, string, number][] = [
+  type Tab = [IconName, string, number, string, number];
+  const mergedTab: Tab[] = lvl === "none" ? [] : [["merge", t.muted, X.merged, "Merged", 400]];
+  const tabs: Tab[] = [
     ["pr", t.text, X.prs, "Pull requests", 600],
-    ["merge", t.muted, X.merged, "Merged", 400],
+    ...mergedTab,
     ["issue", t.muted, X.issues, "Issues", 400],
     ["disc", t.muted, X.discussions, "Discussions", 400],
   ];
@@ -66,16 +70,38 @@ function render(stats: Stats, theme: ThemeName): string {
   const c1 = counter(W - 16 - c2.w - 18, "Repositories", X.repos);
   b += c1.s + c2.s;
 
+  /** PR counters for a row: merged then the rest originally; PRs then merged, or each outcome, at a level. */
+  const prSlots = (r: (typeof repos)[number]): [IconName, number, string][] =>
+    lvl === undefined
+      ? [
+          ["merge", r.prsMerged, t.pr],
+          ["pr", r.prs - r.prsMerged, t.muted],
+        ]
+      : lvl === "none"
+        ? [["pr", r.prs, t.muted]]
+        : lvl === "merged"
+          ? [
+              ["pr", r.prs, t.muted],
+              ["merge", r.prsMerged, t.pr],
+            ]
+          : prParts(r, lvl).map((p): [IconName, number, string] => [
+              p.key === "merged" ? "merge" : "pr",
+              p.count,
+              p.key === "merged" ? t.pr : p.key === "open" ? t.open : t.closed,
+            ]);
+
   // rows
   repos.forEach((r, i) => {
     const y = HH + i * RH;
     if (i)
       b += `<line x1="0" x2="${W}" y1="${y + 0.5}" y2="${y + 0.5}" stroke="${t.borderMuted}"/>`;
     b += icon("repo", 16, y + 12, 16, t.muted);
-    const shown = trunc(r.repo, 380, 14, { bold: true });
+    // Under "full" five counters need more room: the name and pills move left.
+    const wide = lvl === "full";
+    const shown = trunc(r.repo, wide ? 340 : 380, 14, { bold: true });
     b += `<text x="40" y="${y + 25}" font-size="14" font-weight="600" fill="${t.accent}">${esc(shown)}</text>`;
     // Primer Label pills
-    let lx = 440;
+    let lx = wide ? 400 : 440;
     const pill = (txt: string, dot?: string | null) => {
       const w = (dot ? 16 : 8) + tw(txt, 12) + 8;
       const s = `<rect x="${r1(lx)}" y="${y + 10.5}" width="${r1(w)}" height="20" rx="10" fill="none" stroke="${t.border}"/>${dot ? `<circle cx="${r1(lx + 10)}" cy="${y + 20.5}" r="4" fill="${dot}"/>` : ""}<text x="${r1(lx + (dot ? 18 : 8))}" y="${y + 24.5}" font-size="12" font-weight="500" fill="${t.muted}">${esc(txt)}</text>`;
@@ -91,16 +117,15 @@ function render(stats: Stats, theme: ThemeName): string {
       b += `<text x="${r1(mx)}" y="${y + 47}" font-size="12" fill="${t.muted}">· first ${dayLabel(r.first)} · latest ${dayLabel(r.last)}</text>`;
     // right counters
     const slots: [IconName, number, string][] = [
-      ["merge", r.prsMerged, t.pr],
-      ["pr", r.prs - r.prsMerged, t.muted],
+      ...prSlots(r),
       ["issue", r.issues, t.issue],
       ["disc", r.discussions, t.disc],
     ];
-    const sw = 64;
+    const sw = wide ? 54 : 64;
     slots.forEach(([ic, v, col], j) => {
       const xr = W - 16 - (slots.length - 1 - j) * sw;
       const op = v ? 1 : 0.4;
-      b += `<g opacity="${op}">${icon(ic, xr - 46, y + 22, 16, v ? col : t.muted)}<text x="${xr}" y="${y + 35}" text-anchor="end" font-size="13" font-weight="${v ? 600 : 400}" fill="${v ? t.text : t.muted}">${v}</text></g>`;
+      b += `<g opacity="${op}">${icon(ic, xr - (wide ? 40 : 46), y + 22, 16, v ? col : t.muted)}<text x="${xr}" y="${y + 35}" text-anchor="end" font-size="13" font-weight="${v ? 600 : 400}" fill="${v ? t.text : t.muted}">${v}</text></g>`;
     });
   });
 
@@ -117,8 +142,23 @@ function render(stats: Stats, theme: ThemeName): string {
     fy + 25,
     t,
     [
-      { k: "merged", c: t.pr },
-      { k: "not merged", c: t.muted },
+      ...(lvl === "none"
+        ? [{ k: "PRs", c: t.muted }]
+        : lvl === "merged"
+          ? [
+              { k: "PRs", c: t.muted },
+              { k: "of which merged", c: t.pr },
+            ]
+          : lvl === "full"
+            ? [
+                { k: "merged", c: t.pr },
+                { k: "open", c: t.open },
+                { k: "closed unmerged", c: t.closed },
+              ]
+            : [
+                { k: "merged", c: t.pr },
+                { k: "not merged", c: t.muted },
+              ]),
       { k: "issues", c: t.issue },
       { k: "discussions", c: t.disc },
     ],

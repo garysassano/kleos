@@ -1,4 +1,4 @@
-import type { Design } from "../types.ts";
+import { DEFAULT_OPTIONS, type Design } from "../types.ts";
 import {
   STD_LEGEND,
   avatar,
@@ -26,7 +26,8 @@ export const design: Design = {
   slug: "repos-and-owners",
   title,
   idea: "Four headline numbers, then the top 10 repos and top 10 owners side by side. Each row has a 100% bar showing what kind of contribution it was (PR-heavy vs issue-heavy), so the number carries size and the bar carries character.",
-  render(stats, theme) {
+  render(stats, theme, options = DEFAULT_OPTIONS) {
+    const level = options.outcomes;
     const T = themeOf(theme);
     const d = dataOf(stats);
     const { ext } = d;
@@ -42,7 +43,14 @@ export const design: Design = {
     const tiles: [string, string][] = [
       [String(d.nRepos), "repositories"],
       [String(d.nOwners), "owners (orgs and people)"],
-      [String(ext.prs), `PRs · ${ext.merged} merged (${percent(ext.merged, ext.prs)}%)`],
+      [
+        String(ext.prs),
+        level === "none"
+          ? "PRs"
+          : level === "merged"
+            ? `PRs · ${ext.merged} merged`
+            : `PRs · ${ext.merged} merged (${percent(ext.merged, ext.prs)}%)`,
+      ],
       [String(ext.issues + ext.disc), `issues and discussions`],
     ];
     const tw = (W - 48 - 3 * 12) / 4;
@@ -72,7 +80,7 @@ export const design: Design = {
       const mw = 68;
       return (
         `<rect x="${mx}" y="${cy - 3}" width="${mw}" height="6" rx="2" fill="${T.track}"/>` +
-        `<g class="grow"${delay(i)}>${stack(T, mx, cy - 3, 6, segsOf(T, r), r.total, mw)}</g>` +
+        `<g class="grow"${delay(i)}>${stack(T, mx, cy - 3, 6, segsOf(T, r, level), r.total, mw)}</g>` +
         num(T, x + cw, cy + 4.5, r.total, { size: 13, weight: 600 })
       );
     };
@@ -110,7 +118,7 @@ export const design: Design = {
     );
     b += `<line x1="${24 + cw + 16}" x2="${24 + cw + 16}" y1="${top - 30}" y2="${top + N * rh - 8}" stroke="${T.hair}"/>`;
     const fy = top + N * rh + 14;
-    b += legend(T, 24, fy + 6, STD_LEGEND(T));
+    b += legend(T, 24, fy + 6, STD_LEGEND(T, level));
     b += t(T, W - 24, fy + 6, "Mix = share of each row’s total", {
       size: 11.5,
       fill: "muted",

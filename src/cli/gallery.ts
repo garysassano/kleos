@@ -2,24 +2,29 @@
  * Renders every design in both themes from a fixture into gallery/, and writes the catalog
  * gallery/README.md (GitHub picks the dark or light file with <picture>) plus gallery/gallery.json.
  *
- * Usage: node src/cli/gallery.ts [fixture-name] [--only A01,B02]
+ * Usage: node src/cli/gallery.ts [fixture-name] [--only A01,B02] [--outcomes original|none|merged|full]
+ * Without --outcomes (or with "original") every design renders its original look. A design that does not support the
+ * requested level renders at the richest level it supports.
  */
 import { mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { parseArgs } from "node:util";
-import { allDesigns, categories } from "../designs/index.ts";
-import { THEME_NAMES } from "../designs/types.ts";
-import { loadFixture } from "../stats/fixture.ts";
+import { allDesigns, categories, outcomesOf } from "../designs/index.ts";
+import { OUTCOMES, type Outcomes, THEME_NAMES } from "../designs/types.ts";
+import { DEFAULT_FIXTURE, loadFixture } from "../stats/fixture.ts";
 
 const { values, positionals } = parseArgs({
   allowPositionals: true,
-  options: { only: { type: "string" } },
+  options: { only: { type: "string" }, outcomes: { type: "string" } },
 });
-/** The catalog shows the author's real data while designs are being worked on; switch to "demo" before launch. */
-const DEFAULT_FIXTURE = "garysassano";
 const fixture = positionals[0] ?? DEFAULT_FIXTURE;
 const only = values.only ? new Set(values.only.split(",")) : null;
 const stats = loadFixture(fixture);
+const outcomes = values.outcomes as Outcomes | undefined;
+if (outcomes && !OUTCOMES.includes(outcomes)) {
+  console.error(`--outcomes must be one of ${OUTCOMES.join(", ")}`);
+  process.exit(2);
+}
 const root = new URL("../../gallery/", import.meta.url).pathname;
 
 if (!only) {
@@ -39,7 +44,9 @@ for (const d of allDesigns()) {
   let size = { width: 0, height: 0 };
   let bytes = 0;
   for (const theme of THEME_NAMES) {
-    const svg = d.render(stats, theme);
+    const supported = outcomesOf(d);
+    const level = outcomes && !supported.includes(outcomes) ? supported.at(-1) : outcomes;
+    const svg = d.render(stats, theme, { outcomes: level });
     const file = `${d.category.dir}/${d.id}-${d.slug}-${theme}.svg`;
     writeFileSync(join(root, file), svg);
     files[theme] = file;

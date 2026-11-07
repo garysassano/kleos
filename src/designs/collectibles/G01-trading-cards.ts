@@ -1,3 +1,4 @@
+import { mergeRate, prsClosed } from "../../kit/outcomes.ts";
 import {
   PALETTES,
   SANS,
@@ -8,7 +9,7 @@ import {
   textWidth,
   truncate,
 } from "../../kit/svg.ts";
-import type { Design } from "../types.ts";
+import { DEFAULT_OPTIONS, type Design } from "../types.ts";
 import { monthYear, ownerLanguage, ownerSpan, plural, rarities, rarityOf } from "./_shared.ts";
 
 const CW = 264;
@@ -20,8 +21,9 @@ export const design: Design = {
   id: "G01",
   slug: "trading-cards",
   title: "Trading cards",
-  idea: "The top three owners as collectible cards: avatar art, a stat block of PRs merged, PRs, issues and discussions, and a rarity tier from the total stars on the repos contributed to (thresholds printed in the legend).",
-  render(stats, theme) {
+  idea: "The top three owners as collectible cards: avatar art, a stat block of PRs merged, PRs, issues and discussions, and a rarity tier from the total stars on the repos contributed to (thresholds printed in the legend). With outcomes none the merged row goes; full adds the merge rate and the open and closed-unmerged PRs beside the counts.",
+  render(stats, theme, options = DEFAULT_OPTIONS) {
+    const lv = options.outcomes;
     const p = PALETTES[theme];
     const top = stats.owners.slice(0, 3);
     const tiers = rarities(theme);
@@ -42,16 +44,31 @@ export const design: Design = {
       const total = String(o.total);
       const totalW = total.length * 20 * 0.64 + 6;
       const nameMax = CW - 36 - totalW - 44;
-      const rows: [string, number, string][] = [
+      // Optional fourth element: a small note set left of the value ("full" only).
+      const rows: [string, number, string, string?][] = [
         ["PRs merged", o.prsMerged, p.merged],
         ["PRs opened", o.prs, p.pr],
         ["Issues opened", o.issues, p.issue],
         ["Discussions started", o.discussions, p.discussion],
       ];
+      if (lv === "none") rows.shift();
+      if (lv === "full") {
+        const c = { prs: o.prs, prsMerged: o.prsMerged, prsOpen: o.prsOpen };
+        const rate = mergeRate(c, lv);
+        if (rate !== null) (rows[0] as (typeof rows)[number])[3] = `${rate}%`;
+        (rows[1] as (typeof rows)[number])[3] =
+          `<tspan fill="${p.open}">${o.prsOpen} open</tspan> · ${prsClosed(c)} closed`;
+      }
+      // Rows keep the original 25 px pitch for four; fewer rows spread over the same block.
+      const pitch = rows.length === 4 ? 25 : 75 / Math.max(rows.length - 1, 1);
       const statRows = rows
-        .map(([label, v, c], k) => {
-          const y = 214 + k * 25;
-          return `<circle cx="24" cy="${y - 4}" r="4.5" fill="${c}"/><text x="36" y="${y}" font-size="12" fill="${p.text}">${label}</text><text x="${CW - 18}" y="${y}" text-anchor="end" font-size="14" font-weight="700" fill="${v ? p.text : p.faint}">${v}</text>${k < 3 ? `<line x1="18" x2="${CW - 18}" y1="${y + 9.5}" y2="${y + 9.5}" stroke="${p.hair}"/>` : ""}`;
+        .map(([label, v, c, note], k) => {
+          const y = 214 + k * pitch;
+          const noteX = CW - 18 - String(v).length * 14 * 0.62 - 8;
+          const noteSvg = note
+            ? `<text x="${noteX}" y="${y}" text-anchor="end" font-size="10" fill="${p.faint}">${note}</text>`
+            : "";
+          return `<circle cx="24" cy="${y - 4}" r="4.5" fill="${c}"/><text x="36" y="${y}" font-size="12" fill="${p.text}">${label}</text>${noteSvg}<text x="${CW - 18}" y="${y}" text-anchor="end" font-size="14" font-weight="700" fill="${v ? p.text : p.faint}">${v}</text>${k < rows.length - 1 ? `<line x1="18" x2="${CW - 18}" y1="${y + 9.5}" y2="${y + 9.5}" stroke="${p.hair}"/>` : ""}`;
         })
         .join("");
       const topRepo = o.topRepos[0] ?? "";

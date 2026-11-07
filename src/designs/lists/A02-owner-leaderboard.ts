@@ -1,4 +1,4 @@
-import type { Design } from "../types.ts";
+import { DEFAULT_OPTIONS, type Design } from "../types.ts";
 import {
   avatar,
   dataOf,
@@ -6,10 +6,14 @@ import {
   esc,
   frame,
   header,
+  legend,
   num,
   percent,
   plural,
+  prLegendItems,
+  prSegs,
   rule,
+  stack,
   t,
   themeOf,
   truncate,
@@ -21,8 +25,9 @@ export const design: Design = {
   id: "A02",
   slug: "owner-leaderboard",
   title,
-  idea: "Top 12 organisations and people whose repos I contribute to, with repo count, a merged-PR gauge (merged of opened) and issue/discussion counts. Shows where PRs actually land versus where I mostly file issues.",
-  render(stats, theme) {
+  idea: 'Top 12 organisations and people whose repos I contribute to, with repo count, a merged-PR gauge (merged of opened) and issue/discussion counts. Shows where PRs actually land versus where I mostly file issues. With outcomes "none" or "merged" the gauge becomes the PRs\' share of each owner\'s total (merged highlighted at "merged"), with no rate; "full" splits the merge gauge into merged, open and closed unmerged.',
+  render(stats, theme, options = DEFAULT_OPTIONS) {
+    const level = options.outcomes;
     const T = themeOf(theme);
     const d = dataOf(stats);
     const W = 840;
@@ -35,13 +40,20 @@ export const design: Design = {
     let b = header(
       T,
       "Organizations and people I contribute to",
-      `${d.nOwners} owners outside my account · ${d.ext.merged} of ${d.ext.prs} PRs merged (${percent(d.ext.merged, d.ext.prs)}%) · ranked by PRs + issues + discussions`,
+      level === undefined || level === "full"
+        ? `${d.nOwners} owners outside my account · ${d.ext.merged} of ${d.ext.prs} PRs merged (${percent(d.ext.merged, d.ext.prs)}%) · ranked by PRs + issues + discussions`
+        : `${d.nOwners} owners outside my account · ${plural(d.ext.prs, "PR")}${level === "merged" ? `, ${d.ext.merged} merged` : ""} · ranked by PRs + issues + discussions`,
     );
     const hy = top - 12;
     b +=
       t(T, 40, hy, "#", { size: 11, fill: "muted", anchor: "end" }) +
       t(T, 84, hy, "Owner", { size: 11, fill: "muted" });
-    b += t(T, gx, hy, "PRs merged / opened", { size: 11, fill: "muted" });
+    // At "none" and "merged" the bar is the PRs' share of each owner's total, not a merge rate.
+    const share = level === "none" || level === "merged";
+    b += t(T, gx, hy, share ? "PRs · share of total" : "PRs merged / opened", {
+      size: 11,
+      fill: "muted",
+    });
     b +=
       t(T, 664, hy, "Issues", { size: 11, fill: "muted", anchor: "end" }) +
       t(T, 740, hy, "Discussions", { size: 11, fill: "muted", anchor: "end" }) +
@@ -68,7 +80,17 @@ export const design: Design = {
         { size: 11, fill: "muted" },
       );
       g += `<rect x="${gx}" y="${cy - 3}" width="${gw}" height="6" rx="3" fill="${T.track}"/>`;
-      if (o.prs) {
+      if (o.prs && level !== undefined) {
+        g += `<g class="grow"${delay(i)}>${stack(T, gx, cy - 3, 6, prSegs(T, o, level), share ? o.total : o.prs, gw, { gap: 1.5 })}</g>`;
+        const strong = share ? String(o.prs) : `${percent(o.prsMerged, o.prs)}%`;
+        const note = share
+          ? level === "none"
+            ? `${percent(o.prs, o.total)}% of total`
+            : `${o.prsMerged} merged`
+          : `${o.prsMerged} of ${o.prs}`;
+        g += t(T, gx + gw + 14, cy + 4.5, strong, { size: 12.5, weight: 600, mono: true });
+        g += t(T, gx + gw + 62, cy + 4.5, note, { size: 12, fill: "muted", mono: true });
+      } else if (o.prs) {
         const w = (o.prsMerged / o.prs) * gw;
         if (o.prsMerged)
           g += `<rect class="grow"${delay(i)} x="${gx}" y="${cy - 3}" width="${Math.max(6, w).toFixed(1)}" height="6" rx="3" fill="${T.pr}"/>`;
@@ -93,13 +115,30 @@ export const design: Design = {
     });
     const fy = top + N * rh;
     b += rule(T, W, fy);
-    b += t(
-      T,
-      24,
-      fy + 28,
-      "Total = PRs opened + issues + discussions. Merged rate counts only PRs I opened; open PRs count as not yet merged.",
-      { size: 11.5, fill: "muted" },
-    );
+    if (level === undefined) {
+      b += t(
+        T,
+        24,
+        fy + 28,
+        "Total = PRs opened + issues + discussions. Merged rate counts only PRs I opened; open PRs count as not yet merged.",
+        { size: 11.5, fill: "muted" },
+      );
+    } else if (level === "full") {
+      b += legend(T, 24, fy + 28, prLegendItems(T, level));
+      b += t(T, W - 24, fy + 28, "Bar = PRs opened. Total = PRs + issues + discussions.", {
+        size: 11.5,
+        fill: "muted",
+        anchor: "end",
+      });
+    } else {
+      b += t(
+        T,
+        24,
+        fy + 28,
+        `Total = PRs opened + issues + discussions. The bar shows how much of each total is PRs${level === "merged" ? ", with merged PRs in full colour" : ""}.`,
+        { size: 11.5, fill: "muted" },
+      );
+    }
     return frame(T, W, fy + 46, b, title);
   },
 };

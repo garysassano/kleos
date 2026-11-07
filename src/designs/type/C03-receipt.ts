@@ -1,5 +1,6 @@
+import { prsClosed, mergeRate as rateOf, totalsCounts } from "../../kit/outcomes.ts";
 import type { FamilyStats, Stats } from "../../stats/types.ts";
-import type { Design } from "../types.ts";
+import { DEFAULT_OPTIONS, type Design, type Level } from "../types.ts";
 import { THEMES, derive, fmt, kinds, svg, text, trunc } from "./_shared.ts";
 
 interface Item {
@@ -7,6 +8,7 @@ interface Item {
   total: number;
   prs: number;
   prsMerged: number;
+  prsOpen: number;
   issues: number;
   discussions: number;
   repos: number;
@@ -28,6 +30,7 @@ function lineItems(stats: Stats) {
       total: src.total,
       prs: src.prs,
       prsMerged: src.prsMerged,
+      prsOpen: src.prsOpen,
       issues: src.issues,
       discussions: src.discussions,
       repos: src.repos,
@@ -40,12 +43,20 @@ function lineItems(stats: Stats) {
 /** Lines itemised before the rest are summed into "N other owners". */
 const K = 10;
 
+/** What follows an item's PR count: "(9 merged)", "(9 merged, 1 open)" for "full", nothing for "none". */
+function prSuffix(it: Item, lv: Level | undefined): string {
+  if (lv === "none") return "";
+  if (lv === "full" && it.prsOpen) return ` (${it.prsMerged} merged, ${it.prsOpen} open)`;
+  return ` (${it.prsMerged} merged)`;
+}
+
 export const design: Design = {
   id: "C03",
   slug: "receipt",
   title: "Receipt",
-  idea: "A till receipt itemised by owner, with company families (several orgs under one brand) rolled into one line, a breakdown under each item and a grand total of every upstream PR, issue and discussion. The barcode is the last 53 weeks of activity.",
-  render(stats, theme) {
+  idea: "A till receipt itemised by owner, with company families (several orgs under one brand) rolled into one line, a breakdown under each item and a grand total of every upstream PR, issue and discussion. The barcode is the last 53 weeks of activity. With outcomes none PRs are one line; merged keeps the merged sub-line without the open line or merge rate; full adds closed-unmerged PRs.",
+  render(stats, theme, options = DEFAULT_OPTIONS) {
+    const lv = options.outcomes;
     const t = THEMES[theme];
     const { T, asOf, extIssues, extDisc, extTotal, firstAny, mergeRate, prsOpen } = derive(stats);
     const { famOf, sorted } = lineItems(stats);
@@ -95,7 +106,7 @@ export const design: Design = {
       b += text(L + 7 * cw, y, trunc(label, 30), "m t b", fs);
       b += text(R, y, String(it.total), "m n t b e", fs);
       nl();
-      const bits = kinds(it.prs, it.issues, it.discussions, ` (${it.prsMerged} merged)`);
+      const bits = kinds(it.prs, it.issues, it.discussions, prSuffix(it, lv));
       b += text(L + 7 * cw, y - 2, bits, "m mu", 'font-size="11"');
       nl(1.05);
     }
@@ -118,8 +129,9 @@ export const design: Design = {
       nl();
     };
     kv("Pull requests", fmt(T.externalPRs));
-    kv("merged", fmt(T.externalMerged), "pu", 2 * cw);
-    kv("still open", fmt(prsOpen), "mu", 2 * cw);
+    if (lv !== "none") kv("merged", fmt(T.externalMerged), "pu", 2 * cw);
+    if (lv === undefined || lv === "full") kv("still open", fmt(prsOpen), "mu", 2 * cw);
+    if (lv === "full") kv("closed unmerged", fmt(prsClosed(totalsCounts(T))), "mu", 2 * cw);
     kv("Issues", fmt(extIssues));
     kv("Discussions", fmt(extDisc));
     nl(0.2);
@@ -129,7 +141,8 @@ export const design: Design = {
     b += text(R, y, fmt(extTotal), "m b n t e", 'font-size="15"');
     nl();
     b += text(L, y, `${T.externalRepos} repositories · ${T.externalOwners} owners`, "m mu", fs);
-    b += text(R, y, `${(mergeRate * 100).toFixed(1)}% merged`, "m pu e", fs);
+    if (lv === undefined) b += text(R, y, `${(mergeRate * 100).toFixed(1)}% merged`, "m pu e", fs);
+    else if (lv === "full") b += text(R, y, `${rateOf(totalsCounts(T), lv)}% merged`, "m pu e", fs);
     nl(1.3);
     rule();
     // barcode: one bar per 7 calendar days, width by activity quartile
@@ -178,7 +191,7 @@ export const design: Design = {
       t,
       "",
       b,
-      `Upstream receipt: ${extTotal} contributions, ${T.externalPRs} PRs, ${T.externalMerged} merged`,
+      `Upstream receipt: ${extTotal} contributions, ${T.externalPRs} PRs${lv === "none" ? "" : `, ${T.externalMerged} merged`}`,
     );
   },
 };

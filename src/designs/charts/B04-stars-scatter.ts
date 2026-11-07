@@ -1,5 +1,18 @@
-import type { Design } from "../types.ts";
-import { type Repo, THEMES, W, derive, esc, f1, fmtK, header, svgDoc, tw } from "./_shared.ts";
+import { DEFAULT_OPTIONS, type Design, type Level, type RenderOptions } from "../types.ts";
+import {
+  type Repo,
+  THEMES,
+  type Theme,
+  W,
+  derive,
+  esc,
+  f1,
+  fmtK,
+  header,
+  prColor,
+  svgDoc,
+  tw,
+} from "./_shared.ts";
 
 /** FNV-1a of the repo name in [0, 1]: a stable jitter, not randomness. */
 function hash(str: string): number {
@@ -32,12 +45,67 @@ interface Box {
 }
 const hit = (a: Box, b: Box) => a.x0 < b.x1 && b.x0 < a.x1 && a.y0 < b.y1 && b.y0 < a.y1;
 
+interface Cat {
+  label: string;
+  c: string | undefined;
+  test: (r: Repo) => boolean;
+}
+
+/**
+ * Dot classes at an explicit outcomes level, and legend entries naming the classes each counts.
+ * A repo takes the first class it passes. Under "merged" the "Has PRs" entry counts every repo
+ * with PRs and the merged ones are the subset in the strong colour, so nothing labels the rest.
+ */
+function levelCats(
+  t: Theme,
+  lvl: Level,
+): { cats: Cat[]; legend: { label: string; c: string | undefined; of: number[] }[] } {
+  const issuesOnly: Cat = {
+    label: "Issues / discussions only",
+    c: t.cat[2] ?? t.other,
+    test: (r) => r.prs === 0,
+  };
+  const merged: Cat = {
+    label: "Has a merged PR",
+    c: prColor(t, "merged", lvl),
+    test: (r) => r.prsMerged > 0,
+  };
+  const prs: Cat = { label: "Has PRs", c: prColor(t, "pr", lvl), test: (r) => r.prs > 0 };
+  const each = (cats: Cat[]) => cats.map((c, i) => ({ label: c.label, c: c.c, of: [i] }));
+  if (lvl === "none") return { cats: [prs, issuesOnly], legend: each([prs, issuesOnly]) };
+  if (lvl === "merged")
+    return {
+      cats: [merged, prs, issuesOnly],
+      legend: [
+        { label: "Has PRs", c: prs.c, of: [0, 1] },
+        { label: "of which merged", c: merged.c, of: [0] },
+        { label: issuesOnly.label, c: issuesOnly.c, of: [2] },
+      ],
+    };
+  const cats = [
+    merged,
+    {
+      label: "Open PRs, none merged",
+      c: prColor(t, "open", lvl),
+      test: (r: Repo) => r.prsOpen > 0,
+    },
+    {
+      label: "Only closed unmerged PRs",
+      c: prColor(t, "closed", lvl),
+      test: (r: Repo) => r.prs > 0,
+    },
+    issuesOnly,
+  ];
+  return { cats, legend: each(cats) };
+}
+
 export const design: Design = {
   id: "B04",
   slug: "stars-scatter",
   title: "Stars vs involvement",
-  idea: "Each repo plotted by stars (log) against my contributions (log), coloured by whether code landed; shows depth in mid-size projects versus drive-by issues on giant ones. Labels go to the 7 repos with most contributions, then the highest stars × contributions among repos with at least 3, up to 11 in all, each placed where it overlaps no other label and no other labelled repo's dot.",
-  render(stats, theme) {
+  idea: 'Each repo plotted by stars (log) against my contributions (log), coloured by whether code landed (with outcomes "none", only by whether I opened PRs; with "full", also open versus only closed-unmerged PRs); shows depth in mid-size projects versus drive-by issues on giant ones. Labels go to the 7 repos with most contributions, then the highest stars × contributions among repos with at least 3, up to 11 in all, each placed where it overlaps no other label and no other labelled repo\'s dot.',
+  render(stats, theme, options: RenderOptions = DEFAULT_OPTIONS) {
+    const lvl = options.outcomes;
     const t = THEMES[theme];
     const { repos } = derive(stats);
     const PX0 = 72;
@@ -52,7 +120,7 @@ export const design: Design = {
     const ymax = Math.log10(yTop);
     const sx = (v: number) => PX0 + (Math.log10(Math.max(1, v)) / xmax) * (PX1 - PX0);
     const sy = (v: number, j = 0) => PY1 - ((Math.log10(v) + j) / ymax) * (PY1 - PY0);
-    const cats = [
+    const cats0: Cat[] = [
       { label: "Has a merged PR", c: t.cat[0], test: (r: Repo) => r.prsMerged > 0 },
       {
         label: "PRs, none merged yet",
@@ -61,19 +129,30 @@ export const design: Design = {
       },
       { label: "Issues / discussions only", c: t.cat[2], test: (r: Repo) => r.prs === 0 },
     ];
-    const counts = cats.map((c) => plotted.filter(c.test).length);
+    const L = lvl ? levelCats(t, lvl) : undefined;
+    const cats = L?.cats ?? cats0;
+    // A repo's class is the first it passes, so each test only has to hold given the earlier ones failed.
+    const classOf = (r: Repo) => cats.findIndex((c) => c.test(r));
+    const classes = plotted.map(classOf);
+    const items = L
+      ? L.legend.map((l) => ({
+          label: l.label,
+          c: l.c,
+          n: classes.filter((k) => l.of.includes(k)).length,
+        }))
+      : cats.map((c) => ({ label: c.label, c: c.c, n: plotted.filter(c.test).length }));
     let s = header(
       "Popular projects vs. how involved I got",
       `Each dot is one of ${plotted.length} repos · x = stars (log) · y = my PRs + issues + discussions (log)`,
     );
     // legend
     let lx = 24;
-    cats.forEach((c, i) => {
+    for (const c of items) {
       s += `<circle cx="${lx + 5}" cy="76" r="5" fill="${c.c}"/>`;
-      const lbl = `${c.label} (${counts[i]})`;
+      const lbl = `${c.label} (${c.n})`;
       s += `<text x="${lx + 15}" y="80" font-size="12" class="m">${esc(lbl)}</text>`;
       lx += 15 + tw(lbl, 12) + 22;
-    });
+    }
     // grid
     for (let v = 1; v <= xTop; v *= 10) {
       const x = sx(v);
@@ -89,11 +168,11 @@ export const design: Design = {
     s += `<text transform="translate(22 ${(PY0 + PY1) / 2}) rotate(-90)" font-size="11" text-anchor="middle" class="m">my contributions →</text>`;
     // dots (draw rarest last so colour minorities stay on top)
     const pts = plotted.map((r) => {
-      const ci = cats.findIndex((c) => c.test(r));
+      const ci = classOf(r);
       const j = (hash(r.repo) - 0.5) * 0.09; // tiny vertical jitter to separate ties
       return { r, ci, x: sx(r.stars), y: sy(r.total, r.total <= 3 ? j : 0) };
     });
-    for (const ci of [2, 1, 0])
+    for (const ci of cats.map((_, i) => i).reverse())
       for (const p of pts.filter((q) => q.ci === ci)) {
         s += `<circle cx="${f1(p.x)}" cy="${f1(p.y)}" r="4.5" fill="${cats[ci]?.c}" fill-opacity="0.9" stroke="${t.card}" stroke-width="1.5"/>`;
       }

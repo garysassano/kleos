@@ -5,7 +5,7 @@ import {
   percent,
   document as svgDocument,
 } from "../../kit/svg.ts";
-import type { Design } from "../types.ts";
+import { DEFAULT_OPTIONS, type Design } from "../types.ts";
 import {
   allFamilies,
   dayLabel,
@@ -41,8 +41,16 @@ export const design: Design = {
   slug: "merge-funnel",
   title: "Merge funnel",
   idea: "What happens to the PRs I open upstream: opened, decided (merged or closed), merged, with the drop at each step, then the same split for each family next to everyone else. Rule: families ranked by PRs opened, up to 7, the remaining owners summed in one row.",
-  render(stats, theme) {
+  // A funnel is the drop between outcomes; without them there is no funnel left to draw.
+  outcomes: ["full"],
+  render(stats, theme, options = DEFAULT_OPTIONS) {
     const p = PALETTES[theme];
+    // Unset: the original accent for open and faded purple for closed. "full" (decision 0009):
+    // open in a lighter tone of the merged purple, closed unmerged in neutral grey.
+    const full = options.outcomes === "full";
+    const openC = full ? p.open : p.accent;
+    const closedC = full ? p.closed : p.pr;
+    const closedO = full ? 1 : 0.7;
     const all = outcome({
       prs: sum(stats.repos, (r) => r.prs),
       prsMerged: sum(stats.repos, (r) => r.prsMerged),
@@ -95,8 +103,8 @@ export const design: Design = {
           // Opened: every outcome in one bar.
           const segs = [
             { v: all.merged, c: p.merged, o: 1 },
-            { v: all.open, c: p.accent, o: 1 },
-            { v: all.closed, c: p.pr, o: 0.7 },
+            { v: all.open, c: openC, o: 1 },
+            { v: all.closed, c: closedC, o: closedO },
           ];
           let x = x0;
           for (const seg of segs) {
@@ -108,7 +116,7 @@ export const design: Design = {
         } else if (i === 1) {
           const mw = (all.merged / Math.max(1, decided)) * w;
           body += `<rect x="${x0.toFixed(1)}" y="${y}" width="${mw.toFixed(1)}" height="${bh}" fill="${p.merged}"/>`;
-          body += `<rect x="${(x0 + mw).toFixed(1)}" y="${y}" width="${(w - mw).toFixed(1)}" height="${bh}" fill="${p.pr}" opacity="0.7"/>`;
+          body += `<rect x="${(x0 + mw).toFixed(1)}" y="${y}" width="${(w - mw).toFixed(1)}" height="${bh}" fill="${closedC}" opacity="${closedO}"/>`;
         } else {
           body += `<rect x="${x0.toFixed(1)}" y="${y}" width="${w.toFixed(1)}" height="${bh}" fill="${p.merged}"/>`;
         }
@@ -202,8 +210,8 @@ export const design: Design = {
       } else {
         const parts = [
           { v: row.o.merged, c: p.merged, o: 1 },
-          { v: row.o.open, c: p.accent, o: 1 },
-          { v: row.o.closed, c: p.pr, o: 0.7 },
+          { v: row.o.open, c: openC, o: 1 },
+          { v: row.o.closed, c: closedC, o: closedO },
         ].filter((x) => x.v > 0);
         let x = barX;
         const avail = barW - (parts.length - 1);
@@ -237,8 +245,8 @@ export const design: Design = {
       p,
       items: [
         { label: "Merged", color: p.merged },
-        { label: "Still open", color: p.accent },
-        { label: "Closed without merging", color: p.pr },
+        { label: "Still open", color: openC },
+        { label: "Closed without merging", color: closedC },
       ],
     });
     body += t(

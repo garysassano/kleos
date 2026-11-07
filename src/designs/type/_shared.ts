@@ -21,6 +21,10 @@ export interface Theme {
   add: string;
   del: string;
   accent: string;
+  /** Still-open PRs where a card shows outcomes: a lighter tone of `merged`. */
+  prOpen: string;
+  /** PRs closed without merging: neutral grey, never red. */
+  closed: string;
 }
 
 export const THEMES: Record<ThemeName, Theme> = {
@@ -37,6 +41,8 @@ export const THEMES: Record<ThemeName, Theme> = {
     add: "#3fb950",
     del: "#f85149",
     accent: "#4493f8",
+    prOpen: "#d0b8fb",
+    closed: "#7d8590",
   },
   light: {
     bg: "#ffffff",
@@ -51,6 +57,8 @@ export const THEMES: Record<ThemeName, Theme> = {
     add: "#1a7f37",
     del: "#d1242f",
     accent: "#0969da",
+    prOpen: "#a58aea",
+    closed: "#818b98",
   },
 };
 

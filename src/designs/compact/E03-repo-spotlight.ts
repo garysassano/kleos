@@ -1,5 +1,6 @@
+import { mergeRate } from "../../kit/outcomes.ts";
 import type { RepoStats, Stats } from "../../stats/types.ts";
-import type { Design, ThemeName } from "../types.ts";
+import { DEFAULT_OPTIONS, type Design, type RenderOptions, type ThemeName } from "../types.ts";
 import {
   MON,
   avatar,
@@ -8,6 +9,8 @@ import {
   esc,
   fmt,
   icon,
+  kindsAt,
+  legend,
   monthLabel,
   plural,
   r1,
@@ -30,11 +33,14 @@ export function spotlight(stats: Stats): Dated | undefined {
   return dated.find((r) => r.owner !== topOwner) ?? dated[0];
 }
 
-function render(stats: Stats, theme: ThemeName): string {
+function render(stats: Stats, theme: ThemeName, options: RenderOptions = DEFAULT_OPTIONS): string {
+  const lvl = options.outcomes;
   const c = context(stats, theme);
   const { t } = c;
   const W = 410;
-  const H = 268;
+  // Under "full" a key under the bar names the three PR outcomes; everything below moves down.
+  const dy = lvl === "full" ? 18 : 0;
+  const H = 268 + dy;
   const P = 16;
   const r = spotlight(stats);
   if (!r) {
@@ -65,7 +71,15 @@ function render(stats: Stats, theme: ThemeName): string {
       c: t.pr,
       label: "Pull requests",
       v: r.prs,
-      sub: r.prs ? `${r.prsMerged} merged${r.prsOpen ? ` · ${r.prsOpen} open` : ""}` : "none yet",
+      sub: !r.prs
+        ? "none yet"
+        : lvl === "none"
+          ? "opened"
+          : lvl === "merged"
+            ? `${r.prsMerged} merged`
+            : lvl === "full"
+              ? `${mergeRate(r, lvl)}% merged`
+              : `${r.prsMerged} merged${r.prsOpen ? ` · ${r.prsOpen} open` : ""}`,
     },
     { ic: "issue", c: t.issue, label: "Issues", v: r.issues, sub: "opened" },
     { ic: "disc", c: t.disc, label: "Discussions", v: r.discussions, sub: "started" },
@@ -76,12 +90,31 @@ function render(stats: Stats, theme: ThemeName): string {
     b += `<text x="${x}" y="128" font-size="24" font-weight="600" fill="${t.text}">${fmt(col.v)}</text>`;
     b += `<text x="${x}" y="146" font-size="11" fill="${t.muted}">${esc(trunc(col.sub, colW - 8, 11))}</text>`;
   });
-  b += segBar(c, P, 160, W - 2 * P, 8, [
-    { v: r.prsMerged, c: t.pr },
-    { v: notMerged, c: t.prOther },
-    { v: r.issues, c: t.issue },
-    { v: r.discussions, c: t.disc },
-  ]);
+  b += segBar(
+    c,
+    P,
+    160,
+    W - 2 * P,
+    8,
+    lvl
+      ? kindsAt(t, r, lvl)
+      : [
+          { v: r.prsMerged, c: t.pr },
+          { v: notMerged, c: t.prOther },
+          { v: r.issues, c: t.issue },
+          { v: r.discussions, c: t.disc },
+        ],
+  );
+  if (lvl === "full")
+    b += legend(
+      P,
+      186,
+      t,
+      kindsAt(t, r, lvl)
+        .slice(0, 3)
+        .map((k) => ({ k: `${k.v} ${k.k}`, c: k.c })),
+      { size: 11, gap: 14 },
+    );
 
   // monthly columns over the active span
   const months: string[] = [];
@@ -103,12 +136,12 @@ function render(stats: Stats, theme: ThemeName): string {
   const max = Math.max(0, ...vals);
   const peakI = vals.indexOf(max);
   const peak = months[peakI] ?? "";
-  b += `${icon("calendar", P, 186, 13, t.muted)}<text x="${P + 19}" y="197" font-size="12" fill="${t.muted}">Active <tspan fill="${t.text}" font-weight="600">${monthLabel(r.first)} – ${monthLabel(r.last)}</tspan></text>`;
+  b += `${icon("calendar", P, 186 + dy, 13, t.muted)}<text x="${P + 19}" y="${197 + dy}" font-size="12" fill="${t.muted}">Active <tspan fill="${t.text}" font-weight="600">${monthLabel(r.first)} – ${monthLabel(r.last)}</tspan></text>`;
   if (max > 0)
-    b += `<text x="${W - P}" y="197" text-anchor="end" font-size="11" fill="${t.muted}">busiest ${MON[+peak.slice(5) - 1]} ${peak.slice(0, 4)}: ${max}</text>`;
+    b += `<text x="${W - P}" y="${197 + dy}" text-anchor="end" font-size="11" fill="${t.muted}">busiest ${MON[+peak.slice(5) - 1]} ${peak.slice(0, 4)}: ${max}</text>`;
   const cx0 = P;
   const cw = W - 2 * P;
-  const base = 244;
+  const base = 244 + dy;
   const hmax = 34;
   const step = cw / months.length;
   const bw = Math.max(2, Math.min(14, step - 2));

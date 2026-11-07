@@ -6,8 +6,8 @@ import {
   document as svgDocument,
 } from "../../kit/svg.ts";
 import type { RepoStats } from "../../stats/types.ts";
-import type { Design } from "../types.ts";
-import { frame, kinds, monthIndex, monthLabel, num, t } from "./_shared.ts";
+import { DEFAULT_OPTIONS, type Design } from "../types.ts";
+import { frame, kinds, monthIndex, monthLabel, num, prRows, t } from "./_shared.ts";
 
 const W = 840;
 const PAD = 24;
@@ -35,7 +35,8 @@ export const design: Design = {
   slug: "selected-repos",
   title: "Selected repositories",
   idea: "A headline tile per notable repository, led by its total contribution count, each with its PR, issue and discussion counts and a monthly activity strip. Rule: the top 5 repositories with at least 1,000 stars by contributions; if fewer than 3 qualify, the biggest remaining repositories fill up to 3.",
-  render(stats, theme) {
+  render(stats, theme, options = DEFAULT_OPTIONS) {
+    const { outcomes } = options;
     const p = PALETTES[theme];
     const { picked, filled } = select(stats.repos);
     let body = "";
@@ -90,14 +91,22 @@ export const design: Design = {
       body += t(ix, top + 108, "contributions", 11, p.muted);
 
       // Breakdown rows
-      const rows = [
-        { label: "PRs merged", value: r.prsMerged, color: p.merged },
-        { label: "PRs not merged", value: r.prs - r.prsMerged, color: p.pr },
+      const rest = [
         { label: "Issues opened", value: r.issues, color: p.issue },
         { label: "Discussions", value: r.discussions, color: p.discussion },
       ];
+      const rows = outcomes
+        ? [...prRows(r, p, outcomes, { open: "PRs open", closed: "PRs closed" }), ...rest]
+        : [
+            { label: "PRs merged", value: r.prsMerged, color: p.merged },
+            { label: "PRs not merged", value: r.prs - r.prsMerged, color: p.pr },
+            ...rest,
+          ];
+      // Four rows 18 px apart; three sit a little lower to fill the space, five close up.
+      const rowStep = rows.length > 4 ? 16 : 18;
+      const rowTop = top + 134 + (rows.length < 4 ? 9 : rows.length > 4 ? -6 : 0);
       rows.forEach((row, j) => {
-        const ry = top + 134 + j * 18;
+        const ry = rowTop + j * rowStep;
         body += `<rect x="${ix}" y="${ry - 8}" width="8" height="8" rx="2" fill="${row.color}"/>`;
         body += t(ix + 14, ry, row.label, 11, p.muted);
         body += t(
@@ -113,7 +122,7 @@ export const design: Design = {
       // Share bar: the same four kinds as a 100 % strip
       let cx = ix;
       const total = Math.max(1, r.total);
-      const segs = kinds(r, p).filter((k) => k.value > 0);
+      const segs = kinds(r, p, outcomes).filter((k) => k.value > 0);
       segs.forEach((k, j) => {
         const w = Math.max(2, (k.value / total) * (iw - (segs.length - 1)));
         const last = j === segs.length - 1;
@@ -148,7 +157,9 @@ export const design: Design = {
       PAD,
       fy,
       fitText(
-        `Items opened by @${stats.user} · strip: contributions per month since the first, each tile to its own scale`,
+        outcomes === "full"
+          ? `Items opened by @${stats.user} · PRs closed: without merging · strip: contributions per month, own scale per tile`
+          : `Items opened by @${stats.user} · strip: contributions per month since the first, each tile to its own scale`,
         W - 2 * PAD,
         11,
       ),

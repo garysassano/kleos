@@ -1,23 +1,45 @@
-import type { Design } from "../types.ts";
+import { prsClosed, mergeRate as rateOf, totalsCounts } from "../../kit/outcomes.ts";
+import { DEFAULT_OPTIONS, type Design } from "../types.ts";
 import { THEMES, derive, fmt, kinds, svg, text, trunc } from "./_shared.ts";
 
 export const design: Design = {
   id: "C01",
   slug: "big-numbers",
   title: "Big numbers",
-  idea: "Four large, labelled headline figures for upstream work (PRs opened, merged, issues, owners), with the five most active owners underneath. Reads in one glance.",
-  render(stats, theme) {
+  idea: "Four large, labelled headline figures for upstream work (PRs opened, merged, issues, owners), with the five most active owners underneath. Reads in one glance. With outcomes none the merged figure gives way to repositories; merged drops the merge rate; full adds open and closed-unmerged PRs.",
+  render(stats, theme, options = DEFAULT_OPTIONS) {
+    const lv = options.outcomes;
     const t = THEMES[theme];
     const { T, asOf, extIssues, firstAny, mergeRate } = derive(stats);
     const W = 840;
     const H = 282;
     const P = 24;
-    const cols: [number, string, string][] = [
-      [T.externalPRs, "pull requests", "opened upstream"],
-      [T.externalMerged, "merged", `${Math.round(mergeRate * 100)}% of those opened`],
-      [extIssues, "issues", "reported upstream"],
-      [T.externalOwners, "owners", `${T.externalRepos} repositories`],
+    const c = totalsCounts(T);
+    const prsCol: [number, string, string] =
+      lv === "full"
+        ? [T.externalPRs, "pull requests", `${c.prsOpen} open · ${prsClosed(c)} closed unmerged`]
+        : [T.externalPRs, "pull requests", "opened upstream"];
+    const mergedCol: [number, string, string] = [
+      T.externalMerged,
+      "merged",
+      lv === "merged"
+        ? "of those opened"
+        : `${lv === "full" ? rateOf(c, lv) : Math.round(mergeRate * 100)}% of those opened`,
     ];
+    const cols: [number, string, string][] =
+      lv === "none"
+        ? [
+            prsCol,
+            [extIssues, "issues", "reported upstream"],
+            [T.externalRepos, "repositories", "contributed to"],
+            [T.externalOwners, "owners", "orgs and users"],
+          ]
+        : [
+            prsCol,
+            mergedCol,
+            [extIssues, "issues", "reported upstream"],
+            [T.externalOwners, "owners", `${T.externalRepos} repositories`],
+          ];
     const top = stats.owners.slice(0, 5);
     const cw = (W - 2 * P) / 4;
     const years =
@@ -66,7 +88,9 @@ export const design: Design = {
       t,
       `.fi{animation:fi .6s ease-out both}${css}`,
       b,
-      `Upstream: ${T.externalPRs} PRs opened, ${T.externalMerged} merged, ${extIssues} issues, ${T.externalOwners} owners`,
+      lv === "none"
+        ? `Upstream: ${T.externalPRs} PRs opened, ${extIssues} issues, ${T.externalRepos} repositories, ${T.externalOwners} owners`
+        : `Upstream: ${T.externalPRs} PRs opened, ${T.externalMerged} merged, ${extIssues} issues, ${T.externalOwners} owners`,
     );
   },
 };

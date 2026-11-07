@@ -1,8 +1,25 @@
+import { type PrPartKey, prLegend, prParts } from "../../kit/outcomes.ts";
 import { esc } from "../../kit/svg.ts";
-import type { Design } from "../types.ts";
-import { doc, extLine, header, makeCtx, r1, shade, trunc, tw } from "./_shared.ts";
+import { DEFAULT_OPTIONS, type Design, type ThemeName } from "../types.ts";
+import { type Theme, doc, extLine, header, makeCtx, r1, shade, trunc, tw } from "./_shared.ts";
 
 const BUILDINGS = 15;
+
+/**
+ * Floors for PRs still open (a lighter tone of the merged purple) and closed without merging
+ * (neutral grey), drawn only at outcomes "full".
+ */
+const TONES: Record<ThemeName, { open: string; closed: string }> = {
+  dark: { open: "#d2a8ff", closed: "#656c76" },
+  light: { open: "#a475f9", closed: "#afb8c1" },
+};
+
+const prColour = (T: Theme, theme: ThemeName, key: PrPartKey, none: boolean): string =>
+  key === "merged" || (key === "pr" && none)
+    ? T.merged
+    : key === "pr"
+      ? T.prOther
+      : TONES[theme][key];
 
 /** Smallest 1/2/2.5/5 × 10ⁿ step that puts at most five scale lines under `max`. */
 function scaleStep(max: number): number {
@@ -18,8 +35,9 @@ export const design: Design = {
   id: "D05",
   slug: "skyline",
   title: "Skyline",
-  idea: "Each building is one of the top 15 orgs or users, its height is the number of contributions and its floors split them into merged PRs, other PRs, issues and discussions, on a real scale with round-number gridlines.",
-  render(stats, theme) {
+  idea: 'Each building is one of the top 15 orgs or users, its height is the number of contributions and its floors split them into merged PRs, other PRs, issues and discussions, on a real scale with round-number gridlines. With outcomes "none" PRs are one floor; "full" splits them into merged, open and closed unmerged.',
+  render(stats, theme, options = DEFAULT_OPTIONS) {
+    const level = options.outcomes;
     const ctx = makeCtx(stats, theme);
     const T = ctx.T;
     const sel = stats.owners.slice(0, BUILDINGS);
@@ -40,6 +58,38 @@ export const design: Design = {
       ["issues", "issues", T.issue],
       ["discussions", "discussions", T.disc],
     ] as const;
+    // Floors bottom-up and legend entries left to right, as [label or value, colour].
+    type Pair = readonly [string, string];
+    const floorsOf = (o: (typeof sel)[number]): (readonly [number, string])[] =>
+      level === undefined
+        ? kinds.map(([key, , col]) => {
+            const vals = {
+              prsMerged: o.prsMerged,
+              prOther: o.prs - o.prsMerged,
+              issues: o.issues,
+              discussions: o.discussions,
+            };
+            return [vals[key], col] as const;
+          })
+        : [
+            ...prParts(o, level).map(
+              (p) => [p.count, prColour(T, theme, p.key, level === "none")] as const,
+            ),
+            [o.issues, T.issue] as const,
+            [o.discussions, T.disc] as const,
+          ];
+    const legendItems: Pair[] =
+      level === undefined
+        ? kinds.map(([, name, col]) => [name, col] as const)
+        : [
+            ...prLegend(level).map(
+              (l) => [l.label, prColour(T, theme, l.key, level === "none")] as const,
+            ),
+            ["issues", T.issue],
+            ["discussions", T.disc],
+          ];
+    // The five "full" entries would run into the subtitle, so they drop to a row of their own.
+    const ly = level === "full" ? 20 : 0;
 
     let b = header(
       "Upstream skyline",
@@ -47,11 +97,11 @@ export const design: Design = {
     );
     let lx = W - 20;
     const leg: string[] = [];
-    for (const [, name, col] of [...kinds].reverse()) {
+    for (const [name, col] of [...legendItems].reverse()) {
       const w = tw(name, 11) + 18;
       lx -= w;
       leg.push(
-        `<rect x="${r1(lx)}" y="${42}" width="10" height="10" rx="2" fill="${col}"/><text x="${r1(lx + 14)}" y="${51}" font-size="11" class="mu">${name}</text>`,
+        `<rect x="${r1(lx)}" y="${42 + ly}" width="10" height="10" rx="2" fill="${col}"/><text x="${r1(lx + 14)}" y="${51 + ly}" font-size="11" class="mu">${name}</text>`,
       );
       lx -= 6;
     }
@@ -68,17 +118,10 @@ export const design: Design = {
     const x0 = bx0 + ((BUILDINGS - sel.length) * pitch) / 2;
     sel.forEach((o, i) => {
       const x = x0 + i * pitch;
-      const vals = {
-        prsMerged: o.prsMerged,
-        prOther: o.prs - o.prsMerged,
-        issues: o.issues,
-        discussions: o.discussions,
-      };
       let y = ground;
       let g = "";
       let topCol = T.faint;
-      for (const [key, , col] of kinds) {
-        const v = vals[key];
+      for (const [v, col] of floorsOf(o)) {
         if (!v) continue;
         const h = v * k;
         y -= h;

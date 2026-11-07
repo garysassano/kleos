@@ -1,5 +1,5 @@
 import type { Stats } from "../../stats/types.ts";
-import type { Design, ThemeName } from "../types.ts";
+import { DEFAULT_OPTIONS, type Design, type RenderOptions, type ThemeName } from "../types.ts";
 import {
   MON,
   ONE_OF_EACH,
@@ -11,7 +11,9 @@ import {
   icon,
   kfmt,
   kinds,
+  kindsAt,
   legend,
+  legendAt,
   plural,
   r1,
   segBar,
@@ -24,7 +26,8 @@ import {
 /** Most rows in the owner and repository columns. */
 const MAX_ROWS = 8;
 
-function render(stats: Stats, theme: ThemeName): string {
+function render(stats: Stats, theme: ThemeName, options: RenderOptions = DEFAULT_OPTIONS): string {
+  const lvl = options.outcomes;
   const c = context(stats, theme);
   const { t } = c;
   const X = upstream(stats);
@@ -41,17 +44,27 @@ function render(stats: Stats, theme: ThemeName): string {
     W - P,
     34,
     t,
-    kinds(t, ONE_OF_EACH).map(({ k, c: col }) => ({
-      k: k === "other PRs" ? "PRs not merged" : k[0]?.toUpperCase() + k.slice(1),
-      c: col,
-    })),
+    lvl
+      ? legendAt(t, lvl).map(({ k, c: col }) => ({ k: k[0]?.toUpperCase() + k.slice(1), c: col }))
+      : kinds(t, ONE_OF_EACH).map(({ k, c: col }) => ({
+          k: k === "other PRs" ? "PRs not merged" : k[0]?.toUpperCase() + k.slice(1),
+          c: col,
+        })),
     { anchor: "end" },
   );
 
   // KPI strip
+  const merged: [label: string, value: string, color: string | null, extra?: string][] =
+    lvl === "none"
+      ? []
+      : lvl === "merged"
+        ? [["PRs merged", fmt(X.merged), t.pr]]
+        : [["PRs merged", fmt(X.merged), t.pr, `${X.rate}%`]];
   const kpi: [label: string, value: string, color: string | null, extra?: string][] = [
-    ["PRs opened", fmt(X.prs), t.pr],
-    ["PRs merged", fmt(X.merged), t.pr, `${X.rate}%`],
+    lvl === "full"
+      ? ["PRs opened", fmt(X.prs), t.pr, `${fmt(X.open)} open`]
+      : ["PRs opened", fmt(X.prs), t.pr],
+    ...merged,
     ["Issues opened", fmt(X.issues), t.issue],
     ["Discussions", fmt(X.discussions), t.disc],
     ["Repositories", fmt(X.repos), null],
@@ -97,7 +110,7 @@ function render(stats: Stats, theme: ThemeName): string {
     const bx = colL + 150;
     const bwMax = colW - 150 - 40;
     const bw = Math.max(4, (o.total / maxO) * bwMax);
-    b += segBar(c, bx, y + 9, bwMax, 8, kinds(t, o), {
+    b += segBar(c, bx, y + 9, bwMax, 8, lvl ? kindsAt(t, o, lvl) : kinds(t, o), {
       fullWidth: bw,
       track: false,
       cls: "grow",
@@ -114,12 +127,12 @@ function render(stats: Stats, theme: ThemeName): string {
     b += `<text x="${colR + 24}" y="${y + 17}" font-size="13" fill="${t.text}">${esc(trunc(name, 150, 13))}</text>`;
     b += `<text x="${rc.stars}" y="${y + 17}" text-anchor="end" font-size="12" fill="${t.muted}">${kfmt(r.stars)}</text>`;
     const dim = (v: number) => (v ? t.text : t.muted);
-    b += `<text x="${rc.prs}" y="${y + 17}" text-anchor="end" font-size="12" class="mono" fill="${dim(r.prs)}">${r.prs ? `${r.prsMerged}<tspan fill="${t.muted}">/${r.prs}</tspan>` : "–"}</text>`;
+    b += `<text x="${rc.prs}" y="${y + 17}" text-anchor="end" font-size="12" class="mono" fill="${dim(r.prs)}">${r.prs ? (lvl === "none" ? r.prs : `${r.prsMerged}<tspan fill="${t.muted}">/${r.prs}</tspan>`) : "–"}</text>`;
     b += `<text x="${rc.iss}" y="${y + 17}" text-anchor="end" font-size="12" class="mono" fill="${dim(r.issues)}">${r.issues || "–"}</text>`;
     b += `<text x="${rc.disc}" y="${y + 17}" text-anchor="end" font-size="12" class="mono" fill="${dim(r.discussions)}">${r.discussions || "–"}</text>`;
   });
   const tableEnd = top + 18 + N * rowH;
-  b += `<text x="${colR}" y="${tableEnd + 6}" font-size="10.5" fill="${t.muted}">stars · PRs merged/opened · issues · discussions</text>`;
+  b += `<text x="${colR}" y="${tableEnd + 6}" font-size="10.5" fill="${t.muted}">stars · ${lvl === "none" ? "PRs" : "PRs merged/opened"} · issues · discussions</text>`;
 
   // weekly activity strip (the calendar counts every kind of contribution, private ones included)
   const cal = stats.calendar;

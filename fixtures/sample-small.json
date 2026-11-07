@@ -10,7 +10,8 @@
   "externalOwners": 5,
   "externalPRs": 64,
   "externalMerged": 48,
-  "firstExternalPR": "2023-03-14T09:30:00Z"
+  "firstExternalPR": "2023-03-14T09:30:00Z",
+  "externalOpen": 1
  },
  "ownRepoActivity": 40,
  "repos": [
@@ -206,6 +207,7 @@
    "avatar": "",
    "prs": 33,
    "prsMerged": 25,
+   "prsOpen": 1,
    "issues": 24,
    "discussions": 0,
    "commits": 25,
@@ -223,6 +225,7 @@
    "avatar": "",
    "prs": 1,
    "prsMerged": 1,
+   "prsOpen": 0,
    "issues": 17,
    "discussions": 0,
    "commits": 1,
@@ -239,6 +242,7 @@
    "avatar": "",
    "prs": 11,
    "prsMerged": 6,
+   "prsOpen": 0,
    "issues": 3,
    "discussions": 0,
    "commits": 6,
@@ -255,6 +259,7 @@
    "avatar": "",
    "prs": 12,
    "prsMerged": 9,
+   "prsOpen": 0,
    "issues": 1,
    "discussions": 0,
    "commits": 9,
@@ -271,6 +276,7 @@
    "avatar": "",
    "prs": 7,
    "prsMerged": 7,
+   "prsOpen": 0,
    "issues": 0,
    "discussions": 0,
    "commits": 7,
@@ -295,7 +301,8 @@
    "prsMerged": 26,
    "issues": 41,
    "discussions": 0,
-   "repos": 3
+   "repos": 3,
+   "prsOpen": 1
   }
  ],
  "calendar": [

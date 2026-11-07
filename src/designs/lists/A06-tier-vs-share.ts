@@ -1,5 +1,6 @@
-import type { Design } from "../types.ts";
+import { DEFAULT_OPTIONS, type Design } from "../types.ts";
 import {
+  STD_LEGEND,
   avatar,
   barScale,
   breakCue,
@@ -38,7 +39,8 @@ export const design: Design = {
   slug: "tier-vs-share",
   title,
   idea: "Star-tier letters (S+ to C) that say what they mean: the left side is the repo’s popularity (stars, log scale, tier letter), the right side is what I contributed there. Big repos with small bars and small repos with big bars become obvious. When the top repo has more than twice the runner-up's total, its bar is shortened and marked “not to scale”.",
-  render(stats, theme) {
+  render(stats, theme, options = DEFAULT_OPTIONS) {
+    const level = options.outcomes;
     const T = themeOf(theme);
     const d = dataOf(stats);
     const W = 840;
@@ -97,7 +99,7 @@ export const design: Design = {
       });
       g += avatar(T, d.avatars, r.owner, r.ownerType, nameX, cy - 10, 20);
       g += repoLabel(T, nameX + 28, cy + 4.5, r.repo, rx0 - nameX - 28 - 16);
-      g += `<g class="grow"${delay(i)}>${stack(T, rx0, cy - 4, 8, segsOf(T, r), scaleMax, rw)}</g>`;
+      g += `<g class="grow"${delay(i)}>${stack(T, rx0, cy - 4, 8, segsOf(T, r, level), scaleMax, rw)}</g>`;
       const end = Math.min(rw, Math.max(3, (r.total / scaleMax) * rw));
       g +=
         r.total > scaleMax
@@ -121,18 +123,32 @@ export const design: Design = {
         fill: "muted",
       },
     );
-    b += legend(T, rx0 - 150, fy + 26, [
-      { c: T.pr, label: "PRs" },
-      { c: T.iss, label: "Issues" },
-      { c: T.disc, label: "Discussions" },
-    ]);
+    if (level === undefined) {
+      b += legend(T, rx0 - 150, fy + 26, [
+        { c: T.pr, label: "PRs" },
+        { c: T.iss, label: "Issues" },
+        { c: T.disc, label: "Discussions" },
+      ]);
+      b += t(
+        T,
+        24,
+        fy + 46,
+        `Lighter purple = PRs not merged. Stars measure the repo, not me; the bar on the right is my own activity there.`,
+        { size: 11.5, fill: "muted" },
+      );
+      return frame(T, W, fy + 64, b, title);
+    }
+    // The full legend does not fit beside the tier note, so it gets its own line.
+    const own = level === "full";
+    const ly = own ? fy + 46 : fy + 26;
+    b += legend(T, own ? 24 : rx0 - 150, ly, STD_LEGEND(T, level));
     b += t(
       T,
       24,
-      fy + 46,
-      `Lighter purple = PRs not merged. Stars measure the repo, not me; the bar on the right is my own activity there.`,
+      ly + 20,
+      "Stars measure the repo, not me; the bar on the right is my own activity there.",
       { size: 11.5, fill: "muted" },
     );
-    return frame(T, W, fy + 64, b, title);
+    return frame(T, W, ly + 38, b, title);
   },
 };

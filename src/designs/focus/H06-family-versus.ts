@@ -1,3 +1,4 @@
+import { mergeRate } from "../../kit/outcomes.ts";
 import {
   PALETTES,
   avatar,
@@ -5,8 +6,8 @@ import {
   percent,
   document as svgDocument,
 } from "../../kit/svg.ts";
-import type { Design } from "../types.ts";
-import { frame, kinds, monthLabel, num, plural, sum, t, topGroups } from "./_shared.ts";
+import { DEFAULT_OPTIONS, type Design } from "../types.ts";
+import { frame, kinds, monthLabel, num, plural, prRows, sum, t, topGroups } from "./_shared.ts";
 
 const W = 840;
 const PAD = 24;
@@ -18,7 +19,8 @@ export const design: Design = {
   slug: "family-versus",
   title: "Family versus family",
   idea: "The three biggest families side by side: total and share, each contribution kind on one shared scale with the leader in bold, merge rate, active span, top repository and member owners. Rule: the top 3 families by contributions; when there are fewer than 3, the biggest independent owners fill the remaining columns as groups of one.",
-  render(stats, theme) {
+  render(stats, theme, options = DEFAULT_OPTIONS) {
+    const { outcomes } = options;
     const p = PALETTES[theme];
     const groups = topGroups(stats, 3);
     const external = sum(stats.repos, (r) => r.total);
@@ -53,7 +55,16 @@ export const design: Design = {
     const n = groups.length;
     const cw = (W - 2 * PAD - GAP * (n - 1)) / n;
     const top = 78;
-    const kindRows = groups.map((g) => kinds(g, p));
+    const kindRows = groups.map((g) =>
+      outcomes
+        ? [
+            ...prRows(g, p, outcomes),
+            { label: "Issues", value: g.issues, color: p.issue },
+            { label: "Discussions", value: g.discussions, color: p.discussion },
+          ]
+        : kinds(g, p),
+    );
+    const kindCount = kindRows[0]?.length ?? 4;
     const kindMax = Math.max(1, ...kindRows.flat().map((k) => k.value));
     const best = (f: (i: number) => number) => {
       const vals = groups.map((_, i) => f(i));
@@ -62,7 +73,9 @@ export const design: Design = {
         n > 1 && m > 0 && vals[i] === m && vals.filter((v) => v === m).length === 1;
     };
     const leadsTotal = best((i) => groups[i]?.total ?? 0);
-    const leadsKind = [0, 1, 2, 3].map((k) => best((i) => kindRows[i]?.[k]?.value ?? 0));
+    const leadsKind = Array.from({ length: kindCount }, (_, k) =>
+      best((i) => kindRows[i]?.[k]?.value ?? 0),
+    );
     const rate = (i: number) => {
       const g = groups[i];
       return g?.prs ? g.prsMerged / g.prs : 0;
@@ -126,7 +139,7 @@ export const design: Design = {
           body += `<rect x="${ix}" y="${ry + 6}" width="${Math.max(2, (k.value / kindMax) * iw).toFixed(1)}" height="6" rx="2" fill="${k.color}"/>`;
         }
       });
-      y += 4 * 30 + 6;
+      y += kindCount * 30 + 6;
 
       // Facts
       body += `<line x1="${ix}" y1="${y - 8.5}" x2="${ix + iw}" y2="${y - 8.5}" stroke="${p.hair}"/>`;
@@ -139,12 +152,15 @@ export const design: Design = {
         .filter((d): d is string => d !== null)
         .sort();
       const topRepo = g.repos[0];
+      const rateFact = {
+        label: "Merge rate",
+        value: g.prs
+          ? `${outcomes ? mergeRate(g, outcomes) : percent(g.prsMerged, g.prs)}% of ${plural(g.prs, "PR")}`
+          : "no PRs",
+        bold: leadsRate(i),
+      };
       const facts = [
-        {
-          label: "Merge rate",
-          value: g.prs ? `${percent(g.prsMerged, g.prs)}% of ${plural(g.prs, "PR")}` : "no PRs",
-          bold: leadsRate(i),
-        },
+        ...(outcomes && outcomes !== "full" ? [] : [rateFact]),
         {
           label: "Active",
           value:
@@ -173,7 +189,7 @@ export const design: Design = {
           `text-anchor="end"${f.bold ? ' font-weight="700"' : ""}`,
         );
       });
-      y += 3 * 22 + 8;
+      y += facts.length * 22 + 8;
 
       // Member owners
       if (g.family) {

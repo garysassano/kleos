@@ -1,5 +1,6 @@
+import { mergeRate, prsClosed, totalsCounts } from "../../kit/outcomes.ts";
 import type { RepoStats } from "../../stats/types.ts";
-import type { Design } from "../types.ts";
+import { DEFAULT_OPTIONS, type Design, type Level } from "../types.ts";
 import {
   THEMES,
   derive,
@@ -17,22 +18,23 @@ import {
 type Run = [text: string, cls: "" | "b"];
 
 /** "12 PRs, 9 merged", led by the issue count when issues outnumber PRs. */
-function desc(r: RepoStats): string {
+function desc(r: RepoStats, lv: Level | undefined): string {
   const parts: string[] = [];
-  if (r.prs) parts.push(`${plural(r.prs, "PR")}${r.prsMerged ? `, ${r.prsMerged} merged` : ""}`);
+  const merged = lv === "none" || !r.prsMerged ? "" : `, ${r.prsMerged} merged`;
+  const open = lv === "full" && r.prsOpen ? `, ${r.prsOpen} open` : "";
+  if (r.prs) parts.push(`${plural(r.prs, "PR")}${merged}${open}`);
   if (r.issues && r.issues >= r.prs) parts.unshift(plural(r.issues, "issue"));
   if (!parts.length) parts.push(plural(r.discussions, "discussion"));
   return parts.slice(0, 2).join(", ");
 }
 
-function paragraph(stats: Parameters<Design["render"]>[0]): Run[] {
+function paragraph(stats: Parameters<Design["render"]>[0], lv: Level | undefined): Run[] {
   const { T, asOf, extTotal, firstPR } = derive(stats);
   const { repos, owners } = stats;
   const runs: Run[] = [
     [`Since ${monthYear(firstPR)} I have opened `, ""],
     [`${T.externalPRs} pull requests`, "b"],
-    [" in repositories I don't own, and ", ""],
-    [`${T.externalMerged} of them were merged`, "b"],
+    ...outcomeRuns(T, lv),
     [". Counting issues and discussions, that is ", ""],
     [`${fmt(extTotal)} contributions`, "b"],
     [" to ", ""],
@@ -42,7 +44,7 @@ function paragraph(stats: Parameters<Design["render"]>[0]): Run[] {
   const lead = repos.slice(0, 3);
   lead.forEach((r, i) => {
     const before = i === 0 ? "Most went to " : i === 1 ? ", then " : " and ";
-    runs.push([before, ""], [r.repo, "b"], [` (${desc(r)})`, ""]);
+    runs.push([before, ""], [r.repo, "b"], [` (${desc(r, lv)})`, ""]);
   });
   if (lead.length) runs.push([". ", ""]);
   const fam = stats.families
@@ -89,15 +91,34 @@ function paragraph(stats: Parameters<Design["render"]>[0]): Run[] {
   return merged;
 }
 
+/** What follows "I have opened N pull requests": no outcome for "none", the merge count by default, every outcome for "full". */
+function outcomeRuns(T: Parameters<typeof totalsCounts>[0], lv: Level | undefined): Run[] {
+  const c = totalsCounts(T);
+  if (lv === "none") return [[" in repositories I don't own", ""]];
+  const runs: Run[] = [
+    [" in repositories I don't own, and ", ""],
+    [`${c.prsMerged} of them were merged`, "b"],
+  ];
+  if (lv === "full") {
+    runs.push(
+      [` (${mergeRate(c, lv) ?? 0}%), `, ""],
+      [`${c.prsOpen} ${c.prsOpen === 1 ? "is" : "are"} still open`, "b"],
+      [" and ", ""],
+      [`${prsClosed(c)} closed without merging`, "b"],
+    );
+  }
+  return runs;
+}
+
 export const design: Design = {
   id: "C05",
   slug: "in-brief",
   title: "In brief",
-  idea: "A short paragraph written from the data: totals, merge count, the top three repositories, the biggest company family (the one with several owners and the most contributions) and this year's leading repository, with every figure set in bold.",
-  render(stats, theme) {
+  idea: "A short paragraph written from the data: totals, merge count, the top three repositories, the biggest company family (the one with several owners and the most contributions) and this year's leading repository, with every figure set in bold. The merge count follows the outcomes level: left out for none, joined by open and closed-unmerged PRs for full.",
+  render(stats, theme, options = DEFAULT_OPTIONS) {
     const t = THEMES[theme];
     const { asOf } = derive(stats);
-    const runs = paragraph(stats);
+    const runs = paragraph(stats, options.outcomes);
     const FS = 20;
     const LH = 33;
     const W = 840;

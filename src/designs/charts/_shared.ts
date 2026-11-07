@@ -3,9 +3,11 @@
  * own categorical palette (validated on both page backgrounds) and document wrapper instead of
  * src/kit.
  */
+
+import type { PrPartKey } from "../../kit/outcomes.ts";
 import { MONO, SANS, esc } from "../../kit/svg.ts";
 import type { FamilyStats, RepoStats, Stats } from "../../stats/types.ts";
-import type { ThemeName } from "../types.ts";
+import type { Level, ThemeName } from "../types.ts";
 
 export { esc };
 
@@ -254,3 +256,21 @@ export function monthName(m: string): string {
   const [y, mo] = m.split("-").map(Number);
   return `${MONTHS[(mo ?? 1) - 1]} ${y}`;
 }
+
+/** Lighter tone of the merged blue, for PRs still open at outcomes "full". */
+const OPEN: Record<ThemeName, string> = { dark: "#8fbcf4", light: "#9ec5f4" };
+
+/**
+ * Colour of a PR outcome part at an explicit level: merged blue, open a lighter blue, closed
+ * unmerged the neutral grey, and plain PRs blue under "none" or the light blue rest under "merged".
+ */
+export const prColor = (t: Theme, key: PrPartKey, outcomes: Level): string =>
+  key === "merged"
+    ? cat(t, 0)
+    : key === "open"
+      ? OPEN[t.name]
+      : key === "closed"
+        ? t.other
+        : outcomes === "none"
+          ? cat(t, 0)
+          : t.blueLight;

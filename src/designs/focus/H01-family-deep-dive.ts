@@ -1,3 +1,4 @@
+import { mergeRate, prsClosed } from "../../kit/outcomes.ts";
 import {
   PALETTES,
   avatar,
@@ -6,8 +7,19 @@ import {
   percent,
   document as svgDocument,
 } from "../../kit/svg.ts";
-import type { Design } from "../types.ts";
-import { frame, kinds, legend, mixBar, num, plural, t, topGroups } from "./_shared.ts";
+import { DEFAULT_OPTIONS, type Design } from "../types.ts";
+import {
+  frame,
+  kindLegend,
+  kinds,
+  legend,
+  mixBar,
+  num,
+  plural,
+  prColor,
+  t,
+  topGroups,
+} from "./_shared.ts";
 
 const W = 840;
 const PAD = 24;
@@ -20,7 +32,8 @@ export const design: Design = {
   slug: "family-deep-dive",
   title: "Family deep-dive",
   idea: "One family in depth: its member orgs, its repositories and the PR, issue and discussion split, so a cluster like AWS reads as one relationship. Rule: the family with the most contributions (a lone top owner if no families are defined); up to 8 owners and 10 repositories, the rest summed.",
-  render(stats, theme) {
+  render(stats, theme, options = DEFAULT_OPTIONS) {
+    const { outcomes } = options;
     const p = PALETTES[theme];
     const g = topGroups(stats, 1)[0];
     const external = stats.repos.reduce((a, r) => a + r.total, 0);
@@ -63,7 +76,7 @@ export const design: Design = {
     y += 64;
 
     // Tiles
-    const tiles = [
+    const original = [
       {
         label: "Contributions",
         value: g.total,
@@ -95,6 +108,33 @@ export const design: Design = {
         color: p.discussion,
       },
     ];
+    const tiles = outcomes ? outcomeTiles() : original;
+    function outcomeTiles() {
+      if (!g || !outcomes) return original;
+      const [contributions, , , issues, discussions] = original;
+      const prs = {
+        label: "PRs opened",
+        value: g.prs,
+        note: `${percent(g.prs, g.total)}% of the total`,
+        color: prColor("pr", p, outcomes),
+      };
+      if (outcomes === "none") return [contributions, prs, issues, discussions].filter((x) => !!x);
+      const c = { prs: g.prs, prsMerged: g.prsMerged, prsOpen: g.prsOpen };
+      const withMerged = g.repos.filter((r) => r.prsMerged > 0).length;
+      const merged = {
+        label: "PRs merged",
+        value: g.prsMerged,
+        note:
+          outcomes === "full"
+            ? g.prs
+              ? `${mergeRate(c, outcomes)}% of opened`
+              : "no PRs opened"
+            : `in ${plural(withMerged, "repository", "repositories")}`,
+        color: p.merged,
+      };
+      if (outcomes === "full") prs.note = `${num(g.prsOpen)} open · ${num(prsClosed(c))} closed`;
+      return [contributions, prs, merged, issues, discussions].filter((x) => !!x);
+    }
     const gap = 10;
     const tw = (W - 2 * PAD - gap * (tiles.length - 1)) / tiles.length;
     tiles.forEach((tile, i) => {
@@ -142,7 +182,15 @@ export const design: Design = {
       });
       body += t(lx + 26, cy + 4, fitText(o.owner, 144, 13), 13, p.text);
       body += t(barX - 10, cy + 4, plural(o.repos, "repo"), 11, p.faint, 'text-anchor="end"');
-      body += mixBar({ x: barX, y: cy - 4, h: 8, scale: barW / ownerMax, counts: o, p });
+      body += mixBar({
+        x: barX,
+        y: cy - 4,
+        h: 8,
+        scale: barW / ownerMax,
+        counts: o,
+        p,
+        ...(outcomes ? { outcomes } : {}),
+      });
       body += t(lx + colW, cy + 4, num(o.total), 13, p.text, 'text-anchor="end" font-weight="600"');
     });
     let ownerRows = shownOwners.length;
@@ -180,7 +228,15 @@ export const design: Design = {
       });
       body += t(rx + 24, cy + 4, fitText(r.repo.slice(r.owner.length + 1), 186, 13), 13, p.text);
       body += t(rBarX - 10, cy + 4, `${compact(r.stars)}★`, 11, p.faint, 'text-anchor="end"');
-      body += mixBar({ x: rBarX, y: cy - 4, h: 8, scale: rBarW / repoMax, counts: r, p });
+      body += mixBar({
+        x: rBarX,
+        y: cy - 4,
+        h: 8,
+        scale: rBarW / repoMax,
+        counts: r,
+        p,
+        ...(outcomes ? { outcomes } : {}),
+      });
       body += t(rx + colW, cy + 4, num(r.total), 13, p.text, 'text-anchor="end" font-weight="600"');
     });
     let repoRows = shownRepos.length;
@@ -204,7 +260,9 @@ export const design: Design = {
       x: PAD,
       y,
       p,
-      items: kinds(g, p).map((k) => ({ label: k.label, color: k.color })),
+      items: outcomes
+        ? kindLegend(p, outcomes)
+        : kinds(g, p).map((k) => ({ label: k.label, color: k.color })),
     });
     body += t(W - PAD, y, "bars to scale within each column", 11, p.faint, 'text-anchor="end"');
     const h = y + 18;

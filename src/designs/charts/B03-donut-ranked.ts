@@ -1,4 +1,5 @@
-import type { Design } from "../types.ts";
+import { mergeRate, prParts, totalsCounts } from "../../kit/outcomes.ts";
+import { DEFAULT_OPTIONS, type Design, type RenderOptions } from "../types.ts";
 import {
   THEMES,
   W,
@@ -10,6 +11,7 @@ import {
   fmt,
   header,
   pct,
+  sum,
   svgDoc,
   trunc,
   tw,
@@ -38,6 +40,7 @@ interface Item {
   total: number;
   prs: number;
   prsMerged: number;
+  prsOpen: number;
   issues: number;
   discussions: number;
   c: string;
@@ -55,19 +58,29 @@ export const design: Design = {
   id: "B03",
   slug: "donut-ranked",
   title: "Donut + ranked legend",
-  idea: "Share of all upstream work by family or owner as a donut (seven largest groups plus everyone else), next to a ranked table with avatars, share and a PR/issue breakdown per group.",
-  render(stats, theme) {
+  idea: "Share of all upstream work by family or owner as a donut (seven largest groups plus everyone else), next to a ranked table with avatars, share and a PR/issue breakdown per group. The PR part of that breakdown follows the outcomes level: PRs only, PRs with merged ones, or merged, open and closed-unmerged.",
+  render(stats, theme, options: RenderOptions = DEFAULT_OPTIONS) {
+    const lvl = options.outcomes;
     const t = THEMES[theme];
     const { T, total: TOTAL, topGroups, restGroups, rest, bigFamily } = derive(stats);
     const items: Item[] = topGroups.map((g) => ({
       ...g,
       c: colorOf(t, g),
+      prsOpen: sum(g.repos.map((r) => r.prsOpen)),
       owners: g.owners.size,
       reposN: g.repos.length,
       isRest: false,
     }));
     if (restGroups.length)
-      items.push({ ...rest, c: t.other, rank: 99, reposN: rest.repos, avatar: "", isRest: true });
+      items.push({
+        ...rest,
+        prsOpen: sum(restGroups.flatMap((g) => g.repos.map((r) => r.prsOpen))),
+        c: t.other,
+        rank: 99,
+        reposN: rest.repos,
+        avatar: "",
+        isRest: true,
+      });
     const rowH = 38;
     const area = Math.max(items.length, MIN_ROWS) * rowH;
     const top = 84 + Math.round((area - items.length * rowH) / 2);
@@ -101,7 +114,14 @@ export const design: Design = {
     }
     s += `<text x="${cx}" y="${cy - 4}" font-size="30" text-anchor="middle" class="b">${fmt(TOTAL)}</text>`;
     s += `<text x="${cx}" y="${cy + 16}" font-size="12" text-anchor="middle" class="m">contributions</text>`;
-    s += `<text x="${cx}" y="${cy + 32}" font-size="12" text-anchor="middle" class="m">${T.externalMerged} PRs merged</text>`;
+    const P = totalsCounts(T);
+    const prLine =
+      lvl === "none"
+        ? `${P.prs} PRs`
+        : lvl === "full"
+          ? `${P.prsMerged} PRs merged (${mergeRate(P, lvl) ?? 0}%)`
+          : `${T.externalMerged} PRs merged`;
+    s += `<text x="${cx}" y="${cy + 32}" font-size="12" text-anchor="middle" class="m">${prLine}</text>`;
     // legend table
     const LX = 352;
     const RX = W - 24;
@@ -120,8 +140,16 @@ export const design: Design = {
       const nm = it.isRest ? `${it.owners} other owners` : it.name;
       s += `<text x="${LX + 42}" y="${my - 2}" font-size="13"><tspan class="m">${it.isRest ? "" : `${it.rank + 1}  `}</tspan><tspan class="b">${esc(trunc(nm, 13, 200))}</tspan></text>`;
       const parts: string[] = [];
-      if (it.prsMerged) parts.push(`${it.prsMerged} merged`);
-      if (it.prs - it.prsMerged) parts.push(`${it.prs - it.prsMerged} other PRs`);
+      if (lvl === undefined) {
+        if (it.prsMerged) parts.push(`${it.prsMerged} merged`);
+        if (it.prs - it.prsMerged) parts.push(`${it.prs - it.prsMerged} other PRs`);
+      } else if (lvl === "full") {
+        // Merged, open and closed unmerged, each when non-zero.
+        for (const p of prParts(it, lvl)) if (p.count) parts.push(`${p.count} ${p.label}`);
+      } else if (it.prs)
+        parts.push(
+          `${it.prs} PR${it.prs === 1 ? "" : "s"}${lvl === "merged" && it.prsMerged ? ` (${it.prsMerged} merged)` : ""}`,
+        );
       if (it.issues) parts.push(`${it.issues} issues`);
       if (it.discussions) parts.push(`${it.discussions} disc.`);
       parts.push(`${it.reposN} repo${it.reposN === 1 ? "" : "s"}`);

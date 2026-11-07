@@ -2,8 +2,10 @@
  * Helpers shared by the compact designs (E01–E06). Ported byte-for-byte from the prototype
  * generator, so these keep their own palette and text metrics instead of src/kit.
  */
+
+import { type PrCounts, prLegend, prParts } from "../../kit/outcomes.ts";
 import type { OwnerStats, RepoStats, Stats } from "../../stats/types.ts";
-import type { ThemeName } from "../types.ts";
+import type { Level, ThemeName } from "../types.ts";
 
 export interface Theme {
   name: ThemeName;
@@ -21,6 +23,7 @@ export interface Theme {
   prOther: string;
   issue: string;
   disc: string;
+  /** PRs still open and PRs closed without merging, for outcomes "full": a lighter tone of `pr`, and neutral grey. */
   open: string;
   closed: string;
   neutralBar: string;
@@ -47,8 +50,8 @@ export const THEMES: Record<ThemeName, Theme> = {
     prOther: "#6e4bb0",
     issue: "#2ea043",
     disc: "#4493f8",
-    open: "#3fb950",
-    closed: "#f85149",
+    open: "#c6a5fb",
+    closed: "#656c76",
     neutralBar: "#7d8590",
     badgeL: "#3d444d",
     badgeR: "#1f6feb",
@@ -71,8 +74,8 @@ export const THEMES: Record<ThemeName, Theme> = {
     prOther: "#c2a8f0",
     issue: "#1a7f37",
     disc: "#0969da",
-    open: "#1a7f37",
-    closed: "#cf222e",
+    open: "#a68ae8",
+    closed: "#aeb7c1",
     neutralBar: "#8c959f",
     badgeL: "#555555",
     badgeR: "#0969da",
@@ -248,6 +251,35 @@ export const kinds = (t: Theme, o: Counts): (Seg & { k: string })[] => [
   { k: "other PRs", v: o.prs - o.prsMerged, c: t.prOther },
   { k: "issues", v: o.issues, c: t.issue },
   { k: "discussions", v: o.discussions, c: t.disc },
+];
+/** Colour of a PR outcome part at an explicit level: under "none" all PRs take the PR colour. */
+const prColor = (t: Theme, key: string, outcomes: Level): string =>
+  key === "merged"
+    ? t.pr
+    : key === "open"
+      ? t.open
+      : key === "closed"
+        ? t.closed
+        : outcomes === "none"
+          ? t.pr
+          : t.prOther;
+
+/** Like `kinds`, with the PR segments decided by an explicit outcomes level (src/kit/outcomes.ts). */
+export const kindsAt = (
+  t: Theme,
+  o: PrCounts & { issues: number; discussions: number },
+  outcomes: Level,
+): (Seg & { k: string })[] => [
+  ...prParts(o, outcomes).map((p) => ({ k: p.label, v: p.count, c: prColor(t, p.key, outcomes) })),
+  { k: "issues", v: o.issues, c: t.issue },
+  { k: "discussions", v: o.discussions, c: t.disc },
+];
+
+/** Legend entries matching `kindsAt`: PR entries from `prLegend`, then issues and discussions. */
+export const legendAt = (t: Theme, outcomes: Level): { k: string; c: string }[] => [
+  ...prLegend(outcomes).map(({ key, label }) => ({ k: label, c: prColor(t, key, outcomes) })),
+  { k: "issues", c: t.issue },
+  { k: "discussions", c: t.disc },
 ];
 export const ONE_OF_EACH: Counts = { prs: 1, prsMerged: 1, issues: 1, discussions: 1 };
 

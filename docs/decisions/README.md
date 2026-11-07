@@ -12,3 +12,4 @@ Each record says what was decided, why, and what was rejected. A record is never
 | [0006](0006-what-counts.md)                  | What counts as a contribution, and what is grouped together               | 2026-11-07 |
 | [0007](0007-design-catalog.md)               | Designs are a catalog of stable ids rendered from committed fixtures      | 2026-11-07 |
 | [0008](0008-name.md)                         | The name: kleos                                                           | 2026-11-07 |
+| [0009](0009-outcomes-option.md)              | An `outcomes` option controls how much PR outcome detail a card shows     | 2026-11-07 |

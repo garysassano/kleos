@@ -1,5 +1,6 @@
+import { prsClosed } from "../../kit/outcomes.ts";
 import { PALETTES, SANS, document, esc } from "../../kit/svg.ts";
-import type { Design } from "../types.ts";
+import { DEFAULT_OPTIONS, type Design, type Level } from "../types.ts";
 import { series } from "./_shared.ts";
 
 /** 5×7 bitmap font: each glyph is seven rows of five bits. */
@@ -88,12 +89,43 @@ const clip = (s: string, max: number): string =>
 const W = 840;
 const MAX = 10;
 
+/** Column x positions (number columns are right edges); 0 leaves a column out. */
+const ORIGINAL = {
+  rank: 60,
+  score: 136,
+  name: 236,
+  nameC: 20,
+  prs: 530,
+  merged: 632,
+  open: 0,
+  closed: 0,
+  issues: 722,
+  disc: 790,
+};
+const LAYOUT: Record<Level, typeof ORIGINAL> = {
+  none: { ...ORIGINAL, prs: 590, merged: 0, issues: 690 },
+  merged: ORIGINAL,
+  full: {
+    ...ORIGINAL,
+    rank: 48,
+    score: 116,
+    name: 206,
+    nameC: 13,
+    prs: 412,
+    merged: 496,
+    open: 556,
+    closed: 640,
+    issues: 724,
+  },
+};
+
 export const design: Design = {
   id: "G06",
   slug: "arcade-high-scores",
   title: "Arcade high scores",
-  idea: "A retro arcade high-score table in a bitmap font drawn from SVG pixels: the top ten owners ranked by score (PRs + issues + discussions in their repos) with PRs, merged PRs, issues and discussions as extra columns; the header shows the player, the top score and how many owners are on the board.",
-  render(stats, theme) {
+  idea: "A retro arcade high-score table in a bitmap font drawn from SVG pixels: the top ten owners ranked by score (PRs + issues + discussions in their repos) with PRs, merged PRs, issues and discussions as extra columns; the header shows the player, the top score and how many owners are on the board. With outcomes none the merged column goes; full adds open and closed-unmerged columns.",
+  render(stats, theme, options = DEFAULT_OPTIONS) {
+    const lv = options.outcomes;
     const p = PALETTES[theme];
     const s = series(theme);
     const used = new Set<string>();
@@ -135,13 +167,18 @@ export const design: Design = {
     body += center(title, W / 2, 92, 4, s[2] as string);
 
     // Columns.
-    const cols = { rank: 60, score: 136, name: 236, prs: 530, merged: 632, issues: 722, disc: 790 };
+    const cols = lv ? LAYOUT[lv] : ORIGINAL;
+    /** A right-aligned number column, skipped when the level leaves it out. */
+    const col = (text: string, x: number, y: number, fill: string) =>
+      x ? px(text, x, y, 2, fill, true) : "";
     const hy = 150;
     body += px("RANK", cols.rank, hy, 2, p.muted);
     body += px("SCORE", cols.score, hy, 2, p.muted);
     body += px("NAME", cols.name, hy, 2, p.muted);
     body += px("PRS", cols.prs, hy, 2, p.muted, true);
-    body += px("MERGED", cols.merged, hy, 2, p.muted, true);
+    body += col("MERGED", cols.merged, hy, p.muted);
+    body += col("OPEN", cols.open, hy, p.muted);
+    body += col("CLOSED", cols.closed, hy, p.muted);
     body += px("ISSUES", cols.issues, hy, 2, p.muted, true);
     body += px("DISC", cols.disc, hy, 2, p.muted, true);
     body += `<line x1="40" x2="${W - 40}" y1="${hy + 22}" y2="${hy + 22}" stroke="${p.border}" stroke-dasharray="2 4"/>`;
@@ -151,9 +188,12 @@ export const design: Design = {
       const c = rowColors[i % rowColors.length] as string;
       body += px(ordinal(i + 1), cols.rank, y, 2, c);
       body += px(String(o.total).padStart(6, "0"), cols.score, y, 2, c);
-      body += px(clip(o.owner, 20), cols.name, y, 2, c);
+      body += px(clip(o.owner, cols.nameC), cols.name, y, 2, c);
       body += px(String(o.prs), cols.prs, y, 2, o.prs ? p.text : p.faint, true);
-      body += px(String(o.prsMerged), cols.merged, y, 2, o.prsMerged ? p.text : p.faint, true);
+      body += col(String(o.prsMerged), cols.merged, y, o.prsMerged ? p.text : p.faint);
+      const closed = prsClosed(o);
+      body += col(String(o.prsOpen), cols.open, y, o.prsOpen ? p.text : p.faint);
+      body += col(String(closed), cols.closed, y, closed ? p.text : p.faint);
       body += px(String(o.issues), cols.issues, y, 2, o.issues ? p.text : p.faint, true);
       body += px(String(o.discussions), cols.disc, y, 2, o.discussions ? p.text : p.faint, true);
     });
@@ -162,7 +202,7 @@ export const design: Design = {
     const rowsH = Math.max(board.length, 1) * 28;
     const screenH = hy + 38 + rowsH + 8;
     const height = screenH + 36;
-    const note = `Score = PRs + issues + discussions I opened in that owner's repos. Top ${board.length} of ${stats.owners.length} owners · as of ${stats.generatedAt.slice(0, 10)}`;
+    const note = `Score = PRs + issues + discussions I opened in that owner's repos.${lv === "full" ? " Closed = closed without merging." : ""} Top ${board.length} of ${stats.owners.length} owners · as of ${stats.generatedAt.slice(0, 10)}`;
 
     const glyphs = [...used]
       .sort()

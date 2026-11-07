@@ -15,7 +15,7 @@ Tools come from `mise.toml`. Node runs the TypeScript sources directly, with no 
 
 ```sh
 pnpm check                            # Biome, tsc, Prettier on Markdown, Vitest
-pnpm gallery                          # render every design into gallery/ (DEFAULT_FIXTURE in src/cli/gallery.ts)
+pnpm gallery                          # render every design into gallery/ (DEFAULT_FIXTURE in src/stats/fixture.ts)
 pnpm gallery sample-small --only A01  # render one design from another fixture
 pnpm fetch <login> --out data.json    # fetch a real snapshot (GITHUB_TOKEN, else the gh CLI login)
 pnpm fixture:demo                     # regenerate the fictional demo account
@@ -25,6 +25,7 @@ pnpm fixture:demo                     # regenerate the fictional demo account
 
 - Follow `docs/decisions/0005-svg-rules-for-github-readmes.md`: self-contained SVG, system fonts, at most 840 px wide, dark and light, deterministic.
 - `render(stats, theme)` reads only its arguments. It must not read files, the clock, randomness, or contain user-specific literals. When a design has to choose something, it uses a rule stated in `idea`.
+- `render(stats, theme, options)` honours `options.outcomes` (decision 0009) through `src/kit/outcomes.ts`; a design that can't render a level lists the levels it can in `outcomes`.
 - Ids are permanent. Never renumber or reuse one.
 
 ## Definition of done

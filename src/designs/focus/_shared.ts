@@ -1,6 +1,8 @@
 /** Helpers shared by the "Focus and stories" designs (H). */
+import { type PrCounts, type PrPartKey, prLegend, prParts } from "../../kit/outcomes.ts";
 import { type Palette, SANS, esc } from "../../kit/svg.ts";
 import type { FamilyStats, RepoStats, Stats } from "../../stats/types.ts";
+import type { Level } from "../types.ts";
 
 /** A family or a stand-in for one: a single independent owner treated as its own group. */
 export interface Group {
@@ -129,15 +131,91 @@ export const plural = (n: number, one: string, many = `${one}s`): string =>
 
 export const num = (n: number): string => n.toLocaleString("en-US");
 
-/** Contribution kinds in the fixed palette order. */
-export const kinds = (
-  x: { prs: number; prsMerged: number; issues: number; discussions: number },
+type KindCounts = { prs: number; prsMerged: number; issues: number; discussions: number };
+type OutcomeCounts = KindCounts & { prsOpen?: number };
+
+/**
+ * Colour of a PR part at an outcome level. Under "none" all PRs are one segment in the merged
+ * purple; under "merged" the rest of the PRs keep the softer `pr` tone; "full" uses `open` and
+ * the neutral `closed`.
+ */
+export const prColor = (key: PrPartKey, p: Palette, outcomes: Level): string =>
+  key === "merged"
+    ? p.merged
+    : key === "open"
+      ? p.open
+      : key === "closed"
+        ? p.closed
+        : outcomes === "none"
+          ? p.merged
+          : p.pr;
+
+const prCounts = (x: OutcomeCounts): PrCounts => ({
+  prs: x.prs,
+  prsMerged: x.prsMerged,
+  prsOpen: x.prsOpen ?? 0,
+});
+
+/**
+ * Contribution kinds in the fixed palette order, as bar segments. Without `outcomes` this is the
+ * original split (merged, other PRs, issues, discussions); with a level, the PR part follows
+ * `prParts`.
+ */
+export function kinds(x: OutcomeCounts, p: Palette, outcomes?: Level) {
+  const other = [
+    { key: "issue", label: "Issues", value: x.issues, color: p.issue },
+    { key: "discussion", label: "Discussions", value: x.discussions, color: p.discussion },
+  ];
+  if (!outcomes) {
+    return [
+      { key: "merged", label: "PRs merged", value: x.prsMerged, color: p.merged },
+      { key: "pr", label: "PRs not merged", value: x.prs - x.prsMerged, color: p.pr },
+      ...other,
+    ];
+  }
+  return [
+    ...prParts(prCounts(x), outcomes).map((part) => ({
+      key: part.key as string,
+      label: part.label,
+      value: part.count,
+      color: prColor(part.key, p, outcomes),
+    })),
+    ...other,
+  ];
+}
+
+/**
+ * PR rows for a list of counts at an outcome level: "PRs opened" alone; "PRs opened" then
+ * "of which merged"; or merged, open and closed unmerged separately.
+ */
+export function prRows(
+  x: OutcomeCounts,
   p: Palette,
-) => [
-  { key: "merged", label: "PRs merged", value: x.prsMerged, color: p.merged },
-  { key: "pr", label: "PRs not merged", value: x.prs - x.prsMerged, color: p.pr },
-  { key: "issue", label: "Issues", value: x.issues, color: p.issue },
-  { key: "discussion", label: "Discussions", value: x.discussions, color: p.discussion },
+  outcomes: Level,
+  labels: { open?: string; closed?: string } = {},
+) {
+  const c = prCounts(x);
+  if (outcomes === "none")
+    return [{ label: "PRs opened", value: c.prs, color: prColor("pr", p, outcomes) }];
+  if (outcomes === "merged") {
+    return [
+      { label: "PRs opened", value: c.prs, color: prColor("pr", p, outcomes) },
+      { label: "of which merged", value: c.prsMerged, color: p.merged },
+    ];
+  }
+  const [merged, open, closed] = prParts(c, outcomes);
+  return [
+    { label: "PRs merged", value: merged?.count ?? 0, color: p.merged },
+    { label: labels.open ?? "PRs still open", value: open?.count ?? 0, color: p.open },
+    { label: labels.closed ?? "PRs closed unmerged", value: closed?.count ?? 0, color: p.closed },
+  ];
+}
+
+/** Legend entries for the kinds at an outcome level: `prLegend`, then issues and discussions. */
+export const kindLegend = (p: Palette, outcomes: Level) => [
+  ...prLegend(outcomes).map((l) => ({ label: l.label, color: prColor(l.key, p, outcomes) })),
+  { label: "Issues", color: p.issue },
+  { label: "Discussions", color: p.discussion },
 ];
 
 /**
@@ -149,13 +227,14 @@ export function mixBar(opts: {
   y: number;
   h: number;
   scale: number;
-  counts: { prs: number; prsMerged: number; issues: number; discussions: number };
+  counts: OutcomeCounts;
   p: Palette;
+  outcomes?: Level;
 }): string {
-  const { x, y, h, scale, counts, p } = opts;
+  const { x, y, h, scale, counts, p, outcomes } = opts;
   let cx = x;
   let out = "";
-  for (const k of kinds(counts, p)) {
+  for (const k of kinds(counts, p, outcomes)) {
     if (k.value <= 0) continue;
     const w = Math.max(2, k.value * scale);
     out += `<rect x="${cx.toFixed(1)}" y="${y}" width="${w.toFixed(1)}" height="${h}" rx="${Math.min(2, h / 2)}" fill="${k.color}"/>`;

@@ -19,13 +19,13 @@ Evolutions of a classic profile card: rows of repositories or owners with a brea
 
 ### A01 · Repo leaderboard
 
-Top 12 external repos ranked by PRs + issues + discussions, each with a stacked bar showing the mix (merged PRs, other PRs, issues, discussions) and the counts beside it. When the top repo has more than twice the runner-up's total, its bar is shortened and labelled with its true total and “not to scale”, so the other bars stay readable.
+Top 12 external repos ranked by PRs + issues + discussions, each with a stacked bar showing the mix (merged PRs, other PRs, issues, discussions) and the counts beside it. When the top repo has more than twice the runner-up's total, its bar is shortened and labelled with its true total and “not to scale”, so the other bars stay readable. With outcomes "none" PRs are one segment; "merged" highlights merged PRs within them; "full" splits them into merged, open and closed unmerged.
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="lists/A01-repo-leaderboard-dark.svg"><img alt="Repo leaderboard" src="lists/A01-repo-leaderboard-light.svg" width="840"></picture>
 
 ### A02 · Owner leaderboard
 
-Top 12 organisations and people whose repos I contribute to, with repo count, a merged-PR gauge (merged of opened) and issue/discussion counts. Shows where PRs actually land versus where I mostly file issues.
+Top 12 organisations and people whose repos I contribute to, with repo count, a merged-PR gauge (merged of opened) and issue/discussion counts. Shows where PRs actually land versus where I mostly file issues. With outcomes "none" or "merged" the gauge becomes the PRs' share of each owner's total (merged highlighted at "merged"), with no rate; "full" splits the merge gauge into merged, open and closed unmerged.
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="lists/A02-owner-leaderboard-dark.svg"><img alt="Owner leaderboard" src="lists/A02-owner-leaderboard-light.svg" width="840"></picture>
 
@@ -37,7 +37,7 @@ Four headline numbers, then the top 10 repos and top 10 owners side by side. Eac
 
 ### A04 · Dense table
 
-A compact 15-row table with explicit columns (stars, PRs, merged, issues, discussions, total, active years) and a totals row for all external repos. Nothing to decode: every number has a header.
+A compact 15-row table with explicit columns (stars, PRs, merged, issues, discussions, total, active years) and a totals row for all external repos. Nothing to decode: every number has a header. With outcomes "none" the merged column goes; "full" adds open and closed columns.
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="lists/A04-dense-table-dark.svg"><img alt="Dense table" src="lists/A04-dense-table-light.svg" width="840"></picture>
 
@@ -59,7 +59,7 @@ Bars, treemaps, donuts, scatter plots and stacked areas of the same numbers.
 
 ### B01 · Stacked bars + table
 
-The top 12 external repos as horizontal stacked bars (merged PRs, other PRs, issues, discussions) with the exact counts in aligned columns that double as the legend.
+The top 12 external repos as horizontal stacked bars (merged PRs, other PRs, issues, discussions) with the exact counts in aligned columns that double as the legend. With outcomes "none" PRs are one segment and column, "merged" shows PRs with the merged ones as a subset, and "full" splits merged, open and closed-unmerged PRs.
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="charts/B01-stacked-bars-dark.svg"><img alt="Stacked bars + table" src="charts/B01-stacked-bars-light.svg" width="840"></picture>
 
@@ -71,19 +71,19 @@ Every external repo as a tile sized by contributions, nested family → owner �
 
 ### B03 · Donut + ranked legend
 
-Share of all upstream work by family or owner as a donut (seven largest groups plus everyone else), next to a ranked table with avatars, share and a PR/issue breakdown per group.
+Share of all upstream work by family or owner as a donut (seven largest groups plus everyone else), next to a ranked table with avatars, share and a PR/issue breakdown per group. The PR part of that breakdown follows the outcomes level: PRs only, PRs with merged ones, or merged, open and closed-unmerged.
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="charts/B03-donut-ranked-dark.svg"><img alt="Donut + ranked legend" src="charts/B03-donut-ranked-light.svg" width="840"></picture>
 
 ### B04 · Stars vs involvement
 
-Each repo plotted by stars (log) against my contributions (log), coloured by whether code landed; shows depth in mid-size projects versus drive-by issues on giant ones. Labels go to the 7 repos with most contributions, then the highest stars × contributions among repos with at least 3, up to 11 in all, each placed where it overlaps no other label and no other labelled repo's dot.
+Each repo plotted by stars (log) against my contributions (log), coloured by whether code landed (with outcomes "none", only by whether I opened PRs; with "full", also open versus only closed-unmerged PRs); shows depth in mid-size projects versus drive-by issues on giant ones. Labels go to the 7 repos with most contributions, then the highest stars × contributions among repos with at least 3, up to 11 in all, each placed where it overlaps no other label and no other labelled repo's dot.
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="charts/B04-stars-scatter-dark.svg"><img alt="Stars vs involvement" src="charts/B04-stars-scatter-light.svg" width="840"></picture>
 
 ### B05 · Waffle
 
-One square per contribution, grouped by family or owner, with merged PRs solid and everything else faded, so volume and code-vs-reports read together. Very large totals switch to one square per few contributions so the grid always fits.
+One square per contribution, grouped by family or owner, with merged PRs solid and everything else faded, so volume and code-vs-reports read together. With outcomes "none" every PR is solid; with "full" open PRs are outlined and closed-unmerged ones grey. Very large totals switch to one square per few contributions so the grid always fits.
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="charts/B05-waffle-dark.svg"><img alt="Waffle" src="charts/B05-waffle-light.svg" width="840"></picture>
 
@@ -99,31 +99,31 @@ Type-led layouts: big numbers, terminal output, ledgers, logs and indexes.
 
 ### C01 · Big numbers
 
-Four large, labelled headline figures for upstream work (PRs opened, merged, issues, owners), with the five most active owners underneath. Reads in one glance.
+Four large, labelled headline figures for upstream work (PRs opened, merged, issues, owners), with the five most active owners underneath. Reads in one glance. With outcomes none the merged figure gives way to repositories; merged drops the merge rate; full adds open and closed-unmerged PRs.
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="type/C01-big-numbers-dark.svg"><img alt="Big numbers" src="type/C01-big-numbers-light.svg" width="840"></picture>
 
 ### C02 · Terminal table
 
-A fake `upstream --top 12` command that types itself out and prints an aligned monospace table of the top repositories (language, stars, PRs, merged, issues, discussions), with a totals line.
+A fake `upstream --top 12` command that types itself out and prints an aligned monospace table of the top repositories (language, stars, PRs, merged, issues, discussions), with a totals line. With outcomes none the merged column goes; full adds open and closed-unmerged columns.
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="type/C02-terminal-dark.svg"><img alt="Terminal table" src="type/C02-terminal-light.svg" width="840"></picture>
 
 ### C03 · Receipt
 
-A till receipt itemised by owner, with company families (several orgs under one brand) rolled into one line, a breakdown under each item and a grand total of every upstream PR, issue and discussion. The barcode is the last 53 weeks of activity.
+A till receipt itemised by owner, with company families (several orgs under one brand) rolled into one line, a breakdown under each item and a grand total of every upstream PR, issue and discussion. The barcode is the last 53 weeks of activity. With outcomes none PRs are one line; merged keeps the merged sub-line without the open line or merge rate; full adds closed-unmerged PRs.
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="type/C03-receipt-dark.svg"><img alt="Receipt" src="type/C03-receipt-light.svg" width="440"></picture>
 
 ### C04 · Git log
 
-The latest upstream pull requests (merged and open; closed-unmerged ones are hidden) as a `git log --graph` timeline: date, repo#number, title and diffstat, so visitors see what you are working on right now.
+The latest upstream pull requests (merged and open; closed-unmerged ones are hidden) as a `git log --graph` timeline: date, repo#number, title and diffstat, so visitors see what you are working on right now. With outcomes none every node looks the same; merged fills merged nodes and leaves the rest plain; full lists closed-unmerged PRs too, each state with its own node.
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="type/C04-git-log-dark.svg"><img alt="Git log" src="type/C04-git-log-light.svg" width="840"></picture>
 
 ### C05 · In brief
 
-A short paragraph written from the data: totals, merge count, the top three repositories, the biggest company family (the one with several owners and the most contributions) and this year's leading repository, with every figure set in bold.
+A short paragraph written from the data: totals, merge count, the top three repositories, the biggest company family (the one with several owners and the most contributions) and this year's leading repository, with every figure set in bold. The merge count follows the outcomes level: left out for none, joined by open and closed-unmerged PRs for full.
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="type/C05-in-brief-dark.svg"><img alt="In brief" src="type/C05-in-brief-light.svg" width="840"></picture>
 
@@ -163,7 +163,7 @@ One lane per top upstream repo in the order I started on it: a line from first t
 
 ### D05 · Skyline
 
-Each building is one of the top 15 orgs or users, its height is the number of contributions and its floors split them into merged PRs, other PRs, issues and discussions, on a real scale with round-number gridlines.
+Each building is one of the top 15 orgs or users, its height is the number of contributions and its floors split them into merged PRs, other PRs, issues and discussions, on a real scale with round-number gridlines. With outcomes "none" PRs are one floor; "full" splits them into merged, open and closed unmerged.
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="visual/D05-skyline-dark.svg"><img alt="Skyline" src="visual/D05-skyline-light.svg" width="840"></picture>
 
@@ -179,7 +179,7 @@ Small tiles and badges, single-repository spotlights and full dashboards.
 
 ### E01 · Four stat tiles
 
-Upstream PRs, merge rate, repositories and owners as four equal 198px tiles in one 840px strip, each with a tiny supporting visual (activity per year over the last four years, merge ring, top languages, top-owner avatars). Tiles rise in with a short staggered entrance.
+Upstream PRs, merge rate, repositories and owners as four equal 198px tiles in one 840px strip, each with a tiny supporting visual (activity per year over the last four years, merge ring, top languages, top-owner avatars). Tiles rise in with a short staggered entrance. With outcomes "none" the merge tile goes and three tiles share the strip; "merged" shows merged PRs out of all PRs instead of a rate; "full" lists merged, open and closed beside the rate.
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="compact/E01-stat-tiles-dark.svg"><img alt="Four stat tiles" src="compact/E01-stat-tiles-light.svg" width="840"></picture>
 
@@ -259,13 +259,13 @@ Playful formats such as trading cards, stamps and medals, with every number stil
 
 ### G01 · Trading cards
 
-The top three owners as collectible cards: avatar art, a stat block of PRs merged, PRs, issues and discussions, and a rarity tier from the total stars on the repos contributed to (thresholds printed in the legend).
+The top three owners as collectible cards: avatar art, a stat block of PRs merged, PRs, issues and discussions, and a rarity tier from the total stars on the repos contributed to (thresholds printed in the legend). With outcomes none the merged row goes; full adds the merge rate and the open and closed-unmerged PRs beside the counts.
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="collectibles/G01-trading-cards-dark.svg"><img alt="Trading cards" src="collectibles/G01-trading-cards-light.svg" width="840"></picture>
 
 ### G02 · Achievement medals
 
-A sheet of eight medals, each computed from the data (most merged PRs in one repo, repos in one family, owners, issues, languages, stars, longest run, merge rate) and struck in bronze, silver or gold against thresholds printed under it.
+A sheet of eight medals, each computed from the data (most merged PRs in one repo, repos in one family, owners, issues, languages, stars, longest run, merge rate) and struck in bronze, silver or gold against thresholds printed under it. With outcomes none the merge medals count PRs instead and the merge rate becomes PRs opened; merged swaps the merge rate for merged PRs.
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="collectibles/G02-achievement-medals-dark.svg"><img alt="Achievement medals" src="collectibles/G02-achievement-medals-light.svg" width="840"></picture>
 
@@ -283,13 +283,13 @@ A passport page with one ink stamp for each of the top 12 owners by contribution
 
 ### G05 · Ticket stubs
 
-The top six repositories by contributions as admission tickets: the repo is the show, its stars and language the billing, PRs, merged, issues and discussions the printed fields, and the stub keeps the rank and total. The coloured edge is the repo's language colour.
+The top six repositories by contributions as admission tickets: the repo is the show, its stars and language the billing, PRs, merged, issues and discussions the printed fields, and the stub keeps the rank and total. The coloured edge is the repo's language colour. With outcomes none the merged field goes; full adds open and closed-unmerged fields.
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="collectibles/G05-ticket-stubs-dark.svg"><img alt="Ticket stubs" src="collectibles/G05-ticket-stubs-light.svg" width="840"></picture>
 
 ### G06 · Arcade high scores
 
-A retro arcade high-score table in a bitmap font drawn from SVG pixels: the top ten owners ranked by score (PRs + issues + discussions in their repos) with PRs, merged PRs, issues and discussions as extra columns; the header shows the player, the top score and how many owners are on the board.
+A retro arcade high-score table in a bitmap font drawn from SVG pixels: the top ten owners ranked by score (PRs + issues + discussions in their repos) with PRs, merged PRs, issues and discussions as extra columns; the header shows the player, the top score and how many owners are on the board. With outcomes none the merged column goes; full adds open and closed-unmerged columns.
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="collectibles/G06-arcade-high-scores-dark.svg"><img alt="Arcade high scores" src="collectibles/G06-arcade-high-scores-light.svg" width="840"></picture>
 
