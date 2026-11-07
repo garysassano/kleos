@@ -42,10 +42,10 @@ console.log(
 
 mkdirSync(out, { recursive: true });
 const keep = new Set<string>();
-for (const d of designs) {
+for (const { design: d, settings } of designs) {
   const files = cardFiles(d);
   for (const theme of THEME_NAMES) {
-    writeFileSync(join(out, files[theme]), d.render(stats, theme, { outcomes }));
+    writeFileSync(join(out, files[theme]), d.render(stats, theme, { outcomes, settings }));
     keep.add(files[theme]);
   }
   console.log(`${d.id} ${d.title} → ${config.out}/${files.dark}, ${files.light}`);

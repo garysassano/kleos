@@ -9,7 +9,7 @@
 import { mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { parseArgs } from "node:util";
-import { allDesigns, categories, outcomesOf } from "../designs/index.ts";
+import { allDesigns, categories, outcomesOf, settingsOf, settingsText } from "../designs/index.ts";
 import { LEVELS, type Level, THEME_NAMES } from "../designs/types.ts";
 import { DEFAULT_FIXTURE, loadFixture } from "../stats/fixture.ts";
 
@@ -40,30 +40,40 @@ const manifest = [];
 for (const d of allDesigns()) {
   if (only && !only.has(d.id)) continue;
   mkdirSync(join(root, d.category.dir), { recursive: true });
-  const files = { dark: "", light: "" };
-  let size = { width: 0, height: 0 };
-  let bytes = 0;
-  for (const theme of THEME_NAMES) {
-    const supported = outcomesOf(d);
-    const level = outcomes && !supported.includes(outcomes) ? supported.at(-1) : outcomes;
-    const svg = d.render(stats, theme, { outcomes: level });
-    const file = `${d.category.dir}/${d.id}-${d.slug}-${theme}.svg`;
-    writeFileSync(join(root, file), svg);
-    files[theme] = file;
-    size = sizeOf(svg);
-    bytes = Math.max(bytes, Buffer.byteLength(svg));
-  }
+  const supported = outcomesOf(d);
+  const level = outcomes && !supported.includes(outcomes) ? supported.at(-1) : outcomes;
+  /** Renders both themes with `settings`; `suffix` tells example files apart from the default. */
+  const renderBoth = (settings: Record<string, boolean | number>, suffix: string) => {
+    const files = { dark: "", light: "" };
+    let size = { width: 0, height: 0 };
+    let bytes = 0;
+    for (const theme of THEME_NAMES) {
+      const svg = d.render(stats, theme, { outcomes: level, settings });
+      const file = `${d.category.dir}/${d.id}-${d.slug}${suffix}-${theme}.svg`;
+      writeFileSync(join(root, file), svg);
+      files[theme] = file;
+      size = sizeOf(svg);
+      bytes = Math.max(bytes, Buffer.byteLength(svg));
+    }
+    return { ...size, kb: Math.round(bytes / 1024), ...files };
+  };
+  const main = renderBoth({}, "");
+  const examples = (d.examples ?? []).map((given) => {
+    const text = settingsText(d, settingsOf(d, given));
+    return { settings: text, ...renderBoth(given, `-${text.replace(/[ =]/g, "-")}`) };
+  });
   manifest.push({
     id: d.id,
     slug: d.slug,
     title: d.title,
     idea: d.idea,
     category: d.category.dir,
-    ...size,
-    kb: Math.round(bytes / 1024),
-    ...files,
+    outcomes: supported,
+    settings: d.settings ?? [],
+    ...main,
+    examples,
   });
-  console.log(`${d.id} ${size.width}x${size.height} ${Math.round(bytes / 1024)} KB ${d.title}`);
+  console.log(`${d.id} ${main.width}x${main.height} ${main.kb} KB ${d.title}`);
 }
 
 if (!only) {
@@ -90,14 +100,33 @@ if (!only) {
     if (!c.designs.length) continue;
     lines.push("", `## ${c.letter} · ${c.name}`, "", c.blurb);
     for (const m of manifest.filter((x) => x.category === c.dir)) {
+      const picture = (x: { dark: string; light: string; width: number }, alt: string) =>
+        `<picture><source media="(prefers-color-scheme: dark)" srcset="${x.dark}"><img alt="${alt.replace(/"/g, "&quot;")}" src="${x.light}" width="${x.width}"></picture>`;
+      const levels = m.outcomes.length === 3 ? "all levels" : `${m.outcomes.join(", ")} only`;
       lines.push(
         "",
         `### ${m.id} · ${m.title}`,
         "",
         m.idea,
         "",
-        `<picture><source media="(prefers-color-scheme: dark)" srcset="${m.dark}"><img alt="${m.title.replace(/"/g, "&quot;")}" src="${m.light}" width="${m.width}"></picture>`,
+        `\`designs: ${m.id}\` · ${m.width} × ${m.height} · outcomes: ${levels}`,
+        "",
+        picture(m, m.title),
       );
+      if (m.settings.length) {
+        lines.push("", "| Setting | Default | What it does |", "| --- | --- | --- |");
+        for (const st of m.settings)
+          lines.push(
+            `| \`${st.name}\` | ${typeof st.default === "boolean" ? (st.default ? "yes" : "no") : st.default}${st.max !== undefined ? ` (${st.min}–${st.max})` : ""} | ${st.description} |`,
+          );
+      }
+      for (const e of m.examples)
+        lines.push(
+          "",
+          `\`designs: ${m.id} ${e.settings}\` · ${e.width} × ${e.height}`,
+          "",
+          picture(e, `${m.title}, ${e.settings}`),
+        );
     }
   }
   writeFileSync(join(root, "README.md"), `${lines.join("\n")}\n`);

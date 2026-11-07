@@ -8,14 +8,18 @@ import {
   DEFAULT_LEVEL,
   LEVELS,
   type Level,
+  RETIRED,
+  type SettingValue,
   allDesigns,
   outcomesOf,
+  settingsOf,
 } from "../designs/index.ts";
 import { DEFAULT_ECOSYSTEMS, type EcosystemRule } from "../stats/aggregate.ts";
 
 export interface ActionConfig {
   user: string;
-  designs: CatalogDesign[];
+  /** Each listed design with every one of its settings filled in. */
+  designs: { design: CatalogDesign; settings: Record<string, SettingValue> }[];
   outcomes: Level;
   ecosystems: EcosystemRule[];
   out: string;
@@ -35,22 +39,12 @@ export function parseInputs(raw: RawInputs): ActionConfig {
   const user = raw.user?.trim() ?? "";
   if (!LOGIN.test(user)) throw new Error(`user: "${user}" is not a GitHub login`);
 
-  const catalog = allDesigns();
-  const ids = (raw.designs ?? "").split(/[\s,]+/).filter(Boolean);
-  if (!ids.length) throw new Error("designs: list at least one design id, such as D01");
-  const unknown = ids.filter((id) => !catalog.some((d) => d.id === id.toUpperCase()));
-  if (unknown.length)
-    throw new Error(
-      `designs: unknown id ${unknown.join(", ")}; the ids are listed in gallery/README.md`,
-    );
-  const designs = [...new Set(ids.map((id) => id.toUpperCase()))].map(
-    (id) => catalog.find((d) => d.id === id) as CatalogDesign,
-  );
+  const designs = parseDesigns(raw.designs ?? "");
 
   const outcomes = (raw.outcomes?.trim() || DEFAULT_LEVEL) as Level;
   if (!LEVELS.includes(outcomes))
     throw new Error(`outcomes: "${outcomes}" must be one of ${LEVELS.join(", ")}`);
-  for (const d of designs)
+  for (const { design: d } of designs)
     if (!outcomesOf(d).includes(outcomes))
       throw new Error(
         `outcomes: ${d.id} (${d.title}) supports ${outcomesOf(d).join(", ")}, not ${outcomes}`,
@@ -61,6 +55,52 @@ export function parseInputs(raw: RawInputs): ActionConfig {
     throw new Error(`out: "${out}" must be a folder inside the repository`);
 
   return { user, designs, outcomes, ecosystems: parseEcosystems(raw.ecosystems), out };
+}
+
+/**
+ * Design ids separated by spaces, commas or new lines, each followed by its settings as
+ * `name=value` (`D01 A05 owners=no repos=3`). Switches take yes or no, numbers a whole number.
+ */
+export function parseDesigns(text: string): ActionConfig["designs"] {
+  const catalog = allDesigns();
+  const out: { design: CatalogDesign; given: Record<string, SettingValue> }[] = [];
+  for (const token of text.split(/[\s,]+/).filter(Boolean)) {
+    const eq = token.indexOf("=");
+    if (eq < 0) {
+      const id = token.toUpperCase();
+      const replacement = RETIRED[id];
+      if (replacement) throw new Error(`designs: ${id} was retired; use ${replacement}`);
+      const design = catalog.find((d) => d.id === id);
+      if (!design)
+        throw new Error(`designs: unknown id ${token}; the ids are listed in gallery/README.md`);
+      if (out.some((x) => x.design.id === id)) throw new Error(`designs: ${id} is listed twice`);
+      out.push({ design, given: {} });
+      continue;
+    }
+    const last = out.at(-1);
+    if (!last) throw new Error(`designs: "${token}" must follow the id of the design it sets`);
+    const name = token.slice(0, eq).toLowerCase();
+    const raw = token.slice(eq + 1).toLowerCase();
+    const value: SettingValue | undefined =
+      raw === "yes" || raw === "true"
+        ? true
+        : raw === "no" || raw === "false"
+          ? false
+          : /^\d+$/.test(raw)
+            ? Number(raw)
+            : undefined;
+    if (value === undefined)
+      throw new Error(`designs: ${last.design.id} ${name}: "${raw}" is not yes, no or a number`);
+    last.given[name] = value;
+  }
+  if (!out.length) throw new Error("designs: list at least one design id, such as D01");
+  return out.map(({ design, given }) => {
+    try {
+      return { design, settings: settingsOf(design, given) };
+    } catch (e) {
+      throw new Error(`designs: ${(e as Error).message}`);
+    }
+  });
 }
 
 /**

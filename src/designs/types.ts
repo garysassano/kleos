@@ -14,12 +14,31 @@ export type Level = "none" | "merged" | "full";
 export const LEVELS: readonly Level[] = ["none", "merged", "full"];
 export const DEFAULT_LEVEL: Level = "full";
 
-/** What a design's render receives. */
-export interface RenderOptions {
-  outcomes: Level;
+/** A setting's value: a switch (yes/no) or a whole number. */
+export type SettingValue = boolean | number;
+
+/**
+ * A setting one design accepts, written after its id in the Action's `designs` input
+ * (`A05 owners=no repos=3`). See docs/decisions/0012-design-settings.md.
+ */
+export interface Setting {
+  name: string;
+  /** One sentence for the catalog. */
+  description: string;
+  /** The value when the setting is left out; its type decides whether the setting is a switch or a number. */
+  default: SettingValue;
+  /** Bounds for a number setting. */
+  min?: number;
+  max?: number;
 }
 
-export const DEFAULT_OPTIONS: RenderOptions = { outcomes: DEFAULT_LEVEL };
+/** What a design's render receives. `settings` always holds every setting the design declares. */
+export interface RenderOptions {
+  outcomes: Level;
+  settings: Record<string, SettingValue>;
+}
+
+export const DEFAULT_OPTIONS: RenderOptions = { outcomes: DEFAULT_LEVEL, settings: {} };
 
 export interface Design {
   /** Stable catalog id: category letter + two digits, such as "A01". Never reuse a retired id. */
@@ -32,6 +51,10 @@ export interface Design {
   idea: string;
   /** Outcome levels this design can render. Omitted means all of them; it must include "full", the default. */
   outcomes?: readonly Level[];
+  /** Settings this design accepts. Omitted means none. */
+  settings?: readonly Setting[];
+  /** Combinations of settings the catalog renders next to the default, such as `{ owners: false, repos: 3 }`. */
+  examples?: readonly Record<string, SettingValue>[];
   /** Returns a complete, self-contained SVG document for one theme. Must be deterministic. */
   render(stats: Stats, theme: ThemeName, options?: RenderOptions): string;
 }

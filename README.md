@@ -72,11 +72,11 @@ Run it once from the Actions tab. It commits the cards to a `kleos/` folder, and
 </picture>
 ```
 
-| Input        | Default                  | What it does                                                                                                                                   |
-| ------------ | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `designs`    | required                 | Design ids from the catalog, separated by spaces.                                                                                              |
-| `outcomes`   | `full`                   | How PR results are shown: `none` (PRs as one number), `merged` (merged PRs highlighted), or `full` (merged, open, and closed without merging). |
-| `ecosystems` | AWS, Microsoft, GitHub … | One `Name: regular expression` per line, grouping the orgs of one vendor. Replaces the defaults.                                               |
-| `user`       | the repository owner     | Whose contributions to show.                                                                                                                   |
-| `out`        | `kleos`                  | Folder for the cards.                                                                                                                          |
-| `commit`     | `true`                   | Set to `false` to commit the files yourself in a later step.                                                                                   |
+| Input        | Default                  | What it does                                                                                                                                                                       |
+| ------------ | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `designs`    | required                 | Design ids from the catalog, separated by spaces. A design with settings takes them right after its id, such as `A05 owners=no repos=3`; the catalog lists each design's settings. |
+| `outcomes`   | `full`                   | How PR results are shown: `none` (PRs as one number), `merged` (merged PRs highlighted), or `full` (merged, open, and closed without merging).                                     |
+| `ecosystems` | AWS, Microsoft, GitHub … | One `Name: regular expression` per line, grouping the orgs of one vendor. Replaces the defaults.                                                                                   |
+| `user`       | the repository owner     | Whose contributions to show.                                                                                                                                                       |
+| `out`        | `kleos`                  | Folder for the cards.                                                                                                                                                              |
+| `commit`     | `true`                   | Set to `false` to commit the files yourself in a later step.                                                                                                                       |

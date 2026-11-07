@@ -7,7 +7,9 @@ branding:
 
 inputs:
   designs:
-    description: Design ids to render, separated by spaces, commas or new lines, such as "D01 A05". The ids are listed in the catalog (gallery/README.md).
+    description: >-
+      Design ids to render, separated by spaces, commas or new lines, each followed by its settings,
+      such as "D01 A05 owners=no repos=3". The catalog (gallery/README.md) lists the ids and settings.
     required: true
   user:
     description: GitHub login whose contributions are shown.

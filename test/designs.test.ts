@@ -1,6 +1,13 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { allDesigns, categories, outcomesOf } from "../src/designs/index.ts";
+import {
+  RETIRED,
+  allDesigns,
+  categories,
+  outcomesOf,
+  settingsOf,
+  settingsText,
+} from "../src/designs/index.ts";
 import { type Level, THEME_NAMES } from "../src/designs/types.ts";
 import { MAX_WIDTH } from "../src/kit/svg.ts";
 import { DEFAULT_FIXTURE, loadFixture } from "../src/stats/fixture.ts";
@@ -27,6 +34,18 @@ describe("catalog", () => {
     }
   });
 
+  it("never reuses a retired id", () => {
+    for (const id of Object.keys(RETIRED)) expect(designs.map((d) => d.id)).not.toContain(id);
+  });
+
+  it("declares valid examples and setting defaults", () => {
+    for (const d of designs) {
+      for (const spec of d.settings ?? [])
+        expect(settingsOf(d)[spec.name], `${d.id} ${spec.name}`).toBe(spec.default);
+      for (const e of d.examples ?? []) expect(() => settingsOf(d, e), d.id).not.toThrow();
+    }
+  });
+
   it("supports the default level, full, in every design", () => {
     for (const d of designs) expect(outcomesOf(d), d.id).toContain("full");
   });
@@ -37,18 +56,24 @@ describe("catalog", () => {
   });
 });
 
+/** Each design at its default settings and at every example combination it declares. */
+const variants = (d: (typeof designs)[number]) => [{}, ...(d.examples ?? [])];
+
 const cases = designs.flatMap((d) =>
-  Object.entries(fixtures).flatMap(([name, stats]) =>
-    THEME_NAMES.flatMap((theme) =>
-      outcomesOf(d).map(
-        (outcomes) =>
-          [
-            `${d.id} ${d.title} · ${name} · ${theme} · ${outcomes}`,
-            d,
-            stats,
-            theme,
-            outcomes,
-          ] as const,
+  variants(d).flatMap((settings) =>
+    Object.entries(fixtures).flatMap(([name, stats]) =>
+      THEME_NAMES.flatMap((theme) =>
+        outcomesOf(d).map(
+          (outcomes) =>
+            [
+              `${d.id}${settingsText(d, settingsOf(d, settings)) ? ` ${settingsText(d, settingsOf(d, settings))}` : ""} ${d.title} · ${name} · ${theme} · ${outcomes}`,
+              d,
+              stats,
+              theme,
+              outcomes,
+              settings,
+            ] as const,
+        ),
       ),
     ),
   ),
@@ -97,8 +122,8 @@ describe("vocabulary", () => {
 });
 
 describe("every design", () => {
-  it.each(cases)("%s renders a GitHub-safe SVG", (_, design, stats, theme, outcomes) => {
-    const svg = design.render(stats, theme, { outcomes });
+  it.each(cases)("%s renders a GitHub-safe SVG", (_, design, stats, theme, outcomes, settings) => {
+    const svg = design.render(stats, theme, { outcomes, settings });
     const root = svg.match(/^<svg\b[^>]*>/)?.[0] ?? "";
     expect(root, "starts with the root <svg>").not.toBe("");
     expect(root).toContain('xmlns="http://www.w3.org/2000/svg"');
@@ -119,8 +144,9 @@ describe("every design", () => {
     expect(svg).not.toMatch(/@import|@font-face/);
     expect(Buffer.byteLength(svg)).toBeLessThan(400 * 1024);
 
-    expect(design.render(stats, theme, { outcomes }), "deterministic").toBe(svg);
-    if (outcomes === "full") expect(design.render(stats, theme), "unset = full").toBe(svg);
+    expect(design.render(stats, theme, { outcomes, settings }), "deterministic").toBe(svg);
+    if (outcomes === "full" && !Object.keys(settings).length)
+      expect(design.render(stats, theme), "unset = full").toBe(svg);
 
     expect(
       withoutData(visibleText(svg), stats).match(REPLACED_WORDS)?.[0],

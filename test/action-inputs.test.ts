@@ -6,9 +6,10 @@ import { DEFAULT_ECOSYSTEMS } from "../src/stats/aggregate.ts";
 const base = { user: "octocat", designs: "D01" };
 
 describe("action inputs", () => {
-  it("reads ids in any separator and case, without duplicates", () => {
-    const c = parseInputs({ ...base, designs: "d01, A05\nD01" });
-    expect(c.designs.map((d) => d.id)).toEqual(["D01", "A05"]);
+  it("reads ids in any separator and case", () => {
+    const c = parseInputs({ ...base, designs: "d01, A05\nB01" });
+    expect(c.designs.map((d) => d.design.id)).toEqual(["D01", "A05", "B01"]);
+    expect(c.designs[1]?.settings).toEqual({ owners: true, repos: 0 });
     expect(c.outcomes).toBe("full");
     expect(c.out).toBe("kleos");
     expect(c.ecosystems).toBe(DEFAULT_ECOSYSTEMS);
@@ -21,6 +22,26 @@ describe("action inputs", () => {
     expect(() => parseInputs({ ...base, outcomes: "some" })).toThrow(/outcomes: "some"/);
     expect(() => parseInputs({ ...base, out: "../elsewhere" })).toThrow(/out:/);
     expect(() => parseInputs({ ...base, out: "/abs" })).toThrow(/out:/);
+  });
+
+  it("reads settings after their design", () => {
+    const c = parseInputs({ ...base, designs: "D01 A05 owners=no repos=3" });
+    expect(c.designs.map((d) => [d.design.id, d.settings])).toEqual([
+      ["D01", {}],
+      ["A05", { owners: false, repos: 3 }],
+    ]);
+  });
+
+  it("names the design and setting that is wrong", () => {
+    const bad = (designs: string) => () => parseInputs({ ...base, designs });
+    expect(bad("D01 repos=3")).toThrow(/D01 has no settings, so "repos" can't be set/);
+    expect(bad("A05 rows=3")).toThrow(/A05 has no setting "rows"; it has owners, repos/);
+    expect(bad("A05 repos=11")).toThrow(/A05 repos: expected a whole number from 0 to 10/);
+    expect(bad("A05 owners=3")).toThrow(/A05 owners: expected yes or no/);
+    expect(bad("A05 repos=many")).toThrow(/A05 repos: "many" is not yes, no or a number/);
+    expect(bad("repos=3 A05")).toThrow(/must follow the id/);
+    expect(bad("A05 D01 A05")).toThrow(/A05 is listed twice/);
+    expect(bad("A07")).toThrow(/A07 was retired; use A05 owners=no repos=3/);
   });
 
   it("rejects a level a design can't render", () => {

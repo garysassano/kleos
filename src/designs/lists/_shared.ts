@@ -368,22 +368,29 @@ export const topOf = (shown: number, total: number): string =>
 
 export const capitalize = (s: string): string => s.charAt(0).toUpperCase() + s.slice(1);
 
-/** What sits under each ecosystem line in the roll-ups: A05 owners, A07 repos, A08 owners and their repos. */
-export type RollupRows = "owners" | "repos" | "tree";
+/** What sits under each ecosystem line in A05: every owner (`owners`), its top `repos` repos, or both. */
+export interface RollupRows {
+  owners: boolean;
+  repos: number;
+}
 
-/** Repos listed under one ecosystem (A07) or one owner (A08); the line above gives the full count. */
-export const ROLLUP_REPOS = 3;
+const rollupText = ({ owners, repos }: RollupRows): { sub: string; column: string } =>
+  owners && repos
+    ? {
+        sub: "Each ecosystem with its owners and their top repos",
+        column: "Ecosystem / owner / repo",
+      }
+    : owners
+      ? { sub: "Related GitHub owners grouped into one line", column: "Ecosystem / owner" }
+      : repos
+        ? { sub: "Each ecosystem with its top repos", column: "Ecosystem / repo" }
+        : { sub: "One line per ecosystem", column: "Ecosystem" };
 
-const ROLLUP_TEXT: Record<RollupRows, { sub: string; column: string }> = {
-  owners: { sub: "Related GitHub owners grouped into one line", column: "Ecosystem / owner" },
-  repos: { sub: "Each ecosystem with its top repos", column: "Ecosystem / repo" },
-  tree: {
-    sub: "Each ecosystem with its owners and their top repos",
-    column: "Ecosystem / owner / repo",
-  },
-};
-
-/** The shared body of A05, A07 and A08: one line per ecosystem, with owners, repos or both below. */
+/**
+ * A05's body: one line per ecosystem. Under it, every owner when `owners` is on (an ecosystem with
+ * one owner has no owner line), and the top `repos` repos under each owner, or under the ecosystem
+ * when there is no owner line. An owner with a single repo names it on its own line instead.
+ */
 export function ecosystemRollup(
   stats: Stats,
   theme: ThemeName,
@@ -407,7 +414,7 @@ export function ecosystemRollup(
   const cIss = 740;
   const cTot = 812;
   const reposOf = (owners: string[]) =>
-    stats.repos.filter((r) => owners.includes(r.owner)).slice(0, ROLLUP_REPOS);
+    stats.repos.filter((r) => owners.includes(r.owner)).slice(0, rows.repos);
   const prCell = (o: Counts, x: number, y: number, size: number, muted: boolean) =>
     level === "none"
       ? num(T, x, y, o.prs, muted ? { size, fill: "muted" } : { size })
@@ -422,11 +429,11 @@ export function ecosystemRollup(
   let b = header(
     T,
     "Contributions by ecosystem",
-    `${ROLLUP_TEXT[rows].sub} · ${plural(fams.length, "ecosystem", "ecosystems")}`,
+    `${rollupText(rows).sub} · ${plural(fams.length, "ecosystem", "ecosystems")}`,
   );
   let y = 100;
   b +=
-    t(T, 24, y - 12, ROLLUP_TEXT[rows].column, { size: 11, fill: "muted" }) +
+    t(T, 24, y - 12, rollupText(rows).column, { size: 11, fill: "muted" }) +
     t(T, bx, y - 12, "Mix (to scale)", { size: 11, fill: "muted" });
   b +=
     t(T, cPR, y - 12, level === "none" ? "PRs" : "PRs merged", {
@@ -525,8 +532,8 @@ export function ecosystemRollup(
     y += frh;
     i++;
 
-    if (rows === "repos" || (rows === "tree" && mem.length <= 1)) {
-      const repos = reposOf(f.owners);
+    if (!rows.owners || mem.length <= 1) {
+      const repos = rows.repos ? reposOf(f.owners) : [];
       if (f.repos > 1 && repos.length) {
         repoChildren(repos);
         y += 6;
@@ -534,8 +541,8 @@ export function ecosystemRollup(
     } else if (mem.length > 1) {
       mem.forEach((m, j) => {
         const last = j === mem.length - 1;
-        const repos = rows === "tree" && m.repos > 1 ? reposOf([m.owner]) : [];
-        const single = rows === "tree" && m.repos === 1 ? reposOf([m.owner])[0] : undefined;
+        const repos = rows.repos && m.repos > 1 ? reposOf([m.owner]) : [];
+        const single = rows.repos && m.repos === 1 ? reposOf([m.owner])[0] : undefined;
         const note = single ? (single.repo.split("/")[1] ?? single.repo) : plural(m.repos, "repo");
         child(m, m.owner, m.type, m.owner, truncate(note, 110, 11), j === 0, last, crh);
         repos.forEach((r, k) => {
