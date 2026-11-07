@@ -29,7 +29,7 @@ gh actions-lock --ignore-local-actions --no-narrow  # after changing a workflow:
 - `render(stats, theme, options)` honours `options.outcomes` (decision 0009) through `src/kit/outcomes.ts`; a design that can't render a level lists the levels it can in `outcomes`.
 - Names and colors for repos, owners, ecosystems, PRs, issues and discussions follow decision 0010: one name per concept, and contribution-type colors from `PALETTES`.
 - Ids are permanent. Never renumber or reuse one; a retired id goes in `RETIRED` in `src/designs/index.ts`.
-- A variant of an existing design is a setting of it (`settings` and `examples`, decision 0012), not a new id.
+- A variant of an existing design is a setting of it (`settings` and `testedSettings`, decision 0012), not a new id.
 
 ## Definition of done
 

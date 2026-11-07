@@ -42,26 +42,22 @@ for (const d of allDesigns()) {
   mkdirSync(join(root, d.category.dir), { recursive: true });
   const supported = outcomesOf(d);
   const level = outcomes && !supported.includes(outcomes) ? supported.at(-1) : outcomes;
-  /** Renders both themes with `settings`; `suffix` tells example files apart from the default. */
-  const renderBoth = (settings: Record<string, boolean | number>, suffix: string) => {
-    const files = { dark: "", light: "" };
-    let size = { width: 0, height: 0 };
-    let bytes = 0;
-    for (const theme of THEME_NAMES) {
-      const svg = d.render(stats, theme, { outcomes: level, settings });
-      const file = `${d.category.dir}/${d.id}-${d.slug}${suffix}-${theme}.svg`;
-      writeFileSync(join(root, file), svg);
-      files[theme] = file;
-      size = sizeOf(svg);
-      bytes = Math.max(bytes, Buffer.byteLength(svg));
-    }
-    return { ...size, kb: Math.round(bytes / 1024), ...files };
-  };
-  const main = renderBoth({}, "");
-  const examples = (d.examples ?? []).map((given) => {
-    const text = settingsText(d, settingsOf(d, given));
-    return { settings: text, ...renderBoth(given, `-${text.replace(/[ =]/g, "-")}`) };
-  });
+  // The catalog shows each design once, at its default settings; the settings are listed under it.
+  const files = { dark: "", light: "" };
+  let size = { width: 0, height: 0 };
+  let bytes = 0;
+  for (const theme of THEME_NAMES) {
+    const svg = d.render(stats, theme, { outcomes: level });
+    const file = `${d.category.dir}/${d.id}-${d.slug}-${theme}.svg`;
+    writeFileSync(join(root, file), svg);
+    files[theme] = file;
+    size = sizeOf(svg);
+    bytes = Math.max(bytes, Buffer.byteLength(svg));
+  }
+  const kb = Math.round(bytes / 1024);
+  // An example for the settings hint: the first tested combination, or none.
+  const tested = d.testedSettings?.[0];
+  const example = tested ? settingsText(d, settingsOf(d, tested)) : "";
   manifest.push({
     id: d.id,
     slug: d.slug,
@@ -70,10 +66,12 @@ for (const d of allDesigns()) {
     category: d.category.dir,
     outcomes: supported,
     settings: d.settings ?? [],
-    ...main,
-    examples,
+    settingsExample: example,
+    ...size,
+    kb,
+    ...files,
   });
-  console.log(`${d.id} ${main.width}x${main.height} ${main.kb} KB ${d.title}`);
+  console.log(`${d.id} ${size.width}x${size.height} ${kb} KB ${d.title}`);
 }
 
 if (!only) {
@@ -114,19 +112,18 @@ if (!only) {
         picture(m, m.title),
       );
       if (m.settings.length) {
-        lines.push("", "| Setting | Default | What it does |", "| --- | --- | --- |");
+        lines.push(
+          "",
+          `Write settings after the id${m.settingsExample ? `, such as \`${m.id} ${m.settingsExample}\`` : ""}:`,
+          "",
+          "| Setting | Default | What it does |",
+          "| --- | --- | --- |",
+        );
         for (const st of m.settings)
           lines.push(
             `| \`${st.name}\` | ${typeof st.default === "boolean" ? (st.default ? "yes" : "no") : st.default}${st.max !== undefined ? ` (${st.min}–${st.max})` : ""} | ${st.description} |`,
           );
       }
-      for (const e of m.examples)
-        lines.push(
-          "",
-          `\`designs: ${m.id} ${e.settings}\` · ${e.width} × ${e.height}`,
-          "",
-          picture(e, `${m.title}, ${e.settings}`),
-        );
     }
   }
   writeFileSync(join(root, "README.md"), `${lines.join("\n")}\n`);

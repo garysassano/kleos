@@ -57,18 +57,12 @@ Groups related GitHub owners into ecosystems (AWS: aws, aws-samples, …) with t
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="lists/A05-ecosystem-rollup-dark.svg"><img alt="Ecosystem roll-up" src="lists/A05-ecosystem-rollup-light.svg" width="840"></picture>
 
+Write settings after the id, such as `A05 owners=no repos=3`:
+
 | Setting | Default | What it does |
 | --- | --- | --- |
 | `owners` | yes | List every owner under its ecosystem. An ecosystem with a single owner never gets an owner line. |
 | `repos` | 0 (0–10) | How many top repos to list under each owner, or under the ecosystem when owners are off or it has one owner. An owner with a single repo names it on its own line. |
-
-`designs: A05 owners=no repos=3` · 840 × 898
-
-<picture><source media="(prefers-color-scheme: dark)" srcset="lists/A05-ecosystem-rollup-owners-no-repos-3-dark.svg"><img alt="Ecosystem roll-up, owners=no repos=3" src="lists/A05-ecosystem-rollup-owners-no-repos-3-light.svg" width="840"></picture>
-
-`designs: A05 repos=3` · 840 × 1504
-
-<picture><source media="(prefers-color-scheme: dark)" srcset="lists/A05-ecosystem-rollup-repos-3-dark.svg"><img alt="Ecosystem roll-up, repos=3" src="lists/A05-ecosystem-rollup-repos-3-light.svg" width="840"></picture>
 
 ### A06 · Star tier vs my share
 

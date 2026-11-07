@@ -37,11 +37,11 @@ describe("catalog", () => {
     for (const id of Object.keys(RETIRED)) expect(designs.map((d) => d.id)).not.toContain(id);
   });
 
-  it("declares valid examples and setting defaults", () => {
+  it("declares valid tested settings and setting defaults", () => {
     for (const d of designs) {
       for (const spec of d.settings ?? [])
         expect(settingsOf(d)[spec.name], `${d.id} ${spec.name}`).toBe(spec.default);
-      for (const e of d.examples ?? []) expect(() => settingsOf(d, e), d.id).not.toThrow();
+      for (const e of d.testedSettings ?? []) expect(() => settingsOf(d, e), d.id).not.toThrow();
     }
   });
 
@@ -55,8 +55,8 @@ describe("catalog", () => {
   });
 });
 
-/** Each design at its default settings and at every example combination it declares. */
-const variants = (d: (typeof designs)[number]) => [{}, ...(d.examples ?? [])];
+/** Each design at its default settings and at every combination in its `testedSettings`. */
+const variants = (d: (typeof designs)[number]) => [{}, ...(d.testedSettings ?? [])];
 
 const cases = designs.flatMap((d) =>
   variants(d).flatMap((settings) =>

@@ -24,7 +24,7 @@ export const design: Design = {
       max: 10,
     },
   ],
-  examples: [{ owners: false, repos: 3 }, { repos: 3 }],
+  testedSettings: [{ owners: false, repos: 3 }, { repos: 3 }],
   render: (stats, theme, options = DEFAULT_OPTIONS) =>
     ecosystemRollup(
       stats,

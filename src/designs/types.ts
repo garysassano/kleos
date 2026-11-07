@@ -53,8 +53,8 @@ export interface Design {
   outcomes?: readonly Level[];
   /** Settings this design accepts. Omitted means none. */
   settings?: readonly Setting[];
-  /** Combinations of settings the catalog renders next to the default, such as `{ owners: false, repos: 3 }`. */
-  examples?: readonly Record<string, SettingValue>[];
+  /** Combinations of settings the tests render besides the defaults, such as `{ owners: false, repos: 3 }`. The first is the catalog's example of the syntax. */
+  testedSettings?: readonly Record<string, SettingValue>[];
   /** Returns a complete, self-contained SVG document for one theme. Must be deterministic. */
   render(stats: Stats, theme: ThemeName, options?: RenderOptions): string;
 }

@@ -98,7 +98,7 @@ A mistake in any input, such as an unknown id or a setting a design doesn't have
 
 ### Design settings
 
-Some designs have settings, written after the id as `name=value`. Switches take `yes` or `no`, numbers a whole number. The catalog lists each design's settings and shows examples, and `npx kleos --list-designs` prints them. For example, A05 (ecosystem roll-up) lists every owner under each ecosystem; with `owners=no repos=3` it lists the top 3 repos instead:
+Some designs have settings, written after the id as `name=value`. Switches take `yes` or `no`, numbers a whole number. Each design's settings are listed in a table under its picture in the [catalog](gallery/README.md), and `npx kleos --list-designs` prints them in the terminal. For example, A05 (ecosystem roll-up) lists every owner under each ecosystem; with `owners=no repos=3` it lists the top 3 repos instead:
 
 ```yaml
 designs: |

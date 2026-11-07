@@ -11,12 +11,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 554,
     "kb": 79,
     "dark": "lists/A01-repo-leaderboard-dark.svg",
-    "light": "lists/A01-repo-leaderboard-light.svg",
-    "examples": []
+    "light": "lists/A01-repo-leaderboard-light.svg"
   },
   {
     "id": "A02",
@@ -30,12 +30,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 630,
     "kb": 46,
     "dark": "lists/A02-owner-leaderboard-dark.svg",
-    "light": "lists/A02-owner-leaderboard-light.svg",
-    "examples": []
+    "light": "lists/A02-owner-leaderboard-light.svg"
   },
   {
     "id": "A03",
@@ -49,12 +49,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 526,
     "kb": 97,
     "dark": "lists/A03-repos-and-owners-dark.svg",
-    "light": "lists/A03-repos-and-owners-light.svg",
-    "examples": []
+    "light": "lists/A03-repos-and-owners-light.svg"
   },
   {
     "id": "A04",
@@ -68,12 +68,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 535,
     "kb": 91,
     "dark": "lists/A04-dense-table-dark.svg",
-    "light": "lists/A04-dense-table-light.svg",
-    "examples": []
+    "light": "lists/A04-dense-table-light.svg"
   },
   {
     "id": "A05",
@@ -100,29 +100,12 @@
         "max": 10
       }
     ],
+    "settingsExample": "owners=no repos=3",
     "width": 840,
     "height": 724,
     "kb": 70,
     "dark": "lists/A05-ecosystem-rollup-dark.svg",
-    "light": "lists/A05-ecosystem-rollup-light.svg",
-    "examples": [
-      {
-        "settings": "owners=no repos=3",
-        "width": 840,
-        "height": 898,
-        "kb": 82,
-        "dark": "lists/A05-ecosystem-rollup-owners-no-repos-3-dark.svg",
-        "light": "lists/A05-ecosystem-rollup-owners-no-repos-3-light.svg"
-      },
-      {
-        "settings": "repos=3",
-        "width": 840,
-        "height": 1504,
-        "kb": 116,
-        "dark": "lists/A05-ecosystem-rollup-repos-3-dark.svg",
-        "light": "lists/A05-ecosystem-rollup-repos-3-light.svg"
-      }
-    ]
+    "light": "lists/A05-ecosystem-rollup-light.svg"
   },
   {
     "id": "A06",
@@ -136,12 +119,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 626,
     "kb": 87,
     "dark": "lists/A06-tier-vs-share-dark.svg",
-    "light": "lists/A06-tier-vs-share-light.svg",
-    "examples": []
+    "light": "lists/A06-tier-vs-share-light.svg"
   },
   {
     "id": "B01",
@@ -155,12 +138,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 462,
     "kb": 76,
     "dark": "charts/B01-stacked-bars-dark.svg",
-    "light": "charts/B01-stacked-bars-light.svg",
-    "examples": []
+    "light": "charts/B01-stacked-bars-light.svg"
   },
   {
     "id": "B02",
@@ -174,12 +157,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 514,
     "kb": 29,
     "dark": "charts/B02-treemap-dark.svg",
-    "light": "charts/B02-treemap-light.svg",
-    "examples": []
+    "light": "charts/B02-treemap-light.svg"
   },
   {
     "id": "B03",
@@ -193,12 +176,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 418,
     "kb": 23,
     "dark": "charts/B03-donut-ranked-dark.svg",
-    "light": "charts/B03-donut-ranked-light.svg",
-    "examples": []
+    "light": "charts/B03-donut-ranked-light.svg"
   },
   {
     "id": "B04",
@@ -212,12 +195,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 462,
     "kb": 31,
     "dark": "charts/B04-stars-scatter-dark.svg",
-    "light": "charts/B04-stars-scatter-light.svg",
-    "examples": []
+    "light": "charts/B04-stars-scatter-light.svg"
   },
   {
     "id": "B05",
@@ -231,12 +214,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 492,
     "kb": 82,
     "dark": "charts/B05-waffle-dark.svg",
-    "light": "charts/B05-waffle-light.svg",
-    "examples": []
+    "light": "charts/B05-waffle-light.svg"
   },
   {
     "id": "B06",
@@ -250,12 +233,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 436,
     "kb": 42,
     "dark": "charts/B06-stacked-area-dark.svg",
-    "light": "charts/B06-stacked-area-light.svg",
-    "examples": []
+    "light": "charts/B06-stacked-area-light.svg"
   },
   {
     "id": "C01",
@@ -269,12 +252,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 282,
     "kb": 4,
     "dark": "type/C01-big-numbers-dark.svg",
-    "light": "type/C01-big-numbers-light.svg",
-    "examples": []
+    "light": "type/C01-big-numbers-light.svg"
   },
   {
     "id": "C02",
@@ -288,12 +271,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 458,
     "kb": 14,
     "dark": "type/C02-terminal-dark.svg",
-    "light": "type/C02-terminal-light.svg",
-    "examples": []
+    "light": "type/C02-terminal-light.svg"
   },
   {
     "id": "C03",
@@ -307,12 +290,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 440,
     "height": 831,
     "kb": 11,
     "dark": "type/C03-receipt-dark.svg",
-    "light": "type/C03-receipt-light.svg",
-    "examples": []
+    "light": "type/C03-receipt-light.svg"
   },
   {
     "id": "C04",
@@ -326,12 +309,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 472,
     "kb": 10,
     "dark": "type/C04-git-log-dark.svg",
-    "light": "type/C04-git-log-light.svg",
-    "examples": []
+    "light": "type/C04-git-log-light.svg"
   },
   {
     "id": "C05",
@@ -345,12 +328,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 390,
     "kb": 4,
     "dark": "type/C05-in-brief-dark.svg",
-    "light": "type/C05-in-brief-light.svg",
-    "examples": []
+    "light": "type/C05-in-brief-light.svg"
   },
   {
     "id": "C06",
@@ -364,12 +347,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 482,
     "kb": 13,
     "dark": "type/C06-index-dark.svg",
-    "light": "type/C06-index-light.svg",
-    "examples": []
+    "light": "type/C06-index-light.svg"
   },
   {
     "id": "D01",
@@ -383,12 +366,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 676,
     "kb": 138,
     "dark": "visual/D01-orbit-dark.svg",
-    "light": "visual/D01-orbit-light.svg",
-    "examples": []
+    "light": "visual/D01-orbit-light.svg"
   },
   {
     "id": "D02",
@@ -402,12 +385,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 500,
     "kb": 255,
     "dark": "visual/D02-mosaic-dark.svg",
-    "light": "visual/D02-mosaic-light.svg",
-    "examples": []
+    "light": "visual/D02-mosaic-light.svg"
   },
   {
     "id": "D03",
@@ -421,12 +404,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 430,
     "kb": 110,
     "dark": "visual/D03-heatmap-dark.svg",
-    "light": "visual/D03-heatmap-light.svg",
-    "examples": []
+    "light": "visual/D03-heatmap-light.svg"
   },
   {
     "id": "D04",
@@ -440,12 +423,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 512,
     "kb": 94,
     "dark": "visual/D04-swimlanes-dark.svg",
-    "light": "visual/D04-swimlanes-light.svg",
-    "examples": []
+    "light": "visual/D04-swimlanes-light.svg"
   },
   {
     "id": "D05",
@@ -459,12 +442,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 520,
     "kb": 82,
     "dark": "visual/D05-skyline-dark.svg",
-    "light": "visual/D05-skyline-light.svg",
-    "examples": []
+    "light": "visual/D05-skyline-light.svg"
   },
   {
     "id": "D06",
@@ -478,12 +461,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 205,
     "kb": 71,
     "dark": "visual/D06-calendar-dark.svg",
-    "light": "visual/D06-calendar-light.svg",
-    "examples": []
+    "light": "visual/D06-calendar-light.svg"
   },
   {
     "id": "E01",
@@ -497,12 +480,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 118,
     "kb": 20,
     "dark": "compact/E01-stat-tiles-dark.svg",
-    "light": "compact/E01-stat-tiles-light.svg",
-    "examples": []
+    "light": "compact/E01-stat-tiles-light.svg"
   },
   {
     "id": "E02",
@@ -516,12 +499,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 144,
     "kb": 119,
     "dark": "compact/E02-owner-badges-dark.svg",
-    "light": "compact/E02-owner-badges-light.svg",
-    "examples": []
+    "light": "compact/E02-owner-badges-light.svg"
   },
   {
     "id": "E03",
@@ -535,12 +518,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 410,
     "height": 286,
     "kb": 13,
     "dark": "compact/E03-repo-spotlight-dark.svg",
-    "light": "compact/E03-repo-spotlight-light.svg",
-    "examples": []
+    "light": "compact/E03-repo-spotlight-light.svg"
   },
   {
     "id": "E04",
@@ -554,12 +537,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 542,
     "kb": 68,
     "dark": "compact/E04-dashboard-dark.svg",
-    "light": "compact/E04-dashboard-light.svg",
-    "examples": []
+    "light": "compact/E04-dashboard-light.svg"
   },
   {
     "id": "E05",
@@ -573,12 +556,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 510,
     "kb": 34,
     "dark": "compact/E05-primer-list-dark.svg",
-    "light": "compact/E05-primer-list-light.svg",
-    "examples": []
+    "light": "compact/E05-primer-list-light.svg"
   },
   {
     "id": "E06",
@@ -592,12 +575,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 420,
     "height": 480,
     "kb": 47,
     "dark": "compact/E06-ecosystems-narrow-dark.svg",
-    "light": "compact/E06-ecosystems-narrow-light.svg",
-    "examples": []
+    "light": "compact/E06-ecosystems-narrow-light.svg"
   },
   {
     "id": "F01",
@@ -611,12 +594,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 574,
     "kb": 12,
     "dark": "flows/F01-sankey-dark.svg",
-    "light": "flows/F01-sankey-light.svg",
-    "examples": []
+    "light": "flows/F01-sankey-light.svg"
   },
   {
     "id": "F02",
@@ -628,12 +611,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 538,
     "kb": 7,
     "dark": "flows/F02-pr-outcomes-dark.svg",
-    "light": "flows/F02-pr-outcomes-light.svg",
-    "examples": []
+    "light": "flows/F02-pr-outcomes-light.svg"
   },
   {
     "id": "F03",
@@ -647,12 +630,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 656,
     "kb": 15,
     "dark": "flows/F03-metro-dark.svg",
-    "light": "flows/F03-metro-light.svg",
-    "examples": []
+    "light": "flows/F03-metro-light.svg"
   },
   {
     "id": "F04",
@@ -666,12 +649,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 457,
     "kb": 11,
     "dark": "flows/F04-bump-dark.svg",
-    "light": "flows/F04-bump-light.svg",
-    "examples": []
+    "light": "flows/F04-bump-light.svg"
   },
   {
     "id": "F05",
@@ -685,12 +668,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 416,
     "kb": 120,
     "dark": "flows/F05-first-contact-dark.svg",
-    "light": "flows/F05-first-contact-light.svg",
-    "examples": []
+    "light": "flows/F05-first-contact-light.svg"
   },
   {
     "id": "F06",
@@ -704,12 +687,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 570,
     "kb": 36,
     "dark": "flows/F06-fan-tree-dark.svg",
-    "light": "flows/F06-fan-tree-light.svg",
-    "examples": []
+    "light": "flows/F06-fan-tree-light.svg"
   },
   {
     "id": "G01",
@@ -723,12 +706,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 422,
     "kb": 22,
     "dark": "collectibles/G01-trading-cards-dark.svg",
-    "light": "collectibles/G01-trading-cards-light.svg",
-    "examples": []
+    "light": "collectibles/G01-trading-cards-light.svg"
   },
   {
     "id": "G02",
@@ -742,12 +725,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 482,
     "kb": 12,
     "dark": "collectibles/G02-achievement-medals-dark.svg",
-    "light": "collectibles/G02-achievement-medals-light.svg",
-    "examples": []
+    "light": "collectibles/G02-achievement-medals-light.svg"
   },
   {
     "id": "G03",
@@ -761,12 +744,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 358,
     "kb": 31,
     "dark": "collectibles/G03-periodic-table-dark.svg",
-    "light": "collectibles/G03-periodic-table-light.svg",
-    "examples": []
+    "light": "collectibles/G03-periodic-table-light.svg"
   },
   {
     "id": "G04",
@@ -780,12 +763,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 528,
     "kb": 28,
     "dark": "collectibles/G04-passport-stamps-dark.svg",
-    "light": "collectibles/G04-passport-stamps-light.svg",
-    "examples": []
+    "light": "collectibles/G04-passport-stamps-light.svg"
   },
   {
     "id": "G05",
@@ -799,12 +782,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 436,
     "kb": 27,
     "dark": "collectibles/G05-ticket-stubs-dark.svg",
-    "light": "collectibles/G05-ticket-stubs-light.svg",
-    "examples": []
+    "light": "collectibles/G05-ticket-stubs-light.svg"
   },
   {
     "id": "G06",
@@ -818,12 +801,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 512,
     "kb": 22,
     "dark": "collectibles/G06-arcade-high-scores-dark.svg",
-    "light": "collectibles/G06-arcade-high-scores-light.svg",
-    "examples": []
+    "light": "collectibles/G06-arcade-high-scores-light.svg"
   },
   {
     "id": "H01",
@@ -837,12 +820,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 558,
     "kb": 84,
     "dark": "focus/H01-ecosystem-deep-dive-dark.svg",
-    "light": "focus/H01-ecosystem-deep-dive-light.svg",
-    "examples": []
+    "light": "focus/H01-ecosystem-deep-dive-light.svg"
   },
   {
     "id": "H02",
@@ -856,12 +839,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 430,
     "kb": 39,
     "dark": "focus/H02-selected-repos-dark.svg",
-    "light": "focus/H02-selected-repos-light.svg",
-    "examples": []
+    "light": "focus/H02-selected-repos-light.svg"
   },
   {
     "id": "H03",
@@ -873,12 +856,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 356,
     "kb": 25,
     "dark": "focus/H03-merge-funnel-dark.svg",
-    "light": "focus/H03-merge-funnel-light.svg",
-    "examples": []
+    "light": "focus/H03-merge-funnel-light.svg"
   },
   {
     "id": "H04",
@@ -892,12 +875,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 304,
     "kb": 71,
     "dark": "focus/H04-year-in-review-dark.svg",
-    "light": "focus/H04-year-in-review-light.svg",
-    "examples": []
+    "light": "focus/H04-year-in-review-light.svg"
   },
   {
     "id": "H05",
@@ -911,12 +894,12 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 540,
     "kb": 17,
     "dark": "focus/H05-milestones-dark.svg",
-    "light": "focus/H05-milestones-light.svg",
-    "examples": []
+    "light": "focus/H05-milestones-light.svg"
   },
   {
     "id": "H06",
@@ -930,11 +913,11 @@
       "full"
     ],
     "settings": [],
+    "settingsExample": "",
     "width": 840,
     "height": 530,
     "kb": 54,
     "dark": "focus/H06-ecosystem-versus-dark.svg",
-    "light": "focus/H06-ecosystem-versus-light.svg",
-    "examples": []
+    "light": "focus/H06-ecosystem-versus-light.svg"
   }
 ]

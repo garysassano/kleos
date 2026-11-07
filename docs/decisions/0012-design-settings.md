@@ -12,8 +12,8 @@ A05 (ecosystem roll-up, owners under each ecosystem) was followed by A07 (top re
 - **Settings follow the design's id** in the Action's `designs` input: `designs: D01 A05 owners=no repos=3`. A setting a design doesn't declare, a value of the wrong kind or out of bounds, a setting before any id, or a design listed twice fails the run with an error naming the design and the setting.
 - **A05 has two settings:** `owners` (default yes: every owner under its ecosystem) and `repos` (default 0, at most 10: top repos under each owner, or under the ecosystem when there is no owner line). The defaults are A05 as it was. `owners=no repos=3` is A07 and `repos=3` is A08, byte for byte apart from the card's accessible title.
 - **A07 and A08 are retired** and never reused (`RETIRED` in `src/designs/index.ts`). Asking for one fails with the A05 settings that replace it.
-- **The catalog shows every setting** in a table under the design, and renders the combinations a design lists in `examples` next to its default.
-- **The tests render every design at its default and at each example,** in both themes, from all three fixtures, at every outcomes level.
+- **The catalog shows each design once, at its defaults,** with its settings in a table under the picture and one example of the syntax. Extra pictures per combination would make the catalog longer without telling a reader more than the table does.
+- **The tests render every design at its defaults and at each combination in its `testedSettings`,** in both themes, from all three fixtures, at every outcomes level.
 
 ## Why
 
