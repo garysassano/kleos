@@ -169,7 +169,7 @@ function render(stats: Stats, theme: ThemeName, options: RenderOptions = DEFAULT
 export const design: Design = {
   id: "E04",
   slug: "dashboard",
-  title: "Combined dashboard",
+  title: "Dashboard",
   idea: "Everything in one card: KPI strip, top owners with stacked contribution bars, top repos as a compact table, and a weekly activity strip for the last 12 months. Bars grow in on load.",
   render,
 };

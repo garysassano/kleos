@@ -4,7 +4,7 @@ Date: 2026-11-07
 
 ## Context
 
-A05 (ecosystem roll-up, owners under each ecosystem) was followed by A07 (top repos under each ecosystem) and A08 (owners with their top repos). All three were one renderer with two hard-coded choices: whether owners are listed, and how many repos go under each line. [0009](0009-outcomes-option.md) kept layout choices out of configuration, but three near-identical catalog entries, each fixing a different combination, scale worse than letting the card's user choose.
+A05 (ecosystem rollup, owners under each ecosystem) was followed by A07 (top repos under each ecosystem) and A08 (owners with their top repos). All three were one renderer with two hard-coded choices: whether owners are listed, and how many repos go under each line. [0009](0009-outcomes-option.md) kept layout choices out of configuration, but three near-identical catalog entries, each fixing a different combination, scale worse than letting the card's user choose.
 
 ## Decision
 

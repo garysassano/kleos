@@ -76,7 +76,7 @@ function levelCols(t: Theme, lvl: Level) {
 export const design: Design = {
   id: "B01",
   slug: "stacked-bars",
-  title: "Stacked bars + table",
+  title: "Stacked bars",
   idea: 'The top 12 upstream repos as horizontal stacked bars (merged PRs, other PRs, issues, discussions) with the exact counts in aligned columns that double as the legend. With outcomes "none" PRs are one segment and column, "merged" shows PRs with the merged ones as a subset, and "full" splits merged, open and closed-unmerged PRs.',
   render(stats, theme, options: RenderOptions = DEFAULT_OPTIONS) {
     const lvl = options.outcomes;

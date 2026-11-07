@@ -16,8 +16,8 @@ const MAX_MEMBERS = 7;
 
 export const design: Design = {
   id: "H06",
-  slug: "ecosystem-versus",
-  title: "Ecosystem versus ecosystem",
+  slug: "ecosystem-vs-ecosystem",
+  title: "Ecosystem vs ecosystem",
   idea: "The three biggest ecosystems side by side: total and share, each contribution kind on one shared scale with the leader in bold, merge rate, active span, top repo and member owners. Rule: the top 3 ecosystems by contributions; when there are fewer than 3, the biggest independent owners fill the remaining columns as groups of one.",
   render(stats, theme, options = DEFAULT_OPTIONS) {
     const { outcomes } = options;

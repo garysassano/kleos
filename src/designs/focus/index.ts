@@ -4,7 +4,7 @@ import { design as H02 } from "./H02-selected-repos.ts";
 import { design as H03 } from "./H03-merge-funnel.ts";
 import { design as H04 } from "./H04-year-in-review.ts";
 import { design as H05 } from "./H05-milestones.ts";
-import { design as H06 } from "./H06-ecosystem-versus.ts";
+import { design as H06 } from "./H06-ecosystem-vs-ecosystem.ts";
 
 export const category: Category = {
   letter: "H",

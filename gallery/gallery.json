@@ -40,7 +40,7 @@
   {
     "id": "A03",
     "slug": "repos-and-owners",
-    "title": "Repos | owners, side by side",
+    "title": "Repos and owners",
     "idea": "Four headline numbers, then the top 10 repos and top 10 owners side by side. Each row has a 100% bar showing what kind of contribution it was (PR-heavy vs issue-heavy), so the number carries size and the bar carries character.",
     "category": "lists",
     "outcomes": [
@@ -58,8 +58,8 @@
   },
   {
     "id": "A04",
-    "slug": "dense-table",
-    "title": "Dense table",
+    "slug": "repo-table",
+    "title": "Repo table",
     "idea": "A compact 15-row table with explicit columns (stars, PRs, merged, issues, discussions, total, active years) and a totals row for all upstream repos. Nothing to decode: every number has a header. With outcomes \"none\" the merged column goes; \"full\" adds open and closed columns.",
     "category": "lists",
     "outcomes": [
@@ -72,13 +72,13 @@
     "width": 840,
     "height": 535,
     "kb": 91,
-    "dark": "lists/A04-dense-table-dark.svg",
-    "light": "lists/A04-dense-table-light.svg"
+    "dark": "lists/A04-repo-table-dark.svg",
+    "light": "lists/A04-repo-table-light.svg"
   },
   {
     "id": "A05",
     "slug": "ecosystem-rollup",
-    "title": "Ecosystem roll-up",
+    "title": "Ecosystem rollup",
     "idea": "Groups related GitHub owners into ecosystems (AWS: aws, aws-samples, …) with the ecosystem total on top and its owners, its top repos, or both indented below, so an ecosystem spread across many orgs shows up as one line.",
     "category": "lists",
     "outcomes": [
@@ -109,7 +109,7 @@
   },
   {
     "id": "A06",
-    "slug": "tier-vs-share",
+    "slug": "star-tier-vs-my-share",
     "title": "Star tier vs my share",
     "idea": "Star-tier letters (S+ to C) that say what they mean: the left side is the repo’s popularity (stars, log scale, tier letter), the right side is what I contributed there. Big repos with small bars and small repos with big bars become obvious. When the top repo has more than twice the runner-up's total, its bar is shortened and marked “not to scale”.",
     "category": "lists",
@@ -123,13 +123,13 @@
     "width": 840,
     "height": 626,
     "kb": 87,
-    "dark": "lists/A06-tier-vs-share-dark.svg",
-    "light": "lists/A06-tier-vs-share-light.svg"
+    "dark": "lists/A06-star-tier-vs-my-share-dark.svg",
+    "light": "lists/A06-star-tier-vs-my-share-light.svg"
   },
   {
     "id": "B01",
     "slug": "stacked-bars",
-    "title": "Stacked bars + table",
+    "title": "Stacked bars",
     "idea": "The top 12 upstream repos as horizontal stacked bars (merged PRs, other PRs, issues, discussions) with the exact counts in aligned columns that double as the legend. With outcomes \"none\" PRs are one segment and column, \"merged\" shows PRs with the merged ones as a subset, and \"full\" splits merged, open and closed-unmerged PRs.",
     "category": "charts",
     "outcomes": [
@@ -166,8 +166,8 @@
   },
   {
     "id": "B03",
-    "slug": "donut-ranked",
-    "title": "Donut + ranked legend",
+    "slug": "donut",
+    "title": "Donut",
     "idea": "Share of all upstream work by ecosystem or owner as a donut (seven largest groups plus everyone else), next to a ranked table with avatars, share and a PR/issue breakdown per group. The PR part of that breakdown follows the outcomes level: PRs only, PRs with merged ones, or merged, open and closed-unmerged.",
     "category": "charts",
     "outcomes": [
@@ -180,13 +180,13 @@
     "width": 840,
     "height": 418,
     "kb": 23,
-    "dark": "charts/B03-donut-ranked-dark.svg",
-    "light": "charts/B03-donut-ranked-light.svg"
+    "dark": "charts/B03-donut-dark.svg",
+    "light": "charts/B03-donut-light.svg"
   },
   {
     "id": "B04",
-    "slug": "stars-scatter",
-    "title": "Stars vs involvement",
+    "slug": "stars-vs-contributions",
+    "title": "Stars vs contributions",
     "idea": "Each repo plotted by stars (log) against my contributions (log), colored by whether a PR was merged (with outcomes \"none\", only by whether I opened PRs; with \"full\", also open versus only closed-unmerged PRs); shows depth in mid-size repos versus drive-by issues on giant ones. Labels go to the 7 repos with most contributions, then the highest stars × contributions among repos with at least 3, up to 11 in all, each placed where it overlaps no other label and no other labelled repo's dot.",
     "category": "charts",
     "outcomes": [
@@ -199,8 +199,8 @@
     "width": 840,
     "height": 462,
     "kb": 31,
-    "dark": "charts/B04-stars-scatter-dark.svg",
-    "light": "charts/B04-stars-scatter-light.svg"
+    "dark": "charts/B04-stars-vs-contributions-dark.svg",
+    "light": "charts/B04-stars-vs-contributions-light.svg"
   },
   {
     "id": "B05",
@@ -223,7 +223,7 @@
   },
   {
     "id": "B06",
-    "slug": "stacked-area",
+    "slug": "contributions-over-time",
     "title": "Contributions over time",
     "idea": "Monthly contributions as a stacked area by ecosystem or owner, showing peaks and how the mix shifts between groups. It starts in the first year holding at least 5% of all contributions; anything earlier is counted in the footnote.",
     "category": "charts",
@@ -237,8 +237,8 @@
     "width": 840,
     "height": 436,
     "kb": 42,
-    "dark": "charts/B06-stacked-area-dark.svg",
-    "light": "charts/B06-stacked-area-light.svg"
+    "dark": "charts/B06-contributions-over-time-dark.svg",
+    "light": "charts/B06-contributions-over-time-light.svg"
   },
   {
     "id": "C01",
@@ -262,7 +262,7 @@
   {
     "id": "C02",
     "slug": "terminal",
-    "title": "Terminal table",
+    "title": "Terminal",
     "idea": "A fake `upstream --top 12` command that types itself out and prints an aligned monospace table of the top repos (language, stars, PRs, merged, issues, discussions), with a totals line. With outcomes none the merged column goes; full adds open and closed-unmerged columns.",
     "category": "type",
     "outcomes": [
@@ -375,7 +375,7 @@
   },
   {
     "id": "D02",
-    "slug": "mosaic",
+    "slug": "avatar-mosaic",
     "title": "Avatar mosaic",
     "idea": "A treemap wall of avatars: each tile’s area is that owner’s share of all upstream contributions, with the count on every tile, a PR/issue breakdown on the big ones, and one tile pooling everyone with 5 or fewer.",
     "category": "visual",
@@ -389,13 +389,13 @@
     "width": 840,
     "height": 500,
     "kb": 255,
-    "dark": "visual/D02-mosaic-dark.svg",
-    "light": "visual/D02-mosaic-light.svg"
+    "dark": "visual/D02-avatar-mosaic-dark.svg",
+    "light": "visual/D02-avatar-mosaic-light.svg"
   },
   {
     "id": "D03",
-    "slug": "heatmap",
-    "title": "Repo × month heatmap",
+    "slug": "monthly-heatmap",
+    "title": "Monthly heatmap",
     "idea": "The 12 upstream repos with the most contributions as rows and every month from January of the year the earliest of them started as columns, with a bar strip of all upstream contributions per month on top, so bursts and long-running work both show.",
     "category": "visual",
     "outcomes": [
@@ -408,8 +408,8 @@
     "width": 840,
     "height": 430,
     "kb": 110,
-    "dark": "visual/D03-heatmap-dark.svg",
-    "light": "visual/D03-heatmap-light.svg"
+    "dark": "visual/D03-monthly-heatmap-dark.svg",
+    "light": "visual/D03-monthly-heatmap-light.svg"
   },
   {
     "id": "D04",
@@ -451,8 +451,8 @@
   },
   {
     "id": "D06",
-    "slug": "calendar",
-    "title": "Year calendar + top upstream",
+    "slug": "contribution-calendar",
+    "title": "Contribution calendar",
     "idea": "The familiar 53-week activity calendar beside the five upstream repos with the most contributions in the months that window touches, so the year’s rhythm and where the upstream part went sit together.",
     "category": "visual",
     "outcomes": [
@@ -465,13 +465,13 @@
     "width": 840,
     "height": 205,
     "kb": 71,
-    "dark": "visual/D06-calendar-dark.svg",
-    "light": "visual/D06-calendar-light.svg"
+    "dark": "visual/D06-contribution-calendar-dark.svg",
+    "light": "visual/D06-contribution-calendar-light.svg"
   },
   {
     "id": "E01",
     "slug": "stat-tiles",
-    "title": "Four stat tiles",
+    "title": "Stat tiles",
     "idea": "Upstream PRs, merge rate, repos and owners as four equal 198px tiles in one 840px strip, each with a tiny supporting visual (contributions per year over the last four years, merge ring, top languages, top-owner avatars). Tiles rise in with a short staggered entrance. With outcomes \"none\" the merge tile goes and three tiles share the strip; \"merged\" shows merged PRs out of all PRs instead of a rate; \"full\" lists merged, open and closed beside the rate.",
     "category": "compact",
     "outcomes": [
@@ -490,7 +490,7 @@
   {
     "id": "E02",
     "slug": "owner-badges",
-    "title": "Owner badge strip",
+    "title": "Owner badges",
     "idea": "Shields.io-style pills, one per top owner (up to 24) with its avatar and a contribution count. Reads as a compact \"who I contribute to\" line and wraps to the README width.",
     "category": "compact",
     "outcomes": [
@@ -528,7 +528,7 @@
   {
     "id": "E04",
     "slug": "dashboard",
-    "title": "Combined dashboard",
+    "title": "Dashboard",
     "idea": "Everything in one card: KPI strip, top owners with stacked contribution bars, top repos as a compact table, and a weekly activity strip for the last 12 months. Bars grow in on load.",
     "category": "compact",
     "outcomes": [
@@ -546,8 +546,8 @@
   },
   {
     "id": "E05",
-    "slug": "primer-list",
-    "title": "Primer repo list",
+    "slug": "github-style-list",
+    "title": "GitHub-style list",
     "idea": "Looks like a native GitHub list: an issues-style header with octicon tabs and counters, Box rows with blue repo links, language/owner label pills, dates and per-type counts.",
     "category": "compact",
     "outcomes": [
@@ -560,8 +560,8 @@
     "width": 840,
     "height": 510,
     "kb": 34,
-    "dark": "compact/E05-primer-list-dark.svg",
-    "light": "compact/E05-primer-list-light.svg"
+    "dark": "compact/E05-github-style-list-dark.svg",
+    "light": "compact/E05-github-style-list-light.svg"
   },
   {
     "id": "E06",
@@ -585,7 +585,7 @@
   {
     "id": "F01",
     "slug": "sankey",
-    "title": "Contribution Sankey",
+    "title": "Sankey",
     "idea": "A Sankey from you through ecosystems and owners to repos, band height proportional to PRs + issues + discussions. The 7 biggest groups and 10 biggest repos are named; the rest are merged into one node per column so every band still adds up.",
     "category": "flows",
     "outcomes": [
@@ -620,7 +620,7 @@
   },
   {
     "id": "F03",
-    "slug": "metro",
+    "slug": "metro-map",
     "title": "Metro map",
     "idea": "A subway map where each line is one of the 6 ecosystems or owners with the most repos (ties by contributions), and its stations are up to 8 of its biggest repos in order of first contribution, sized by PRs + issues + discussions. Shows breadth: where you branched out, not just where you contributed most.",
     "category": "flows",
@@ -634,12 +634,12 @@
     "width": 840,
     "height": 656,
     "kb": 15,
-    "dark": "flows/F03-metro-dark.svg",
-    "light": "flows/F03-metro-light.svg"
+    "dark": "flows/F03-metro-map-dark.svg",
+    "light": "flows/F03-metro-map-light.svg"
   },
   {
     "id": "F04",
-    "slug": "bump",
+    "slug": "rank-by-year",
     "title": "Rank by year",
     "idea": "A bump chart of the top 8 ecosystems and owners in each calendar year (from repos' monthly counts), so you can see who rose, who faded and who stayed. Years with fewer than 10 contributions are left out (the latest 6 are shown); the 7 biggest over those years get color, the rest stay gray.",
     "category": "flows",
@@ -653,8 +653,8 @@
     "width": 840,
     "height": 457,
     "kb": 11,
-    "dark": "flows/F04-bump-dark.svg",
-    "light": "flows/F04-bump-light.svg"
+    "dark": "flows/F04-rank-by-year-dark.svg",
+    "light": "flows/F04-rank-by-year-light.svg"
   },
   {
     "id": "F05",
@@ -678,7 +678,7 @@
   {
     "id": "F06",
     "slug": "fan-tree",
-    "title": "Contribution tree",
+    "title": "Fan tree",
     "idea": "A half-radial tree: you at the root, the 8 biggest ecosystems and owners on the inner ring, and up to 4 of each one's biggest repos as leaves, with stroke width proportional to PRs + issues + discussions. A compact picture of how the work branches out.",
     "category": "flows",
     "outcomes": [
@@ -735,7 +735,7 @@
   {
     "id": "G03",
     "slug": "periodic-table",
-    "title": "Periodic table of owners",
+    "title": "Periodic table",
     "idea": "The top 54 owners laid out in the first five periods of the periodic table: atomic number = rank, a unique two-letter symbol from the login, mass = PRs + issues + discussions. Ecosystems color their owners like element series; other owners are shown as orgs or people.",
     "category": "collectibles",
     "outcomes": [
@@ -903,8 +903,8 @@
   },
   {
     "id": "H06",
-    "slug": "ecosystem-versus",
-    "title": "Ecosystem versus ecosystem",
+    "slug": "ecosystem-vs-ecosystem",
+    "title": "Ecosystem vs ecosystem",
     "idea": "The three biggest ecosystems side by side: total and share, each contribution kind on one shared scale with the leader in bold, merge rate, active span, top repo and member owners. Rule: the top 3 ecosystems by contributions; when there are fewer than 3, the biggest independent owners fill the remaining columns as groups of one.",
     "category": "focus",
     "outcomes": [
@@ -917,7 +917,7 @@
     "width": 840,
     "height": 530,
     "kb": 54,
-    "dark": "focus/H06-ecosystem-versus-dark.svg",
-    "light": "focus/H06-ecosystem-versus-light.svg"
+    "dark": "focus/H06-ecosystem-vs-ecosystem-dark.svg",
+    "light": "focus/H06-ecosystem-vs-ecosystem-light.svg"
   }
 ]

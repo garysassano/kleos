@@ -136,7 +136,7 @@ function render(stats: Stats, theme: ThemeName): string {
 export const design: Design = {
   id: "F06",
   slug: "fan-tree",
-  title: "Contribution tree",
+  title: "Fan tree",
   idea: "A half-radial tree: you at the root, the 8 biggest ecosystems and owners on the inner ring, and up to 4 of each one's biggest repos as leaves, with stroke width proportional to PRs + issues + discussions. A compact picture of how the work branches out.",
   render,
 };

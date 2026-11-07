@@ -150,7 +150,7 @@ function render(stats: Stats, theme: ThemeName): string {
 
 export const design: Design = {
   id: "F04",
-  slug: "bump",
+  slug: "rank-by-year",
   title: "Rank by year",
   idea: "A bump chart of the top 8 ecosystems and owners in each calendar year (from repos' monthly counts), so you can see who rose, who faded and who stayed. Years with fewer than 10 contributions are left out (the latest 6 are shown); the 7 biggest over those years get color, the rest stay gray.",
   render,

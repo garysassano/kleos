@@ -1,7 +1,7 @@
 import { DEFAULT_OPTIONS, type Design } from "../types.ts";
 import { ecosystemRollup } from "./_shared.ts";
 
-const title = "Ecosystem roll-up";
+const title = "Ecosystem rollup";
 
 export const design: Design = {
   id: "A05",

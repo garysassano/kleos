@@ -19,11 +19,11 @@ import {
   truncate,
 } from "./_shared.ts";
 
-const title = "Dense table";
+const title = "Repo table";
 
 export const design: Design = {
   id: "A04",
-  slug: "dense-table",
+  slug: "repo-table",
   title,
   idea: 'A compact 15-row table with explicit columns (stars, PRs, merged, issues, discussions, total, active years) and a totals row for all upstream repos. Nothing to decode: every number has a header. With outcomes "none" the merged column goes; "full" adds open and closed columns.',
   render(stats, theme, options = DEFAULT_OPTIONS) {

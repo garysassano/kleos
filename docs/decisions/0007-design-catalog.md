@@ -47,3 +47,7 @@ Later the same day the owner chose to keep the real snapshot in the README and c
 ## Update, 2026-11-07: the fictional account is gone
 
 The owner decided the real snapshot stays as the example for good, so `fixtures/demo.json` and `scripts/demo-fixture.ts` were removed. The tests render every design from the real snapshot and from `fixtures/sample-small.json`, which between them cover a large account with several ecosystems, a long tail and discussions, and a tiny one with none of those.
+
+## Update, 2026-11-07: naming rule
+
+A design's title is a short noun phrase for the card, such as "Repo leaderboard" or "Donut": no symbols (+, |, ×), "vs" for comparisons, and no "contribution" unless it belongs to a standard name such as "contribution calendar". The slug is the title in kebab case, so file names read like the catalog (`B03-donut-dark.svg`); a test checks it. Twenty-two designs were renamed to follow it before the first release. Their ids didn't change, and neither did the cards themselves, apart from the accessible title inside A03, A04 and A05.

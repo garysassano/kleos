@@ -13,8 +13,8 @@ const lvl = (c: number) => (c <= 0 ? 0 : BINS.findIndex(([a, z]) => c >= a && c 
 
 export const design: Design = {
   id: "D03",
-  slug: "heatmap",
-  title: "Repo × month heatmap",
+  slug: "monthly-heatmap",
+  title: "Monthly heatmap",
   idea: "The 12 upstream repos with the most contributions as rows and every month from January of the year the earliest of them started as columns, with a bar strip of all upstream contributions per month on top, so bursts and long-running work both show.",
   render(stats, theme) {
     const ctx = makeCtx(stats, theme);

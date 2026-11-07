@@ -33,29 +33,29 @@ Top 12 orgs and people whose repos I contribute to, with repo count, a merged-PR
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="lists/A02-owner-leaderboard-dark.svg"><img alt="Owner leaderboard" src="lists/A02-owner-leaderboard-light.svg" width="840"></picture>
 
-### A03 · Repos | owners, side by side
+### A03 · Repos and owners
 
 Four headline numbers, then the top 10 repos and top 10 owners side by side. Each row has a 100% bar showing what kind of contribution it was (PR-heavy vs issue-heavy), so the number carries size and the bar carries character.
 
 `designs: A03` · 840 × 526 · outcomes: all levels
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="lists/A03-repos-and-owners-dark.svg"><img alt="Repos | owners, side by side" src="lists/A03-repos-and-owners-light.svg" width="840"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="lists/A03-repos-and-owners-dark.svg"><img alt="Repos and owners" src="lists/A03-repos-and-owners-light.svg" width="840"></picture>
 
-### A04 · Dense table
+### A04 · Repo table
 
 A compact 15-row table with explicit columns (stars, PRs, merged, issues, discussions, total, active years) and a totals row for all upstream repos. Nothing to decode: every number has a header. With outcomes "none" the merged column goes; "full" adds open and closed columns.
 
 `designs: A04` · 840 × 535 · outcomes: all levels
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="lists/A04-dense-table-dark.svg"><img alt="Dense table" src="lists/A04-dense-table-light.svg" width="840"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="lists/A04-repo-table-dark.svg"><img alt="Repo table" src="lists/A04-repo-table-light.svg" width="840"></picture>
 
-### A05 · Ecosystem roll-up
+### A05 · Ecosystem rollup
 
 Groups related GitHub owners into ecosystems (AWS: aws, aws-samples, …) with the ecosystem total on top and its owners, its top repos, or both indented below, so an ecosystem spread across many orgs shows up as one line.
 
 `designs: A05` · 840 × 724 · outcomes: all levels
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="lists/A05-ecosystem-rollup-dark.svg"><img alt="Ecosystem roll-up" src="lists/A05-ecosystem-rollup-light.svg" width="840"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="lists/A05-ecosystem-rollup-dark.svg"><img alt="Ecosystem rollup" src="lists/A05-ecosystem-rollup-light.svg" width="840"></picture>
 
 Write settings after the id, such as `A05 owners=no repos=3`:
 
@@ -70,19 +70,19 @@ Star-tier letters (S+ to C) that say what they mean: the left side is the repo�
 
 `designs: A06` · 840 × 626 · outcomes: all levels
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="lists/A06-tier-vs-share-dark.svg"><img alt="Star tier vs my share" src="lists/A06-tier-vs-share-light.svg" width="840"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="lists/A06-star-tier-vs-my-share-dark.svg"><img alt="Star tier vs my share" src="lists/A06-star-tier-vs-my-share-light.svg" width="840"></picture>
 
 ## B · Charts
 
 Bars, treemaps, donuts, scatter plots and stacked areas of the same numbers.
 
-### B01 · Stacked bars + table
+### B01 · Stacked bars
 
 The top 12 upstream repos as horizontal stacked bars (merged PRs, other PRs, issues, discussions) with the exact counts in aligned columns that double as the legend. With outcomes "none" PRs are one segment and column, "merged" shows PRs with the merged ones as a subset, and "full" splits merged, open and closed-unmerged PRs.
 
 `designs: B01` · 840 × 462 · outcomes: all levels
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="charts/B01-stacked-bars-dark.svg"><img alt="Stacked bars + table" src="charts/B01-stacked-bars-light.svg" width="840"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="charts/B01-stacked-bars-dark.svg"><img alt="Stacked bars" src="charts/B01-stacked-bars-light.svg" width="840"></picture>
 
 ### B02 · Treemap
 
@@ -92,21 +92,21 @@ Every upstream repo as a tile sized by contributions, nested ecosystem → owner
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="charts/B02-treemap-dark.svg"><img alt="Treemap" src="charts/B02-treemap-light.svg" width="840"></picture>
 
-### B03 · Donut + ranked legend
+### B03 · Donut
 
 Share of all upstream work by ecosystem or owner as a donut (seven largest groups plus everyone else), next to a ranked table with avatars, share and a PR/issue breakdown per group. The PR part of that breakdown follows the outcomes level: PRs only, PRs with merged ones, or merged, open and closed-unmerged.
 
 `designs: B03` · 840 × 418 · outcomes: all levels
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="charts/B03-donut-ranked-dark.svg"><img alt="Donut + ranked legend" src="charts/B03-donut-ranked-light.svg" width="840"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="charts/B03-donut-dark.svg"><img alt="Donut" src="charts/B03-donut-light.svg" width="840"></picture>
 
-### B04 · Stars vs involvement
+### B04 · Stars vs contributions
 
 Each repo plotted by stars (log) against my contributions (log), colored by whether a PR was merged (with outcomes "none", only by whether I opened PRs; with "full", also open versus only closed-unmerged PRs); shows depth in mid-size repos versus drive-by issues on giant ones. Labels go to the 7 repos with most contributions, then the highest stars × contributions among repos with at least 3, up to 11 in all, each placed where it overlaps no other label and no other labelled repo's dot.
 
 `designs: B04` · 840 × 462 · outcomes: all levels
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="charts/B04-stars-scatter-dark.svg"><img alt="Stars vs involvement" src="charts/B04-stars-scatter-light.svg" width="840"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="charts/B04-stars-vs-contributions-dark.svg"><img alt="Stars vs contributions" src="charts/B04-stars-vs-contributions-light.svg" width="840"></picture>
 
 ### B05 · Waffle
 
@@ -122,7 +122,7 @@ Monthly contributions as a stacked area by ecosystem or owner, showing peaks and
 
 `designs: B06` · 840 × 436 · outcomes: all levels
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="charts/B06-stacked-area-dark.svg"><img alt="Contributions over time" src="charts/B06-stacked-area-light.svg" width="840"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="charts/B06-contributions-over-time-dark.svg"><img alt="Contributions over time" src="charts/B06-contributions-over-time-light.svg" width="840"></picture>
 
 ## C · Typographic
 
@@ -136,13 +136,13 @@ Four large, labeled headline figures for upstream work (PRs opened, merged, issu
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="type/C01-big-numbers-dark.svg"><img alt="Big numbers" src="type/C01-big-numbers-light.svg" width="840"></picture>
 
-### C02 · Terminal table
+### C02 · Terminal
 
 A fake `upstream --top 12` command that types itself out and prints an aligned monospace table of the top repos (language, stars, PRs, merged, issues, discussions), with a totals line. With outcomes none the merged column goes; full adds open and closed-unmerged columns.
 
 `designs: C02` · 840 × 458 · outcomes: all levels
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="type/C02-terminal-dark.svg"><img alt="Terminal table" src="type/C02-terminal-light.svg" width="840"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="type/C02-terminal-dark.svg"><img alt="Terminal" src="type/C02-terminal-light.svg" width="840"></picture>
 
 ### C03 · Receipt
 
@@ -194,15 +194,15 @@ A treemap wall of avatars: each tile’s area is that owner’s share of all ups
 
 `designs: D02` · 840 × 500 · outcomes: all levels
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="visual/D02-mosaic-dark.svg"><img alt="Avatar mosaic" src="visual/D02-mosaic-light.svg" width="840"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="visual/D02-avatar-mosaic-dark.svg"><img alt="Avatar mosaic" src="visual/D02-avatar-mosaic-light.svg" width="840"></picture>
 
-### D03 · Repo × month heatmap
+### D03 · Monthly heatmap
 
 The 12 upstream repos with the most contributions as rows and every month from January of the year the earliest of them started as columns, with a bar strip of all upstream contributions per month on top, so bursts and long-running work both show.
 
 `designs: D03` · 840 × 430 · outcomes: all levels
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="visual/D03-heatmap-dark.svg"><img alt="Repo × month heatmap" src="visual/D03-heatmap-light.svg" width="840"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="visual/D03-monthly-heatmap-dark.svg"><img alt="Monthly heatmap" src="visual/D03-monthly-heatmap-light.svg" width="840"></picture>
 
 ### D04 · Swimlanes
 
@@ -220,33 +220,33 @@ Each building is one of the top 15 owners (orgs or people), its height is the nu
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="visual/D05-skyline-dark.svg"><img alt="Skyline" src="visual/D05-skyline-light.svg" width="840"></picture>
 
-### D06 · Year calendar + top upstream
+### D06 · Contribution calendar
 
 The familiar 53-week activity calendar beside the five upstream repos with the most contributions in the months that window touches, so the year’s rhythm and where the upstream part went sit together.
 
 `designs: D06` · 840 × 205 · outcomes: all levels
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="visual/D06-calendar-dark.svg"><img alt="Year calendar + top upstream" src="visual/D06-calendar-light.svg" width="840"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="visual/D06-contribution-calendar-dark.svg"><img alt="Contribution calendar" src="visual/D06-contribution-calendar-light.svg" width="840"></picture>
 
 ## E · Compact and dashboards
 
 Small tiles and badges, single-repository spotlights and full dashboards.
 
-### E01 · Four stat tiles
+### E01 · Stat tiles
 
 Upstream PRs, merge rate, repos and owners as four equal 198px tiles in one 840px strip, each with a tiny supporting visual (contributions per year over the last four years, merge ring, top languages, top-owner avatars). Tiles rise in with a short staggered entrance. With outcomes "none" the merge tile goes and three tiles share the strip; "merged" shows merged PRs out of all PRs instead of a rate; "full" lists merged, open and closed beside the rate.
 
 `designs: E01` · 840 × 118 · outcomes: all levels
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="compact/E01-stat-tiles-dark.svg"><img alt="Four stat tiles" src="compact/E01-stat-tiles-light.svg" width="840"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="compact/E01-stat-tiles-dark.svg"><img alt="Stat tiles" src="compact/E01-stat-tiles-light.svg" width="840"></picture>
 
-### E02 · Owner badge strip
+### E02 · Owner badges
 
 Shields.io-style pills, one per top owner (up to 24) with its avatar and a contribution count. Reads as a compact "who I contribute to" line and wraps to the README width.
 
 `designs: E02` · 840 × 144 · outcomes: all levels
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="compact/E02-owner-badges-dark.svg"><img alt="Owner badge strip" src="compact/E02-owner-badges-light.svg" width="840"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="compact/E02-owner-badges-dark.svg"><img alt="Owner badges" src="compact/E02-owner-badges-light.svg" width="840"></picture>
 
 ### E03 · Repo spotlight
 
@@ -256,21 +256,21 @@ One repo in focus: avatar, stars, language, PR/issue/discussion breakdown and a 
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="compact/E03-repo-spotlight-dark.svg"><img alt="Repo spotlight" src="compact/E03-repo-spotlight-light.svg" width="410"></picture>
 
-### E04 · Combined dashboard
+### E04 · Dashboard
 
 Everything in one card: KPI strip, top owners with stacked contribution bars, top repos as a compact table, and a weekly activity strip for the last 12 months. Bars grow in on load.
 
 `designs: E04` · 840 × 542 · outcomes: all levels
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="compact/E04-dashboard-dark.svg"><img alt="Combined dashboard" src="compact/E04-dashboard-light.svg" width="840"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="compact/E04-dashboard-dark.svg"><img alt="Dashboard" src="compact/E04-dashboard-light.svg" width="840"></picture>
 
-### E05 · Primer repo list
+### E05 · GitHub-style list
 
 Looks like a native GitHub list: an issues-style header with octicon tabs and counters, Box rows with blue repo links, language/owner label pills, dates and per-type counts.
 
 `designs: E05` · 840 × 510 · outcomes: all levels
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="compact/E05-primer-list-dark.svg"><img alt="Primer repo list" src="compact/E05-primer-list-light.svg" width="840"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="compact/E05-github-style-list-dark.svg"><img alt="GitHub-style list" src="compact/E05-github-style-list-light.svg" width="840"></picture>
 
 ### E06 · Ecosystems (narrow)
 
@@ -284,13 +284,13 @@ A 420px card grouping work by ecosystem (several orgs under one name, such as AW
 
 How contributions flow from you through ecosystems and owners to repositories, and how rankings shift.
 
-### F01 · Contribution Sankey
+### F01 · Sankey
 
 A Sankey from you through ecosystems and owners to repos, band height proportional to PRs + issues + discussions. The 7 biggest groups and 10 biggest repos are named; the rest are merged into one node per column so every band still adds up.
 
 `designs: F01` · 840 × 574 · outcomes: all levels
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="flows/F01-sankey-dark.svg"><img alt="Contribution Sankey" src="flows/F01-sankey-light.svg" width="840"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="flows/F01-sankey-dark.svg"><img alt="Sankey" src="flows/F01-sankey-light.svg" width="840"></picture>
 
 ### F02 · PR outcomes
 
@@ -306,7 +306,7 @@ A subway map where each line is one of the 6 ecosystems or owners with the most 
 
 `designs: F03` · 840 × 656 · outcomes: all levels
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="flows/F03-metro-dark.svg"><img alt="Metro map" src="flows/F03-metro-light.svg" width="840"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="flows/F03-metro-map-dark.svg"><img alt="Metro map" src="flows/F03-metro-map-light.svg" width="840"></picture>
 
 ### F04 · Rank by year
 
@@ -314,7 +314,7 @@ A bump chart of the top 8 ecosystems and owners in each calendar year (from repo
 
 `designs: F04` · 840 × 457 · outcomes: all levels
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="flows/F04-bump-dark.svg"><img alt="Rank by year" src="flows/F04-bump-light.svg" width="840"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="flows/F04-rank-by-year-dark.svg"><img alt="Rank by year" src="flows/F04-rank-by-year-light.svg" width="840"></picture>
 
 ### F05 · First contact
 
@@ -324,13 +324,13 @@ How the network grew: owners grouped by the year of your first PR, issue or disc
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="flows/F05-first-contact-dark.svg"><img alt="First contact" src="flows/F05-first-contact-light.svg" width="840"></picture>
 
-### F06 · Contribution tree
+### F06 · Fan tree
 
 A half-radial tree: you at the root, the 8 biggest ecosystems and owners on the inner ring, and up to 4 of each one's biggest repos as leaves, with stroke width proportional to PRs + issues + discussions. A compact picture of how the work branches out.
 
 `designs: F06` · 840 × 570 · outcomes: all levels
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="flows/F06-fan-tree-dark.svg"><img alt="Contribution tree" src="flows/F06-fan-tree-light.svg" width="840"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="flows/F06-fan-tree-dark.svg"><img alt="Fan tree" src="flows/F06-fan-tree-light.svg" width="840"></picture>
 
 ## G · Badges and collectibles
 
@@ -352,13 +352,13 @@ A sheet of eight medals, each computed from the data (most merged PRs in one rep
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="collectibles/G02-achievement-medals-dark.svg"><img alt="Achievement medals" src="collectibles/G02-achievement-medals-light.svg" width="840"></picture>
 
-### G03 · Periodic table of owners
+### G03 · Periodic table
 
 The top 54 owners laid out in the first five periods of the periodic table: atomic number = rank, a unique two-letter symbol from the login, mass = PRs + issues + discussions. Ecosystems color their owners like element series; other owners are shown as orgs or people.
 
 `designs: G03` · 840 × 358 · outcomes: all levels
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="collectibles/G03-periodic-table-dark.svg"><img alt="Periodic table of owners" src="collectibles/G03-periodic-table-light.svg" width="840"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="collectibles/G03-periodic-table-dark.svg"><img alt="Periodic table" src="collectibles/G03-periodic-table-light.svg" width="840"></picture>
 
 ### G04 · Passport stamps
 
@@ -428,10 +428,10 @@ A timeline of firsts and round numbers derived from the data: the first upstream
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="focus/H05-milestones-dark.svg"><img alt="Milestones" src="focus/H05-milestones-light.svg" width="840"></picture>
 
-### H06 · Ecosystem versus ecosystem
+### H06 · Ecosystem vs ecosystem
 
 The three biggest ecosystems side by side: total and share, each contribution kind on one shared scale with the leader in bold, merge rate, active span, top repo and member owners. Rule: the top 3 ecosystems by contributions; when there are fewer than 3, the biggest independent owners fill the remaining columns as groups of one.
 
 `designs: H06` · 840 × 530 · outcomes: all levels
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="focus/H06-ecosystem-versus-dark.svg"><img alt="Ecosystem versus ecosystem" src="focus/H06-ecosystem-versus-light.svg" width="840"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="focus/H06-ecosystem-vs-ecosystem-dark.svg"><img alt="Ecosystem vs ecosystem" src="focus/H06-ecosystem-vs-ecosystem-light.svg" width="840"></picture>

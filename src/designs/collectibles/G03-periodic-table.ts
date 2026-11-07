@@ -43,7 +43,7 @@ const cy = (row: number) => Y0 + row * (CH + G);
 export const design: Design = {
   id: "G03",
   slug: "periodic-table",
-  title: "Periodic table of owners",
+  title: "Periodic table",
   idea: "The top 54 owners laid out in the first five periods of the periodic table: atomic number = rank, a unique two-letter symbol from the login, mass = PRs + issues + discussions. Ecosystems color their owners like element series; other owners are shown as orgs or people.",
   render(stats, theme) {
     const p = PALETTES[theme];

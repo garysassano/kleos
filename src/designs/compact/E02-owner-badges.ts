@@ -58,7 +58,7 @@ function render(stats: Stats, theme: ThemeName): string {
 export const design: Design = {
   id: "E02",
   slug: "owner-badges",
-  title: "Owner badge strip",
+  title: "Owner badges",
   idea: 'Shields.io-style pills, one per top owner (up to 24) with its avatar and a contribution count. Reads as a compact "who I contribute to" line and wraps to the README width.',
   render,
 };

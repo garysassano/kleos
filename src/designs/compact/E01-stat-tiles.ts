@@ -184,7 +184,7 @@ function render(stats: Stats, theme: ThemeName, options: RenderOptions = DEFAULT
 export const design: Design = {
   id: "E01",
   slug: "stat-tiles",
-  title: "Four stat tiles",
+  title: "Stat tiles",
   idea: 'Upstream PRs, merge rate, repos and owners as four equal 198px tiles in one 840px strip, each with a tiny supporting visual (contributions per year over the last four years, merge ring, top languages, top-owner avatars). Tiles rise in with a short staggered entrance. With outcomes "none" the merge tile goes and three tiles share the strip; "merged" shows merged PRs out of all PRs instead of a rate; "full" lists merged, open and closed beside the rate.',
   render,
 };

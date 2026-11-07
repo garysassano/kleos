@@ -19,7 +19,7 @@ import {
   truncate,
 } from "./_shared.ts";
 
-const title = "Repos | owners, side by side";
+const title = "Repos and owners";
 
 export const design: Design = {
   id: "A03",

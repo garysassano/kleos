@@ -27,7 +27,7 @@ const nextMonth = (m: string): string => {
 
 export const design: Design = {
   id: "B06",
-  slug: "stacked-area",
+  slug: "contributions-over-time",
   title: "Contributions over time",
   idea: "Monthly contributions as a stacked area by ecosystem or owner, showing peaks and how the mix shifts between groups. It starts in the first year holding at least 5% of all contributions; anything earlier is counted in the footnote.",
   render(stats, theme) {

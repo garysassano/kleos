@@ -33,6 +33,15 @@ describe("catalog", () => {
     }
   });
 
+  it("uses the title, in kebab case, as the slug", () => {
+    const kebab = (t: string) =>
+      t
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-|-$/g, "");
+    for (const d of designs) expect(d.slug, d.id).toBe(kebab(d.title));
+  });
+
   it("never reuses a retired id", () => {
     for (const id of Object.keys(RETIRED)) expect(designs.map((d) => d.id)).not.toContain(id);
   });

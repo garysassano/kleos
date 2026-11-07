@@ -11,8 +11,8 @@ const addDays = (iso: string, n: number) => {
 
 export const design: Design = {
   id: "D06",
-  slug: "calendar",
-  title: "Year calendar + top upstream",
+  slug: "contribution-calendar",
+  title: "Contribution calendar",
   idea: "The familiar 53-week activity calendar beside the five upstream repos with the most contributions in the months that window touches, so the year’s rhythm and where the upstream part went sit together.",
   render(stats, theme) {
     const ctx = makeCtx(stats, theme);

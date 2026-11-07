@@ -1,8 +1,8 @@
 import type { Category } from "../types.ts";
 import { design as F01 } from "./F01-sankey.ts";
 import { design as F02 } from "./F02-pr-outcomes.ts";
-import { design as F03 } from "./F03-metro.ts";
-import { design as F04 } from "./F04-bump.ts";
+import { design as F03 } from "./F03-metro-map.ts";
+import { design as F04 } from "./F04-rank-by-year.ts";
 import { design as F05 } from "./F05-first-contact.ts";
 import { design as F06 } from "./F06-fan-tree.ts";
 

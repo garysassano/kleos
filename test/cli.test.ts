@@ -31,7 +31,7 @@ describe("kleos CLI", () => {
   it("lists designs with their settings", () => {
     const { code, out } = kleos("--list-designs");
     expect(code).toBe(0);
-    expect(out).toMatch(/^A05 {2}Ecosystem roll-up$/m);
+    expect(out).toMatch(/^A05 {2}Ecosystem rollup$/m);
     expect(out).toMatch(/repos=0 {2}\(default, 0–10\)/);
     expect(out).toMatch(/F02 .*\(pr-outcomes: full only\)/);
   });

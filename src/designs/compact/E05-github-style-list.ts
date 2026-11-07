@@ -166,8 +166,8 @@ function render(stats: Stats, theme: ThemeName, options: RenderOptions = DEFAULT
 
 export const design: Design = {
   id: "E05",
-  slug: "primer-list",
-  title: "Primer repo list",
+  slug: "github-style-list",
+  title: "GitHub-style list",
   idea: "Looks like a native GitHub list: an issues-style header with octicon tabs and counters, Box rows with blue repo links, language/owner label pills, dates and per-type counts.",
   render,
 };

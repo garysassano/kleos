@@ -95,8 +95,8 @@ function levelCats(
 
 export const design: Design = {
   id: "B04",
-  slug: "stars-scatter",
-  title: "Stars vs involvement",
+  slug: "stars-vs-contributions",
+  title: "Stars vs contributions",
   idea: 'Each repo plotted by stars (log) against my contributions (log), colored by whether a PR was merged (with outcomes "none", only by whether I opened PRs; with "full", also open versus only closed-unmerged PRs); shows depth in mid-size repos versus drive-by issues on giant ones. Labels go to the 7 repos with most contributions, then the highest stars × contributions among repos with at least 3, up to 11 in all, each placed where it overlaps no other label and no other labelled repo\'s dot.',
   render(stats, theme, options: RenderOptions = DEFAULT_OPTIONS) {
     const lvl = options.outcomes;

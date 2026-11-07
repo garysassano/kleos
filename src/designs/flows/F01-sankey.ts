@@ -240,7 +240,7 @@ function render(stats: Stats, theme: ThemeName): string {
 export const design: Design = {
   id: "F01",
   slug: "sankey",
-  title: "Contribution Sankey",
+  title: "Sankey",
   idea: "A Sankey from you through ecosystems and owners to repos, band height proportional to PRs + issues + discussions. The 7 biggest groups and 10 biggest repos are named; the rest are merged into one node per column so every band still adds up.",
   render,
 };

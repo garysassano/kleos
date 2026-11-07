@@ -1,10 +1,10 @@
 import type { Category } from "../types.ts";
 import { design as D01 } from "./D01-orbit.ts";
-import { design as D02 } from "./D02-mosaic.ts";
-import { design as D03 } from "./D03-heatmap.ts";
+import { design as D02 } from "./D02-avatar-mosaic.ts";
+import { design as D03 } from "./D03-monthly-heatmap.ts";
 import { design as D04 } from "./D04-swimlanes.ts";
 import { design as D05 } from "./D05-skyline.ts";
-import { design as D06 } from "./D06-calendar.ts";
+import { design as D06 } from "./D06-contribution-calendar.ts";
 
 export const category: Category = {
   letter: "D",

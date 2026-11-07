@@ -36,7 +36,7 @@ const tierOf = (stars: number): string => TIERS.find(([, min]) => stars >= min)?
 
 export const design: Design = {
   id: "A06",
-  slug: "tier-vs-share",
+  slug: "star-tier-vs-my-share",
   title,
   idea: "Star-tier letters (S+ to C) that say what they mean: the left side is the repo’s popularity (stars, log scale, tier letter), the right side is what I contributed there. Big repos with small bars and small repos with big bars become obvious. When the top repo has more than twice the runner-up's total, its bar is shortened and marked “not to scale”.",
   render(stats, theme, options = DEFAULT_OPTIONS) {

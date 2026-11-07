@@ -41,7 +41,7 @@ const LAYOUT: Record<Level, Cols & { repoC: number; langC: number }> = {
 export const design: Design = {
   id: "C02",
   slug: "terminal",
-  title: "Terminal table",
+  title: "Terminal",
   idea: "A fake `upstream --top 12` command that types itself out and prints an aligned monospace table of the top repos (language, stars, PRs, merged, issues, discussions), with a totals line. With outcomes none the merged column goes; full adds open and closed-unmerged columns.",
   render(stats, theme, options = DEFAULT_OPTIONS) {
     const lv = options.outcomes;

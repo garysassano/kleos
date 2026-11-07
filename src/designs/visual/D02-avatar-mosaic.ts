@@ -81,7 +81,7 @@ type Item = { o: OwnerStats; v: number } | { rest: true; v: number; n: number };
 
 export const design: Design = {
   id: "D02",
-  slug: "mosaic",
+  slug: "avatar-mosaic",
   title: "Avatar mosaic",
   idea: "A treemap wall of avatars: each tile’s area is that owner’s share of all upstream contributions, with the count on every tile, a PR/issue breakdown on the big ones, and one tile pooling everyone with 5 or fewer.",
   render(stats, theme, options = DEFAULT_OPTIONS) {

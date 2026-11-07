@@ -118,7 +118,7 @@ function render(stats: Stats, theme: ThemeName): string {
 
 export const design: Design = {
   id: "F03",
-  slug: "metro",
+  slug: "metro-map",
   title: "Metro map",
   idea: "A subway map where each line is one of the 6 ecosystems or owners with the most repos (ties by contributions), and its stations are up to 8 of its biggest repos in order of first contribution, sized by PRs + issues + discussions. Shows breadth: where you branched out, not just where you contributed most.",
   render,

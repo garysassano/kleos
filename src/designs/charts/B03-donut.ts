@@ -56,8 +56,8 @@ const MIN_ROWS = 8;
 
 export const design: Design = {
   id: "B03",
-  slug: "donut-ranked",
-  title: "Donut + ranked legend",
+  slug: "donut",
+  title: "Donut",
   idea: "Share of all upstream work by ecosystem or owner as a donut (seven largest groups plus everyone else), next to a ranked table with avatars, share and a PR/issue breakdown per group. The PR part of that breakdown follows the outcomes level: PRs only, PRs with merged ones, or merged, open and closed-unmerged.",
   render(stats, theme, options: RenderOptions = DEFAULT_OPTIONS) {
     const lvl = options.outcomes;
