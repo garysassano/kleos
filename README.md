@@ -11,16 +11,28 @@ kleos does the same for open source. It turns the work you did in other people's
 
 <table>
   <tr>
-    <td width="50%"><a href="gallery/README.md#f--flows-and-networks"><picture><source media="(prefers-color-scheme: dark)" srcset="gallery/flows/F01-sankey-dark.svg"><img alt="Sankey" src="gallery/flows/F01-sankey-light.svg" width="100%"></picture></a><br><sub><b>F01</b> · Sankey</sub></td>
-    <td width="50%"><a href="gallery/README.md#d--visual"><picture><source media="(prefers-color-scheme: dark)" srcset="gallery/visual/D01-orbit-dark.svg"><img alt="Orbit" src="gallery/visual/D01-orbit-light.svg" width="100%"></picture></a><br><sub><b>D01</b> · Orbit</sub></td>
+    <th width="50%">F01 · Sankey</th>
+    <th width="50%">D01 · Orbit</th>
   </tr>
   <tr>
-    <td><a href="gallery/README.md#h--focus-and-stories"><picture><source media="(prefers-color-scheme: dark)" srcset="gallery/focus/H01-ecosystem-deep-dive-dark.svg"><img alt="Ecosystem deep-dive" src="gallery/focus/H01-ecosystem-deep-dive-light.svg" width="100%"></picture></a><br><sub><b>H01</b> · Ecosystem deep-dive</sub></td>
-    <td><a href="gallery/README.md#g--badges-and-collectibles"><picture><source media="(prefers-color-scheme: dark)" srcset="gallery/collectibles/G03-periodic-table-dark.svg"><img alt="Periodic table" src="gallery/collectibles/G03-periodic-table-light.svg" width="100%"></picture></a><br><sub><b>G03</b> · Periodic table</sub></td>
+    <td><a href="gallery/README.md#f--flows-and-networks"><picture><source media="(prefers-color-scheme: dark)" srcset="gallery/flows/F01-sankey-dark.svg"><img alt="Sankey" src="gallery/flows/F01-sankey-light.svg" width="100%"></picture></a></td>
+    <td><a href="gallery/README.md#d--visual"><picture><source media="(prefers-color-scheme: dark)" srcset="gallery/visual/D01-orbit-dark.svg"><img alt="Orbit" src="gallery/visual/D01-orbit-light.svg" width="100%"></picture></a></td>
   </tr>
   <tr>
-    <td><a href="gallery/README.md#b--charts"><picture><source media="(prefers-color-scheme: dark)" srcset="gallery/charts/B02-treemap-dark.svg"><img alt="Treemap" src="gallery/charts/B02-treemap-light.svg" width="100%"></picture></a><br><sub><b>B02</b> · Treemap</sub></td>
-    <td><a href="gallery/README.md#c--typographic"><picture><source media="(prefers-color-scheme: dark)" srcset="gallery/type/C02-terminal-dark.svg"><img alt="Terminal" src="gallery/type/C02-terminal-light.svg" width="100%"></picture></a><br><sub><b>C02</b> · Terminal</sub></td>
+    <th width="50%">H01 · Ecosystem deep-dive</th>
+    <th width="50%">B02 · Treemap</th>
+  </tr>
+  <tr>
+    <td><a href="gallery/README.md#h--focus-and-stories"><picture><source media="(prefers-color-scheme: dark)" srcset="gallery/focus/H01-ecosystem-deep-dive-dark.svg"><img alt="Ecosystem deep-dive" src="gallery/focus/H01-ecosystem-deep-dive-light.svg" width="100%"></picture></a></td>
+    <td><a href="gallery/README.md#b--charts"><picture><source media="(prefers-color-scheme: dark)" srcset="gallery/charts/B02-treemap-dark.svg"><img alt="Treemap" src="gallery/charts/B02-treemap-light.svg" width="100%"></picture></a></td>
+  </tr>
+  <tr>
+    <th width="50%">C02 · Terminal</th>
+    <th width="50%">G03 · Periodic table</th>
+  </tr>
+  <tr>
+    <td><a href="gallery/README.md#c--typographic"><picture><source media="(prefers-color-scheme: dark)" srcset="gallery/type/C02-terminal-dark.svg"><img alt="Terminal" src="gallery/type/C02-terminal-light.svg" width="100%"></picture></a></td>
+    <td><a href="gallery/README.md#g--badges-and-collectibles"><picture><source media="(prefers-color-scheme: dark)" srcset="gallery/collectibles/G03-periodic-table-dark.svg"><img alt="Periodic table" src="gallery/collectibles/G03-periodic-table-light.svg" width="100%"></picture></a></td>
   </tr>
 </table>
 
