@@ -16,3 +16,4 @@ Each record says what was decided, why, and what was rejected. A record is never
 | [0010](0010-vocabulary.md)                   | One name per concept on every card                                        | 2026-11-07 |
 | [0011](0011-action-inputs.md)                | The Action is configured through its inputs, not a config file            | 2026-11-07 |
 | [0012](0012-design-settings.md)              | A design can declare settings; A07 and A08 became settings of A05         | 2026-11-07 |
+| [0013](0013-npm-cli.md)                      | A `kleos` command on npm, bundled from the same sources                   | 2026-11-07 |

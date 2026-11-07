@@ -20,7 +20,8 @@
       "biome.json",
       "tsconfig.json",
       "package.json",
-      "vitest.config.ts"
+      "vitest.config.ts",
+      "tsdown.config.ts"
     ]
   },
   "formatter": {

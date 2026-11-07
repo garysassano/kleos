@@ -38,45 +38,127 @@ flowchart LR
 
 kleos runs as a scheduled GitHub Action in your profile repository. There's no server to host and no shared rate limit to run into, and the cards update on whatever schedule you choose.
 
-## Use it
+**What counts:** a contribution is a pull request, issue or discussion you opened in a public repo you don't own. Cards sum them per **repo**, per **owner** (the org or person the repo belongs to) and per **ecosystem** (several orgs counted as one, such as AWS across `aws`, `awslabs` and `aws-samples`). Your own repos and private work are left out.
 
-Pick designs from the [catalog](gallery/README.md) and add this workflow to your profile repository (the one named after your username) as `.github/workflows/kleos.yml`:
+## Set it up
+
+1. Pick designs in the [catalog](gallery/README.md). Each has an id, such as `D01`.
+2. Add this workflow to your profile repository (the one named after your username) as `.github/workflows/kleos.yml`:
+
+   ```yaml
+   name: kleos
+   on:
+     schedule:
+       - cron: "17 4 * * *" # daily
+     workflow_dispatch:
+   permissions:
+     contents: write
+   jobs:
+     cards:
+       runs-on: ubuntu-latest
+       steps:
+         - uses: actions/checkout@v7
+         - uses: garysassano/kleos@main
+           with:
+             designs: |
+               D01
+               A05 repos=3
+   ```
+
+3. Run it once from the **Actions** tab. It commits the cards to a `kleos/` folder, two files per design (dark and light). Later runs commit only when your numbers change.
+4. Show a card in your `README.md`. GitHub picks the file that matches the visitor's theme:
+
+   ```html
+   <picture>
+     <source
+       media="(prefers-color-scheme: dark)"
+       srcset="kleos/D01-orbit-dark.svg"
+     />
+     <img alt="Where my contributions go" src="kleos/D01-orbit-light.svg" />
+   </picture>
+   ```
+
+   The file names are `<id>-<name>-dark.svg` and `-light.svg`; the catalog shows each design's name.
+
+## Configure
+
+| Input                | Default                  | What it does                                                                                                                   |
+| -------------------- | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| `designs`            | required                 | The cards to render: design ids, one per line, each followed by its settings ([design settings](#design-settings)).            |
+| `pr-outcomes`        | `full`                   | How PR results are shown: `none` (PRs as one number), `merged` (merged PRs highlighted), or `full` (merged, open, and closed). |
+| `ecosystems`         | none                     | Extra ecosystems, one per line ([ecosystems](#ecosystems)).                                                                    |
+| `default-ecosystems` | `true`                   | Start from kleos's default ecosystems. `false` uses only yours.                                                                |
+| `user`               | the repository owner     | Whose contributions to show.                                                                                                   |
+| `out-dir`            | `kleos`                  | Folder for the cards. Cards of designs you remove from `designs` are deleted from it; other files are left alone.              |
+| `commit`             | `true`                   | Commit and push the cards when they changed. Set `false` to handle the files in a later step.                                  |
+| `commit-message`     | `Update kleos cards`     | Message of that commit.                                                                                                        |
+| `token`              | the workflow's own token | Token for GitHub's API. Public data is all kleos reads, so the default is enough.                                              |
+
+A mistake in any input, such as an unknown id or a setting a design doesn't have, fails the run with a message that names it, before anything is fetched.
+
+### Design settings
+
+Some designs have settings, written after the id as `name=value`. Switches take `yes` or `no`, numbers a whole number. The catalog lists each design's settings and shows examples, and `npx kleos --list-designs` prints them. For example, A05 (ecosystem roll-up) lists every owner under each ecosystem; with `owners=no repos=3` it lists the top 3 repos instead:
 
 ```yaml
-name: kleos
-on:
-  schedule:
-    - cron: "17 4 * * *" # daily
-  workflow_dispatch:
-permissions:
-  contents: write
-jobs:
-  cards:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - uses: garysassano/kleos@main
-        with:
-          designs: D01 A05
+designs: |
+  D01
+  A05 owners=no repos=3   # top 3 repos under each ecosystem
 ```
 
-Run it once from the Actions tab. It commits the cards to a `kleos/` folder, and the next runs commit only when your numbers change. Then show a card in your README:
+Text after `#` is a comment. Each design can be listed once.
 
-```html
-<picture>
-  <source
-    media="(prefers-color-scheme: dark)"
-    srcset="kleos/D01-orbit-dark.svg"
-  />
-  <img alt="Where my contributions go" src="kleos/D01-orbit-light.svg" />
-</picture>
+### PR outcomes
+
+Showing PRs that were never merged can read like a list of failures, so you choose how much to show. `pr-outcomes` applies to every card:
+
+- `none`: PRs as one number.
+- `merged`: PRs, with the merged ones highlighted; the rest isn't labeled.
+- `full`: merged, still open, and closed without merging.
+
+### Ecosystems
+
+kleos counts these as ecosystems by default: AWS, HashiCorp, OpenTelemetry, Microsoft, Cloudflare and GitHub (each across its orgs, such as `aws`, `awslabs` and `aws-samples`). Add your own, one per line, as a name and a regular expression matched against the owner's login:
+
+```yaml
+ecosystems: |
+  jdx: ^jdx$                       # one person's projects, counted together
+  Google: ^(google|googleapis|GoogleCloudPlatform)$
 ```
 
-| Input        | Default                  | What it does                                                                                                                                                                       |
-| ------------ | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `designs`    | required                 | Design ids from the catalog, separated by spaces. A design with settings takes them right after its id, such as `A05 owners=no repos=3`; the catalog lists each design's settings. |
-| `outcomes`   | `full`                   | How PR results are shown: `none` (PRs as one number), `merged` (merged PRs highlighted), or `full` (merged, open, and closed without merging).                                     |
-| `ecosystems` | AWS, Microsoft, GitHub … | One `Name: regular expression` per line, grouping the orgs of one vendor. Replaces the defaults.                                                                                   |
-| `user`       | the repository owner     | Whose contributions to show.                                                                                                                                                       |
-| `out`        | `kleos`                  | Folder for the cards.                                                                                                                                                              |
-| `commit`     | `true`                   | Set to `false` to commit the files yourself in a later step.                                                                                                                       |
+A rule with the same name as a default replaces it. Set `default-ecosystems: false` to use only your own.
+
+## Preview locally
+
+The `kleos` command renders the same cards on your machine, so you can try designs and settings before changing your workflow. It needs Node.js 22 or later, and nothing to install:
+
+```sh
+npx kleos <your-login> -d D01 -d "A05 repos=3"
+```
+
+The cards land in `./kleos`; open the `.svg` files in a browser. More examples:
+
+```sh
+npx kleos --list-designs                                # every design, with its settings
+npx kleos octocat -d A02 --pr-outcomes none -o preview  # into ./preview, without merged counts
+npx kleos octocat -d A05 -e "jdx: ^jdx$"                # add an ecosystem
+npx kleos octocat -d A05 --no-default-ecosystems -e "AWS: ^aws"
+```
+
+Every Action input has a matching flag, and they combine freely:
+
+| Flag                      | Action input                | What it does                                                      |
+| ------------------------- | --------------------------- | ----------------------------------------------------------------- |
+| `<login>`                 | `user`                      | Whose contributions to show.                                      |
+| `-d`, `--design`          | `designs`                   | One card, with its settings: `-d "A05 repos=3"`. Repeat for more. |
+| `--pr-outcomes`           | `pr-outcomes`               | `none`, `merged` or `full`.                                       |
+| `-e`, `--ecosystem`       | `ecosystems`                | One ecosystem, `"Name: regex"`. Repeat for more.                  |
+| `--no-default-ecosystems` | `default-ecosystems: false` | Use only the ecosystems you give.                                 |
+| `-o`, `--out-dir`         | `out-dir`                   | Folder for the cards (default `kleos`).                           |
+| `--list-designs`          |                             | List every design and its settings.                               |
+
+It reads your data with `GITHUB_TOKEN` (or `GH_TOKEN`) when set, and otherwise with the account the [GitHub CLI](https://cli.github.com) is signed in to. No token scopes are needed.
+
+### Outside GitHub Actions
+
+The same command works in any scheduler or CI system: run it with a `GITHUB_TOKEN`, then commit the `kleos/` folder to your profile repository yourself.

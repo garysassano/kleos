@@ -61,13 +61,48 @@ jobs:
         with:
           user: ${{ github.repository_owner }}
           designs: D01 A05 owners=no repos=3
-          out: ci-cards
+          out-dir: ci-cards
           commit: "false"
 
       - name: Cards were written
         run: |
           find ci-cards -name '*.svg' -print
           test "$(find ci-cards -name '*.svg' | wc -l)" -eq 4
+
+  package:
+    name: npm package builds and runs
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Install Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Pack
+        run: pnpm pack --pack-destination "$RUNNER_TEMP"
+
+      - name: Run the packed CLI on the oldest supported Node
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          cd "$RUNNER_TEMP"
+          tar xzf kleos-*.tgz
+          node package/dist/cli.mjs --help
+          node package/dist/cli.mjs --list-designs > /dev/null
+          node package/dist/cli.mjs "$GITHUB_REPOSITORY_OWNER" -d D01 -d "A05 repos=3" -e "jdx: ^jdx$" --pr-outcomes none -o cards
+          test "$(find cards -name '*.svg' | wc -l)" -eq 4
 
   workflows:
     name: Workflow lint and lockfile

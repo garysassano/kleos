@@ -8,23 +8,27 @@ branding:
 inputs:
   designs:
     description: >-
-      Design ids to render, separated by spaces, commas or new lines, each followed by its settings,
-      such as "D01 A05 owners=no repos=3". The catalog (gallery/README.md) lists the ids and settings.
+      The cards to render: design ids from the catalog (gallery/README.md), one per line or separated
+      by spaces, each followed by its settings, such as "A05 owners=no repos=3".
     required: true
-  user:
-    description: GitHub login whose contributions are shown.
-    default: ${{ github.repository_owner }}
-  outcomes:
+  pr-outcomes:
     description: >-
-      How PR results are shown. none (PRs as one number), merged (merged PRs highlighted) or full
+      How PR results are shown: none (PRs as one number), merged (merged PRs highlighted) or full
       (merged, open, and closed without merging).
     default: full
   ecosystems:
     description: >-
-      One ecosystem per line, "Name: regular expression" matched against the whole owner login,
-      such as "AWS: ^(aws|awslabs|aws-.*)$". Replaces kleos's defaults when set.
+      Extra ecosystems, one per line, as "Name: regular expression" matched against the whole owner
+      login, such as "jdx: ^jdx$". They are added to kleos's defaults; one with a default's name
+      replaces it.
     default: ""
-  out:
+  default-ecosystems:
+    description: Start from kleos's default ecosystems (AWS, HashiCorp, OpenTelemetry, Microsoft, Cloudflare, GitHub). Set to false to use only your own.
+    default: "true"
+  user:
+    description: GitHub login whose contributions are shown.
+    default: ${{ github.repository_owner }}
+  out-dir:
     description: Folder in the repository that receives the cards.
     default: kleos
   commit:
@@ -52,16 +56,17 @@ runs:
       env:
         INPUT_USER: ${{ inputs.user }}
         INPUT_DESIGNS: ${{ inputs.designs }}
-        INPUT_OUTCOMES: ${{ inputs.outcomes }}
+        INPUT_PR_OUTCOMES: ${{ inputs.pr-outcomes }}
         INPUT_ECOSYSTEMS: ${{ inputs.ecosystems }}
-        INPUT_OUT: ${{ inputs.out }}
+        INPUT_DEFAULT_ECOSYSTEMS: ${{ inputs.default-ecosystems }}
+        INPUT_OUT_DIR: ${{ inputs.out-dir }}
         GITHUB_TOKEN: ${{ inputs.token }}
 
     - name: Commit cards
       if: inputs.commit == 'true'
       shell: bash
       env:
-        OUT: ${{ inputs.out }}
+        OUT: ${{ inputs.out-dir }}
         MESSAGE: ${{ inputs.commit-message }}
       run: |
         git add -A -- "$OUT"

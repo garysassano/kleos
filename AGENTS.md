@@ -4,7 +4,7 @@ SVG profile cards rendered from a `Stats` snapshot of a user's GitHub contributi
 
 ## Layout
 
-- `action.yml` and `src/action/`, `src/cli/action.ts`: the GitHub Action (decision 0011).
+- `action.yml` and `src/action/`, `src/cli/action.ts`: the GitHub Action (decision 0011). `src/cli/kleos.ts`: the npm CLI, bundled to `dist/` by `pnpm build` (decision 0013).
 - `src/github/`: GraphQL transport, raw fetch and the avatar-embedding snapshot. `src/stats/`: the `Stats` type, aggregation and fixture loading.
 - `src/designs/<category>/<ID>-<slug>.ts`: one design per file. List it in the folder's `index.ts`. Category-only helpers go in `_shared.ts`; helpers for every category go in `src/kit/svg.ts`.
 - `fixtures/`: `garysassano.json` is real data, used for the README and the catalog; `sample-small.json` is a tiny synthetic edge case.

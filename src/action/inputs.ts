@@ -30,12 +30,18 @@ export interface RawInputs {
   designs?: string;
   outcomes?: string;
   ecosystems?: string;
+  /** Start from kleos's default ecosystems (default true); `ecosystems` adds to them. */
+  defaultEcosystems?: boolean;
   out?: string;
 }
 
 const LOGIN = /^[A-Za-z0-9](?:[A-Za-z0-9]|-(?=[A-Za-z0-9])){0,38}$/;
 
-export function parseInputs(raw: RawInputs): ActionConfig {
+/**
+ * `anywhere` lets `out` be any folder (the CLI); the Action keeps it relative and inside the
+ * repository it commits to.
+ */
+export function parseInputs(raw: RawInputs, { anywhere = false } = {}): ActionConfig {
   const user = raw.user?.trim() ?? "";
   if (!LOGIN.test(user)) throw new Error(`user: "${user}" is not a GitHub login`);
 
@@ -43,28 +49,32 @@ export function parseInputs(raw: RawInputs): ActionConfig {
 
   const outcomes = (raw.outcomes?.trim() || DEFAULT_LEVEL) as Level;
   if (!LEVELS.includes(outcomes))
-    throw new Error(`outcomes: "${outcomes}" must be one of ${LEVELS.join(", ")}`);
+    throw new Error(`pr-outcomes: "${outcomes}" must be one of ${LEVELS.join(", ")}`);
   for (const { design: d } of designs)
     if (!outcomesOf(d).includes(outcomes))
       throw new Error(
-        `outcomes: ${d.id} (${d.title}) supports ${outcomesOf(d).join(", ")}, not ${outcomes}`,
+        `pr-outcomes: ${d.id} (${d.title}) supports ${outcomesOf(d).join(", ")}, not ${outcomes}`,
       );
 
   const out = raw.out?.trim() || "kleos";
-  if (out.startsWith("/") || out.split(/[\\/]/).includes(".."))
-    throw new Error(`out: "${out}" must be a folder inside the repository`);
+  if (!anywhere && (out.startsWith("/") || out.split(/[\\/]/).includes("..")))
+    throw new Error(`out-dir: "${out}" must be a folder inside the repository`);
 
-  return { user, designs, outcomes, ecosystems: parseEcosystems(raw.ecosystems), out };
+  const ecosystems = parseEcosystems(raw.ecosystems, raw.defaultEcosystems ?? true);
+  return { user, designs, outcomes, ecosystems, out };
 }
 
 /**
  * Design ids separated by spaces, commas or new lines, each followed by its settings as
  * `name=value` (`D01 A05 owners=no repos=3`). Switches take yes or no, numbers a whole number.
+ * `# comments` run to the end of the line.
  */
 export function parseDesigns(text: string): ActionConfig["designs"] {
   const catalog = allDesigns();
   const out: { design: CatalogDesign; given: Record<string, SettingValue> }[] = [];
-  for (const token of text.split(/[\s,]+/).filter(Boolean)) {
+  // "#" starts a comment to the end of the line; ids and settings never contain it.
+  const uncommented = text.replace(/#.*$/gm, "");
+  for (const token of uncommented.split(/[\s,]+/).filter(Boolean)) {
     const eq = token.indexOf("=");
     if (eq < 0) {
       const id = token.toUpperCase();
@@ -105,15 +115,16 @@ export function parseDesigns(text: string): ActionConfig["designs"] {
 
 /**
  * One ecosystem per line, `Name: regular expression` matched against the whole owner login.
- * Empty means kleos's defaults. Blank lines and lines starting with # are ignored.
+ * The rules are added to kleos's defaults (unless `withDefaults` is false); a rule with a
+ * default's name (any case) replaces that default. Blank lines and `# comments` are ignored.
  */
-export function parseEcosystems(text = ""): EcosystemRule[] {
+export function parseEcosystems(text = "", withDefaults = true): EcosystemRule[] {
   const lines = text
     .split("\n")
-    .map((l) => l.trim())
-    .filter((l) => l && !l.startsWith("#"));
-  if (!lines.length) return DEFAULT_ECOSYSTEMS;
-  return lines.map((line) => {
+    // "#" starts a comment; owner logins never contain it.
+    .map((l) => l.replace(/#.*$/, "").trim())
+    .filter(Boolean);
+  const rules = lines.map((line) => {
     const i = line.indexOf(":");
     const name = line.slice(0, i).trim();
     const match = line.slice(i + 1).trim();
@@ -126,6 +137,13 @@ export function parseEcosystems(text = ""): EcosystemRule[] {
     }
     return { name, match };
   });
+  const out = withDefaults ? [...DEFAULT_ECOSYSTEMS] : [];
+  for (const rule of rules) {
+    const i = out.findIndex((r) => r.name.toLowerCase() === rule.name.toLowerCase());
+    if (i >= 0) out[i] = rule;
+    else out.push(rule);
+  }
+  return out;
 }
 
 /** The files a design writes: `<ID>-<slug>-dark.svg` and `-light.svg`. */

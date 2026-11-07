@@ -12,16 +12,17 @@ describe("action inputs", () => {
     expect(c.designs[1]?.settings).toEqual({ owners: true, repos: 0 });
     expect(c.outcomes).toBe("full");
     expect(c.out).toBe("kleos");
-    expect(c.ecosystems).toBe(DEFAULT_ECOSYSTEMS);
+    expect(c.ecosystems).toEqual(DEFAULT_ECOSYSTEMS);
   });
 
   it("names what is wrong", () => {
     expect(() => parseInputs({ ...base, designs: "" })).toThrow(/designs: list at least one/);
     expect(() => parseInputs({ ...base, designs: "D01 Z99" })).toThrow(/designs: unknown id Z99/);
     expect(() => parseInputs({ ...base, user: "-bad" })).toThrow(/user:/);
-    expect(() => parseInputs({ ...base, outcomes: "some" })).toThrow(/outcomes: "some"/);
-    expect(() => parseInputs({ ...base, out: "../elsewhere" })).toThrow(/out:/);
-    expect(() => parseInputs({ ...base, out: "/abs" })).toThrow(/out:/);
+    expect(() => parseInputs({ ...base, outcomes: "some" })).toThrow(/pr-outcomes: "some"/);
+    expect(() => parseInputs({ ...base, out: "../elsewhere" })).toThrow(/out-dir:/);
+    expect(() => parseInputs({ ...base, out: "/abs" })).toThrow(/out-dir:/);
+    expect(parseInputs({ ...base, out: "/abs" }, { anywhere: true }).out).toBe("/abs");
   });
 
   it("reads settings after their design", () => {
@@ -30,6 +31,16 @@ describe("action inputs", () => {
       ["D01", {}],
       ["A05", { owners: false, repos: 3 }],
     ]);
+  });
+
+  it("ignores comments in designs and ecosystems", () => {
+    const c = parseInputs({
+      ...base,
+      designs: "D01  # the orbit\nA05 repos=3 # top repos",
+      ecosystems: "jdx: ^jdx$   # one person",
+    });
+    expect(c.designs.map((d) => d.design.id)).toEqual(["D01", "A05"]);
+    expect(c.ecosystems.at(-1)).toEqual({ name: "jdx", match: "^jdx$" });
   });
 
   it("names the design and setting that is wrong", () => {
@@ -46,15 +57,24 @@ describe("action inputs", () => {
 
   it("rejects a level a design can't render", () => {
     expect(() => parseInputs({ ...base, designs: "F02", outcomes: "none" })).toThrow(
-      /outcomes: F02 .* supports full, not none/,
+      /pr-outcomes: F02 .* supports full, not none/,
     );
   });
 
-  it("parses ecosystems, skipping blank and comment lines", () => {
-    expect(parseEcosystems("AWS: ^(aws|aws-.*)$\n\n# people\njdx: ^jdx$\n")).toEqual([
-      { name: "AWS", match: "^(aws|aws-.*)$" },
-      { name: "jdx", match: "^jdx$" },
-    ]);
+  it("adds ecosystems to the defaults, replacing one of the same name", () => {
+    const rules = parseEcosystems("aws: ^(aws|aws-.*)$\n\n# people\njdx: ^jdx$\n");
+    expect(rules.length).toBe(DEFAULT_ECOSYSTEMS.length + 1);
+    expect(rules[0]).toEqual({ name: "aws", match: "^(aws|aws-.*)$" });
+    expect(rules.at(-1)).toEqual({ name: "jdx", match: "^jdx$" });
+    expect(parseEcosystems("")).toEqual(DEFAULT_ECOSYSTEMS);
+  });
+
+  it("uses only the given ecosystems without the defaults", () => {
+    expect(parseEcosystems("jdx: ^jdx$", false)).toEqual([{ name: "jdx", match: "^jdx$" }]);
+    expect(parseEcosystems("", false)).toEqual([]);
+  });
+
+  it("rejects malformed ecosystems", () => {
     expect(() => parseEcosystems("AWS ^aws$")).toThrow(/Name: regular expression/);
     expect(() => parseEcosystems("AWS: ^(aws$")).toThrow(/ecosystems: AWS:/);
   });
