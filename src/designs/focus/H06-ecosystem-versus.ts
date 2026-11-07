@@ -7,7 +7,7 @@ import {
   document as svgDocument,
 } from "../../kit/svg.ts";
 import { DEFAULT_OPTIONS, type Design } from "../types.ts";
-import { frame, kinds, monthLabel, num, plural, prRows, sum, t, topGroups } from "./_shared.ts";
+import { frame, monthLabel, num, plural, prRows, sum, t, topGroups } from "./_shared.ts";
 
 const W = 840;
 const PAD = 24;
@@ -55,15 +55,11 @@ export const design: Design = {
     const n = groups.length;
     const cw = (W - 2 * PAD - GAP * (n - 1)) / n;
     const top = 78;
-    const kindRows = groups.map((g) =>
-      outcomes
-        ? [
-            ...prRows(g, p, outcomes),
-            { label: "Issues", value: g.issues, color: p.issue },
-            { label: "Discussions", value: g.discussions, color: p.discussion },
-          ]
-        : kinds(g, p),
-    );
+    const kindRows = groups.map((g) => [
+      ...prRows(g, p, outcomes),
+      { label: "Issues", value: g.issues, color: p.issue },
+      { label: "Discussions", value: g.discussions, color: p.discussion },
+    ]);
     const kindCount = kindRows[0]?.length ?? 4;
     const kindMax = Math.max(1, ...kindRows.flat().map((k) => k.value));
     const best = (f: (i: number) => number) => {
@@ -154,13 +150,11 @@ export const design: Design = {
       const topRepo = g.repos[0];
       const rateFact = {
         label: "Merge rate",
-        value: g.prs
-          ? `${outcomes ? mergeRate(g, outcomes) : percent(g.prsMerged, g.prs)}% of ${plural(g.prs, "PR")}`
-          : "no PRs",
+        value: g.prs ? `${mergeRate(g, outcomes)}% of ${plural(g.prs, "PR")}` : "no PRs",
         bold: leadsRate(i),
       };
       const facts = [
-        ...(outcomes && outcomes !== "full" ? [] : [rateFact]),
+        ...(outcomes === "full" ? [rateFact] : []),
         {
           label: "Active",
           value:

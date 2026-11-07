@@ -13,8 +13,10 @@ inputs:
     description: GitHub login whose contributions are shown.
     default: ${{ github.repository_owner }}
   outcomes:
-    description: How much PR outcome detail the cards show. original (each design's own look), none, merged or full.
-    default: original
+    description: >-
+      How PR results are shown. none (PRs as one number), merged (merged PRs highlighted) or full
+      (merged, open, and closed without merging).
+    default: full
   ecosystems:
     description: >-
       One ecosystem per line, "Name: regular expression" matched against the whole owner login,

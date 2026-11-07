@@ -5,7 +5,7 @@ import {
   percent,
   document as svgDocument,
 } from "../../kit/svg.ts";
-import { DEFAULT_OPTIONS, type Design } from "../types.ts";
+import type { Design } from "../types.ts";
 import {
   allEcosystems,
   dayLabel,
@@ -43,14 +43,12 @@ export const design: Design = {
   idea: "What happens to the PRs I open upstream: opened, decided (merged or closed), merged, with the drop at each step, then the same split for each ecosystem next to everyone else. Rule: ecosystems ranked by PRs opened, up to 7, the remaining owners summed in one row.",
   // A funnel is the drop between outcomes; without them there is no funnel left to draw.
   outcomes: ["full"],
-  render(stats, theme, options = DEFAULT_OPTIONS) {
+  render(stats, theme) {
     const p = PALETTES[theme];
-    // Unset: the original accent for open and faded purple for closed. "full" (decision 0009):
-    // open in a lighter tone of the merged purple, closed unmerged in neutral gray.
-    const full = options.outcomes === "full";
-    const openC = full ? p.open : p.accent;
-    const closedC = full ? p.closed : p.pr;
-    const closedO = full ? 1 : 0.7;
+    // Decision 0009: open in a lighter tone of the merged purple, closed unmerged in neutral gray.
+    const openC = p.open;
+    const closedC = p.closed;
+    const closedO = 1;
     const all = outcome({
       prs: sum(stats.repos, (r) => r.prs),
       prsMerged: sum(stats.repos, (r) => r.prsMerged),

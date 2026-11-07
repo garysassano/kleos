@@ -198,16 +198,12 @@ export function prFill(T: Theme, key: PrPartKey, level: Level): { c: string; op?
 export const prSegs = (T: Theme, o: PrCounts, level: Level): Segment[] =>
   prParts(o, level).map((p) => ({ v: p.count, ...prFill(T, p.key, level) }));
 
-/** Bar segments for a row: PRs, issues, discussions. Without a level, the original four. */
-export const segsOf = (T: Theme, o: Counts, level?: Level): Segment[] =>
-  level === undefined
-    ? [
-        { v: o.prsMerged, c: T.pr },
-        { v: o.prs - o.prsMerged, c: T.pr, op: PR_OTHER_OPACITY },
-        { v: o.issues, c: T.iss },
-        { v: o.discussions, c: T.disc },
-      ]
-    : [...prSegs(T, o, level), { v: o.issues, c: T.iss }, { v: o.discussions, c: T.disc }];
+/** Bar segments for a row: PRs, issues, discussions. */
+export const segsOf = (T: Theme, o: Counts, level: Level): Segment[] => [
+  ...prSegs(T, o, level),
+  { v: o.issues, c: T.iss },
+  { v: o.discussions, c: T.disc },
+];
 
 /** Horizontal stacked bar. Totals above `scaleMax` are drawn to `maxW` with an axis-break mark. */
 export function stack(
@@ -272,20 +268,12 @@ export function legend(
 export const prLegendItems = (T: Theme, level: Level): LegendItem[] =>
   prLegend(level).map((l) => ({ ...prFill(T, l.key, level), label: l.label }));
 
-/** Legend for `segsOf`. Without a level, the original wording. */
-export const STD_LEGEND = (T: Theme, level?: Level): LegendItem[] =>
-  level === undefined
-    ? [
-        { c: T.pr, label: "PRs merged" },
-        { c: T.pr, op: PR_OTHER_OPACITY, label: "PRs open or closed" },
-        { c: T.iss, label: "Issues" },
-        { c: T.disc, label: "Discussions" },
-      ]
-    : [
-        ...prLegendItems(T, level),
-        { c: T.iss, label: "Issues" },
-        { c: T.disc, label: "Discussions" },
-      ];
+/** Legend for `segsOf`. */
+export const STD_LEGEND = (T: Theme, level: Level): LegendItem[] => [
+  ...prLegendItems(T, level),
+  { c: T.iss, label: "Issues" },
+  { c: T.disc, label: "Discussions" },
+];
 
 /** Width `legend` gives `items`, without the trailing gap. */
 export const legendW = (items: LegendItem[], size = 11.5, gapX = 18): number =>
@@ -399,7 +387,7 @@ const ROLLUP_TEXT: Record<RollupRows, { sub: string; column: string }> = {
 export function ecosystemRollup(
   stats: Stats,
   theme: ThemeName,
-  level: Level | undefined,
+  level: Level,
   rows: RollupRows,
   title: string,
 ): string {

@@ -90,7 +90,7 @@ const W = 840;
 const MAX = 10;
 
 /** Column x positions (number columns are right edges); 0 leaves a column out. */
-const ORIGINAL = {
+const MERGED = {
   rank: 60,
   score: 136,
   name: 236,
@@ -102,11 +102,11 @@ const ORIGINAL = {
   issues: 722,
   disc: 790,
 };
-const LAYOUT: Record<Level, typeof ORIGINAL> = {
-  none: { ...ORIGINAL, prs: 590, merged: 0, issues: 690 },
-  merged: ORIGINAL,
+const LAYOUT: Record<Level, typeof MERGED> = {
+  none: { ...MERGED, prs: 590, merged: 0, issues: 690 },
+  merged: MERGED,
   full: {
-    ...ORIGINAL,
+    ...MERGED,
     rank: 48,
     score: 116,
     name: 206,
@@ -167,7 +167,7 @@ export const design: Design = {
     body += center(title, W / 2, 92, 4, s[2] as string);
 
     // Columns.
-    const cols = lv ? LAYOUT[lv] : ORIGINAL;
+    const cols = LAYOUT[lv];
     /** A right-aligned number column, skipped when the level leaves it out. */
     const col = (text: string, x: number, y: number, fill: string) =>
       x ? px(text, x, y, 2, fill, true) : "";

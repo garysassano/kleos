@@ -9,7 +9,7 @@ describe("action inputs", () => {
   it("reads ids in any separator and case, without duplicates", () => {
     const c = parseInputs({ ...base, designs: "d01, A05\nD01" });
     expect(c.designs.map((d) => d.id)).toEqual(["D01", "A05"]);
-    expect(c.outcomes).toBe("original");
+    expect(c.outcomes).toBe("full");
     expect(c.out).toBe("kleos");
     expect(c.ecosystems).toBe(DEFAULT_ECOSYSTEMS);
   });
@@ -25,7 +25,7 @@ describe("action inputs", () => {
 
   it("rejects a level a design can't render", () => {
     expect(() => parseInputs({ ...base, designs: "F02", outcomes: "none" })).toThrow(
-      /outcomes: F02 .* supports original, full, not none/,
+      /outcomes: F02 .* supports full, not none/,
     );
   });
 

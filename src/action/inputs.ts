@@ -5,8 +5,9 @@
  */
 import {
   type CatalogDesign,
-  OUTCOMES,
-  type Outcomes,
+  DEFAULT_LEVEL,
+  LEVELS,
+  type Level,
   allDesigns,
   outcomesOf,
 } from "../designs/index.ts";
@@ -15,7 +16,7 @@ import { DEFAULT_ECOSYSTEMS, type EcosystemRule } from "../stats/aggregate.ts";
 export interface ActionConfig {
   user: string;
   designs: CatalogDesign[];
-  outcomes: Outcomes;
+  outcomes: Level;
   ecosystems: EcosystemRule[];
   out: string;
 }
@@ -46,9 +47,9 @@ export function parseInputs(raw: RawInputs): ActionConfig {
     (id) => catalog.find((d) => d.id === id) as CatalogDesign,
   );
 
-  const outcomes = (raw.outcomes?.trim() || "original") as Outcomes;
-  if (!OUTCOMES.includes(outcomes))
-    throw new Error(`outcomes: "${outcomes}" must be one of ${OUTCOMES.join(", ")}`);
+  const outcomes = (raw.outcomes?.trim() || DEFAULT_LEVEL) as Level;
+  if (!LEVELS.includes(outcomes))
+    throw new Error(`outcomes: "${outcomes}" must be one of ${LEVELS.join(", ")}`);
   for (const d of designs)
     if (!outcomesOf(d).includes(outcomes))
       throw new Error(

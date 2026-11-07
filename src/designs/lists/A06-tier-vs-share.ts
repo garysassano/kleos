@@ -123,21 +123,6 @@ export const design: Design = {
         fill: "muted",
       },
     );
-    if (level === undefined) {
-      b += legend(T, rx0 - 150, fy + 26, [
-        { c: T.pr, label: "PRs" },
-        { c: T.iss, label: "Issues" },
-        { c: T.disc, label: "Discussions" },
-      ]);
-      b += t(
-        T,
-        24,
-        fy + 46,
-        `Lighter purple = PRs not merged. Stars measure the repo, not me; the bar on the right is my own contributions there.`,
-        { size: 11.5, fill: "muted" },
-      );
-      return frame(T, W, fy + 64, b, title);
-    }
     // The full legend does not fit beside the tier note, so it gets its own line.
     const own = level === "full";
     const ly = own ? fy + 46 : fy + 26;

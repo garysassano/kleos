@@ -14,7 +14,7 @@ Date: 2026-11-07
 | ---------------- | ------------------------------------------------------------------------------------------------------------------- |
 | `designs`        | Required. Design ids, such as `D01 A05`.                                                                            |
 | `user`           | Whose contributions to show. Defaults to the repository owner.                                                      |
-| `outcomes`       | `original` (default), `none`, `merged` or `full` ([0009](0009-outcomes-option.md)).                                 |
+| `outcomes`       | `none`, `merged` or `full` (default) ([0009](0009-outcomes-option.md)).                                             |
 | `ecosystems`     | One `Name: regular expression` per line, matched against owner logins. Replaces `DEFAULT_ECOSYSTEMS` when set.      |
 | `out`            | Folder for the cards, `kleos` by default. Files are named `<ID>-<slug>-{dark,light}.svg`, like the catalog.         |
 | `commit`         | Commit and push changed cards, `true` by default. Nothing is committed when the cards didn't change.                |

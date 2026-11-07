@@ -4,7 +4,7 @@ import { THEMES, derive, esc, kfmt, svg, text, trunc } from "./_shared.ts";
 
 /** Rows the command asks for; fewer are printed when there are fewer repos. */
 const TOP = 12;
-const ORIGINAL = {
+const BASE = {
   rank: 40,
   repo: 56,
   lang: 352,
@@ -17,14 +17,14 @@ const ORIGINAL = {
   disc: 756,
   total: 816,
 };
-type Cols = typeof ORIGINAL;
+type Cols = typeof BASE;
 
 /** Right edges of the number columns per level; a column at 0 is not printed. Repo and language widths shrink for "full". */
 const LAYOUT: Record<Level, Cols & { repoC: number; langC: number }> = {
-  none: { ...ORIGINAL, prs: 579, merged: 0, issues: 658, disc: 737, repoC: 36, langC: 10 },
-  merged: { ...ORIGINAL, repoC: 36, langC: 10 },
+  none: { ...BASE, prs: 579, merged: 0, issues: 658, disc: 737, repoC: 36, langC: 10 },
+  merged: { ...BASE, repoC: 36, langC: 10 },
   full: {
-    ...ORIGINAL,
+    ...BASE,
     lang: 318,
     stars: 452,
     prs: 492,
@@ -45,7 +45,7 @@ export const design: Design = {
   idea: "A fake `upstream --top 12` command that types itself out and prints an aligned monospace table of the top repos (language, stars, PRs, merged, issues, discussions), with a totals line. With outcomes none the merged column goes; full adds open and closed-unmerged columns.",
   render(stats, theme, options = DEFAULT_OPTIONS) {
     const lv = options.outcomes;
-    const C = lv ? LAYOUT[lv] : { ...ORIGINAL, repoC: 36, langC: 10 };
+    const C = LAYOUT[lv];
     const t = THEMES[theme];
     const { T, asOf, extIssues, extDisc, extTotal } = derive(stats);
     const rows = stats.repos.slice(0, TOP);

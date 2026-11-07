@@ -121,14 +121,6 @@ function render(stats: Stats, theme: ThemeName, options: RenderOptions = DEFAULT
           .join("");
       },
     );
-  else if (lvl === undefined)
-    tile(
-      "Merge rate",
-      (x, y) => icon("merge", x, y, 14, t.pr),
-      `${X.rate}%`,
-      `${fmt(X.merged)} of ${fmt(X.prs)} PRs merged`,
-      (x) => mergeRing(x, X.prs ? X.merged / X.prs : 0),
-    );
   /** Ring filled to `f`, the merged share of PRs. */
   function mergeRing(x: number, f: number): string {
     const cx = x + TW - 16 - 24;
@@ -181,7 +173,7 @@ function render(stats: Stats, theme: ThemeName, options: RenderOptions = DEFAULT
   return svg(
     W,
     H,
-    lvl === undefined || lvl === "full"
+    lvl === "full"
       ? `Upstream PRs ${X.prs}, merge rate ${X.rate}%, ${X.repos} repos, ${X.owners} owners`
       : `Upstream PRs ${X.prs}${lvl === "merged" ? `, ${X.merged} merged` : ""}, ${X.repos} repos, ${X.owners} owners`,
     tiles.join(""),

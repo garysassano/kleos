@@ -19,7 +19,7 @@
     "category": "lists",
     "width": 840,
     "height": 630,
-    "kb": 44,
+    "kb": 46,
     "dark": "lists/A02-owner-leaderboard-dark.svg",
     "light": "lists/A02-owner-leaderboard-light.svg"
   },
@@ -43,7 +43,7 @@
     "category": "lists",
     "width": 840,
     "height": 535,
-    "kb": 88,
+    "kb": 91,
     "dark": "lists/A04-dense-table-dark.svg",
     "light": "lists/A04-dense-table-light.svg"
   },
@@ -66,7 +66,7 @@
     "idea": "Star-tier letters (S+ to C) that say what they mean: the left side is the repo’s popularity (stars, log scale, tier letter), the right side is what I contributed there. Big repos with small bars and small repos with big bars become obvious. When the top repo has more than twice the runner-up's total, its bar is shortened and marked “not to scale”.",
     "category": "lists",
     "width": 840,
-    "height": 626,
+    "height": 646,
     "kb": 87,
     "dark": "lists/A06-tier-vs-share-dark.svg",
     "light": "lists/A06-tier-vs-share-light.svg"
@@ -79,7 +79,7 @@
     "category": "lists",
     "width": 840,
     "height": 898,
-    "kb": 81,
+    "kb": 82,
     "dark": "lists/A07-ecosystem-rollup-repos-dark.svg",
     "light": "lists/A07-ecosystem-rollup-repos-light.svg"
   },
@@ -91,7 +91,7 @@
     "category": "lists",
     "width": 840,
     "height": 1504,
-    "kb": 115,
+    "kb": 116,
     "dark": "lists/A08-ecosystem-tree-dark.svg",
     "light": "lists/A08-ecosystem-tree-light.svg"
   },
@@ -103,7 +103,7 @@
     "category": "charts",
     "width": 840,
     "height": 462,
-    "kb": 74,
+    "kb": 76,
     "dark": "charts/B01-stacked-bars-dark.svg",
     "light": "charts/B01-stacked-bars-light.svg"
   },
@@ -151,7 +151,7 @@
     "category": "charts",
     "width": 840,
     "height": 492,
-    "kb": 83,
+    "kb": 82,
     "dark": "charts/B05-waffle-dark.svg",
     "light": "charts/B05-waffle-light.svg"
   },
@@ -187,7 +187,7 @@
     "category": "type",
     "width": 840,
     "height": 458,
-    "kb": 12,
+    "kb": 14,
     "dark": "type/C02-terminal-dark.svg",
     "light": "type/C02-terminal-light.svg"
   },
@@ -198,7 +198,7 @@
     "idea": "A till receipt itemized by owner, with ecosystems (several orgs under one name) rolled into one line each, a breakdown under each item and a grand total of every upstream PR, issue and discussion. The barcode is the last 53 weeks of activity. With outcomes none PRs are one line; merged keeps the merged sub-line without the open line or merge rate; full adds closed-unmerged PRs.",
     "category": "type",
     "width": 440,
-    "height": 813,
+    "height": 831,
     "kb": 11,
     "dark": "type/C03-receipt-dark.svg",
     "light": "type/C03-receipt-light.svg"
@@ -222,8 +222,8 @@
     "idea": "A short paragraph written from the data: totals, merge count, the top three repos, the biggest ecosystem (the one with several owners and the most contributions) and this year's leading repo, with every figure set in bold. The merge count follows the outcomes level: left out for none, joined by open and closed-unmerged PRs for full.",
     "category": "type",
     "width": 840,
-    "height": 324,
-    "kb": 3,
+    "height": 390,
+    "kb": 4,
     "dark": "type/C05-in-brief-dark.svg",
     "light": "type/C05-in-brief-light.svg"
   },
@@ -342,8 +342,8 @@
     "idea": "One repo in focus: avatar, stars, language, PR/issue/discussion breakdown and a histogram of monthly contributions over the active span. It picks the repo with the most contributions among those not owned by the top owner. 410px, so two sit side by side.",
     "category": "compact",
     "width": 410,
-    "height": 268,
-    "kb": 12,
+    "height": 286,
+    "kb": 13,
     "dark": "compact/E03-repo-spotlight-dark.svg",
     "light": "compact/E03-repo-spotlight-light.svg"
   },
@@ -355,7 +355,7 @@
     "category": "compact",
     "width": 840,
     "height": 542,
-    "kb": 67,
+    "kb": 68,
     "dark": "compact/E04-dashboard-dark.svg",
     "light": "compact/E04-dashboard-light.svg"
   },
@@ -367,7 +367,7 @@
     "category": "compact",
     "width": 840,
     "height": 510,
-    "kb": 30,
+    "kb": 34,
     "dark": "compact/E05-primer-list-dark.svg",
     "light": "compact/E05-primer-list-light.svg"
   },
@@ -463,7 +463,7 @@
     "category": "collectibles",
     "width": 840,
     "height": 438,
-    "kb": 21,
+    "kb": 22,
     "dark": "collectibles/G01-trading-cards-dark.svg",
     "light": "collectibles/G01-trading-cards-light.svg"
   },
@@ -511,7 +511,7 @@
     "category": "collectibles",
     "width": 840,
     "height": 436,
-    "kb": 22,
+    "kb": 27,
     "dark": "collectibles/G05-ticket-stubs-dark.svg",
     "light": "collectibles/G05-ticket-stubs-light.svg"
   },
@@ -523,7 +523,7 @@
     "category": "collectibles",
     "width": 840,
     "height": 512,
-    "kb": 20,
+    "kb": 22,
     "dark": "collectibles/G06-arcade-high-scores-dark.svg",
     "light": "collectibles/G06-arcade-high-scores-light.svg"
   },
@@ -547,7 +547,7 @@
     "category": "focus",
     "width": 840,
     "height": 430,
-    "kb": 37,
+    "kb": 39,
     "dark": "focus/H02-selected-repos-dark.svg",
     "light": "focus/H02-selected-repos-light.svg"
   },
@@ -594,8 +594,8 @@
     "idea": "The three biggest ecosystems side by side: total and share, each contribution kind on one shared scale with the leader in bold, merge rate, active span, top repo and member owners. Rule: the top 3 ecosystems by contributions; when there are fewer than 3, the biggest independent owners fill the remaining columns as groups of one.",
     "category": "focus",
     "width": 840,
-    "height": 500,
-    "kb": 53,
+    "height": 530,
+    "kb": 54,
     "dark": "focus/H06-ecosystem-versus-dark.svg",
     "light": "focus/H06-ecosystem-versus-light.svg"
   }

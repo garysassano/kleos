@@ -19,7 +19,7 @@ interface Achievement {
 const YEAR_MS = 365.25 * 24 * 3600 * 1000;
 
 /** Every achievement is computed from the data; the thresholds are the tiers printed on the card. */
-function achievements(stats: Stats, lv: Level | undefined): Achievement[] {
+function achievements(stats: Stats, lv: Level): Achievement[] {
   const repos = stats.repos;
   /** "none" counts PRs where the others count merged PRs. */
   const none = lv === "none";

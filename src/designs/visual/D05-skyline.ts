@@ -52,42 +52,22 @@ export const design: Design = {
     const dy = 6;
     const maxT = Math.max(1, ...sel.map((o) => o.total));
     const k = maxH / maxT;
-    const kinds = [
-      ["prsMerged", "merged PRs", T.merged],
-      ["prOther", "other PRs", T.prOther],
-      ["issues", "issues", T.issue],
-      ["discussions", "discussions", T.disc],
-    ] as const;
     // Floors bottom-up and legend entries left to right, as [label or value, colour].
     type Pair = readonly [string, string];
-    const floorsOf = (o: (typeof sel)[number]): (readonly [number, string])[] =>
-      level === undefined
-        ? kinds.map(([key, , col]) => {
-            const vals = {
-              prsMerged: o.prsMerged,
-              prOther: o.prs - o.prsMerged,
-              issues: o.issues,
-              discussions: o.discussions,
-            };
-            return [vals[key], col] as const;
-          })
-        : [
-            ...prParts(o, level).map(
-              (p) => [p.count, prColour(T, theme, p.key, level === "none")] as const,
-            ),
-            [o.issues, T.issue] as const,
-            [o.discussions, T.disc] as const,
-          ];
-    const legendItems: Pair[] =
-      level === undefined
-        ? kinds.map(([, name, col]) => [name, col] as const)
-        : [
-            ...prLegend(level).map(
-              (l) => [l.label, prColour(T, theme, l.key, level === "none")] as const,
-            ),
-            ["issues", T.issue],
-            ["discussions", T.disc],
-          ];
+    const floorsOf = (o: (typeof sel)[number]): (readonly [number, string])[] => [
+      ...prParts(o, level).map(
+        (p) => [p.count, prColour(T, theme, p.key, level === "none")] as const,
+      ),
+      [o.issues, T.issue] as const,
+      [o.discussions, T.disc] as const,
+    ];
+    const legendItems: Pair[] = [
+      ...prLegend(level).map(
+        (l) => [l.label, prColour(T, theme, l.key, level === "none")] as const,
+      ),
+      ["issues", T.issue],
+      ["discussions", T.disc],
+    ];
     // The five "full" entries would run into the subtitle, so they drop to a row of their own.
     const ly = level === "full" ? 20 : 0;
 

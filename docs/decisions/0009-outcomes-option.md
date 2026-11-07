@@ -28,3 +28,12 @@ A card takes one option, `outcomes`:
 
 - It's the one display choice that's about how a person wants to come across rather than about looks, so it belongs in config.
 - Visual options such as colours, titles, row counts and show/hide were left out on purpose. The owner can change code directly, and every extra option multiplies the combinations to keep looking right across 48 designs. They can be added later without breaking configs.
+
+## Update, 2026-11-07: `original` removed, `full` is the default
+
+`original` meant "whatever this design showed before the option existed", which differs from card to card, so its name told a reader nothing. Measured against the three levels, 18 designs show no PR outcomes at all, 7 already looked exactly like `merged`, and most of the other 23 showed merged against "not merged". That is `full`'s information, without the split into open and closed.
+
+- **Three levels remain:** `none`, `merged` and `full`, and `full` is the default for the catalog and the Action.
+- **Every design must support `full`.** F02 and H03 support only `full`.
+- **The per-design code for the old look was deleted.** Before deleting it, every design was rendered at all three levels from all three fixtures, and the output was byte-identical before and after.
+- The catalog now shows `full`, so some cards changed wherever a design had its own wording, such as "PRs open or closed" or a merge rate.

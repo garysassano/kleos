@@ -11,7 +11,6 @@ import { DEFAULT_OPTIONS, type Design } from "../types.ts";
 import {
   frame,
   kindLegend,
-  kinds,
   legend,
   mixBar,
   num,
@@ -76,7 +75,7 @@ export const design: Design = {
     y += 64;
 
     // Tiles
-    const original = [
+    const base = [
       {
         label: "Contributions",
         value: g.total,
@@ -108,10 +107,10 @@ export const design: Design = {
         color: p.discussion,
       },
     ];
-    const tiles = outcomes ? outcomeTiles() : original;
+    const tiles = outcomeTiles();
     function outcomeTiles() {
-      if (!g || !outcomes) return original;
-      const [contributions, , , issues, discussions] = original;
+      if (!g) return base;
+      const [contributions, , , issues, discussions] = base;
       const prs = {
         label: "PRs opened",
         value: g.prs,
@@ -189,7 +188,7 @@ export const design: Design = {
         scale: barW / ownerMax,
         counts: o,
         p,
-        ...(outcomes ? { outcomes } : {}),
+        outcomes,
       });
       body += t(lx + colW, cy + 4, num(o.total), 13, p.text, 'text-anchor="end" font-weight="600"');
     });
@@ -235,7 +234,7 @@ export const design: Design = {
         scale: rBarW / repoMax,
         counts: r,
         p,
-        ...(outcomes ? { outcomes } : {}),
+        outcomes,
       });
       body += t(rx + colW, cy + 4, num(r.total), 13, p.text, 'text-anchor="end" font-weight="600"');
     });
@@ -260,9 +259,7 @@ export const design: Design = {
       x: PAD,
       y,
       p,
-      items: outcomes
-        ? kindLegend(p, outcomes)
-        : kinds(g, p).map((k) => ({ label: k.label, color: k.color })),
+      items: kindLegend(p, outcomes),
     });
     body += t(W - PAD, y, "bars to scale within each column", 11, p.faint, 'text-anchor="end"');
     const h = y + 18;

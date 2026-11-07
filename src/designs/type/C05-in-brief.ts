@@ -18,7 +18,7 @@ import {
 type Run = [text: string, cls: "" | "b"];
 
 /** "12 PRs, 9 merged", led by the issue count when issues outnumber PRs. */
-function desc(r: RepoStats, lv: Level | undefined): string {
+function desc(r: RepoStats, lv: Level): string {
   const parts: string[] = [];
   const merged = lv === "none" || !r.prsMerged ? "" : `, ${r.prsMerged} merged`;
   const open = lv === "full" && r.prsOpen ? `, ${r.prsOpen} open` : "";
@@ -28,7 +28,7 @@ function desc(r: RepoStats, lv: Level | undefined): string {
   return parts.slice(0, 2).join(", ");
 }
 
-function paragraph(stats: Parameters<Design["render"]>[0], lv: Level | undefined): Run[] {
+function paragraph(stats: Parameters<Design["render"]>[0], lv: Level): Run[] {
   const { T, asOf, extTotal, firstPR } = derive(stats);
   const { repos, owners } = stats;
   const runs: Run[] = [
@@ -92,7 +92,7 @@ function paragraph(stats: Parameters<Design["render"]>[0], lv: Level | undefined
 }
 
 /** What follows "I have opened N PRs": no outcome for "none", the merge count by default, every outcome for "full". */
-function outcomeRuns(T: Parameters<typeof totalsCounts>[0], lv: Level | undefined): Run[] {
+function outcomeRuns(T: Parameters<typeof totalsCounts>[0], lv: Level): Run[] {
   const c = totalsCounts(T);
   if (lv === "none") return [[" in repos I don't own", ""]];
   const runs: Run[] = [

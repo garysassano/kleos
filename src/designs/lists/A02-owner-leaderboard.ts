@@ -40,7 +40,7 @@ export const design: Design = {
     let b = header(
       T,
       "Orgs and people I contribute to",
-      level === undefined || level === "full"
+      level === "full"
         ? `${d.nOwners} owners outside my account · ${d.ext.merged} of ${d.ext.prs} PRs merged (${percent(d.ext.merged, d.ext.prs)}%) · ranked by PRs + issues + discussions`
         : `${d.nOwners} owners outside my account · ${plural(d.ext.prs, "PR")}${level === "merged" ? `, ${d.ext.merged} merged` : ""} · ranked by PRs + issues + discussions`,
     );
@@ -80,7 +80,7 @@ export const design: Design = {
         { size: 11, fill: "muted" },
       );
       g += `<rect x="${gx}" y="${cy - 3}" width="${gw}" height="6" rx="3" fill="${T.track}"/>`;
-      if (o.prs && level !== undefined) {
+      if (o.prs) {
         g += `<g class="grow"${delay(i)}>${stack(T, gx, cy - 3, 6, prSegs(T, o, level), share ? o.total : o.prs, gw, { gap: 1.5 })}</g>`;
         const strong = share ? String(o.prs) : `${percent(o.prsMerged, o.prs)}%`;
         const note = share
@@ -90,20 +90,6 @@ export const design: Design = {
           : `${o.prsMerged} of ${o.prs}`;
         g += t(T, gx + gw + 14, cy + 4.5, strong, { size: 12.5, weight: 600, mono: true });
         g += t(T, gx + gw + 62, cy + 4.5, note, { size: 12, fill: "muted", mono: true });
-      } else if (o.prs) {
-        const w = (o.prsMerged / o.prs) * gw;
-        if (o.prsMerged)
-          g += `<rect class="grow"${delay(i)} x="${gx}" y="${cy - 3}" width="${Math.max(6, w).toFixed(1)}" height="6" rx="3" fill="${T.pr}"/>`;
-        g += t(T, gx + gw + 14, cy + 4.5, `${percent(o.prsMerged, o.prs)}%`, {
-          size: 12.5,
-          weight: 600,
-          mono: true,
-        });
-        g += t(T, gx + gw + 62, cy + 4.5, `${o.prsMerged} of ${o.prs}`, {
-          size: 12,
-          fill: "muted",
-          mono: true,
-        });
       } else {
         g += t(T, gx + gw + 14, cy + 4.5, "no PRs", { size: 12, fill: "faint" });
       }
@@ -115,15 +101,7 @@ export const design: Design = {
     });
     const fy = top + N * rh;
     b += rule(T, W, fy);
-    if (level === undefined) {
-      b += t(
-        T,
-        24,
-        fy + 28,
-        "Total = PRs opened + issues + discussions. Merged rate counts only PRs I opened; open PRs count as not yet merged.",
-        { size: 11.5, fill: "muted" },
-      );
-    } else if (level === "full") {
+    if (level === "full") {
       b += legend(T, 24, fy + 28, prLegendItems(T, level));
       b += t(T, W - 24, fy + 28, "Bar = PRs opened. Total = PRs + issues + discussions.", {
         size: 11.5,

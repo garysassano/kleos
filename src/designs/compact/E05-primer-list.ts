@@ -70,25 +70,20 @@ function render(stats: Stats, theme: ThemeName, options: RenderOptions = DEFAULT
   const c1 = counter(W - 16 - c2.w - 18, "Repos", X.repos);
   b += c1.s + c2.s;
 
-  /** PR counters for a row: merged then the rest originally; PRs then merged, or each outcome, at a level. */
+  /** PR counters for a row: PRs, PRs then merged, or each outcome, depending on the level. */
   const prSlots = (r: (typeof repos)[number]): [IconName, number, string][] =>
-    lvl === undefined
-      ? [
-          ["merge", r.prsMerged, t.pr],
-          ["pr", r.prs - r.prsMerged, t.muted],
-        ]
-      : lvl === "none"
-        ? [["pr", r.prs, t.muted]]
-        : lvl === "merged"
-          ? [
-              ["pr", r.prs, t.muted],
-              ["merge", r.prsMerged, t.pr],
-            ]
-          : prParts(r, lvl).map((p): [IconName, number, string] => [
-              p.key === "merged" ? "merge" : "pr",
-              p.count,
-              p.key === "merged" ? t.pr : p.key === "open" ? t.open : t.closed,
-            ]);
+    lvl === "none"
+      ? [["pr", r.prs, t.muted]]
+      : lvl === "merged"
+        ? [
+            ["pr", r.prs, t.muted],
+            ["merge", r.prsMerged, t.pr],
+          ]
+        : prParts(r, lvl).map((p): [IconName, number, string] => [
+            p.key === "merged" ? "merge" : "pr",
+            p.count,
+            p.key === "merged" ? t.pr : p.key === "open" ? t.open : t.closed,
+          ]);
 
   // rows
   repos.forEach((r, i) => {

@@ -44,7 +44,7 @@ function lineItems(stats: Stats) {
 const K = 10;
 
 /** What follows an item's PR count: "(9 merged)", "(9 merged, 1 open)" for "full", nothing for "none". */
-function prSuffix(it: Item, lv: Level | undefined): string {
+function prSuffix(it: Item, lv: Level): string {
   if (lv === "none") return "";
   if (lv === "full" && it.prsOpen) return ` (${it.prsMerged} merged, ${it.prsOpen} open)`;
   return ` (${it.prsMerged} merged)`;
@@ -58,7 +58,7 @@ export const design: Design = {
   render(stats, theme, options = DEFAULT_OPTIONS) {
     const lv = options.outcomes;
     const t = THEMES[theme];
-    const { T, asOf, extIssues, extDisc, extTotal, firstAny, mergeRate, prsOpen } = derive(stats);
+    const { T, asOf, extIssues, extDisc, extTotal, firstAny, prsOpen } = derive(stats);
     const { famOf, sorted } = lineItems(stats);
     const top = sorted.slice(0, K);
     const rest = sorted.slice(K);
@@ -130,7 +130,7 @@ export const design: Design = {
     };
     kv("PRs", fmt(T.externalPRs));
     if (lv !== "none") kv("merged", fmt(T.externalMerged), "pu", 2 * cw);
-    if (lv === undefined || lv === "full") kv("still open", fmt(prsOpen), "mu", 2 * cw);
+    if (lv === "full") kv("still open", fmt(prsOpen), "mu", 2 * cw);
     if (lv === "full") kv("closed unmerged", fmt(prsClosed(totalsCounts(T))), "mu", 2 * cw);
     kv("Issues", fmt(extIssues));
     kv("Discussions", fmt(extDisc));
@@ -141,8 +141,7 @@ export const design: Design = {
     b += text(R, y, fmt(extTotal), "m b n t e", 'font-size="15"');
     nl();
     b += text(L, y, `${T.externalRepos} repos · ${T.externalOwners} owners`, "m mu", fs);
-    if (lv === undefined) b += text(R, y, `${(mergeRate * 100).toFixed(1)}% merged`, "m pu e", fs);
-    else if (lv === "full") b += text(R, y, `${rateOf(totalsCounts(T), lv)}% merged`, "m pu e", fs);
+    if (lv === "full") b += text(R, y, `${rateOf(totalsCounts(T), lv)}% merged`, "m pu e", fs);
     nl(1.3);
     rule();
     // barcode: one bar per 7 calendar days, width by activity quartile

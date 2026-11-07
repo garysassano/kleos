@@ -36,8 +36,8 @@ export const design: Design = {
     const rh = 25;
     const rows = d.repos.slice(0, 15);
     const N = rows.length;
-    // Without a level, and at "merged", the original columns. "none" drops Merged and widens
-    // the repo column; "full" adds Open and Closed and narrows it.
+    // "merged" has the base columns. "none" drops Merged and widens the repo column; "full" adds
+    // Open and Closed and narrows it.
     const C =
       level === "none"
         ? {

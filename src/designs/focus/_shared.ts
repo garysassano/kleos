@@ -157,22 +157,13 @@ const prCounts = (x: OutcomeCounts): PrCounts => ({
 });
 
 /**
- * Contribution kinds in the fixed palette order, as bar segments. Without `outcomes` this is the
- * original split (merged, other PRs, issues, discussions); with a level, the PR part follows
- * `prParts`.
+ * Contribution kinds in the fixed palette order, as bar segments; the PR part follows `prParts`.
  */
-export function kinds(x: OutcomeCounts, p: Palette, outcomes?: Level) {
+export function kinds(x: OutcomeCounts, p: Palette, outcomes: Level) {
   const other = [
     { key: "issue", label: "Issues", value: x.issues, color: p.issue },
     { key: "discussion", label: "Discussions", value: x.discussions, color: p.discussion },
   ];
-  if (!outcomes) {
-    return [
-      { key: "merged", label: "PRs merged", value: x.prsMerged, color: p.merged },
-      { key: "pr", label: "PRs not merged", value: x.prs - x.prsMerged, color: p.pr },
-      ...other,
-    ];
-  }
   return [
     ...prParts(prCounts(x), outcomes).map((part) => ({
       key: part.key as string,
@@ -229,7 +220,7 @@ export function mixBar(opts: {
   scale: number;
   counts: OutcomeCounts;
   p: Palette;
-  outcomes?: Level;
+  outcomes: Level;
 }): string {
   const { x, y, h, scale, counts, p, outcomes } = opts;
   let cx = x;

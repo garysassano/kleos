@@ -120,17 +120,8 @@ export const design: Design = {
     const ymax = Math.log10(yTop);
     const sx = (v: number) => PX0 + (Math.log10(Math.max(1, v)) / xmax) * (PX1 - PX0);
     const sy = (v: number, j = 0) => PY1 - ((Math.log10(v) + j) / ymax) * (PY1 - PY0);
-    const cats0: Cat[] = [
-      { label: "Has a merged PR", c: t.merged, test: (r: Repo) => r.prsMerged > 0 },
-      {
-        label: "PRs, none merged yet",
-        c: t.prOther,
-        test: (r: Repo) => r.prs > 0 && r.prsMerged === 0,
-      },
-      { label: "Issues / discussions only", c: t.issue, test: (r: Repo) => r.prs === 0 },
-    ];
-    const L = lvl ? levelCats(t, lvl) : undefined;
-    const cats = L?.cats ?? cats0;
+    const L = levelCats(t, lvl);
+    const cats = L.cats;
     // A repo's class is the first it passes, so each test only has to hold given the earlier ones failed.
     const classOf = (r: Repo) => cats.findIndex((c) => c.test(r));
     const classes = plotted.map(classOf);

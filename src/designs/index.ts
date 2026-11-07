@@ -8,10 +8,10 @@ import { category as lists } from "./lists/index.ts";
 import { category as type } from "./type/index.ts";
 import {
   type Category,
+  DEFAULT_LEVEL,
   type Design,
   LEVELS,
   type Level,
-  type Outcomes,
   type ThemeName,
 } from "./types.ts";
 import { category as visual } from "./visual/index.ts";
@@ -28,9 +28,9 @@ export const categories: Category[] = [
   focus,
 ];
 
-/** How callers ask for a card: any `outcomes`, including "original". */
+/** How callers ask for a card; unset `outcomes` means the default level. */
 export interface CardOptions {
-  outcomes?: Outcomes;
+  outcomes?: Level;
 }
 
 export interface CatalogDesign extends Omit<Design, "render"> {
@@ -38,27 +38,19 @@ export interface CatalogDesign extends Omit<Design, "render"> {
   render(stats: Stats, theme: ThemeName, options?: CardOptions): string;
 }
 
-/** Every design, with "original" translated to "no option" before it reaches the design. */
+/** Every design, with an unset level filled in before it reaches the design. */
 export const allDesigns = (): CatalogDesign[] =>
   categories.flatMap((category) =>
     category.designs.map((d) => ({
       ...d,
       category,
       render: (stats: Stats, theme: ThemeName, options: CardOptions = {}) =>
-        d.render(
-          stats,
-          theme,
-          options.outcomes && options.outcomes !== "original" ? { outcomes: options.outcomes } : {},
-        ),
+        d.render(stats, theme, { outcomes: options.outcomes ?? DEFAULT_LEVEL }),
     })),
   );
 
-export type { Category, Design, Outcomes, RenderOptions, ThemeName } from "./types.ts";
-export { DEFAULT_OPTIONS, LEVELS, OUTCOMES } from "./types.ts";
+export type { Category, Design, Level, RenderOptions, ThemeName } from "./types.ts";
+export { DEFAULT_LEVEL, DEFAULT_OPTIONS, LEVELS } from "./types.ts";
 
-/** The outcomes a design supports: always "original", plus its converged levels. */
-export const outcomesOf = (d: Pick<Design, "outcomes">): readonly Outcomes[] => [
-  "original",
-  ...(d.outcomes ?? LEVELS),
-];
-export type { Level };
+/** The levels a design supports. */
+export const outcomesOf = (d: Pick<Design, "outcomes">): readonly Level[] => d.outcomes ?? LEVELS;

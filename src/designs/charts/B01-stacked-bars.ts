@@ -90,17 +90,10 @@ export const design: Design = {
     const lx = 24;
     const labelX = 48;
     const bx = 262;
-    const cols = [
-      { k: "prsMerged", label: "Merged", c: t.merged },
-      { k: "prsOther", label: "Other PRs", c: t.prOther },
-      { k: "issues", label: "Issues", c: t.issue },
-      { k: "discussions", label: "Disc.", c: t.disc },
-    ] as const;
-    const colX0 = [603, 685, 745, 816]; // right-aligned numeric columns
-    const L = lvl ? levelCols(t, lvl) : undefined;
-    const colX = L?.colX ?? colX0;
-    const heads: Col[] = L?.cols ?? cols.map((c) => ({ ...c, v: () => 0 }));
-    const bw = L ? (colX[0] ?? 0) - Math.max(tw(heads[0]?.label ?? "", 11), 28) - 44 - bx : 248;
+    const L = levelCols(t, lvl);
+    const colX = L.colX;
+    const heads: Col[] = L.cols;
+    const bw = (colX[0] ?? 0) - Math.max(tw(heads[0]?.label ?? "", 11), 28) - 44 - bx;
     const max = Math.max(1, rows[0]?.total ?? 0);
     const h = top + n * pitch + 46;
     const P = totalsCounts(T);
@@ -129,22 +122,14 @@ export const design: Design = {
     rows.forEach((r, i) => {
       const y = top + i * pitch + 6;
       const cy = y + bh / 2;
-      const vals = {
-        prsMerged: r.prsMerged,
-        prsOther: r.prs - r.prsMerged,
-        issues: r.issues,
-        discussions: r.discussions,
-      };
       s += avatar(t, stats.avatars, r.owner, lx, cy - 8, 16);
       const label = trunc(r.repo, 12, bx - labelX - 14);
       const [o, ...nm] = label.split("/");
       s += `<text x="${labelX}" y="${cy + 4}" font-size="12"><tspan class="m">${esc(o ?? "")}/</tspan>${esc(nm.join("/"))}</text>`;
       let x = bx;
-      const segs = (
-        L
-          ? L.segs(r).map((q) => ({ c: { c: q.c }, v: q.v }))
-          : cols.map((c) => ({ c, v: vals[c.k] }))
-      ).filter((q) => q.v > 0);
+      const segs = L.segs(r)
+        .map((q) => ({ c: { c: q.c }, v: q.v }))
+        .filter((q) => q.v > 0);
       const totalW = (r.total / max) * bw;
       s += `<g>`;
       segs.forEach((q, j) => {
@@ -159,7 +144,7 @@ export const design: Design = {
       s += `</g>`;
       s += `<text x="${f1(bx + totalW + 6)}" y="${cy + 4}" font-size="12" class="b">${r.total}</text>`;
       heads.forEach((c, k) => {
-        const v = L ? c.v(r) : (vals[cols[k]?.k ?? "issues"] ?? 0);
+        const v = c.v(r);
         s += `<text x="${colX[k]}" y="${cy + 4}" font-size="12" text-anchor="end" class="mono${v ? "" : " m"}">${v ? v : "–"}</text>`;
       });
     });
@@ -170,12 +155,7 @@ export const design: Design = {
       n < repos.length
         ? `Top ${n} of ${T.externalRepos} repos, ranked by total (bold) · these ${n} hold ${shown} of ${fmt(TOTAL)} contributions`
         : `All ${n} repos, ranked by total (bold)`;
-    const note =
-      lvl === undefined
-        ? ' · "Other PRs" = open or closed without merge'
-        : lvl === "full"
-          ? ' · "Closed" = closed without merging'
-          : "";
+    const note = lvl === "full" ? ' · "Closed" = closed without merging' : "";
     s += `<text x="${lx}" y="${fy + 6}" font-size="11" class="m">${scope}${note}</text>`;
     return svgDoc(t, h, s);
   },

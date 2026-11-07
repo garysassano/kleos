@@ -67,10 +67,10 @@ function squarify(values: number[], x: number, y: number, w: number, h: number):
 }
 
 /**
- * The PR line on a large tile: without a level (and at "merged") PRs with the merged count; at
- * "none" just the PRs; at "full" the merge rate.
+ * The PR line on a large tile: at "merged" PRs with the merged count; at "none" just the PRs; at
+ * "full" the merge rate.
  */
-function prLine(o: OwnerStats, level: Level | undefined): string {
+function prLine(o: OwnerStats, level: Level): string {
   const prs = plural(o.prs, "PR");
   if (level === "none") return prs;
   if (level !== "full") return `${prs} · ${o.prsMerged} merged`;

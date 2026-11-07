@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { allDesigns, categories, outcomesOf } from "../src/designs/index.ts";
-import { type Outcomes, THEME_NAMES } from "../src/designs/types.ts";
+import { type Level, THEME_NAMES } from "../src/designs/types.ts";
 import { MAX_WIDTH } from "../src/kit/svg.ts";
 import { DEFAULT_FIXTURE, loadFixture } from "../src/stats/fixture.ts";
 
@@ -25,6 +25,10 @@ describe("catalog", () => {
       expect(d.title.length).toBeGreaterThan(0);
       expect(d.idea.length).toBeGreaterThan(0);
     }
+  });
+
+  it("supports the default level, full, in every design", () => {
+    for (const d of designs) expect(outcomesOf(d), d.id).toContain("full");
   });
 
   it("uses each category letter once", () => {
@@ -59,7 +63,7 @@ const visibleText = (svg: string): string =>
     .replace(/\s+/g, " ");
 
 /** Words a level must never show. "none" hides every outcome; "merged" never labels the rest. */
-const FORBIDDEN: Record<Exclude<Outcomes, "original">, RegExp | null> = {
+const FORBIDDEN: Record<Level, RegExp | null> = {
   none: /merg|unmerged|closed|still open|open PRs?\b|\bopen\b(?!-)/i,
   merged: /not merged|unmerged|closed|still open|open PRs?\b|merge rate|% merged/i,
   full: null,
@@ -116,14 +120,7 @@ describe("every design", () => {
     expect(Buffer.byteLength(svg)).toBeLessThan(400 * 1024);
 
     expect(design.render(stats, theme, { outcomes }), "deterministic").toBe(svg);
-    if (outcomes === "original") {
-      expect(design.render(stats, theme), "unset = original").toBe(svg);
-      expect(
-        withoutData(visibleText(svg), stats).match(REPLACED_WORDS)?.[0],
-        "replaced word on the card",
-      ).toBeUndefined();
-      return;
-    }
+    if (outcomes === "full") expect(design.render(stats, theme), "unset = full").toBe(svg);
 
     expect(
       withoutData(visibleText(svg), stats).match(REPLACED_WORDS)?.[0],

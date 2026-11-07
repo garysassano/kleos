@@ -1,7 +1,7 @@
 import { esc, truncate as fitText, percent } from "../../kit/svg.ts";
 import type { Stats } from "../../stats/types.ts";
-import { DEFAULT_OPTIONS, type Design, type RenderOptions, type ThemeName } from "../types.ts";
-import { PAL, SERIES, card, fmt, groups, halo, plural, r1, spread } from "./_shared.ts";
+import type { Design, ThemeName } from "../types.ts";
+import { PAL, card, fmt, groups, halo, plural, r1, spread } from "./_shared.ts";
 
 const W = 840;
 const TOP = 88;
@@ -25,15 +25,13 @@ interface Source {
   h: number;
 }
 
-function render(stats: Stats, theme: ThemeName, options: RenderOptions = DEFAULT_OPTIONS): string {
+function render(stats: Stats, theme: ThemeName): string {
   const p = PAL(theme);
-  // Unset: the original GitHub-like purple, green and red. "full" (decision 0009): open in a
-  // lighter tone of the merged purple, closed unmerged in neutral gray.
-  const full = options.outcomes === "full";
+  // Decision 0009: open in a lighter tone of the merged purple, closed unmerged in neutral gray.
   const outcomes = [
     { name: "Merged", color: p.merged },
-    { name: "Still open", color: full ? p.open : p.issue },
-    { name: "Closed unmerged", color: full ? p.closed : (SERIES[theme][7] ?? p.faint) },
+    { name: "Still open", color: p.open },
+    { name: "Closed unmerged", color: p.closed },
   ];
   const withPrs = groups(stats)
     .filter((g) => g.prs > 0)

@@ -55,7 +55,7 @@ function render(stats: Stats, theme: ThemeName, options: RenderOptions = DEFAULT
         : `${plural(f.repos, "repo")}`;
     b += `<text x="${W - P - 44}" y="${y + 26}" text-anchor="end" font-size="11.5" fill="${t.muted}">${orgTxt}</text>`;
     b += `<text x="${W - P}" y="${y + 27}" text-anchor="end" font-size="16" font-weight="600" fill="${t.text}">${f.total}</text>`;
-    b += segBar(c, P, y + 38, barW, 6, lvl ? kindsAt(t, f, lvl) : kinds(t, f), {
+    b += segBar(c, P, y + 38, barW, 6, kindsAt(t, f, lvl), {
       fullWidth: Math.max(6, (f.total / max) * barW),
     });
     const prCap =

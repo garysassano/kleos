@@ -140,10 +140,7 @@ export const design: Design = {
       const nm = it.isRest ? `${it.owners} other owners` : it.name;
       s += `<text x="${LX + 42}" y="${my - 2}" font-size="13"><tspan class="m">${it.isRest ? "" : `${it.rank + 1}  `}</tspan><tspan class="b">${esc(trunc(nm, 13, 200))}</tspan></text>`;
       const parts: string[] = [];
-      if (lvl === undefined) {
-        if (it.prsMerged) parts.push(`${it.prsMerged} merged`);
-        if (it.prs - it.prsMerged) parts.push(`${it.prs - it.prsMerged} other PRs`);
-      } else if (lvl === "full") {
+      if (lvl === "full") {
         // Merged, open and closed unmerged, each when non-zero.
         for (const p of prParts(it, lvl)) if (p.count) parts.push(`${p.count} ${p.label}`);
       } else if (it.prs)

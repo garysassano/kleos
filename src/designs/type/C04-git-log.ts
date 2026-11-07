@@ -13,7 +13,7 @@ export const design: Design = {
   render(stats, theme, options = DEFAULT_OPTIONS) {
     const lv = options.outcomes;
     const t = THEMES[theme];
-    const { T, asOf, prsOpen } = derive(stats);
+    const { T, asOf } = derive(stats);
     // recentPRs is newest first; sort anyway so the order never depends on the fetch.
     const list = stats.recentPRs
       .filter((p) => lv === "full" || p.state !== "CLOSED")
@@ -50,10 +50,7 @@ export const design: Design = {
     let b = "";
     b += text(P, 30, "git log", "m b t", 'font-size="15"');
     b += text(P + 8 * 0.6 * 15, 30, `--upstream --author=${stats.user}`, "m mu", 'font-size="15"');
-    if (lv === undefined) {
-      b += `<circle cx="${xEnd - 172}" cy="26" r="4.5" fill="${t.merged}"/>${text(xEnd - 162, 30, `${T.externalMerged} merged`, "s mu", 'font-size="12"')}`;
-      b += `<circle cx="${xEnd - 76}" cy="26" r="4" fill="${t.bg}" stroke="${t.open}" stroke-width="1.6"/>${text(xEnd - 66, 30, `${prsOpen} open`, "s mu", 'font-size="12"')}`;
-    } else if (lv === "none") {
+    if (lv === "none") {
       b += text(xEnd, 30, `${T.externalPRs} PRs`, "s mu e", 'font-size="12"');
     } else {
       // Right-aligned legend: "○ 312 PRs ● 278 merged", or one entry per outcome for "full".
@@ -93,17 +90,10 @@ export const design: Design = {
                 ? "open"
                 : "closed"
               : "pr";
-      if (lv === undefined) {
-        b += merged
-          ? `<circle cx="${gx}" cy="${y - 4}" r="5" fill="${t.merged}" stroke="${t.bg}" stroke-width="2"/>`
-          : `<circle cx="${gx}" cy="${y - 4}" r="4.5" fill="${t.bg}" stroke="${t.open}" stroke-width="1.8"/>`;
-      } else b += node(gx, y - 4, key);
-      const repoCls =
-        lv === undefined
-          ? merged
-            ? "pu"
-            : "gr"
-          : { pr: lv === "none" ? "ac" : "t", merged: "pu", open: "po", closed: "cl" }[key];
+      b += node(gx, y - 4, key);
+      const repoCls = { pr: lv === "none" ? "ac" : "t", merged: "pu", open: "po", closed: "cl" }[
+        key
+      ];
       b += text(xDate, y, shortDateIn(p.createdAt, asOf.slice(0, 4)), "m n f", fs);
       const num = `#${p.number}`;
       const repo = trunc(p.repo, refC - num.length);
@@ -112,17 +102,12 @@ export const design: Design = {
       b += `<text x="${xEnd}" y="${y}" class="m n e" ${fs}><tspan class="ad">+${p.additions}</tspan><tspan class="de"> −${p.deletions}</tspan></text>`;
       b += "</g>";
     });
-    const footer =
-      lv === undefined
-        ? n
-          ? `${n} most recent of ${T.externalPRs} upstream PRs · closed-unmerged hidden · ${asOf}`
-          : `No merged or open PRs among the latest ${stats.recentPRs.length} upstream · ${asOf}`
-        : n
-          ? `${n} ${lv === "full" ? "most recent" : "recent"} of ${T.externalPRs} upstream PRs · ${asOf}`
-          : `No recent upstream PRs · ${asOf}`;
+    const footer = n
+      ? `${n} ${lv === "full" ? "most recent" : "recent"} of ${T.externalPRs} upstream PRs · ${asOf}`
+      : `No recent upstream PRs · ${asOf}`;
     b += text(xDate, H - 14, footer, "s f", 'font-size="11"');
     const css =
-      (lv ? `.po{fill:${t.prOpen}}.cl{fill:${t.closed}}` : "") +
+      `.po{fill:${t.prOpen}}.cl{fill:${t.closed}}` +
       ".r{animation:r .35s ease-out both}@keyframes r{from{opacity:0;transform:translateX(-4px)}to{opacity:1;transform:none}}";
     return svg(
       W,

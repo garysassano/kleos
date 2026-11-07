@@ -110,7 +110,7 @@ function render(stats: Stats, theme: ThemeName, options: RenderOptions = DEFAULT
     const bx = colL + 150;
     const bwMax = colW - 150 - 40;
     const bw = Math.max(4, (o.total / maxO) * bwMax);
-    b += segBar(c, bx, y + 9, bwMax, 8, lvl ? kindsAt(t, o, lvl) : kinds(t, o), {
+    b += segBar(c, bx, y + 9, bwMax, 8, kindsAt(t, o, lvl), {
       fullWidth: bw,
       track: false,
       cls: "grow",

@@ -2,15 +2,15 @@
  * Renders every design in both themes from a fixture into gallery/, and writes the catalog
  * gallery/README.md (GitHub picks the dark or light file with <picture>) plus gallery/gallery.json.
  *
- * Usage: node src/cli/gallery.ts [fixture-name] [--only A01,B02] [--outcomes original|none|merged|full]
- * Without --outcomes (or with "original") every design renders its original look. A design that does not support the
+ * Usage: node src/cli/gallery.ts [fixture-name] [--only A01,B02] [--outcomes none|merged|full]
+ * Without --outcomes every design renders at the default level, "full". A design that does not support the
  * requested level renders at the richest level it supports.
  */
 import { mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { parseArgs } from "node:util";
 import { allDesigns, categories, outcomesOf } from "../designs/index.ts";
-import { OUTCOMES, type Outcomes, THEME_NAMES } from "../designs/types.ts";
+import { LEVELS, type Level, THEME_NAMES } from "../designs/types.ts";
 import { DEFAULT_FIXTURE, loadFixture } from "../stats/fixture.ts";
 
 const { values, positionals } = parseArgs({
@@ -20,9 +20,9 @@ const { values, positionals } = parseArgs({
 const fixture = positionals[0] ?? DEFAULT_FIXTURE;
 const only = values.only ? new Set(values.only.split(",")) : null;
 const stats = loadFixture(fixture);
-const outcomes = values.outcomes as Outcomes | undefined;
-if (outcomes && !OUTCOMES.includes(outcomes)) {
-  console.error(`--outcomes must be one of ${OUTCOMES.join(", ")}`);
+const outcomes = values.outcomes as Level | undefined;
+if (outcomes && !LEVELS.includes(outcomes)) {
+  console.error(`--outcomes must be one of ${LEVELS.join(", ")}`);
   process.exit(2);
 }
 const root = new URL("../../gallery/", import.meta.url).pathname;
