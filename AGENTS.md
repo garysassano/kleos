@@ -15,7 +15,7 @@ SVG profile cards rendered from a `Stats` snapshot of a user's GitHub contributi
 Tools come from `mise.toml`. Node runs the TypeScript sources directly; only the npm CLI is bundled, by `pnpm build`.
 
 ```sh
-pnpm check                            # Biome, tsc, Prettier on Markdown, Vitest
+pnpm check                            # Biome (code, JSON, Markdown, YAML), tsc, Vitest
 pnpm gallery                          # render every design into gallery/ (DEFAULT_FIXTURE in src/stats/fixture.ts)
 pnpm gallery sample-small --only A01  # render one design from another fixture
 pnpm fetch <login> --out data.json    # fetch a real snapshot (GITHUB_TOKEN, else the gh CLI login)
@@ -33,7 +33,7 @@ gh actions-lock --ignore-local-actions --no-narrow  # after changing a workflow:
 
 ## Definition of done
 
-- `pnpm check` passes: Biome, `tsc --noEmit`, Prettier on Markdown, and Vitest. The tests render every design in both themes from all three fixtures.
+- `pnpm check` passes: Biome (code, JSON, Markdown and YAML), `tsc --noEmit`, and Vitest. The tests render every design in both themes from all three fixtures.
 - After changing a design or a fixture, run `pnpm gallery` and commit the regenerated `gallery/`.
 - For a visual change, look at a screenshot of the SVG (dark and light) rather than trusting the markup.
 

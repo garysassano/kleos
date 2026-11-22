@@ -21,7 +21,11 @@
       "tsconfig.json",
       "package.json",
       "vitest.config.ts",
-      "tsdown.config.ts"
+      "tsdown.config.ts",
+      "**/*.md",
+      "**/*.yaml",
+      "**/*.yml",
+      "!gallery"
     ]
   },
   "formatter": {
@@ -38,5 +42,20 @@
     "enabled": true,
     "clientKind": "git",
     "useIgnoreFile": true
-  }
+  },
+  "markdown": {
+    "parser": {
+      "frontmatter": true
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["**/pnpm-workspace.yaml"],
+      "yaml": {
+        "formatter": {
+          "quoteStyle": "single"
+        }
+      }
+    }
+  ]
 }

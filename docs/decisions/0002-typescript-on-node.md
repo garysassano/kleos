@@ -36,3 +36,7 @@ TypeScript, run on **Node 26 (the current LTS)**. The toolchain follows the owne
 ## Update, 2026-11-07
 
 The Action runs the sources directly and needs no bundle. tsdown bundles the npm CLI instead, because Node won't strip types from files inside `node_modules` ([0013](0013-npm-cli.md)).
+
+## Update, 2026-11-22: Biome formats Markdown and YAML too
+
+Biome 2.6 formats Markdown and YAML, so Prettier is gone and Biome is the only formatter. `biome.json` turns on `markdown.parser.frontmatter`, without which Biome would rewrite a front matter block as a heading, and gives `pnpm-workspace.yaml` single quotes because that is what pnpm writes when it edits the file. `gallery/` stays excluded because `pnpm gallery` generates it.
