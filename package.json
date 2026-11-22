@@ -29,10 +29,9 @@
     "dist"
   ],
   "scripts": {
-    "check": "pnpm lint && pnpm typecheck && pnpm check:md && pnpm test",
-    "check:md": "prettier --check \"**/*.md\"",
+    "check": "pnpm lint && pnpm typecheck && pnpm test",
     "fetch": "node src/cli/fetch.ts",
-    "format": "biome format --write . && prettier --write \"**/*.md\"",
+    "format": "biome format --write .",
     "gallery": "node src/cli/gallery.ts",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
@@ -42,9 +41,8 @@
     "prepack": "tsdown"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.6.4",
+    "@biomejs/biome": "2.6.8",
     "@types/node": "26.6.6",
-    "prettier": "3.9.10",
     "tsdown": "0.23.5",
     "typescript": "7.0.2",
     "vitest": "5.1.0"
