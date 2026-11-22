@@ -39,4 +39,4 @@ The Action runs the sources directly and needs no bundle. tsdown bundles the npm
 
 ## Update, 2026-11-22: Biome formats Markdown and YAML too
 
-Biome 2.6 formats Markdown and YAML, so Prettier is gone and Biome is the only formatter. `biome.json` turns on `markdown.parser.frontmatter`, without which Biome would rewrite a front matter block as a heading, and gives `pnpm-workspace.yaml` single quotes because that is what pnpm writes when it edits the file. `gallery/` stays excluded because `pnpm gallery` generates it.
+Biome 2.6 formats Markdown and YAML, so Prettier is gone and Biome is the only formatter. `biome.json` turns on `markdown.parser.frontmatter`, without which Biome would rewrite a front matter block as a heading. YAML keeps Biome's double quotes everywhere, `pnpm-workspace.yaml` included: pnpm keeps existing quotes but writes new quoted entries with single quotes, so run `pnpm lint:fix` after a pnpm command adds one. `gallery/` stays excluded because `pnpm gallery` generates it.
